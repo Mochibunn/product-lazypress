@@ -14,8 +14,8 @@ export default function Dashboard() {
     console.log(user.id);
     return (
         <>
-            <h2 className="text-6xl">My Websites</h2>
-            <div className="">
+            <h2 className="text-6xl my-8">My Websites</h2>
+            <div>
                 {isLoading ? (
                     <Spinner />
                 ) : (

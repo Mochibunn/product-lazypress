@@ -11,7 +11,7 @@ export default function SiteCard() {
     return (
         <Card
             isFooterBlurred
-            className="w-full h-[300px] col-span-12 sm:col-span-7"
+            className="w-3/4 gap-4 h-[300px] col-span-12 sm:col-span-7"
         >
             <CardHeader className="absolute z-10 top-1 flex-col items-start">
                 <p className="text-tiny text-white/60 uppercase font-bold">
@@ -41,12 +41,14 @@ export default function SiteCard() {
                         </p>
                     </div>
                 </div>
-                <Button radius="full" size="sm">
-                    Go to Site
-                </Button>
-                <Button radius="full" size="sm">
-                    Edit Site
-                </Button>
+                <div className="flex gap-2">
+                    <Button radius="full" size="sm">
+                        Go to Site
+                    </Button>
+                    <Button radius="full" size="sm">
+                        Edit Site
+                    </Button>
+                </div>
             </CardFooter>
         </Card>
     );
