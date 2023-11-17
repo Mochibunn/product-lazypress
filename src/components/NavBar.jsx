@@ -34,7 +34,7 @@ export default function NavBar() {
                 </NavbarItem>
                 {isSignedIn && (
                     <NavbarItem>
-                        <Link color="foreground" href="#">
+                        <Link color="foreground" href="dashboard">
                             Dashboard
                         </Link>
                     </NavbarItem>
