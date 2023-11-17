@@ -38,16 +38,16 @@ function App() {
                                 <Dashboard />
                             </SignedIn>
                         }
-                    >
-                        <Route
-                            path="dashboard/cms"
-                            element={
-                                <SignedIn>
-                                    <CMSPage />
-                                </SignedIn>
-                            }
-                        />
-                    </Route>
+                    />
+                    <Route
+                        path="cms"
+                        element={
+                            <SignedIn>
+                                <CMSPage />
+                            </SignedIn>
+                        }
+                    />
+
                     <Route path="*" element={<NotFound />} />
                 </Route>
             </Routes>
