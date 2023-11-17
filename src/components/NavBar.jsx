@@ -6,12 +6,14 @@ import {
     Link,
     Button,
 } from "@nextui-org/react";
+import { useUser, UserButton } from "@clerk/clerk-react";
 
 export default function NavBar() {
+    const { isSignedIn } = useUser();
     return (
         <Navbar>
             <NavbarBrand>
-                <p className="font-bold text-inherit">ACME</p>
+                <p className="font-bold text-inherit">LAZYPRESS</p>
             </NavbarBrand>
 
             <NavbarContent className="hidden sm:flex gap-4" justify="center">
@@ -30,19 +32,42 @@ export default function NavBar() {
                         Integrations
                     </Link>
                 </NavbarItem>
+                {isSignedIn && (
+                    <NavbarItem>
+                        <Link color="foreground" href="#">
+                            Dashboard
+                        </Link>
+                    </NavbarItem>
+                )}
             </NavbarContent>
 
             <NavbarContent as="div" justify="end">
-                <NavbarItem>
-                    <Button as={Link} color="primary" href="#" variant="flat">
-                        Register
-                    </Button>
-                </NavbarItem>
-                <NavbarItem>
-                    <Button as={Link} color="primary" href="#" variant="flat">
-                        Sign Up
-                    </Button>
-                </NavbarItem>
+                {isSignedIn ? (
+                    <UserButton />
+                ) : (
+                    <>
+                        <NavbarItem>
+                            <Button
+                                as={Link}
+                                color="secondary"
+                                href="sign-up"
+                                variant="flat"
+                            >
+                                Sign Up
+                            </Button>
+                        </NavbarItem>
+                        <NavbarItem>
+                            <Button
+                                as={Link}
+                                color="primary"
+                                href="sign-in"
+                                variant="flat"
+                            >
+                                Sign In
+                            </Button>
+                        </NavbarItem>
+                    </>
+                )}
             </NavbarContent>
         </Navbar>
     );
