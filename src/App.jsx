@@ -2,13 +2,12 @@ import { Route, Routes } from "react-router-dom";
 import { ClerkProvider, SignIn, SignUp, SignedIn } from "@clerk/clerk-react";
 
 import Layout from "./pages/Layout";
-import OurService from "./components/OurService";
+// import OurService from "./components/OurService";
 // import NavBar from "./components/NavBar";
-// import LandingPage from "./pages/LandingPage";
+import LandingPage from "./pages/LandingPage";
 // import SignInPage from "./pages/SignInPage";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
-import HeroBanner from "./components/HeroBanner";
 
 if (!import.meta.env.VITE_CLERK_PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
@@ -22,15 +21,7 @@ function App() {
     <ClerkProvider publishableKey={clerkPubKey}>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route element={<HeroBanner />} />
-          <Route element={<OurService />} />
-          <Route
-            element={
-              <div className="h-screen bg-green-300 flex flex-col justify-center items-center">
-                <h3 className="text-8xl">PlaceHolder</h3>
-              </div>
-            }
-          />
+          <Route index element={<LandingPage />} />
           <Route
             path="sign-in/*"
             element={<SignIn routing="path" path="/sign-in" />}
