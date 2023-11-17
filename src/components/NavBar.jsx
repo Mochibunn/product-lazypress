@@ -10,43 +10,23 @@ import {
   Dropdown,
   DropdownMenu,
 } from "@nextui-org/react";
-// import {
-//   ChevronDown,
-//   Lock,
-//   Activity,
-//   Flash,
-//   Server,
-//   TagUser,
-//   Scale,
-// } from "./Icons.jsx";
-// import { AcmeLogo } from "./AcmeLogo.jsx";
+import { useUser, UserButton } from "@clerk/clerk-react";
+// import Hero from "./Hero";
 
-export default function Nav() {
-  //   const icons = {
-  //     chevron: <ChevronDown fill="currentColor" size={16} />,
-  //     scale: <Scale className="text-warning" fill="currentColor" size={30} />,
-  //     lock: <Lock className="text-success" fill="currentColor" size={30} />,
-  //     activity: (
-  //       <Activity className="text-secondary" fill="currentColor" size={30} />
-  //     ),
-  //     flash: <Flash className="text-primary" fill="currentColor" size={30} />,
-  //     server: <Server className="text-success" fill="currentColor" size={30} />,
-  //     user: <TagUser className="text-danger" fill="currentColor" size={30} />,
-  //   };
-
+export default function NavBar() {
+  const { isSignedIn } = useUser();
   return (
-    <Navbar className="bg-slate-900">
+    <Navbar className="bg-gray-800">
       <NavbarBrand>
-        {/* <AcmeLogo /> */}
-        <p className="font-bold text-slate-100">LazyPress</p>
+        <p className="font-bold text-slate-200 text-3xl">LazyPress</p>
       </NavbarBrand>
-      <NavbarContent className="hidden sm:flex gap-12" justify="center">
+      <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <Dropdown>
           <NavbarItem>
             <DropdownTrigger>
               <Button
                 disableRipple
-                className="p-0 bg-transparent data-[hover=true]:bg-transparent text-slate-100 font-bold"
+                className="p-0 bg-transparent data-[hover=true]:bg-transparent font-bold text-slate-200"
                 // endContent={icons.chevron}
                 radius="sm"
                 variant="light"
@@ -67,7 +47,7 @@ export default function Nav() {
               description="ACME scales apps to meet user demand, automagically, based on load."
               //   startContent={icons.scale}
             >
-              TEMPLATES
+              Autoscaling
             </DropdownItem>
             <DropdownItem
               key="usage_metrics"
@@ -103,30 +83,57 @@ export default function Nav() {
           <Link
             href="#"
             aria-current="page"
-            className="text-slate-100 font-bold"
+            className="font-bold text-slate-200"
           >
             TEMPLATES
           </Link>
         </NavbarItem>
         <NavbarItem>
           <Link
-            // color="foreground"
+            color="foreground"
             href="#"
-            className="text-slate-100 font-bold"
+            className="font-bold text-slate-200"
           >
             FEATURES
           </Link>
         </NavbarItem>
+        {isSignedIn && (
+          <NavbarItem>
+            <Link color="foreground" href="#">
+              Dashboard
+            </Link>
+          </NavbarItem>
+        )}
       </NavbarContent>
-      <NavbarContent justify="end">
-        <NavbarItem className="hidden lg:flex">
-          <Link href="#">Login</Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Button as={Link} color="primary" href="#" variant="flat">
-            GET STARTED
-          </Button>
-        </NavbarItem>
+
+      <NavbarContent as="div" justify="end">
+        {isSignedIn ? (
+          <UserButton />
+        ) : (
+          <>
+            <NavbarItem>
+              <Button
+                as={Link}
+                color="secondary"
+                href="sign-up"
+                className="bg-sky-800 text-white font-bold"
+              >
+                Sign Up
+              </Button>
+            </NavbarItem>
+            <NavbarItem>
+              <Button
+                as={Link}
+                // color="primary"
+                href="sign-in"
+                variant="flat"
+                className="bg-white text-black font-bold"
+              >
+                Sign In
+              </Button>
+            </NavbarItem>
+          </>
+        )}
       </NavbarContent>
     </Navbar>
   );
