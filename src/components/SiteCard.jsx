@@ -42,9 +42,15 @@ export default function SiteCard() {
                     </div>
                 </div>
                 <div className="flex gap-2">
-                    <Button radius="full" size="sm">
-                        Go to Site
-                    </Button>
+                    <a
+                        href="http://localhost:5174/"
+                        target="_blank"
+                        rel="noreferrer"
+                    >
+                        <Button radius="full" size="sm">
+                            Go to Site
+                        </Button>
+                    </a>
                     <Button radius="full" size="sm">
                         Edit Site
                     </Button>
