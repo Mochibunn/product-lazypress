@@ -1,6 +1,8 @@
 import { Button } from "@nextui-org/react";
+import { getSites } from "../lib/dbClient";
 
 export default function HeroBanner() {
+  console.log(getSites);
   return (
     <>
       <div
