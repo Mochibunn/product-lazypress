@@ -7,6 +7,7 @@ import Layout from "./pages/Layout";
 // import SignInPage from "./pages/SignInPage";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
+import HeroBanner from "./components/HeroBanner";
 
 if (!import.meta.env.VITE_CLERK_PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
@@ -20,7 +21,7 @@ function App() {
     <ClerkProvider publishableKey={clerkPubKey}>
       <Routes>
         <Route path="/" element={<Layout />}>
-          {/* <Route index element={<LandingPage />} /> */}
+          <Route index element={<HeroBanner />} />
           <Route
             index
             element={
