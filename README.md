@@ -1,2 +1,1 @@
-# product-lazypress
-Product page for initial customers for the LazyPress service
+# Product page repo for the LazyPress project 🐰
