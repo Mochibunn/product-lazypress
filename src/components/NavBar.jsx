@@ -10,6 +10,7 @@ import {
     Dropdown,
     DropdownMenu,
 } from "@nextui-org/react";
+import { NavLink } from "react-router-dom";
 import { useUser, UserButton } from "@clerk/clerk-react";
 // import Hero from "./Hero";
 
@@ -18,7 +19,9 @@ export default function NavBar() {
     return (
         <Navbar className="bg-gray-800">
             <NavbarBrand>
-                <p className="font-bold text-slate-200 text-3xl">LazyPress</p>
+                <NavLink to="/" className="font-bold text-slate-200 text-3xl">
+                    LazyPress
+                </NavLink>
             </NavbarBrand>
             <NavbarContent className="hidden sm:flex gap-4" justify="center">
                 <Dropdown>

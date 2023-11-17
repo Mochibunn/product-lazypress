@@ -7,6 +7,9 @@ import Dashboard from "./pages/Dashboard";
 import CMSPage from "./pages/CMSPage";
 import NotFound from "./pages/NotFound";
 
+import SignInPage from "./pages/SignInPage";
+import SignUpPage from "./pages/SignUpPage";
+
 if (!import.meta.env.VITE_CLERK_PUBLISHABLE_KEY) {
     throw new Error("Missing Publishable Key");
 }
@@ -14,28 +17,28 @@ if (!import.meta.env.VITE_CLERK_PUBLISHABLE_KEY) {
 const clerkPubKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
 function App() {
-  return (
-    <ClerkProvider publishableKey={clerkPubKey}>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<LandingPage />} />
-          <Route
-            path="sign-in/*"
-            element={<SignIn routing="path" path="/sign-in" />}
-          />
-          <Route
-            path="sign-up/*"
-            element={<SignUp routing="path" path="/sign-up" />}
-          />
-          <Route
-            path="dashboard"
-            element={
-              <SignedIn>
-                <Dashboard />
-              </SignedIn>
-            }
-          />
-              <Route
+    return (
+        <ClerkProvider publishableKey={clerkPubKey}>
+            <Routes>
+                <Route path="/" element={<Layout />}>
+                    <Route index element={<LandingPage />} />
+                    <Route
+                        path="sign-in/*"
+                        element={<SignInPage routing="path" path="/sign-in" />}
+                    />
+                    <Route
+                        path="sign-up/*"
+                        element={<SignUpPage routing="path" path="/sign-up" />}
+                    />
+                    <Route
+                        path="dashboard"
+                        element={
+                            <SignedIn>
+                                <Dashboard />
+                            </SignedIn>
+                        }
+                    />
+                    <Route
                         path="cms"
                         element={
                             <SignedIn>
@@ -43,11 +46,11 @@ function App() {
                             </SignedIn>
                         }
                     />
-          <Route path="*" element={<NotFound />} />
-        </Route>
-      </Routes>
-    </ClerkProvider>
-  );
+                    <Route path="*" element={<NotFound />} />
+                </Route>
+            </Routes>
+        </ClerkProvider>
+    );
 }
 
 export default App;
