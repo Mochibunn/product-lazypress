@@ -2,21 +2,18 @@ import { Route, Routes } from "react-router-dom";
 import { ClerkProvider, SignIn, SignUp, SignedIn } from "@clerk/clerk-react";
 
 import Layout from "./pages/Layout";
-// import OurService from "./components/OurService";
-// import NavBar from "./components/NavBar";
 import LandingPage from "./pages/LandingPage";
-// import SignInPage from "./pages/SignInPage";
 import Dashboard from "./pages/Dashboard";
+import CMSPage from "./pages/CMSPage";
 import NotFound from "./pages/NotFound";
 
 if (!import.meta.env.VITE_CLERK_PUBLISHABLE_KEY) {
-  throw new Error("Missing Publishable Key");
+    throw new Error("Missing Publishable Key");
 }
 
 const clerkPubKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
 function App() {
-  // const { isSignedIn } = useUser();
   return (
     <ClerkProvider publishableKey={clerkPubKey}>
       <Routes>
@@ -38,6 +35,14 @@ function App() {
               </SignedIn>
             }
           />
+              <Route
+                        path="cms"
+                        element={
+                            <SignedIn>
+                                <CMSPage />
+                            </SignedIn>
+                        }
+                    />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
