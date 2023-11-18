@@ -115,7 +115,7 @@ export default function NavBar() {
 
             <NavbarContent as="div" justify="end">
                 {isSignedIn ? (
-                    <UserButton />
+                    <UserButton afterSignOutUrl="/" />
                 ) : (
                     <>
                         <NavbarItem>
