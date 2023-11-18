@@ -15,7 +15,7 @@ import { useUser, UserButton } from "@clerk/clerk-react";
 // import Hero from "./Hero";
 
 export default function NavBar() {
-    const { isSignedIn } = useUser();
+    const { isSignedIn, isLoaded } = useUser();
     return (
         <Navbar className="bg-gray-800">
             <NavbarBrand>
@@ -114,33 +114,34 @@ export default function NavBar() {
             </NavbarContent>
 
             <NavbarContent as="div" justify="end">
-                {isSignedIn ? (
-                    <UserButton />
-                ) : (
-                    <>
-                        <NavbarItem>
-                            <Button
-                                as={Link}
-                                color="secondary"
-                                href="sign-up"
-                                className="bg-sky-800 text-white font-bold"
-                            >
-                                Sign Up
-                            </Button>
-                        </NavbarItem>
-                        <NavbarItem>
-                            <Button
-                                as={Link}
-                                // color="primary"
-                                href="sign-in"
-                                variant="flat"
-                                className="bg-white text-black font-bold"
-                            >
-                                Sign In
-                            </Button>
-                        </NavbarItem>
-                    </>
-                )}
+                {isLoaded &&
+                    (isSignedIn ? (
+                        <UserButton afterSignOutUrl="/" />
+                    ) : (
+                        <>
+                            <NavbarItem>
+                                <Button
+                                    as={Link}
+                                    color="secondary"
+                                    href="sign-up"
+                                    className="bg-sky-800 text-white font-bold"
+                                >
+                                    Sign Up
+                                </Button>
+                            </NavbarItem>
+                            <NavbarItem>
+                                <Button
+                                    as={Link}
+                                    // color="primary"
+                                    href="sign-in"
+                                    variant="flat"
+                                    className="bg-white text-black font-bold"
+                                >
+                                    Sign In
+                                </Button>
+                            </NavbarItem>
+                        </>
+                    ))}
             </NavbarContent>
         </Navbar>
     );
