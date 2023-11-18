@@ -11,7 +11,7 @@ export default function CMSNavEdit({ blog, setBlog }) {
             value: item,
             label: `Nav${i + 1}`,
         }));
-        setNavBarInputValues(navBarValues);
+        setNavBarInputValues([...navBarValues]);
     }, [blog]);
 
     const handleNavBarChange = (e, i) => {
