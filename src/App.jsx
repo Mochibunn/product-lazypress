@@ -5,6 +5,7 @@ import Layout from "./pages/Layout";
 import LandingPage from "./pages/LandingPage";
 import Dashboard from "./pages/Dashboard";
 import CMSPage from "./pages/CMSPage";
+import CMSTestPage from "./pages/CMSTestPage";
 import NotFound from "./pages/NotFound";
 
 import SignInPage from "./pages/SignInPage";
@@ -43,6 +44,14 @@ function App() {
                         element={
                             <SignedIn>
                                 <CMSPage />
+                            </SignedIn>
+                        }
+                    />
+                    <Route
+                        path="cms/:blogId"
+                        element={
+                            <SignedIn>
+                                <CMSTestPage />
                             </SignedIn>
                         }
                     />

@@ -18,4 +18,17 @@ const useSites = (clerkId) => {
     };
 };
 
-export { useSites };
+const useBlog = (blogId) => {
+    const { data, error, isLoading } = useSWR(
+        `${backend}/blogs/${blogId}`,
+        fetcher
+    );
+
+    return {
+        blog: data,
+        isLoading,
+        isError: error,
+    };
+};
+
+export { useSites, useBlog };
