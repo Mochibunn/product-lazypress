@@ -13,6 +13,7 @@ export default function CMSInput({ valueObj, i, onChange }) {
                     labelPlacement="outside-left"
                     // name={`nav${i}`}
                     onChange={(e) => onChange(e, i)}
+                    isReadOnly={label === "_id" ? true : false}
                 />
             ) : (
                 <Input
