@@ -1,6 +1,7 @@
 import CMSInput from "./CMSInput";
 import { useEffect, useState } from "react";
 import { Button } from "@nextui-org/react";
+import CMSInputSection from "./CMSInput Section";
 
 export default function CMSBlogPageEdit({ blog, setBlog }) {
     const [blogPagesValues, setBlogPagesValues] = useState();
@@ -26,20 +27,7 @@ export default function CMSBlogPageEdit({ blog, setBlog }) {
                             return (
                                 <div className="my-2 border-2 border-black flex flex-col w-full">
                                     <h3>Page {`${i + 1}`}</h3>
-                                    {page.map((obj, i) => {
-                                        const handleBlogPageChange = (e, i) => {
-                                            const values = [...blogPagesValues];
-                                            values[i].value = e.target.value;
-                                            setBlogPagesValues(values);
-                                        };
-                                        return (
-                                            <CMSInput
-                                                valueObj={obj}
-                                                i={i}
-                                                onChange={handleBlogPageChange}
-                                            />
-                                        );
-                                    })}
+                                    <CMSInputSection array={page} />
                                 </div>
                             );
                         })}
