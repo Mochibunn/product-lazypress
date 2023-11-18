@@ -21,18 +21,22 @@ export default function CMSBlogPageEdit({ blog, setBlog }) {
         <>
             {blogPagesValues && (
                 <div>
-                    <h3>Searchpage Items</h3>
-                    <form>
-                        {blogPagesValues.map((page, i) => {
-                            return (
-                                <div className="my-2 border-2 border-black flex flex-col w-full">
-                                    <h3>Page {`${i + 1}`}</h3>
-                                    <CMSInputSection array={page} />
-                                </div>
-                            );
-                        })}
-                        <Button type="submit">Submit</Button>
-                    </form>
+                    <h3>Blog Pages</h3>
+
+                    {blogPagesValues.map((page, i) => {
+                        return (
+                            <div className="my-2 border-2 border-black flex flex-col w-full">
+                                <h3>Page {`${i + 1}`}</h3>
+                                <CMSInputSection
+                                    blog={blog}
+                                    setBlog={setBlog}
+                                    array={page}
+                                    i={i}
+                                />
+                            </div>
+                        );
+                    })}
+                    <Button type="submit">Submit</Button>
                 </div>
             )}
         </>

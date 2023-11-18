@@ -49,7 +49,7 @@ export default function CMSNavEdit({ blog, setBlog }) {
                                 />
                             );
                         })}
-                        <Button type="submit">Edit Header</Button>
+                        <Button type="submit">Edit NavBar</Button>
                     </form>
                 </div>
             )}

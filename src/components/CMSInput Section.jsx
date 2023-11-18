@@ -2,38 +2,42 @@ import CMSInput from "./CMSInput";
 import { useEffect, useState } from "react";
 import { Button } from "@nextui-org/react";
 
-export default function CMSInputSection({ array }) {
-    const [navBarInputValues, setNavBarInputValues] = useState();
-
-    const handleNavBarChange = (e, i) => {
-        const values = [...navBarInputValues];
+export default function CMSInputSection({ array, i, setBlog, blog }) {
+    // console.log("test array: ", array);
+    const [localValues, setLocalValues] = useState(array);
+    const handleArrayValueChange = (e, i) => {
+        const values = [...localValues];
         values[i].value = e.target.value;
-        setNavBarInputValues(values);
+        setLocalValues(values);
     };
 
-    const editHeader = (e) => {
+    const editSection = (e) => {
         e.preventDefault();
-        // console.log(blog);
-        // console.log(navBarInputValues);
-        const onlyValues = navBarInputValues.map((obj) => {
+        console.log("localvalues", localValues);
+        const asObject = localValues.map((obj) => {
             // console.log(obj);
             return obj.value;
         });
-        setBlog((draft) => {
-            draft.pages.home.navBar = onlyValues;
-        });
+        console.log("asobject", asObject);
+        console.log("blog notation", blog.pages.home.blogPages[i]);
+        // setBlog((draft) => {
+        //      draft.pages.home.blogPages = onlyValues;
+        // });
     };
     return (
-        <>
+        <form onSubmit={editSection}>
             {array.map((obj, i) => {
                 return (
                     <CMSInput
                         valueObj={obj}
                         i={i}
-                        // onChange={handleBlogPageChange}
+                        onChange={handleArrayValueChange}
                     />
                 );
             })}
-        </>
+            <Button className="w-1/4" type="submit">
+                Edit Section
+            </Button>
+        </form>
     );
 }
