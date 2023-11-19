@@ -25,9 +25,9 @@ export default function CMSInputSection({ array, i, setBlog, blog }) {
         const singleObj = Object.fromEntries(asArrays);
         console.log("singleObj", singleObj);
         console.log("blog notation", blog.pages.home.blogPages[i]);
-        // setBlog((draft) => {
-        //      draft.pages.home.blogPages = onlyValues;
-        // });
+        setBlog((draft) => {
+            draft.pages.home.blogPages[i] = singleObj;
+        });
     };
     return (
         <form onSubmit={editSection}>
