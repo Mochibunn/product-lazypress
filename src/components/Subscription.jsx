@@ -13,12 +13,13 @@ export default function Subscription() {
   return (
     <div>
       <div>
-        <h4 className="text-2xl p-4 px-8">We really want you to want us! </h4>
+        <h4 className="text-2xl text-center">
+          We really want you to want us!{" "}
+        </h4>
       </div>
-      <div className="flex justify-evenly">
+      <div className="pl-12 flex items-baseline">
         <p>Enter your email to subscribe to update.</p>
         <form
-          //   onSubmit={handleLogin}
           autoComplete="off"
           className="flex items-start bg-base-300 pt-4 rounded overflow-hidden mx-auto my-0 w-2/3 sm:w-1/2 2xl:w-2/3 transition-all"
         >

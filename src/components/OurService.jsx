@@ -10,7 +10,7 @@ export default function OurService() {
           backgroundPosition: "center",
         }}
       ></div>
-      <div className="text-black flex flex-col gap-1 px-12 py-8">
+      <div className="text-black flex flex-col gap-1 px-12">
         <h3 className="font-bold text-lg">Create a template</h3>
         <p>
           Choose from any of our industry-leading website templates, designer
