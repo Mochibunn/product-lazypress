@@ -18,7 +18,7 @@ export default function CMSPage() {
     }, []);
 
     return (
-        <div className="w-screen">
+        <div className="w-screen p-4">
             <h3>Home Page</h3>
             <CMSNavEdit blog={blog} setBlog={setBlog} />
             <CMSBlogPageEdit blog={blog} setBlog={setBlog} />

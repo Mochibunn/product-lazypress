@@ -6,14 +6,14 @@ export default function CMSInput({ valueObj, i, onChange }) {
         <>
             {value.length > 100 ? (
                 <Textarea
-                    className="w-1/2"
+                    className="w-full"
                     color="primary"
                     value={value}
                     label={label}
                     labelPlacement="outside-left"
                     // name={`nav${i}`}
                     onChange={(e) => onChange(e, i)}
-                    isReadOnly={label === "_id" ? true : false}
+                    // isReadOnly={label === "_id" ? true : false}
                 />
             ) : (
                 <Input

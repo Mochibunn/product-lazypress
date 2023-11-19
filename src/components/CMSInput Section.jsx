@@ -7,6 +7,7 @@ export default function CMSInputSection({ array, i, setBlog, blog }) {
     const [localValues, setLocalValues] = useState(array);
     const handleArrayValueChange = (e, i) => {
         const values = [...localValues];
+        // console.log(values);
         values[i].value = e.target.value;
         setLocalValues(values);
     };
@@ -14,11 +15,15 @@ export default function CMSInputSection({ array, i, setBlog, blog }) {
     const editSection = (e) => {
         e.preventDefault();
         console.log("localvalues", localValues);
-        const asObject = localValues.map((obj) => {
+        const asArrays = localValues.map((obj) => {
+            const objAsArray = [obj.label, obj.value];
+            // const usableObj = Object.fromEntries(objAsArray);
             // console.log(obj);
-            return obj.value;
+            return objAsArray;
         });
-        console.log("asobject", asObject);
+        console.log("asArrays", asArrays);
+        const singleObj = Object.fromEntries(asArrays);
+        console.log("singleObj", singleObj);
         console.log("blog notation", blog.pages.home.blogPages[i]);
         // setBlog((draft) => {
         //      draft.pages.home.blogPages = onlyValues;
@@ -29,6 +34,7 @@ export default function CMSInputSection({ array, i, setBlog, blog }) {
             {array.map((obj, i) => {
                 return (
                     <CMSInput
+                        key={crypto.randomUUID()}
                         valueObj={obj}
                         i={i}
                         onChange={handleArrayValueChange}
