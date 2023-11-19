@@ -2,7 +2,7 @@ import CMSInput from "./CMSInput";
 import { useEffect, useState } from "react";
 import { Button } from "@nextui-org/react";
 
-export default function CMSInputSection({ array, i, setBlog, blog }) {
+export default function CMSInputSection({ array, i, setBlog, blog, section }) {
     // console.log("test array: ", array);
     const [localValues, setLocalValues] = useState(array);
     const handleArrayValueChange = (e, i) => {
@@ -26,7 +26,7 @@ export default function CMSInputSection({ array, i, setBlog, blog }) {
         // console.log("singleObj", singleObj);
         // console.log("blog notation", blog.pages.home.blogPages[i]);
         setBlog((draft) => {
-            draft.pages.home.blogPages[i] = singleObj;
+            draft.pages.home[section][i] = singleObj;
         });
     };
     return (

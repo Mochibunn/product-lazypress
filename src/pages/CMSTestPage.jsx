@@ -12,6 +12,7 @@ export default function CMSPage() {
     const [blog, setBlog] = useImmer();
     const [navBarInputValues, setNavBarInputValues] = useState();
     const [blogPagesValues, setBlogPagesValues] = useState();
+    const [heroValues, setHeroValues] = useState();
 
     useEffect(() => {
         getBlog(blogId).then((blog) => {
@@ -27,8 +28,16 @@ export default function CMSPage() {
                 }));
                 return pageValues;
             });
+            const heroValues = blog.pages.home.hero.map((page) => {
+                const theValues = Object.entries(page).map(([key, value]) => ({
+                    value,
+                    label: key,
+                }));
+                return theValues;
+            });
             setNavBarInputValues([...navBarValues]);
             setBlogPagesValues([...blogValues]);
+            setHeroValues([...heroValues]);
             setBlog(blog);
         });
     }, []);
@@ -56,8 +65,18 @@ export default function CMSPage() {
                 </div>
             )} */}
             <CMSBlogPageEdit
-                blogPagesValues={blogPagesValues}
-                setBlogPagesValues={setBlogPagesValues}
+                sectionName={"Blog Pages"}
+                section={"blogPages"}
+                sectionValues={blogPagesValues}
+                // setBlogPagesValues={setBlogPagesValues}
+                blog={blog}
+                setBlog={setBlog}
+            />
+            <CMSBlogPageEdit
+                sectionName={"Hero Section"}
+                section={"hero"}
+                sectionValues={heroValues}
+                // setBlogPagesValues={setBlogPagesValues}
                 blog={blog}
                 setBlog={setBlog}
             />
@@ -67,7 +86,7 @@ export default function CMSPage() {
             </Button>
             <Button
                 onClick={() => {
-                    console.log(blog);
+                    console.log(blog.pages);
                 }}
             >
                 Log Stuff

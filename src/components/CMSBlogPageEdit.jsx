@@ -3,31 +3,19 @@ import { Button } from "@nextui-org/react";
 import CMSInputSection from "./CMSInput Section";
 
 export default function CMSBlogPageEdit({
-    blogPagesValues,
-    setBlogPagesValues,
+    sectionName,
+    section,
+    sectionValues,
     blog,
     setBlog,
 }) {
-    // const [blogPagesValues, setBlogPagesValues] = useState();
-
-    // useEffect(() => {
-    //     if (!blog) return;
-    //     const blogValues = blog.pages.home.blogPages.map((page) => {
-    //         const pageValues = Object.entries(page).map(([key, value]) => ({
-    //             value,
-    //             label: key,
-    //         }));
-    //         return pageValues;
-    //     });
-    //     setBlogPagesValues([...blogValues]);
-    // }, [blog]);
     return (
         <>
-            {blogPagesValues && (
+            {sectionValues && (
                 <div>
-                    <h3>Blog Pages</h3>
+                    <h3>{sectionName}</h3>
 
-                    {blogPagesValues.map((page, i) => {
+                    {sectionValues.map((page, i) => {
                         return (
                             <div
                                 //works now with key, but causes rerender-will need to use useRef I think
@@ -40,6 +28,7 @@ export default function CMSBlogPageEdit({
                                     setBlog={setBlog}
                                     array={page}
                                     i={i}
+                                    section={section}
                                 />
                             </div>
                         );
