@@ -4,7 +4,7 @@ export default function CMSInput({ valueObj, i, onChange }) {
     const { value, label } = valueObj;
     return (
         <>
-            {value.length > 100 ? (
+            {value?.length > 100 ? (
                 <Textarea
                     className={`w-full ${label === "_id" && "hidden"}`}
                     color="primary"

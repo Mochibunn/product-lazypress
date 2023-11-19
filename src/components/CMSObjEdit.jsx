@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Button } from "@nextui-org/react";
-import CMSInputSection from "./CMSInput Section";
+import CMSInputSection from "./CMSInputSection";
 
-export default function CMSBlogPageEdit({
-    sectionName,
+export default function CMSObjEdit({
+    sectionTitle,
     section,
     sectionValues,
     blog,
@@ -13,7 +13,7 @@ export default function CMSBlogPageEdit({
         <>
             {sectionValues && (
                 <div>
-                    <h3>{sectionName}</h3>
+                    <h3>{sectionTitle}</h3>
 
                     {sectionValues.map((page, i) => {
                         return (

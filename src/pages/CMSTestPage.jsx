@@ -3,9 +3,8 @@ import { getBlog, editBlog } from "../lib/dbClient";
 import { useEffect, useState } from "react";
 import { useImmer } from "use-immer";
 import { Button } from "@nextui-org/react";
-import CMSNavEdit from "../components/CMSNavEdit";
-import CMSBlogPageEdit from "../components/CMSBlogPageEdit";
-import CMSInputSection from "../components/CMSInput Section";
+import CMSStrEdit from "../components/CMSStrEdit";
+import CMSObjEdit from "../components/CMSObjEdit";
 
 export default function CMSPage() {
     const { blogId } = useParams();
@@ -13,6 +12,7 @@ export default function CMSPage() {
     const [navBarInputValues, setNavBarInputValues] = useState();
     const [blogPagesValues, setBlogPagesValues] = useState();
     const [heroValues, setHeroValues] = useState();
+    const [footerValues, setFooterValues] = useState();
 
     useEffect(() => {
         getBlog(blogId).then((blog) => {
@@ -35,9 +35,14 @@ export default function CMSPage() {
                 }));
                 return theValues;
             });
+            const footerValues = blog.pages.home.footer.map((item, i) => ({
+                value: item,
+                label: `Footer${i + 1}`,
+            }));
             setNavBarInputValues([...navBarValues]);
             setBlogPagesValues([...blogValues]);
             setHeroValues([...heroValues]);
+            setFooterValues([...footerValues]);
             setBlog(blog);
         });
     }, []);
@@ -51,28 +56,32 @@ export default function CMSPage() {
     return (
         <div className="w-screen p-4">
             <h3>Home Page</h3>
-            <CMSNavEdit
-                navBarInputValues={navBarInputValues}
-                setNavBarInputValues={setNavBarInputValues}
+            <CMSStrEdit
+                sectionTitle={"NavBar Items"}
+                section={"navBar"}
+                sectionValues={navBarInputValues}
+                setSectionValues={setNavBarInputValues}
                 blog={blog}
                 setBlog={setBlog}
             />
-            {/* attempt at making input section reusable with navar-doesn't work yet */}
-            {/* {navBarInputValues && (
-                <div className="w-3/4 p-4 border-solid border-2 border-black my-4">
-                    <h3>Nav as input section</h3>
-                    <CMSInputSection array={navBarInputValues} />
-                </div>
-            )} */}
-            <CMSBlogPageEdit
-                sectionName={"Blog Pages"}
+            <CMSStrEdit
+                sectionTitle={"Footer Items"}
+                section={"footer"}
+                sectionValues={footerValues}
+                setSectionValues={setFooterValues}
+                blog={blog}
+                setBlog={setBlog}
+            />
+
+            <CMSObjEdit
+                sectionTitle={"Blog Pages"}
                 section={"blogPages"}
                 sectionValues={blogPagesValues}
                 // setBlogPagesValues={setBlogPagesValues}
                 blog={blog}
                 setBlog={setBlog}
             />
-            <CMSBlogPageEdit
+            <CMSObjEdit
                 sectionName={"Hero Section"}
                 section={"hero"}
                 sectionValues={heroValues}
