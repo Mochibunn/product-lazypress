@@ -2,20 +2,25 @@ import { useEffect, useState } from "react";
 import { Button } from "@nextui-org/react";
 import CMSInputSection from "./CMSInput Section";
 
-export default function CMSBlogPageEdit({ blog, setBlog }) {
-    const [blogPagesValues, setBlogPagesValues] = useState();
+export default function CMSBlogPageEdit({
+    blogPagesValues,
+    setBlogPagesValues,
+    blog,
+    setBlog,
+}) {
+    // const [blogPagesValues, setBlogPagesValues] = useState();
 
-    useEffect(() => {
-        if (!blog) return;
-        const blogValues = blog.pages.home.blogPages.map((page) => {
-            const pageValues = Object.entries(page).map(([key, value]) => ({
-                value,
-                label: key,
-            }));
-            return pageValues;
-        });
-        setBlogPagesValues([...blogValues]);
-    }, [blog]);
+    // useEffect(() => {
+    //     if (!blog) return;
+    //     const blogValues = blog.pages.home.blogPages.map((page) => {
+    //         const pageValues = Object.entries(page).map(([key, value]) => ({
+    //             value,
+    //             label: key,
+    //         }));
+    //         return pageValues;
+    //     });
+    //     setBlogPagesValues([...blogValues]);
+    // }, [blog]);
     return (
         <>
             {blogPagesValues && (
@@ -39,7 +44,6 @@ export default function CMSBlogPageEdit({ blog, setBlog }) {
                             </div>
                         );
                     })}
-                    <Button type="submit">Submit</Button>
                 </div>
             )}
         </>

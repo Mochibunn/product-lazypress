@@ -7,7 +7,7 @@ export default function CMSInputSection({ array, i, setBlog, blog }) {
     const [localValues, setLocalValues] = useState(array);
     const handleArrayValueChange = (e, i) => {
         const values = [...localValues];
-        // console.log(values);
+        console.log(values);
         values[i].value = e.target.value;
         setLocalValues(values);
     };
@@ -21,26 +21,27 @@ export default function CMSInputSection({ array, i, setBlog, blog }) {
             // console.log(obj);
             return objAsArray;
         });
-        console.log("asArrays", asArrays);
+        // console.log("asArrays", asArrays);
         const singleObj = Object.fromEntries(asArrays);
-        console.log("singleObj", singleObj);
-        console.log("blog notation", blog.pages.home.blogPages[i]);
+        // console.log("singleObj", singleObj);
+        // console.log("blog notation", blog.pages.home.blogPages[i]);
         setBlog((draft) => {
             draft.pages.home.blogPages[i] = singleObj;
         });
     };
     return (
         <form onSubmit={editSection}>
-            {array.map((obj, i) => {
-                return (
-                    <CMSInput
-                        key={crypto.randomUUID()}
-                        valueObj={obj}
-                        i={i}
-                        onChange={handleArrayValueChange}
-                    />
-                );
-            })}
+            {array &&
+                array.map((obj, i) => {
+                    return (
+                        <CMSInput
+                            key={crypto.randomUUID()}
+                            valueObj={obj}
+                            i={i}
+                            onChange={handleArrayValueChange}
+                        />
+                    );
+                })}
             <Button className="w-1/4" type="submit">
                 Edit Section
             </Button>

@@ -2,17 +2,22 @@ import CMSInput from "./CMSInput";
 import { useEffect, useState } from "react";
 import { Button } from "@nextui-org/react";
 
-export default function CMSNavEdit({ blog, setBlog }) {
-    const [navBarInputValues, setNavBarInputValues] = useState();
+export default function CMSNavEdit({
+    navBarInputValues,
+    setNavBarInputValues,
+    blog,
+    setBlog,
+}) {
+    // const [navBarInputValues, setNavBarInputValues] = useState();
 
-    useEffect(() => {
-        if (!blog) return;
-        const navBarValues = blog.pages.home.navBar.map((item, i) => ({
-            value: item,
-            label: `Nav${i + 1}`,
-        }));
-        setNavBarInputValues([...navBarValues]);
-    }, [blog]);
+    // useEffect(() => {
+    //     if (!blog) return;
+    //     const navBarValues = blog.pages.home.navBar.map((item, i) => ({
+    //         value: item,
+    //         label: `Nav${i + 1}`,
+    //     }));
+    //     setNavBarInputValues([...navBarValues]);
+    // }, []);
 
     const handleNavBarChange = (e, i) => {
         const values = [...navBarInputValues];

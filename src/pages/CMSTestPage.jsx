@@ -1,30 +1,73 @@
 import { useParams } from "react-router-dom";
-import { getBlog } from "../lib/dbClient";
-import { useEffect } from "react";
+import { getBlog, editBlog } from "../lib/dbClient";
+import { useEffect, useState } from "react";
 import { useImmer } from "use-immer";
 import { Button } from "@nextui-org/react";
 import CMSNavEdit from "../components/CMSNavEdit";
 import CMSBlogPageEdit from "../components/CMSBlogPageEdit";
+import CMSInputSection from "../components/CMSInput Section";
 
 export default function CMSPage() {
     const { blogId } = useParams();
     const [blog, setBlog] = useImmer();
+    const [navBarInputValues, setNavBarInputValues] = useState();
+    const [blogPagesValues, setBlogPagesValues] = useState();
 
     useEffect(() => {
         getBlog(blogId).then((blog) => {
-            // console.log([...blogValues]);
+            const navBarValues = blog.pages.home.navBar.map((item, i) => ({
+                value: item,
+                label: `Nav${i + 1}`,
+            }));
+
+            const blogValues = blog.pages.home.blogPages.map((page) => {
+                const pageValues = Object.entries(page).map(([key, value]) => ({
+                    value,
+                    label: key,
+                }));
+                return pageValues;
+            });
+            setNavBarInputValues([...navBarValues]);
+            setBlogPagesValues([...blogValues]);
             setBlog(blog);
         });
     }, []);
 
+    const saveChangesClick = () => {
+        editBlog(blog)
+            .then((response) => console.log(response))
+            .catch((err) => console.error(err));
+    };
+
     return (
         <div className="w-screen p-4">
             <h3>Home Page</h3>
-            <CMSNavEdit blog={blog} setBlog={setBlog} />
-            <CMSBlogPageEdit blog={blog} setBlog={setBlog} />
+            <CMSNavEdit
+                navBarInputValues={navBarInputValues}
+                setNavBarInputValues={setNavBarInputValues}
+                blog={blog}
+                setBlog={setBlog}
+            />
+            {/* attempt at making input section reusable with navar-doesn't work yet */}
+            {/* {navBarInputValues && (
+                <div className="w-3/4 p-4 border-solid border-2 border-black my-4">
+                    <h3>Nav as input section</h3>
+                    <CMSInputSection array={navBarInputValues} />
+                </div>
+            )} */}
+            <CMSBlogPageEdit
+                blogPagesValues={blogPagesValues}
+                setBlogPagesValues={setBlogPagesValues}
+                blog={blog}
+                setBlog={setBlog}
+            />
+
+            <Button className="mr-4" color="success" onClick={saveChangesClick}>
+                Save Changes
+            </Button>
             <Button
                 onClick={() => {
-                    console.log(blog.pages);
+                    console.log(blog);
                 }}
             >
                 Log Stuff

@@ -21,4 +21,19 @@ const getBlog = async (blogId) => {
     }
 };
 
-export { getSites, getBlog };
+const editBlog = async (blog) => {
+    const { _id, pages, dashboard, clerkUser, clerkUserId } = blog;
+    try {
+        const response = await axios.put(`${backend}/blogs/${_id}`, {
+            pages,
+            dashboard,
+            clerkUser,
+            clerkUserId,
+        });
+        return response;
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+export { getSites, getBlog, editBlog };
