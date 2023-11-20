@@ -47,7 +47,7 @@ export default function CMSPage() {
                         key: crypto.randomUUID(),
                     };
                 });
-                // console.log(pageValues);
+                console.log(pageValues);
                 return pageValues;
             });
             const heroValues = blog.pages.home.hero.map((page) => {
