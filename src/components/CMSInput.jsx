@@ -10,9 +10,11 @@ export default function CMSInput({ valueObj, i, onChange }) {
                     color="primary"
                     value={value}
                     label={label}
+                    name={label}
                     labelPlacement="outside-left"
                     // name={`nav${i}`}
-                    onChange={(e) => onChange(e, i)}
+                    // onChange={(e) => onChange(e, i)}
+                    onChange={(e) => onChange(e)}
                     isReadOnly={label === "_id" ? true : false}
                 />
             ) : (
@@ -21,6 +23,7 @@ export default function CMSInput({ valueObj, i, onChange }) {
                     color="primary"
                     value={value}
                     label={label}
+                    name={label}
                     labelPlacement="outside-left"
                     // name={`nav${i}`}
                     onChange={(e) => onChange(e, i)}

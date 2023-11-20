@@ -5,7 +5,8 @@ import { useImmer } from "use-immer";
 import { Button } from "@nextui-org/react";
 import CMSStrEdit from "../components/CMSStrEdit";
 import CMSObjEdit from "../components/CMSObjEdit";
-import { Input } from "@nextui-org/react";
+// import CMSDblObjEdit from "../components/CMSDblObj";
+// import { Input } from "@nextui-org/react";
 
 export default function CMSPage() {
     const { blogId } = useParams();
@@ -18,6 +19,7 @@ export default function CMSPage() {
 
     useEffect(() => {
         getBlog(blogId).then((blog) => {
+            console.log(blog);
             const navBarValues = blog.pages.home.navBar.map((item, i) => ({
                 value: item,
                 label: `Nav${i + 1}`,
@@ -48,14 +50,17 @@ export default function CMSPage() {
                 // console.log(theValues);
                 return theValues;
             });
-            const blogObj = blog.pages.home.blogPages.map((page) => page);
+            const blogObj = blog.pages.home.blogPages.map((page) => ({
+                ...page,
+                key: crypto.randomUUID(),
+            }));
             setNavBarInputValues([...navBarValues]);
             setFooterValues([...footerValues]);
             setBlogPagesValues([...blogValues]);
             setHeroValues([...heroValues]);
             setBlogObj([...blogObj]);
             setBlog(blog);
-            blogObj && console.log(blogObj);
+            // blogObj && console.log(blogObj);
         });
     }, []);
 
@@ -68,12 +73,7 @@ export default function CMSPage() {
     return (
         <div className="w-screen p-4">
             <h3>Home Page</h3>
-            {/* {blogObj &&
-                blogObj.map((obj) => {
-                    return Object.entries(obj).map(([key, value]) => {
-                        return <Input label={key} value={value} />;
-                    });
-                })} */}
+
             <CMSStrEdit
                 // key={"navBarKey"}
                 sectionTitle={"NavBar Items"}
