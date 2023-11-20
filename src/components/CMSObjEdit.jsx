@@ -17,20 +17,14 @@ export default function CMSObjEdit({
 
                     {sectionValues.map((page, i) => {
                         return (
-                            <div
-                                //works now with key, but causes rerender-will need to use useRef I think
-                                key={crypto.randomUUID()}
-                                className="my-2 border-2 border-black flex flex-col w-3/4"
-                            >
-                                <h3>Page {`${i + 1}`}</h3>
-                                <CMSInputSection
-                                    blog={blog}
-                                    setBlog={setBlog}
-                                    array={page}
-                                    i={i}
-                                    section={section}
-                                />
-                            </div>
+                            <CMSInputSection
+                                key={`${section}_page_${i + 1}`}
+                                blog={blog}
+                                setBlog={setBlog}
+                                array={page}
+                                i={i}
+                                section={section}
+                            />
                         );
                     })}
                 </div>

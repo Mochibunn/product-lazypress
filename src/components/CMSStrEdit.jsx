@@ -38,7 +38,7 @@ export default function CMSNavEdit({
                             return (
                                 <CMSInput
                                     //with a key it leaves the input every time which is annoying
-                                    key={crypto.randomUUID()}
+                                    key={`${obj.label}`}
                                     valueObj={obj}
                                     i={i}
                                     onChange={handleValueChange}

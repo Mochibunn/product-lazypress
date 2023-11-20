@@ -82,7 +82,7 @@ export default function CMSPage() {
                 setBlog={setBlog}
             />
             <CMSObjEdit
-                sectionName={"Hero Section"}
+                sectionTitle={"Hero Section"}
                 section={"hero"}
                 sectionValues={heroValues}
                 // setBlogPagesValues={setBlogPagesValues}

@@ -1,13 +1,28 @@
 import CMSInput from "./CMSInput";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { Button } from "@nextui-org/react";
 
-export default function CMSInputSection({ array, i, setBlog, blog, section }) {
+export default function CMSInputSection({
+    array,
+    i: sectionIndex,
+    setBlog,
+    blog,
+    section,
+}) {
     // console.log("test array: ", array);
     const [localValues, setLocalValues] = useState(array);
+
+    // const generatedKeys = useMemo(
+    //     () => array.map((item) => crypto.randomUUID()),
+    //     [array]
+    // );
+
+    //useCallBack for performance if time
     const handleArrayValueChange = (e, i) => {
         const values = [...localValues];
-        console.log(values);
+        // console.log(values);
+        console.log("index value:", values[i].value);
+        console.log("e.target.value", e.target.value);
         values[i].value = e.target.value;
         setLocalValues(values);
     };
@@ -26,25 +41,31 @@ export default function CMSInputSection({ array, i, setBlog, blog, section }) {
         // console.log("singleObj", singleObj);
         // console.log("blog notation", blog.pages.home.blogPages[i]);
         setBlog((draft) => {
-            draft.pages.home[section][i] = singleObj;
+            draft.pages.home[section][sectionIndex] = singleObj;
         });
     };
+
     return (
-        <form onSubmit={editSection}>
-            {array &&
-                array.map((obj, i) => {
-                    return (
-                        <CMSInput
-                            key={crypto.randomUUID()}
-                            valueObj={obj}
-                            i={i}
-                            onChange={handleArrayValueChange}
-                        />
-                    );
-                })}
-            <Button className="w-1/4" type="submit">
-                Edit Section
-            </Button>
-        </form>
+        <div className="my-2 border-2 border-black flex flex-col w-3/4">
+            <h3>Page {`${sectionIndex + 1}`}</h3>
+            <form onSubmit={editSection}>
+                {array &&
+                    array.map((obj, i) => {
+                        return (
+                            <CMSInput
+                                key={`${
+                                    section + "_page_" + (sectionIndex + 1)
+                                }_${obj.label}`}
+                                valueObj={obj}
+                                i={i}
+                                onChange={handleArrayValueChange}
+                            />
+                        );
+                    })}
+                <Button className="w-1/4" type="submit">
+                    Edit Section
+                </Button>
+            </form>
+        </div>
     );
 }
