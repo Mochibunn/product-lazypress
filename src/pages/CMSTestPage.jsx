@@ -5,6 +5,7 @@ import { useImmer } from "use-immer";
 import { Button } from "@nextui-org/react";
 import CMSStrEdit from "../components/CMSStrEdit";
 import CMSObjEdit from "../components/CMSObjEdit";
+import { Input } from "@nextui-org/react";
 
 export default function CMSPage() {
     const { blogId } = useParams();
@@ -13,6 +14,7 @@ export default function CMSPage() {
     const [blogPagesValues, setBlogPagesValues] = useState();
     const [heroValues, setHeroValues] = useState();
     const [footerValues, setFooterValues] = useState();
+    const [blogObj, setBlogObj] = useState();
 
     useEffect(() => {
         getBlog(blogId).then((blog) => {
@@ -28,8 +30,6 @@ export default function CMSPage() {
 
             const blogValues = blog.pages.home.blogPages.map((page) => {
                 const pageValues = Object.entries(page).map(([key, value]) => {
-                    // if (key === "_id") return;
-                    // console.log(page._id);
                     return {
                         value,
                         label: key,
@@ -48,11 +48,14 @@ export default function CMSPage() {
                 // console.log(theValues);
                 return theValues;
             });
+            const blogObj = blog.pages.home.blogPages.map((page) => page);
             setNavBarInputValues([...navBarValues]);
             setFooterValues([...footerValues]);
             setBlogPagesValues([...blogValues]);
             setHeroValues([...heroValues]);
+            setBlogObj([...blogObj]);
             setBlog(blog);
+            blogObj && console.log(blogObj);
         });
     }, []);
 
@@ -65,6 +68,12 @@ export default function CMSPage() {
     return (
         <div className="w-screen p-4">
             <h3>Home Page</h3>
+            {/* {blogObj &&
+                blogObj.map((obj) => {
+                    return Object.entries(obj).map(([key, value]) => {
+                        return <Input label={key} value={value} />;
+                    });
+                })} */}
             <CMSStrEdit
                 // key={"navBarKey"}
                 sectionTitle={"NavBar Items"}
