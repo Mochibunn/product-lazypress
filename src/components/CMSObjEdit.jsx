@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { Button } from "@nextui-org/react";
+import { useMemo } from "react";
 import CMSInputSection from "./CMSInputSection";
 
 export default function CMSObjEdit({
@@ -9,7 +8,8 @@ export default function CMSObjEdit({
     blog,
     setBlog,
 }) {
-    console.log(sectionValues);
+    // console.log(sectionValues);
+
     return (
         <>
             {sectionValues && (
@@ -19,7 +19,8 @@ export default function CMSObjEdit({
                     {sectionValues.map((page, i) => {
                         return (
                             <CMSInputSection
-                                key={page[0].schemaId}
+                                key={`page_${i + 1}_${page[i].key}`}
+                                // key={`${page[0].schemaId}`}
                                 // key={`${section}_page_${i + 1}`}
                                 blog={blog}
                                 setBlog={setBlog}

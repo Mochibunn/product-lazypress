@@ -21,6 +21,11 @@ export default function CMSPage() {
                 label: `Nav${i + 1}`,
             }));
 
+            const footerValues = blog.pages.home.footer.map((item, i) => ({
+                value: item,
+                label: `Footer${i + 1}`,
+            }));
+
             const blogValues = blog.pages.home.blogPages.map((page) => {
                 const pageValues = Object.entries(page).map(([key, value]) => {
                     // if (key === "_id") return;
@@ -28,7 +33,7 @@ export default function CMSPage() {
                     return {
                         value,
                         label: key,
-                        schemaId: page._id,
+                        key: crypto.randomUUID(),
                     };
                 });
                 // console.log(pageValues);
@@ -38,19 +43,15 @@ export default function CMSPage() {
                 const theValues = Object.entries(page).map(([key, value]) => ({
                     value,
                     label: key,
-                    schemaId: page._id,
+                    key: crypto.randomUUID(),
                 }));
                 // console.log(theValues);
                 return theValues;
             });
-            const footerValues = blog.pages.home.footer.map((item, i) => ({
-                value: item,
-                label: `Footer${i + 1}`,
-            }));
             setNavBarInputValues([...navBarValues]);
+            setFooterValues([...footerValues]);
             setBlogPagesValues([...blogValues]);
             setHeroValues([...heroValues]);
-            setFooterValues([...footerValues]);
             setBlog(blog);
         });
     }, []);
@@ -65,6 +66,7 @@ export default function CMSPage() {
         <div className="w-screen p-4">
             <h3>Home Page</h3>
             <CMSStrEdit
+                // key={"navBarKey"}
                 sectionTitle={"NavBar Items"}
                 section={"navBar"}
                 sectionValues={navBarInputValues}
@@ -73,6 +75,7 @@ export default function CMSPage() {
                 setBlog={setBlog}
             />
             <CMSStrEdit
+                // key={"footerKey"}
                 sectionTitle={"Footer Items"}
                 section={"footer"}
                 sectionValues={footerValues}
@@ -82,6 +85,7 @@ export default function CMSPage() {
             />
 
             <CMSObjEdit
+                // key={"blogPagesKey"}
                 sectionTitle={"Blog Pages"}
                 section={"blogPages"}
                 sectionValues={blogPagesValues}
@@ -89,14 +93,15 @@ export default function CMSPage() {
                 blog={blog}
                 setBlog={setBlog}
             />
-            {/* <CMSObjEdit
+            <CMSObjEdit
+                // key={"heroSectionKey"}
                 sectionTitle={"Hero Section"}
                 section={"hero"}
                 sectionValues={heroValues}
                 // setBlogPagesValues={setBlogPagesValues}
                 blog={blog}
                 setBlog={setBlog}
-            /> */}
+            />
 
             <Button className="mr-4" color="success" onClick={saveChangesClick}>
                 Save Changes

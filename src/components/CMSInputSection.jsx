@@ -53,10 +53,13 @@ export default function CMSInputSection({
                     array.map((obj, i) => {
                         return (
                             <CMSInput
-                                //  key={`${obj.label}_${obj.schemaId}`}
-                                key={`${
-                                    section + "_page_" + (sectionIndex + 1)
-                                }_${obj.label}`}
+                                key={`${obj.label}_${obj.key}`}
+                                // key={`${section}_page${sectionIndex + 1}${
+                                //     obj.label
+                                // }_${obj.schemaId}`}
+                                // key={`${
+                                //     section + "_page_" + (sectionIndex + 1)
+                                // }_${obj.label}`}
                                 valueObj={obj}
                                 i={i}
                                 onChange={handleArrayValueChange}
