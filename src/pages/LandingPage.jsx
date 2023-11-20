@@ -3,6 +3,7 @@ import OurService from "../components/OurService";
 import ExampleProduct from "../components/ExampleProduct";
 import Explore from "../components/Explore";
 import Subscription from "../components/Subscription";
+import FreeTrial from "../components/FreeTrial";
 export default function LandingPage() {
   return (
     <>
@@ -11,6 +12,7 @@ export default function LandingPage() {
       <ExampleProduct />
       <Explore />
       <Subscription />
+      <FreeTrial />
     </>
   );
 }
