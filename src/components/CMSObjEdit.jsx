@@ -9,6 +9,7 @@ export default function CMSObjEdit({
     blog,
     setBlog,
 }) {
+    console.log(sectionValues);
     return (
         <>
             {sectionValues && (
@@ -18,7 +19,8 @@ export default function CMSObjEdit({
                     {sectionValues.map((page, i) => {
                         return (
                             <CMSInputSection
-                                key={`${section}_page_${i + 1}`}
+                                key={page[0].schemaId}
+                                // key={`${section}_page_${i + 1}`}
                                 blog={blog}
                                 setBlog={setBlog}
                                 array={page}

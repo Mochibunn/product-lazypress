@@ -20,9 +20,9 @@ export default function CMSInputSection({
     //useCallBack for performance if time
     const handleArrayValueChange = (e, i) => {
         const values = [...localValues];
-        // console.log(values);
-        console.log("index value:", values[i].value);
-        console.log("e.target.value", e.target.value);
+        console.log(values);
+        // console.log("index value:", values[i].value);
+        // console.log("e.target.value", e.target.value);
         values[i].value = e.target.value;
         setLocalValues(values);
     };
@@ -53,6 +53,7 @@ export default function CMSInputSection({
                     array.map((obj, i) => {
                         return (
                             <CMSInput
+                                //  key={`${obj.label}_${obj.schemaId}`}
                                 key={`${
                                     section + "_page_" + (sectionIndex + 1)
                                 }_${obj.label}`}

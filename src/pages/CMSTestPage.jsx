@@ -22,17 +22,25 @@ export default function CMSPage() {
             }));
 
             const blogValues = blog.pages.home.blogPages.map((page) => {
-                const pageValues = Object.entries(page).map(([key, value]) => ({
-                    value,
-                    label: key,
-                }));
+                const pageValues = Object.entries(page).map(([key, value]) => {
+                    // if (key === "_id") return;
+                    // console.log(page._id);
+                    return {
+                        value,
+                        label: key,
+                        schemaId: page._id,
+                    };
+                });
+                // console.log(pageValues);
                 return pageValues;
             });
             const heroValues = blog.pages.home.hero.map((page) => {
                 const theValues = Object.entries(page).map(([key, value]) => ({
                     value,
                     label: key,
+                    schemaId: page._id,
                 }));
+                // console.log(theValues);
                 return theValues;
             });
             const footerValues = blog.pages.home.footer.map((item, i) => ({
@@ -81,14 +89,14 @@ export default function CMSPage() {
                 blog={blog}
                 setBlog={setBlog}
             />
-            <CMSObjEdit
+            {/* <CMSObjEdit
                 sectionTitle={"Hero Section"}
                 section={"hero"}
                 sectionValues={heroValues}
                 // setBlogPagesValues={setBlogPagesValues}
                 blog={blog}
                 setBlog={setBlog}
-            />
+            /> */}
 
             <Button className="mr-4" color="success" onClick={saveChangesClick}>
                 Save Changes

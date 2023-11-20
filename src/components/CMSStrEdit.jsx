@@ -37,7 +37,6 @@ export default function CMSNavEdit({
                         {sectionValues.map((obj, i) => {
                             return (
                                 <CMSInput
-                                    //with a key it leaves the input every time which is annoying
                                     key={`${obj.label}`}
                                     valueObj={obj}
                                     i={i}
