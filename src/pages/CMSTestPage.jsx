@@ -3,10 +3,9 @@ import { getBlog, editBlog } from "../lib/dbClient";
 import { useEffect, useState } from "react";
 import { useImmer } from "use-immer";
 import { Button } from "@nextui-org/react";
-import CMSStrEdit from "../components/CMSStrEdit";
 import CMSObjEdit from "../components/CMSObjEdit";
-// import CMSDblObjEdit from "../components/CMSDblObj";
-// import { Input } from "@nextui-org/react";
+
+// import CMSStrEdit from "../components/CMSStrEdit";
 
 export default function CMSPage() {
     const { blogId } = useParams();
@@ -15,20 +14,30 @@ export default function CMSPage() {
     const [blogPagesValues, setBlogPagesValues] = useState();
     const [heroValues, setHeroValues] = useState();
     const [footerValues, setFooterValues] = useState();
-    const [blogObj, setBlogObj] = useState();
 
     useEffect(() => {
         getBlog(blogId).then((blog) => {
             console.log(blog);
-            const navBarValues = blog.pages.home.navBar.map((item, i) => ({
-                value: item,
-                label: `Nav${i + 1}`,
-            }));
 
-            const footerValues = blog.pages.home.footer.map((item, i) => ({
-                value: item,
-                label: `Footer${i + 1}`,
-            }));
+            const navBarValues = blog.pages.home.navBar.map((page) => {
+                const theValues = Object.entries(page).map(([key, value]) => ({
+                    value,
+                    label: key,
+                    key: crypto.randomUUID(),
+                }));
+                // console.log(theValues);
+                return theValues;
+            });
+
+            const footerValues = blog.pages.home.footer.map((page) => {
+                const theValues = Object.entries(page).map(([key, value]) => ({
+                    value,
+                    label: key,
+                    key: crypto.randomUUID(),
+                }));
+                // console.log(theValues);
+                return theValues;
+            });
 
             const blogValues = blog.pages.home.blogPages.map((page) => {
                 const pageValues = Object.entries(page).map(([key, value]) => {
@@ -50,17 +59,12 @@ export default function CMSPage() {
                 // console.log(theValues);
                 return theValues;
             });
-            const blogObj = blog.pages.home.blogPages.map((page) => ({
-                ...page,
-                key: crypto.randomUUID(),
-            }));
+
             setNavBarInputValues([...navBarValues]);
             setFooterValues([...footerValues]);
             setBlogPagesValues([...blogValues]);
             setHeroValues([...heroValues]);
-            setBlogObj([...blogObj]);
             setBlog(blog);
-            // blogObj && console.log(blogObj);
         });
     }, []);
 
@@ -74,8 +78,7 @@ export default function CMSPage() {
         <div className="w-screen p-4">
             <h3>Home Page</h3>
 
-            <CMSStrEdit
-                // key={"navBarKey"}
+            <CMSObjEdit
                 sectionTitle={"NavBar Items"}
                 section={"navBar"}
                 sectionValues={navBarInputValues}
@@ -83,8 +86,7 @@ export default function CMSPage() {
                 blog={blog}
                 setBlog={setBlog}
             />
-            <CMSStrEdit
-                // key={"footerKey"}
+            <CMSObjEdit
                 sectionTitle={"Footer Items"}
                 section={"footer"}
                 sectionValues={footerValues}
@@ -94,20 +96,16 @@ export default function CMSPage() {
             />
 
             <CMSObjEdit
-                // key={"blogPagesKey"}
                 sectionTitle={"Blog Pages"}
                 section={"blogPages"}
                 sectionValues={blogPagesValues}
-                // setBlogPagesValues={setBlogPagesValues}
                 blog={blog}
                 setBlog={setBlog}
             />
             <CMSObjEdit
-                // key={"heroSectionKey"}
                 sectionTitle={"Hero Section"}
                 section={"hero"}
                 sectionValues={heroValues}
-                // setBlogPagesValues={setBlogPagesValues}
                 blog={blog}
                 setBlog={setBlog}
             />
@@ -125,3 +123,34 @@ export default function CMSPage() {
         </div>
     );
 }
+
+//how formatting work for the CMSStrEdit Component-currently not used but could be useful later
+// const navBarValues = blog.pages.home.navBar.map((item, i) => ({
+//     value: item,
+//     label: `Nav${i + 1}`,
+// }));
+
+// const footerValues = blog.pages.home.footer.map((item, i) => ({
+//     value: item,
+//     label: `Footer${i + 1}`,
+// }));
+
+/* <CMSStrEdit
+                // key={"navBarKey"}
+                sectionTitle={"NavBar Items"}
+                section={"navBar"}
+                sectionValues={navBarInputValues}
+                setSectionValues={setNavBarInputValues}
+                blog={blog}
+                setBlog={setBlog}
+            />
+            
+            <CMSStrEdit
+                // key={"footerKey"}
+                sectionTitle={"Footer Items"}
+                section={"footer"}
+                sectionValues={footerValues}
+                setSectionValues={setFooterValues}
+                blog={blog}
+                setBlog={setBlog}
+            /> */
