@@ -18,7 +18,13 @@ export default function Dashboard() {
                     <Spinner />
                 ) : (
                     sites.map((site) => {
-                        return <SiteCard key={site._id} {...site.dashboard} />;
+                        return (
+                            <SiteCard
+                                key={site._id}
+                                blogId={site._id}
+                                {...site.dashboard}
+                            />
+                        );
                     })
                 )}
             </div>

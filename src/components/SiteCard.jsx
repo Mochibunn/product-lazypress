@@ -8,7 +8,7 @@ import {
 } from "@nextui-org/react";
 import { Link } from "react-router-dom";
 
-export default function SiteCard({ blogTitle, previewUrl, siteUrl }) {
+export default function SiteCard({ blogId, blogTitle, previewUrl, siteUrl }) {
     console.log(blogTitle);
     return (
         <Card
@@ -45,7 +45,7 @@ export default function SiteCard({ blogTitle, previewUrl, siteUrl }) {
                             Go to Site
                         </Button>
                     </a>
-                    <Link to="/cms" target="_blank">
+                    <Link to={`/cms/${blogId}`} target="_blank">
                         <Button radius="full" size="sm">
                             Edit Site
                         </Button>
