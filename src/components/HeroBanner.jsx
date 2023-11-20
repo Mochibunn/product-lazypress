@@ -9,7 +9,7 @@ export default function HeroBanner() {
         className="w-[100%] h-[90vh] overflow-hidden"
         style={{
           backgroundImage:
-            "url(https://images.unsplash.com/photo-1526992430293-51554a151122?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)",
+            "url(https://images.unsplash.com/photo-1488085061387-422e29b40080?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
@@ -20,16 +20,6 @@ export default function HeroBanner() {
           <Button color="primary">Get Started</Button>
         </div>
       </div>
-      {/* <div className="max-h-50vh overflow-hidden">
-        <Image
-          removeWrapper
-          alt="carousel banner"
-          src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-          draggable="false"
-          className="w-[100%] h-[50vh] object-cover"
-          style={{}}
-        />
-      </div> */}
     </>
   );
 }

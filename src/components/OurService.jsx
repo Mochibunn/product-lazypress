@@ -10,7 +10,7 @@ export default function OurService() {
           backgroundPosition: "center",
         }}
       ></div>
-      <div className="text-black flex flex-col gap-1 px-12 py-8">
+      <div className="text-black flex flex-col gap-2 px-12">
         <h3 className="font-bold text-lg">Create a template</h3>
         <p>
           Choose from any of our industry-leading website templates, designer
@@ -25,6 +25,11 @@ export default function OurService() {
         <p>
           On-brand email campaigns and social tools make it easy to retain
           customers and grow your base.
+        </p>
+        <h3 className="font-bold text-lg">Engage with customers</h3>
+        <p>
+          Email campaigns that pull in your site’s colors, products, and blog
+          posts so your communications feel effortlessly on-brand.
         </p>
       </div>
     </div>
