@@ -1,13 +1,15 @@
 import { useParams } from "react-router-dom";
-import { getBlog, editBlog } from "../lib/dbClient";
+import { getBlog, editBlog, editBlogAuth, getAuth } from "../lib/dbClient";
 import { useEffect, useState } from "react";
 import { useImmer } from "use-immer";
 import { Button } from "@nextui-org/react";
 import CMSObjEdit from "../components/CMSObjEdit";
+import { useAuth } from "@clerk/clerk-react";
 
 // import CMSStrEdit from "../components/CMSStrEdit";
 
-export default function CMSPage() {
+export default function CMSTestPage() {
+    const { getToken } = useAuth();
     const { blogId } = useParams();
     const [blog, setBlog] = useImmer();
     const [navBarInputValues, setNavBarInputValues] = useState();
@@ -17,7 +19,7 @@ export default function CMSPage() {
 
     useEffect(() => {
         getBlog(blogId).then((blog) => {
-            console.log(blog);
+            // console.log(blog);
 
             const navBarValues = blog.pages.home.navBar.map((page) => {
                 const theValues = Object.entries(page).map(([key, value]) => ({
@@ -47,7 +49,7 @@ export default function CMSPage() {
                         key: crypto.randomUUID(),
                     };
                 });
-                console.log(pageValues);
+                // console.log(pageValues);
                 return pageValues;
             });
             const heroValues = blog.pages.home.hero.map((page) => {
@@ -68,10 +70,23 @@ export default function CMSPage() {
         });
     }, []);
 
-    const saveChangesClick = () => {
-        editBlog(blog)
-            .then((response) => console.log(response))
-            .catch((err) => console.error(err));
+    const saveChangesClick = async () => {
+        // editBlog(blog)
+        //     .then((response) => console.log(response))
+        //     .catch((err) => console.error(err));
+        try {
+            const sessToken = await getToken();
+            editBlog(sessToken, blog).then((res) =>
+                console.log("came from protected route", res)
+            );
+        } catch (error) {
+            console.error(error);
+        }
+        // getToken().then((token) => {
+        //     editBlogAuth(token, blog).then((res) =>
+        //         console.log("came from protected route", res)
+        //     );
+        // });
     };
 
     return (
@@ -154,3 +169,30 @@ export default function CMSPage() {
                 blog={blog}
                 setBlog={setBlog}
             /> */
+
+//Tests for figuring out how to use useEffect with async/await and to fetch needed data
+// blog &&
+//     editBlogAuth(blog).then((res) =>
+//         console.log("came from protected route", res)
+//     );
+// useEffect(() => {
+//     (async () => {
+//         try {
+//             const sessToken = await getToken();
+//             getAuth(sessToken).then((res) => console.log(res));
+//             blog &&
+//                 editBlogAuth(sessToken, blog).then((res) =>
+//                     console.log("came from protected route", res)
+//                 );
+//         } catch (error) {
+//             console.error(error);
+//         }
+//     })();
+//     // getToken().then((token) => {
+//     //     getAuth(token).then((res) => console.log(res));
+//     //     blog &&
+//     //         editBlogAuth(token, blog).then((res) =>
+//     //             console.log("came from protected route", res)
+//     //         );
+//     // });
+// }, [blog]);
