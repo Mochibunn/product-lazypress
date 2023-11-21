@@ -7,7 +7,7 @@ import FreeTrial from "../components/FreeTrial";
 export default function LandingPage() {
   return (
     <>
-      <HeroBanner />
+      <HeroBanner className='absolute'/>
       <OurService />
       <ExampleProduct />
       <Explore />

@@ -12,12 +12,31 @@ import {
 } from "@nextui-org/react";
 import { NavLink } from "react-router-dom";
 import { useUser, UserButton } from "@clerk/clerk-react";
+import { useEffect, useState } from 'react';
 // import Hero from "./Hero";
 
 export default function NavBar() {
   const { isSignedIn, isLoaded } = useUser();
+  const [isGlass, setIsGlass] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const isPast100vh = scrollPosition > window.innerHeight;
+
+      setIsGlass(isPast100vh);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+
+
   return (
-    <Navbar className="bg-gray-800">
+    <Navbar className={`${isGlass ? 'glassNavBarMaterial' : 'transparentNavBar'}`} isBlurred='false'>
       <NavbarBrand>
         <NavLink to="/" className="font-bold text-slate-200 text-3xl">
           LazyPress
@@ -34,7 +53,7 @@ export default function NavBar() {
                 radius="sm"
                 variant="light"
               >
-                PRODUCTS
+                Contact Us
               </Button>
             </DropdownTrigger>
           </NavbarItem>
@@ -88,7 +107,7 @@ export default function NavBar() {
             aria-current="page"
             className="font-bold text-slate-200"
           >
-            TEMPLATES
+            About
           </Link>
         </NavbarItem>
         <NavbarItem>
