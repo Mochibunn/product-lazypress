@@ -23,7 +23,7 @@ export default function Footer() {
           </ul>
         </div>
         <div>
-          <h4 className="font-bold hover:text-pink-lavender">COMPONY</h4>
+          <h4 className="font-bold hover:text-pink-lavender">COMPANY</h4>
           <ul>
             <li className="hover:text-pink-lavender">About</li>
             <li className="hover:text-pink-lavender">Our Brand</li>
