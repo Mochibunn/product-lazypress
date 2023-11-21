@@ -1,0 +1,51 @@
+
+@font-face {
+    font-family: "Montserrat";
+    src: url("https://fonts.gstatic.com/s/montserrat/v15/JTURjIg1_i6t8kCHKm45_bZF3g3D_u50.woff2");
+  }
+  
+  @font-face {
+    font-family: "Barlow Condensed";
+    src: url("https://fonts.gstatic.com/s/barlowcondensed/v7/wlphgxjLBV1hqnzfr-4cffMp6Tg6kgZ-v2rvL4A.woff2");
+    
+  }
+  
+  body {
+    font-family: "Montserrat", sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Barlow Condensed", sans-serif;
+  }
+  
+  button {
+    font-family: "Barlow Condensed";
+}
+
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@font-face {
+  font-family: "Montserrat";
+  src: url("https://fonts.gstatic.com/s/montserrat/v15/JTURjIg1_i6t8kCHKm45_bZF3g3D_u50.woff2");
+}
+
+@font-face {
+  font-family: "Barlow Condensed";
+  src: url("https://fonts.gstatic.com/s/barlowcondensed/v7/wlphgxjLBV1hqnzfr-4cffMp6Tg6kgZ-v2rvL4A.woff2");
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Barlow Condensed", sans-serif;
+}
