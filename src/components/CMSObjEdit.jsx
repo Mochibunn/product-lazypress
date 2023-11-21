@@ -17,7 +17,6 @@ export default function CMSObjEdit({
                     <h3>{sectionTitle}</h3>
 
                     {sectionValues.map((page, i) => {
-                        if (i == 5) console.log(page[0]);
                         return (
                             <CMSInputSection
                                 key={`${section}_page_${i + 1}_${page[0].key}`}

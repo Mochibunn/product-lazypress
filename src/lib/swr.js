@@ -28,7 +28,7 @@ const useBlog = (blogId) => {
     const { data, error, isLoading } = useSWR(`/blogs/${blogId}`, fetcher);
 
     return {
-        blog: data,
+        swrBlog: data,
         isLoading,
         isError: error,
     };

@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { getBlog, editBlog, editBlogAuth, getAuth } from "../lib/dbClient";
+import { useBlog } from "../lib/swr";
 import { useEffect, useState } from "react";
 import { useImmer } from "use-immer";
 import { Button } from "@nextui-org/react";
@@ -12,63 +13,116 @@ export default function CMSTestPage() {
     const { getToken } = useAuth();
     const { blogId } = useParams();
     const [blog, setBlog] = useImmer();
+    const { swrBlog, isLoading } = useBlog(blogId);
     const [navBarInputValues, setNavBarInputValues] = useState();
     const [blogPagesValues, setBlogPagesValues] = useState();
     const [heroValues, setHeroValues] = useState();
     const [footerValues, setFooterValues] = useState();
 
     useEffect(() => {
-        getBlog(blogId).then((blog) => {
-            // console.log(blog);
+        if (!swrBlog) return;
+        console.log(swrBlog);
 
-            const navBarValues = blog.pages.home.navBar.map((page) => {
-                const theValues = Object.entries(page).map(([key, value]) => ({
-                    value,
-                    label: key,
-                    key: crypto.randomUUID(),
-                }));
-                // console.log(theValues);
-                return theValues;
-            });
+        // console.log(blog);
 
-            const footerValues = blog.pages.home.footer.map((page) => {
-                const theValues = Object.entries(page).map(([key, value]) => ({
-                    value,
-                    label: key,
-                    key: crypto.randomUUID(),
-                }));
-                // console.log(theValues);
-                return theValues;
-            });
-
-            const blogValues = blog.pages.home.blogPages.map((page) => {
-                const pageValues = Object.entries(page).map(([key, value]) => {
-                    return {
-                        value,
-                        label: key,
-                        key: crypto.randomUUID(),
-                    };
-                });
-                // console.log(pageValues);
-                return pageValues;
-            });
-            const heroValues = blog.pages.home.hero.map((page) => {
-                const theValues = Object.entries(page).map(([key, value]) => ({
-                    value,
-                    label: key,
-                    key: crypto.randomUUID(),
-                }));
-                // console.log(theValues);
-                return theValues;
-            });
-
-            setNavBarInputValues([...navBarValues]);
-            setFooterValues([...footerValues]);
-            setBlogPagesValues([...blogValues]);
-            setHeroValues([...heroValues]);
-            setBlog(blog);
+        const navBarValues = swrBlog.pages.home.navBar.map((page) => {
+            const theValues = Object.entries(page).map(([key, value]) => ({
+                value,
+                label: key,
+                key: crypto.randomUUID(),
+            }));
+            // console.log(theValues);
+            return theValues;
         });
-    }, []);
+
+        const footerValues = swrBlog.pages.home.footer.map((page) => {
+            const theValues = Object.entries(page).map(([key, value]) => ({
+                value,
+                label: key,
+                key: crypto.randomUUID(),
+            }));
+            // console.log(theValues);
+            return theValues;
+        });
+
+        const blogValues = swrBlog.pages.home.blogPages.map((page) => {
+            const pageValues = Object.entries(page).map(([key, value]) => {
+                return {
+                    value,
+                    label: key,
+                    key: crypto.randomUUID(),
+                };
+            });
+            // console.log(pageValues);
+            return pageValues;
+        });
+        const heroValues = swrBlog.pages.home.hero.map((page) => {
+            const theValues = Object.entries(page).map(([key, value]) => ({
+                value,
+                label: key,
+                key: crypto.randomUUID(),
+            }));
+            // console.log(theValues);
+            return theValues;
+        });
+
+        setNavBarInputValues([...navBarValues]);
+        setFooterValues([...footerValues]);
+        setBlogPagesValues([...blogValues]);
+        setHeroValues([...heroValues]);
+        setBlog(swrBlog);
+    }, [swrBlog]);
+    // getBlog(blogId).then((blog) => {
+    //     // console.log(blog);
+
+    //     const navBarValues = blog.pages.home.navBar.map((page) => {
+    //         const theValues = Object.entries(page).map(([key, value]) => ({
+    //             value,
+    //             label: key,
+    //             key: crypto.randomUUID(),
+    //         }));
+    //         // console.log(theValues);
+    //         return theValues;
+    //     });
+
+    //     const footerValues = blog.pages.home.footer.map((page) => {
+    //         const theValues = Object.entries(page).map(([key, value]) => ({
+    //             value,
+    //             label: key,
+    //             key: crypto.randomUUID(),
+    //         }));
+    //         // console.log(theValues);
+    //         return theValues;
+    //     });
+
+    //     const blogValues = blog.pages.home.blogPages.map((page) => {
+    //         const pageValues = Object.entries(page).map(([key, value]) => {
+    //             return {
+    //                 value,
+    //                 label: key,
+    //                 key: crypto.randomUUID(),
+    //             };
+    //         });
+    //         // console.log(pageValues);
+    //         return pageValues;
+    //     });
+    //     const heroValues = blog.pages.home.hero.map((page) => {
+    //         const theValues = Object.entries(page).map(([key, value]) => ({
+    //             value,
+    //             label: key,
+    //             key: crypto.randomUUID(),
+    //         }));
+    //         // console.log(theValues);
+    //         return theValues;
+    //     });
+
+    //     setNavBarInputValues([...navBarValues]);
+    //     setFooterValues([...footerValues]);
+    //     setBlogPagesValues([...blogValues]);
+    //     setHeroValues([...heroValues]);
+    //     setBlog(blog);
+    // });
+    // }, []);
 
     const saveChangesClick = async () => {
         // editBlog(blog)
