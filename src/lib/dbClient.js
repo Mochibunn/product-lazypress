@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useAuth } from "@clerk/clerk-react";
 
 const backend = "http://localhost:24601";
 
@@ -35,4 +36,36 @@ const editBlog = async (blog) => {
     }
 };
 
-export { getSites, getBlog, editBlog };
+const getAuth = async () => {
+    const { getToken } = useAuth();
+    try {
+        const sessToken = await getToken();
+        const { data } = await axios.get(
+            `${backend}/blogs/protected/endpoint`,
+            {
+                headers: { Authorization: `Bearer ${sessToken}` },
+            }
+        );
+        return data;
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+// const editBlogAuthTest = async (blog) => {
+//     const {getToken} = useAuth();
+//     const { pages, dashboard, clerkUser, clerkUserId } = blog;
+//     try {
+//         const response = await axios.post(`${backend}/blogs/protected/endpoint`, {
+//             pages,
+//             dashboard,
+//             clerkUser,
+//             clerkUserId,
+//         });
+//         return response;
+//     } catch (error) {
+//         console.error(error);
+//     }
+// };
+
+export { getSites, getBlog, editBlog, getAuth };
