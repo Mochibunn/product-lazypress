@@ -22,9 +22,9 @@ export default function NavBar() {
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
-      const isPast100vh = scrollPosition > window.innerHeight;
+      const isPast150vh = scrollPosition > window.innerHeight;
 
-      setIsGlass(isPast100vh);
+      setIsGlass(isPast150vh);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -38,22 +38,22 @@ export default function NavBar() {
   return (
     <Navbar className={`${isGlass ? 'glassNavBarMaterial' : 'transparentNavBar'}`} isBlurred='false'>
       <NavbarBrand>
-        <NavLink to="/" className="font-bold text-slate-200 text-3xl">
+        <NavLink to="/" className="font-bold text-slate-200 text-3xl neonText"  style={{fontFamily:'Nick'}}>
           LazyPress
         </NavLink>
       </NavbarBrand>
-      <NavbarContent className="hidden sm:flex gap-4" justify="center">
+      <NavbarContent className="hidden sm:flex gap-4" justify="center" style={{fontFamily:'Helvetica'}}>
         <Dropdown>
           <NavbarItem>
             <DropdownTrigger>
               <Button
                 disableRipple
-                className="p-0 bg-transparent data-[hover=true]:bg-transparent font-bold text-slate-200"
+                className="p-0 bg-transparent data-[hover=true]:bg-transparent text-slate-20 neonText"
                 // endContent={icons.chevron}
                 radius="sm"
                 variant="light"
               >
-                Contact Us
+                Contact
               </Button>
             </DropdownTrigger>
           </NavbarItem>
@@ -101,24 +101,7 @@ export default function NavBar() {
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>
-        <NavbarItem>
-          <Link
-            href="#"
-            aria-current="page"
-            className="font-bold text-slate-200"
-          >
-            About
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link
-            color="foreground"
-            href="#"
-            className="font-bold text-slate-200"
-          >
-            FEATURES
-          </Link>
-        </NavbarItem>
+       
         {isSignedIn && (
           <NavbarItem>
             <Link
@@ -143,7 +126,7 @@ export default function NavBar() {
                   as={Link}
                   color="secondary"
                   href="sign-up"
-                  className="bg-sky-800 text-white font-bold"
+                  className="bg-sky-800 text-white font-bold buttonGradient neonBoxShadow"
                 >
                   Sign Up
                 </Button>
@@ -154,7 +137,7 @@ export default function NavBar() {
                   // color="primary"
                   href="sign-in"
                   variant="flat"
-                  className="bg-white text-black font-bold"
+                  className="bg-white text-black font-bold buttonGradient neonBoxShadow"
                 >
                   Sign In
                 </Button>

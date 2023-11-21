@@ -1,3 +1,13 @@
+@font-face {
+  font-family: 'Plaza';
+  src: url('./assets/fonts/PlazaFont.otf');
+}
+
+@font-face {
+  font-family: 'Nick';
+  src: url('./assets/fonts/Nick.otf');
+}
+
 
 @font-face {
     font-family: "Montserrat";
@@ -15,11 +25,11 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: "Barlow Condensed", sans-serif;
+    font-family: "Plaza", sans-serif;
   }
   
   button {
-    font-family: "Barlow Condensed";
+    font-family: "Plaza";
 }
 @tailwind base;
 @tailwind components;
@@ -39,4 +49,104 @@ z-index: 1000;
   background: transparent !important;
   transition: background 0.5s ease-in-out !important; 
   z-index: 1000; 
+}
+
+.glassButton {
+  background: rgba(255, 255, 255, 0.29);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(5px);
+-webkit-backdrop-filter: blur(5px);
+z-index: 1000; 
+}
+
+.neon-text-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: transparent;
+}
+
+.neon-text {
+  font-size: 5rem;
+  color: #AEE5D8;
+  text-shadow: 0 0 10px rgba(255, 255, 0, 0.8), 0 0 20px rgba(255, 255, 0, 0.8), 0 0 30px rgba(255, 255, 0, 0.8);
+  animation: neonBuzz 1s linear infinite alternate;
+  margin-bottom: -5vh
+}
+
+@keyframes neonBuzz {
+  from {
+    text-shadow: 0 0 10px rgba(255, 255, 0, 0.8), 0 0 20px rgba(255, 255, 0, 0.8), 0 0 30px rgba(255, 255, 0, 0.8);
+  }
+  to {
+    text-shadow: 0 0 20px rgba(255, 255, 0, 0.8), 0 0 40px rgba(255, 255, 0, 0.8), 0 0 60px rgba(255, 255, 0, 0.8);
+  }
+}
+
+.buttonGSGradient {
+  appearance: none;
+  background: linear-gradient(to right, #E5D0E3 0%, #FFD700 50%, #FF6347 100%);
+  background-size: 100%;
+  border: none;
+  border-radius: 5rem;
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+  color: black;
+  cursor: pointer;
+  font: 1.2rem 'Helvetica', sans-serif;
+  height: 4rem;
+  letter-spacing: .05em;
+  outline: none;
+  user-select: none;
+  width: 15rem;
+}
+
+
+.buttonGradient {
+  appearance: none;
+  background: linear-gradient(to right, #E5D0E3 0%, #FFD700 50%, #FF6347 100%);
+  background-size: 200%;
+  border: none;
+  border-radius: 5rem;
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+  color: black;
+  cursor: pointer;
+  font: 1rem 'Helvetica', sans-serif;
+  height: 3rem;
+  letter-spacing: .05em;
+  outline: none;
+  user-select: none;
+  width: 8rem;
+}
+
+.buttonGradient:hover {
+  animation-name: gradient;
+  animation-duration: 2s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+
+.neonText {
+  text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #00f, 0 0 70px #00f, 0 0 80px #00f, 0 0 100px #00f, 0 0 150px #00f;
+}
+
+
+.neonBoxShadow {
+  box-shadow: 0 0 10px #fff;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.neonBoxShadow:hover {
+  box-shadow: none;
 }
