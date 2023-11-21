@@ -21,20 +21,41 @@ const getBlog = async (blogId) => {
     }
 };
 
-const editBlog = async (blog) => {
+const editBlog = async (sessToken, blog) => {
     const { _id, pages, dashboard, clerkUser, clerkUserId } = blog;
     try {
-        const response = await axios.put(`${backend}/blogs/${_id}`, {
-            pages,
-            dashboard,
-            clerkUser,
-            clerkUserId,
-        });
+        const response = await axios.put(
+            `${backend}/blogs/${_id}`,
+            {
+                pages,
+                dashboard,
+                clerkUser,
+                clerkUserId,
+            },
+            {
+                headers: { Authorization: `Bearer ${sessToken}` },
+            }
+        );
         return response;
     } catch (error) {
         console.error(error);
     }
 };
+
+// const editBlog = async (blog) => {
+//     const { _id, pages, dashboard, clerkUser, clerkUserId } = blog;
+//     try {
+//         const response = await axios.put(`${backend}/blogs/${_id}`, {
+//             pages,
+//             dashboard,
+//             clerkUser,
+//             clerkUserId,
+//         });
+//         return response;
+//     } catch (error) {
+//         console.error(error);
+//     }
+// };
 
 const getAuth = async (sessToken) => {
     // const { getToken } = useAuth();
@@ -57,7 +78,7 @@ const editBlogAuth = async (sessToken, blog) => {
     const { pages, dashboard, clerkUser, clerkUserId } = blog;
     try {
         // const sessToken = await getToken();
-        const response = await axios.post(
+        const { data } = await axios.post(
             `${backend}/blogs/protected/endpoint`,
             {
                 pages,
@@ -69,7 +90,7 @@ const editBlogAuth = async (sessToken, blog) => {
                 headers: { Authorization: `Bearer ${sessToken}` },
             }
         );
-        return response;
+        return data;
     } catch (error) {
         console.error(error);
     }

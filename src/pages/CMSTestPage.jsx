@@ -70,24 +70,23 @@ export default function CMSTestPage() {
         });
     }, []);
 
-    // blog &&
-    //     editBlogAuth(blog).then((res) =>
-    //         console.log("came from protected route", res)
-    //     );
-    useEffect(() => {
-        getToken().then((token) => {
-            getAuth(token).then((res) => console.log(res));
-            blog &&
-                editBlogAuth(token, blog).then((res) =>
-                    console.log("came from protected route", res)
-                );
-        });
-    }, [blog]);
-
-    const saveChangesClick = () => {
-        editBlog(blog)
-            .then((response) => console.log(response))
-            .catch((err) => console.error(err));
+    const saveChangesClick = async () => {
+        // editBlog(blog)
+        //     .then((response) => console.log(response))
+        //     .catch((err) => console.error(err));
+        try {
+            const sessToken = await getToken();
+            editBlog(sessToken, blog).then((res) =>
+                console.log("came from protected route", res)
+            );
+        } catch (error) {
+            console.error(error);
+        }
+        // getToken().then((token) => {
+        //     editBlogAuth(token, blog).then((res) =>
+        //         console.log("came from protected route", res)
+        //     );
+        // });
     };
 
     return (
@@ -170,3 +169,30 @@ export default function CMSTestPage() {
                 blog={blog}
                 setBlog={setBlog}
             /> */
+
+//Tests for figuring out how to use useEffect with async/await and to fetch needed data
+// blog &&
+//     editBlogAuth(blog).then((res) =>
+//         console.log("came from protected route", res)
+//     );
+// useEffect(() => {
+//     (async () => {
+//         try {
+//             const sessToken = await getToken();
+//             getAuth(sessToken).then((res) => console.log(res));
+//             blog &&
+//                 editBlogAuth(sessToken, blog).then((res) =>
+//                     console.log("came from protected route", res)
+//                 );
+//         } catch (error) {
+//             console.error(error);
+//         }
+//     })();
+//     // getToken().then((token) => {
+//     //     getAuth(token).then((res) => console.log(res));
+//     //     blog &&
+//     //         editBlogAuth(token, blog).then((res) =>
+//     //             console.log("came from protected route", res)
+//     //         );
+//     // });
+// }, [blog]);
