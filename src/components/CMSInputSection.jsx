@@ -47,7 +47,7 @@ export default function CMSInputSection({
 
     return (
         <div className="my-2 border-2 border-black flex flex-col w-3/4">
-            <h3>Page {`${sectionIndex + 1}`}</h3>
+            <h3 className="text-xl font-bold">Page {`${sectionIndex + 1}`}</h3>
             <form onSubmit={editSection}>
                 {array &&
                     array.map((obj, i) => {
