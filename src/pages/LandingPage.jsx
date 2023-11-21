@@ -8,7 +8,7 @@ import { useClerkSWR } from "../lib/swr";
 import { getAuth } from "../lib/dbClient";
 
 export default function LandingPage() {
-    getAuth().then((res) => console.log(res));
+    // getAuth().then((res) => console.log(res));
 
     // console.log(useClerkSWR("http://localhost:24601/blogs/protected/endpoint"));
     return (

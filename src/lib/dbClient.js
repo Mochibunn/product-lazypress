@@ -36,10 +36,10 @@ const editBlog = async (blog) => {
     }
 };
 
-const getAuth = async () => {
-    const { getToken } = useAuth();
+const getAuth = async (sessToken) => {
+    // const { getToken } = useAuth();
     try {
-        const sessToken = await getToken();
+        // const sessToken = await getToken();
         const { data } = await axios.get(
             `${backend}/blogs/protected/endpoint`,
             {
@@ -52,20 +52,27 @@ const getAuth = async () => {
     }
 };
 
-// const editBlogAuthTest = async (blog) => {
-//     const {getToken} = useAuth();
-//     const { pages, dashboard, clerkUser, clerkUserId } = blog;
-//     try {
-//         const response = await axios.post(`${backend}/blogs/protected/endpoint`, {
-//             pages,
-//             dashboard,
-//             clerkUser,
-//             clerkUserId,
-//         });
-//         return response;
-//     } catch (error) {
-//         console.error(error);
-//     }
-// };
+const editBlogAuth = async (sessToken, blog) => {
+    // const { getToken } = useAuth();
+    const { pages, dashboard, clerkUser, clerkUserId } = blog;
+    try {
+        // const sessToken = await getToken();
+        const response = await axios.post(
+            `${backend}/blogs/protected/endpoint`,
+            {
+                pages,
+                dashboard,
+                clerkUser,
+                clerkUserId,
+            },
+            {
+                headers: { Authorization: `Bearer ${sessToken}` },
+            }
+        );
+        return response;
+    } catch (error) {
+        console.error(error);
+    }
+};
 
-export { getSites, getBlog, editBlog, getAuth };
+export { getSites, getBlog, editBlog, getAuth, editBlogAuth };
