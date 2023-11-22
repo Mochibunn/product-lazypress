@@ -21,11 +21,16 @@ export default function CMSTestPage() {
 
     useEffect(() => {
         if (!swrBlog) return;
-        console.log("swrBlog", swrBlog);
+        setBlog(swrBlog);
+    }, [swrBlog]);
+
+    useEffect(() => {
+        if (!blog) return;
+        console.log("blog", blog);
 
         // console.log(blog);
 
-        const navBarValues = swrBlog.pages.home.navBar.map((page) => {
+        const navBarValues = blog.pages.home.navBar.map((page) => {
             const theValues = Object.entries(page).map(([key, value]) => ({
                 value,
                 label: key,
@@ -35,7 +40,7 @@ export default function CMSTestPage() {
             return theValues;
         });
 
-        const footerValues = swrBlog.pages.home.footer.map((page) => {
+        const footerValues = blog.pages.home.footer.map((page) => {
             const theValues = Object.entries(page).map(([key, value]) => ({
                 value,
                 label: key,
@@ -45,7 +50,7 @@ export default function CMSTestPage() {
             return theValues;
         });
 
-        const blogValues = swrBlog.pages.home.blogPages.map((page) => {
+        const blogValues = blog.pages.home.blogPages.map((page) => {
             const pageValues = Object.entries(page).map(([key, value]) => {
                 return {
                     value,
@@ -56,7 +61,7 @@ export default function CMSTestPage() {
             // console.log(pageValues);
             return pageValues;
         });
-        const heroValues = swrBlog.pages.home.hero.map((page) => {
+        const heroValues = blog.pages.home.hero.map((page) => {
             const theValues = Object.entries(page).map(([key, value]) => ({
                 value,
                 label: key,
@@ -70,8 +75,8 @@ export default function CMSTestPage() {
         setFooterValues([...footerValues]);
         setBlogPagesValues([...blogValues]);
         setHeroValues([...heroValues]);
-        setBlog(swrBlog);
-    }, [swrBlog]);
+        // setBlog(swrBlog);
+    }, [blog]);
     // getBlog(blogId).then((blog) => {
     //     // console.log(blog);
 
