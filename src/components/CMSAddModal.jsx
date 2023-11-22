@@ -9,22 +9,22 @@ import {
     useDisclosure,
 } from "@nextui-org/react";
 
+// import { mutate } from "swr";
+import { produce } from "immer";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useBlog } from "../lib/swr";
 
 export default function CMSAddModal({ sectionTitle }) {
     const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
-    const [backdrop, setBackdrop] = useState("blur");
-
-    backdrop;
-    const handleOpen = (backdrop) => {
-        setBackdrop(backdrop);
-        onOpen();
-    };
+    const { blogId } = useParams();
+    const { swrBlog, mutateBlog } = useBlog(blogId);
 
     const [form, setForm] = useState({
-        email: "",
-        password: "",
+        imgUrl: "",
+        title: "",
+        text: "",
+        button: "",
     });
 
     const navigate = useNavigate();
@@ -35,35 +35,43 @@ export default function CMSAddModal({ sectionTitle }) {
     };
 
     const handleSubmit = () => {
-        if (!form.email || !form.password)
-            return alert("Please enter a valid email and password!");
-        //imported now-expects object as argument
-        signInUser(form)
-            .then((userData) => {
-                let test = userData;
-                if (userData.length) {
-                    setUser(userData);
-                } else {
-                    setUser(false);
-                }
-                return test;
-                // userData.length ? setUser(userData) : setUser(false);
-            })
-            .then((test) => {
-                if (!test.length) return alert("Invalid email or password!");
-                setForm({
-                    email: "",
-                    password: "",
-                });
-                navigate("/");
-                onOpenChange();
-            })
-            .catch((error) => console.error(error));
+        console.log(form);
+        console.log(swrBlog.pages.home.blogPages);
+        mutateBlog(
+            produce((draftBlog) => {
+                draftBlog.pages.home.blogPages.push(form);
+            }),
+            { optimisticData: swrBlog, revalidate: false }
+        );
+        // if (!form.email || !form.password)
+        //     return alert("Please enter a valid email and password!");
+        // //imported now-expects object as argument
+        // signInUser(form)
+        //     .then((userData) => {
+        //         let test = userData;
+        //         if (userData.length) {
+        //             setUser(userData);
+        //         } else {
+        //             setUser(false);
+        //         }
+        //         return test;
+        //         // userData.length ? setUser(userData) : setUser(false);
+        //     })
+        //     .then((test) => {
+        //         if (!test.length) return alert("Invalid email or password!");
+        //         setForm({
+        //             email: "",
+        //             password: "",
+        //         });
+        //         navigate("/");
+        //         onOpenChange();
+        //     })
+        //     .catch((error) => console.error(error));
     };
 
     return (
         <>
-            <div onClick={() => handleOpen(`blur`)}>Add new thing</div>
+            <div onClick={() => onOpen()}>Add to {sectionTitle}</div>
             <Modal
                 isOpen={isOpen}
                 backdrop="blur"
@@ -85,34 +93,47 @@ export default function CMSAddModal({ sectionTitle }) {
                                     }}
                                     autoComplete="off"
                                 >
-                                    <Input
-                                        isRequired
-                                        autoFocus
-                                        placeholder="Enter your email"
-                                        label="Email"
-                                        name="email"
-                                        type="email"
-                                        variant="bordered"
-                                        // isInvalid={
-                                        //     !form.email ? true : isInvalid
-                                        // }
-                                        // color={isInvalid ? "danger" : "success"}
-                                        // errorMessage={
-                                        //     isInvalid &&
-                                        //     "Please enter a valid email"
-                                        // }
-                                        value={form.email}
-                                        onChange={handleChange}
-                                    />
-                                    <Input
-                                        isRequired
-                                        placeholder="Enter your password"
-                                        label="Password"
-                                        name="password"
-                                        variant="bordered"
-                                        value={form.password}
-                                        onChange={handleChange}
-                                    />
+                                    {
+                                        <>
+                                            <Input
+                                                autoFocus
+                                                placeholder="Enter a valid url in .jpeg or .png format"
+                                                label="Banner Image"
+                                                labelPlacement="outside"
+                                                name="imgUrl"
+                                                variant="bordered"
+                                                value={form.email}
+                                                onChange={handleChange}
+                                            />
+                                            <Input
+                                                placeholder="Enter a title for the page"
+                                                label="Page Title"
+                                                labelPlacement="outside"
+                                                name="title"
+                                                variant="bordered"
+                                                value={form.password}
+                                                onChange={handleChange}
+                                            />
+                                            <Input
+                                                placeholder="Enter a short description of the page"
+                                                label="Summary"
+                                                labelPlacement="outside"
+                                                name="text"
+                                                variant="bordered"
+                                                value={form.password}
+                                                onChange={handleChange}
+                                            />
+                                            <Input
+                                                placeholder="Some text for the button linking to the page"
+                                                label="Button Text"
+                                                labelPlacement="outside"
+                                                name="button"
+                                                variant="bordered"
+                                                value={form.password}
+                                                onChange={handleChange}
+                                            />
+                                        </>
+                                    }
                                 </form>
                             </ModalBody>
                             <ModalFooter>
@@ -121,10 +142,10 @@ export default function CMSAddModal({ sectionTitle }) {
                                     variant="flat"
                                     onPress={onClose}
                                 >
-                                    Close
+                                    Cancel
                                 </Button>
                                 <Button color="primary" onPress={handleSubmit}>
-                                    Sign in
+                                    Add Page
                                 </Button>
                             </ModalFooter>
                         </>

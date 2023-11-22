@@ -21,7 +21,7 @@ export default function CMSTestPage() {
 
     useEffect(() => {
         if (!swrBlog) return;
-        console.log(swrBlog);
+        console.log("swrBlog", swrBlog);
 
         // console.log(blog);
 
