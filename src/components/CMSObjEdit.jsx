@@ -1,5 +1,6 @@
-import { useMemo } from "react";
+import { Button } from "@nextui-org/react";
 import CMSInputSection from "./CMSInputSection";
+import CMSAddModal from "./CMSAddModal";
 
 export default function CMSObjEdit({
     sectionTitle,
@@ -15,6 +16,11 @@ export default function CMSObjEdit({
             {sectionValues && (
                 <div>
                     <h3>{sectionTitle}</h3>
+                    {(section === "blogPages" || section === "hero") && (
+                        <Button>
+                            <CMSAddModal sectionTitle={sectionTitle} />
+                        </Button>
+                    )}
 
                     {sectionValues.map((page, i) => {
                         return (
