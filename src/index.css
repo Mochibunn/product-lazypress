@@ -4,6 +4,16 @@
 }
 
 @font-face {
+  font-family: 'Lemon Milk';
+  src: url('./assets/fonts/LemonMilk.otf');
+}
+
+@font-face {
+  font-family: 'Mom Cake';
+  src: url('./assets/fonts/MomCake.otf');
+}
+
+@font-face {
   font-family: 'Nick';
   src: url('./assets/fonts/Nick.otf');
 }
@@ -21,11 +31,11 @@
   }
   
   body {
-    font-family: "Montserrat", sans-serif;
+    font-family: "Mom Cake", sans-serif;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: "Plaza", sans-serif;
+    font-family: "Lemon Milk", sans-serif;
   }
   
   button {
@@ -53,12 +63,22 @@ z-index: 1000;
 
 .glassButton {
   background: rgba(255, 255, 255, 0.29);
-border-radius: 16px;
-box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-backdrop-filter: blur(5px);
--webkit-backdrop-filter: blur(5px);
-z-index: 1000; 
+  border: none;
+  border-radius: 5rem;
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+  font: 1rem 'Mom Cake', sans-serif;
+  height: 2.5rem;
+  letter-spacing: .05em;
+  outline: none;
+  user-select: none;
+  width: 6rem;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  z-index: 1000;
 }
+
 
 .neon-text-container {
   display: flex;
@@ -70,31 +90,31 @@ z-index: 1000;
 
 .neon-text {
   font-size: 5rem;
-  color: #AEE5D8;
-  text-shadow: 0 0 10px rgba(255, 255, 0, 0.8), 0 0 20px rgba(255, 255, 0, 0.8), 0 0 30px rgba(255, 255, 0, 0.8);
+  color: #df8ff5;
+  text-shadow: 0 0 10px rgba(174, 41, 138, 0.8), 0 0 20px rgba(131, 215, 228, 0.8), 0 0 30px rgba(230, 0, 255, 0.8);
   animation: neonBuzz 1s linear infinite alternate;
   margin-bottom: -5vh
 }
 
 @keyframes neonBuzz {
   from {
-    text-shadow: 0 0 10px rgba(255, 255, 0, 0.8), 0 0 20px rgba(255, 255, 0, 0.8), 0 0 30px rgba(255, 255, 0, 0.8);
+    text-shadow: 0 0 10px #b400a5cf, 0 0 20px rgba(255, 0, 230, 0.8), 0 0 30px rgba(255, 0, 208, 0.8);
   }
   to {
-    text-shadow: 0 0 20px rgba(255, 255, 0, 0.8), 0 0 40px rgba(255, 255, 0, 0.8), 0 0 60px rgba(255, 255, 0, 0.8);
+    text-shadow: 0 0 20px rgba(247, 0, 255, 0.8), 0 0 40px rgba(212, 0, 255, 0.8), 0 0 60px rgba(255, 0, 247, 0.8);
   }
 }
 
 .buttonGSGradient {
   appearance: none;
-  background: linear-gradient(to right, #E5D0E3 0%, #FFD700 50%, #FF6347 100%);
+  background: linear-gradient(to right, #AEE5D8 0%, #FFD700 50%, #E5D0E3 100%);
   background-size: 100%;
   border: none;
   border-radius: 5rem;
-  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
-  color: black;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, .3);
+  color: rgb(0, 0, 0);
   cursor: pointer;
-  font: 1.2rem 'Helvetica', sans-serif;
+  font: 1.2rem 'Mom Cake', sans-serif;
   height: 4rem;
   letter-spacing: .05em;
   outline: none;
@@ -105,19 +125,19 @@ z-index: 1000;
 
 .buttonGradient {
   appearance: none;
-  background: linear-gradient(to right, #E5D0E3 0%, #FFD700 50%, #FF6347 100%);
-  background-size: 200%;
+  background: linear-gradient(to right, #AEE5D8 0%, #FFD700 50%, #E5D0E3 100%);
+  background-size: 100%;
   border: none;
   border-radius: 5rem;
   box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
-  color: black;
+  color: rgb(0, 0, 0);
   cursor: pointer;
-  font: 1rem 'Helvetica', sans-serif;
-  height: 3rem;
+  font: 1rem 'Mom Cake', sans-serif;
+  height: 2.5rem;
   letter-spacing: .05em;
   outline: none;
   user-select: none;
-  width: 8rem;
+  width: 6rem;
 }
 
 .buttonGradient:hover {
@@ -138,7 +158,7 @@ z-index: 1000;
 
 
 .neonText {
-  text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #00f, 0 0 70px #00f, 0 0 80px #00f, 0 0 100px #00f, 0 0 150px #00f;
+  text-shadow: 0 0 5px #636262
 }
 
 
@@ -150,3 +170,102 @@ z-index: 1000;
 .neonBoxShadow:hover {
   box-shadow: none;
 }
+
+
+.jellyButton {
+  cursor: pointer;
+  position: relative;
+  padding: 2.5rem 7.5rem;
+  border-radius: 3.75rem;
+  line-height: 2.5rem;
+  font-size: 2rem;
+  font-weight: 600;
+  background-image: linear-gradient(-180deg, #aee5d8 0%, #E5D0E3 100%);
+  box-shadow: 0 1rem 1.25rem 0 rgba(22, 75, 195, 0.50),
+    0 -0.25rem 1.5rem rgba(110, 15, 155, 1) inset,
+    0 0.75rem 0.5rem rgba(255, 255, 255, 0.4) inset,
+    0 0.25rem 0.5rem 0 #b446cf inset;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  width:6rem;
+  height:2.5rem;
+  color:black;
+  
+}
+
+.jellyButtonNavBar {
+  cursor: pointer;
+  position: relative;
+  border-radius: 5rem;
+  font: 1rem 'Mom Cake', sans-serif;
+  font-weight: 600;
+  background-image: linear-gradient(-180deg, #AEE5D8 0%, #E5D0E3 100%);
+  box-shadow: 0 1rem 1.25rem 0 rgba(22, 75, 195, 0.50),
+    0 -0.25rem 1.5rem rgba(110, 15, 155, 1) inset,
+    0 0.75rem 0.5rem rgba(255, 255, 255, 0.4) inset,
+    0 0.25rem 0.5rem 0 rgba(180, 70, 207, 1) inset;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  color: black;
+  width: 6rem;
+  height: 2.5rem;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  z-index: 1000;
+  letter-spacing: .05em;
+}
+
+
+
+.jellyButton:hover {
+  transform: scale(1.02); 
+  box-shadow: 0 1.5rem 2rem 0 rgba(22, 75, 195, 0.6), 
+    0 -0.5rem 2rem rgba(110, 15, 155, 1) inset,
+    0 1rem 1rem rgba(255, 255, 255, 0.4) inset,
+    0 0.5rem 1rem 0 rgba(180, 70, 207, 1) inset;
+}
+
+.jellyButton span {
+  color: transparent;
+  background-image: linear-gradient(0deg, #EE82DA 0%, #FEFAFD 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 2px 2px hsla(290, 100%, 20%, 1));
+}
+
+.jellyButton::before,
+.jellyButton::after {
+  content: "";
+  display: block;
+  height: 0.25rem;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 7.5rem);
+  background: #fff;
+  border-radius: 100%;
+}
+
+.jellyButton::before {
+  top: 0.5rem;
+  opacity: 0.7;
+  background-image: linear-gradient(
+    -270deg,
+    rgba(255, 255, 255, 0.00) 0%,
+    #FFFFFF 20%,
+    #FFFFFF 80%,
+    rgba(255, 255, 255, 0.00) 100%
+  );
+}
+
+.jellyButton::after {
+  bottom: 0.75rem;
+  filter: blur(1px);
+  opacity: 0.05;
+  background-image: linear-gradient(
+    -270deg,
+    rgba(255, 255, 255, 0.00) 0%,
+    #FFFFFF 20%,
+    #FFFFFF 80%,
+    rgba(255, 255, 255, 0.00) 100%
+  );
+}
+
