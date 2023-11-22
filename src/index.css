@@ -1,28 +1,23 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap");
-@import url("https://fonts.google.com/?query=Barlow+Condensed");
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 @font-face {
   font-family: "Montserrat";
-  src: url("https://fonts.gstatic.com/s/montserrat/v15/JTURjIg1_i6t8kCHKm45_bZF3g3D_u50.woff2");
+  src: url("");
 }
-
+/* https://fonts.googleapis.com/css2?family=Montserrat&display=swap */
 @font-face {
   font-family: "Barlow Condensed";
-  src: url("https://fonts.gstatic.com/s/barlowcondensed/v7/wlphgxjLBV1hqnzfr-4cffMp6Tg6kgZ-v2rvL4A.woff2");
+  src: url("");
 }
-
+/* https://fonts.googleapis.com/css2?family=Barlow+Condensed&display=swap */
 body {
   font-family: "Montserrat", sans-serif;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, h2, h3, h4, h5, h6 {
   font-family: "Barlow Condensed", sans-serif;
 }
