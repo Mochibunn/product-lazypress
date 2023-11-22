@@ -24,7 +24,6 @@ export default function CMSObjEdit({
                             />
                         </Button>
                     )}
-
                     {sectionValues.map((page, i) => {
                         return (
                             <CMSInputSection

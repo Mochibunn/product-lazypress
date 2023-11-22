@@ -94,10 +94,11 @@ export default function NavBar() {
         <NavbarItem>
           <Link
             color="foreground"
-            href="#"
+            // to="contactus"
+            href="contactus"
             className="font-bold text-slate-200"
           >
-            FEATURES
+            CONTACT US
           </Link>
         </NavbarItem>
         {isSignedIn && (
