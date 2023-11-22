@@ -4,60 +4,53 @@ import Lottie from "lottie-react";
 import animationData from '../assets/animations/sleepingCat.json';
 import moon from '../assets/animations/Moon.json';
 import sun from '../assets/animations/Sun.json';
-import bgImage from '../assets/images/LandingBG.png';
-import morningImage from '../assets/images/MorningBG.jpg';
-import { Animator, MoveOut, ScrollContainer, ScrollPage,batch,FadeIn,MoveIn } from 'react-scroll-motion';
-import BlackPodium from '../assets/images/BlackPodium.jpg';
-import MoonPodium from '../assets/images/MoonPodium.jpeg';
-import APodium from '../assets/images/APodium.jpeg';
+import { Animator, MoveOut, ScrollContainer, ScrollPage, batch, FadeIn, MoveIn } from 'react-scroll-motion';
 import DShapeA from '../assets/images/3DShape1.jpg';
-import DShapeB from '../assets/images/3DShape2.jpg';
-import DShapeC from '../assets/images/3DShape3.jpg';
-import Galaxy from '../assets/images/Galaxy.jpg';
-import ScrollDown from '../assets/animations/ScrollDown.json';
 import { motion } from 'framer-motion';
 
 export default function HeroBanner() {
-
   const [moonRotation, setMoonRotation] = useState(0);
   const [moonTranslation, setMoonTranslation] = useState(0);
-  
+  const [sunOpacity, setSunOpacity] = useState(1);
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
-      
-      const rotation = scrollPosition * 0.3; 
+      const rotation = scrollPosition * 0.3;
       const translation = scrollPosition * 0.15;
+  
+      
+      const moonTouchOffset = 150; 
+      const opacity = Math.max(0, Math.min(1, 2 - (scrollPosition - moonTouchOffset) / window.innerHeight));
+  
+      setSunOpacity(opacity);
       setMoonRotation(rotation);
       setMoonTranslation(translation);
     };
-
+  
     window.addEventListener('scroll', handleScroll);
-
+  
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-
- 
-
+  
 
   return (
     <>
-    <ScrollContainer>
-      <ScrollPage  style={{ height: '300vh', overflow: 'hidden', marginTop:'-9vh' }}>
-        <div
-          className="w-full h-[150vh] overflow-hidden "
-          style={{
-            backgroundImage: `url(${DShapeA})`,
-            backgroundSize: "cover",
-            backgroundRepeat: "no-repeat",
-            transition: 'transform 0.3s ease',
-            position: 'relative',
-          }}
-        >
-          <div 
+      <ScrollContainer>
+        <ScrollPage style={{ height: '300vh', overflow: 'hidden', marginTop: '-9vh' }}>
+          <div
+            className="w-full h-[150vh] overflow-hidden "
+            style={{
+              backgroundImage: `url(${DShapeA})`,
+              backgroundSize: "cover",
+              backgroundRepeat: "no-repeat",
+              transition: 'transform 0.3s ease',
+              position: 'relative',
+            }}
+          >
+             <div 
                 style={{
                   position: 'absolute',
                   top: 0,
@@ -77,7 +70,7 @@ export default function HeroBanner() {
               <motion.div 
               initial={{ opacity: 0, y: 0 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 4 }} 
+              transition={{ duration: 3 }} 
               className="neon-text-container flex flex-col justify-between gap-3">
                 <h1 className="text-6xl font-extrabold tracking-wide neon-text" style={{ textAlign: 'initial', fontFamily: 'Lemon Milk', fontSize: '6rem' }}>
                   You Sleep <br /> We Code
@@ -89,46 +82,42 @@ export default function HeroBanner() {
             </Animator>
           </div>
         </div>
-        <div
-          className="w-screen h-[150vh] overflow-hidden"
-          style={{
-            backgroundImage: `url(${DShapeA})`,
-            backgroundSize: "cover",
-            backgroundRepeat: "no-repeat",
-            marginTop: '-9vh',
-            transition: 'transform 0.3s ease',
-            transform: 'scaleY(-1)',
-            position: 'relative',
-          
-          }}
-        >
-          <div 
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  width: '100%',
-                  height: '141vh',
-                  backdropFilter: 'blur(4px)',
-                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                  zIndex: 1,
-                }}
-              ></div>
-          <Lottie animationData={sun} style={{zIndex:'1000', transform: 'scaleY(-1)',width:'800px',marginLeft:'45vw', marginTop: `calc(175vh - ${moonTranslation}vh)`}}/>
-        </div>
-        <div className="text-white  flex justify-center items-center" style={{marginTop:'250vh'}}>
-  <h1 className="text-6xl font-extrabold tracking-wide text-black" style={{ fontFamily: 'Mom Cake', fontSize: '8rem', zIndex:'1000' }}>
-    Building Your Online World with Built-In Easy Maintenance
-  </h1>
-</div>
+          <div
+            className="w-screen h-[150vh] overflow-hidden"
+            style={{
+              backgroundImage: `url(${DShapeA})`,
+              backgroundSize: "cover",
+              backgroundRepeat: "no-repeat",
+              marginTop: '-9vh',
+              transition: 'transform 0.3s ease',
+              transform: 'scaleY(-1)',
+              position: 'relative',
+            }}
+          >
+            <div
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '141vh',
+                zIndex: 1,
+                opacity: sunOpacity, 
+                backgroundColor: 'black', 
+              }}
+            ></div>
 
-
-           
-     
-      </ScrollPage>
-    </ScrollContainer>
-     
-     
-  </>
+            <Lottie animationData={sun} style={{ zIndex: 1, transform: 'scaleY(-1)', width: '800px', marginLeft: '45vw', marginTop: `calc(175vh - ${moonTranslation}vh)` }} />
+            
+            <div className="text-center">
+              <h1 className="text-6xl font-extrabold tracking-wide text-black " style={{ fontFamily: 'Pilated', fontSize: '9rem', zIndex: '1500', position: 'absolute', transform: 'scaleY(-1)', top: '30vh', color: 'black' }}>
+                Building Your Online World <br />
+                with Built-In Easy Maintenance
+              </h1>
+            </div>
+          </div>
+        </ScrollPage>
+      </ScrollContainer>
+    </>
   );
 }

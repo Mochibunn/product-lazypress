@@ -9,6 +9,11 @@
 }
 
 @font-face {
+  font-family: 'Pilated';
+  src: url('./assets/fonts/Pilated.otf');
+}  
+
+@font-face {
   font-family: 'Mom Cake';
   src: url('./assets/fonts/MomCake.otf');
 }
@@ -269,3 +274,97 @@ z-index: 1000;
   );
 }
 
+.reveal,
+.reveal::after {
+	        animation-delay: 0;
+	        animation-delay: var(--animation-delay, 2s);
+	        animation-iteration-count: 50;
+	        animation-iteration-count: var(--iterations, 50);
+	        animation-duration: 10000ms;
+	        animation-duration: var(--duration, 10000ms);
+	        
+	        animation-timing-function: cubic-bezier(0.0, 0.0, 0.2, 1);
+}
+ 
+.reveal {
+	position: relative;
+	font-size: 6vw;
+	animation-name: text;
+	color: #FFF;
+	white-space: nowrap;
+	cursor: default;
+	text-transform: uppercase;
+	
+}
+ 
+.reveal::after {
+		content: "";
+		position: absolute;
+		z-index: 999;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: #e5e3fa;
+		        transform: scaleX(0);
+		        transform-origin: 0 50%;
+		pointer-events: none;
+		        animation-name: revealer;
+	}
+ 
+ 
+ 
+@keyframes text {
+	from {
+		        clip-path: inset(0 100% 0 0);
+	}
+	to {
+		        clip-path: inset(0 0 0 0);
+	}
+}
+ 
+ 
+ 
+ 
+@keyframes revealer {
+	
+	0%, 50% {
+		        transform-origin: 0 50%;
+	}
+	
+	60%, 100% {
+		        transform-origin: 100% 50%;		
+	}
+ 
+	
+	60% {
+		        transform: scaleX(1);
+	}
+	
+	100% {
+		        transform: scaleX(0);
+	}
+}
+ 
+ 
+ 
+ 
+@keyframes revealer {
+	
+	0%, 50% {
+		        transform-origin: 0 50%;
+	}
+	
+	60%, 100% {
+		        transform-origin: 100% 50%;		
+	}
+ 
+	
+	60% {
+		        transform: scaleX(1);
+	}
+	
+	100% {
+		        transform: scaleX(0);
+	}
+}
