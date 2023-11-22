@@ -1,10 +1,10 @@
 import {
-  Navbar,
-  NavbarBrand,
-  NavbarContent,
-  NavbarItem,
-  Link,
-  Button,
+    Navbar,
+    NavbarBrand,
+    NavbarContent,
+    NavbarItem,
+    Link,
+    Button,
 } from "@nextui-org/react";
 import { NavLink } from "react-router-dom";
 import { useUser, UserButton } from "@clerk/clerk-react";
@@ -93,4 +93,5 @@ export default function CPNavBar() {
       </NavbarContent>
     </Navbar>
   );
+
 }
