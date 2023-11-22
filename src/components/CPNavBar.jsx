@@ -12,9 +12,9 @@ import { useUser, UserButton } from "@clerk/clerk-react";
 export default function CPNavBar() {
   const { isSignedIn, isLoaded } = useUser();
   return (
-    <Navbar className="bg-[#fffd00]">
+    <Navbar className="bg-[#f39d50]">
       <NavbarBrand>
-        <NavLink to="/" className="font-bold text-black-2 text-3xl">
+        <NavLink to="/" className="font-bold text-[#2f163e] text-3xl">
           LAZYPRESS
         </NavLink>
       </NavbarBrand>
@@ -23,7 +23,7 @@ export default function CPNavBar() {
           <Link
             href="#"
             disableRipple
-            className="p-0 bg-transparent data-[hover=true]:bg-transparent font-bold text-black-2"
+            className="p-0 bg-transparent data-[hover=true]:bg-transparent font-bold text-[#2f163e]"
             radius="sm"
             variant="light"
           >
@@ -31,12 +31,20 @@ export default function CPNavBar() {
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link href="#" aria-current="page" className="font-bold text-black-2">
+          <Link
+            href="#"
+            aria-current="page"
+            className="font-bold text-[#2f163e]"
+          >
             Products
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link color="foreground" href="#" className="font-bold text-black-2">
+          <Link
+            color="foreground"
+            href="#"
+            className="font-bold text-[#2f163e]"
+          >
             Pricing
           </Link>
         </NavbarItem>
@@ -65,7 +73,7 @@ export default function CPNavBar() {
                   // color="primary"
                   href="sign-in"
                   variant="flat"
-                  className="bg-black-2 text-white font-bold"
+                  className="bg-[#2f163e] text-white font-bold"
                 >
                   Log In
                 </Button>
@@ -75,7 +83,7 @@ export default function CPNavBar() {
                   as={Link}
                   color="secondary"
                   href="sign-up"
-                  className="bg-black-2 text-white font-bold"
+                  className="bg-[#2f163e] text-white font-bold"
                 >
                   Get Started
                 </Button>
