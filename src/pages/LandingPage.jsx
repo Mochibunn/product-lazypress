@@ -6,7 +6,6 @@ import Subscription from "../components/Subscription";
 import FreeTrial from "../components/FreeTrial";
 import { useClerkSWR } from "../lib/swr";
 import { getAuth } from "../lib/dbClient";
-// import ContactPage from "./ContactPage";
 
 export default function LandingPage() {
   // getAuth().then((res) => console.log(res));
@@ -20,7 +19,6 @@ export default function LandingPage() {
       <Explore />
       <Subscription />
       <FreeTrial />
-      {/* <ContactPage /> */}
     </>
   );
 }
