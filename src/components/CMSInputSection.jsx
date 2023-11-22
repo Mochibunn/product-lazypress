@@ -1,6 +1,9 @@
 import CMSInput from "./CMSInput";
 import { useEffect, useState, useMemo } from "react";
 import { Button } from "@nextui-org/react";
+import { useParams } from "react-router-dom";
+import { useBlog } from "../lib/swr";
+import { produce } from "immer";
 
 export default function CMSInputSection({
     array,
@@ -9,8 +12,9 @@ export default function CMSInputSection({
     blog,
     section,
 }) {
-    // console.log("test array: ", array);
     const [localValues, setLocalValues] = useState(array);
+    const { blogId } = useParams();
+    const { swrBlog, mutateBlog } = useBlog(blogId);
 
     // const generatedKeys = useMemo(
     //     () => array.map((item) => crypto.randomUUID()),
@@ -40,9 +44,26 @@ export default function CMSInputSection({
         const singleObj = Object.fromEntries(asArrays);
         // console.log("singleObj", singleObj);
         // console.log("blog notation", blog.pages.home.blogPages[i]);
+
         setBlog((draft) => {
             draft.pages.home[section][sectionIndex] = singleObj;
         });
+    };
+    const deleteSection = () => {
+        console.log(swrBlog.pages.home[section][sectionIndex]);
+        setBlog((draft) => {
+            draft.pages.home[section].splice(sectionIndex, 1);
+        });
+        // mutateBlog(
+        //     produce((draftBlog) => {
+        //         const updatedSection = draftBlog.pages.home[section].toSpliced(
+        //             sectionIndex,
+        //             1
+        //         );
+        //         draftBlog.pages.home[section] = updatedSection;
+        //     }),
+        //     { optimisticData: swrBlog, revalidate: false }
+        // );
     };
 
     return (
@@ -69,6 +90,11 @@ export default function CMSInputSection({
                 <Button className="w-1/4" type="submit">
                     Edit Section
                 </Button>
+                {(section === "blogPages" || section === "hero") && (
+                    <Button onClick={deleteSection} color="danger">
+                        Delete Section
+                    </Button>
+                )}
             </form>
         </div>
     );

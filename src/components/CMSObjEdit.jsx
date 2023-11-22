@@ -21,6 +21,7 @@ export default function CMSObjEdit({
                             <CMSAddModal
                                 sectionTitle={sectionTitle}
                                 section={section}
+                                setBlog={setBlog}
                             />
                         </Button>
                     )}

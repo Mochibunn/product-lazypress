@@ -10,15 +10,15 @@ import {
 } from "@nextui-org/react";
 
 // import { mutate } from "swr";
-import { produce } from "immer";
+// import { produce } from "immer";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useBlog } from "../lib/swr";
 
-export default function CMSAddModal({ sectionTitle, section }) {
+export default function CMSAddModal({ sectionTitle, section, setBlog }) {
     const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
-    const { blogId } = useParams();
-    const { swrBlog, mutateBlog } = useBlog(blogId);
+    // const { blogId } = useParams();
+    // const { swrBlog, mutateBlog } = useBlog(blogId);
 
     const [form, setForm] = useState(
         section === "blogPages"
@@ -44,14 +44,17 @@ export default function CMSAddModal({ sectionTitle, section }) {
     };
 
     const handleSubmit = () => {
-        console.log(form);
-        console.log(swrBlog.pages.home[section]);
-        mutateBlog(
-            produce((draftBlog) => {
-                draftBlog.pages.home[section].push(form);
-            }),
-            { optimisticData: swrBlog, revalidate: false }
-        );
+        setBlog((draft) => {
+            draft.pages.home[section].push(form);
+        });
+        // console.log(form);
+        // console.log(swrBlog.pages.home[section]);
+        // mutateBlog(
+        //     produce((draftBlog) => {
+        //         draftBlog.pages.home[section].push(form);
+        //     }),
+        //     { optimisticData: swrBlog, revalidate: false }
+        // );
         // if (!form.email || !form.password)
         //     return alert("Please enter a valid email and password!");
         // //imported now-expects object as argument
