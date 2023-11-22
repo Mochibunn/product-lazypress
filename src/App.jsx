@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { Spinner } from "@nextui-org/react";
 import { ClerkProvider, SignIn, SignUp, SignedIn } from "@clerk/clerk-react";
 
+// import ContactPage from "./pages/ContactPage";
 import Layout from "./pages/Layout";
 import LandingPage from "./pages/LandingPage";
 import Dashboard from "./pages/Dashboard";
