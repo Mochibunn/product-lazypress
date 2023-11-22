@@ -1,6 +1,6 @@
-import { Image, Input, Textarea, Button } from "@nextui-org/react";
-import { useState, useMemo } from "react";
-
+import { Image } from "@nextui-org/react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 export default function CPform() {
   const [form, setForm] = useState({
     firstName: "",
@@ -9,10 +9,18 @@ export default function CPform() {
     message: "",
   });
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
   };
+
+  console.log(errors);
   return (
     <>
       <div
@@ -48,62 +56,129 @@ export default function CPform() {
               ideas about the right design direction for your web application.{" "}
             </p>
           </div>
-          <div className="bg-[#f39d50] p-[50px]">
-            <form onSubmit={handleSubmission}>
-              <label>
-                First Name:
-                <Input
-                  required
-                  type="text"
-                  name="firstName"
-                  value={form.firstName}
-                  onChange={handleChange}
-                  className="w-80 outline-none border-2 border-[#4b1544] rounded-2xl transition-all"
-                />
-              </label>
-              <label>
-                Last Name:
-                <Input
-                  required
-                  type="text"
-                  name="lastName"
-                  value={form.lastName}
-                  onChange={handleChange}
-                  className="w-80 outline-none border-2 border-[#4b1544] rounded-2xl transition-all"
-                />
-              </label>
-              <label>
-                Email:
-                <Input
-                  required
-                  type="email"
-                  name="email"
-                  value={form.email}
-                  onChange={handleChange}
-                  style={{ borderColor: isValidEmail ? "initial" : "red" }}
-                  className="w-90 outline-none border-2 border-[#4b1544] rounded-2xl transition-all"
-                />
-              </label>
-              <label>
-                Message
-                <Textarea
-                  required
-                  name="message"
-                  value={form.message}
-                  onChange={handleChange}
-                  placeholder="Enter your message"
-                  className="w-80 outline-none border-2 border-[#4b1544] rounded-2xl transition-all"
-                />
-              </label>
-              <Button
-                className="bg-[#2f163e] text-white font-bold my-2"
-                type="submit"
+          <div className="bg-[#f39d50] p-[40px] rounded w-96">
+            <form
+              onSubmit={handleSubmit((data) => {
+                console.log(data);
+              })}
+              className="flex flex-col gap-3"
+            >
+              <label
+                htmlFor="firstName"
+                className="flex flex-col text-[#4b1544] font-bold"
               >
-                SUBMIT
-              </Button>
-              {isValidEmail ? null : (
-                <p style={{ color: "red" }}>Invalid email format</p>
-              )}
+                First Name:
+                <input
+                  type="text"
+                  id="firstName"
+                  {...register("firstName", {
+                    required: "This is a required field",
+                    minLength: 3,
+                    maxLength: 20,
+                    pattern: /^[A-Za-z]+$/i,
+                  })}
+                  className="w-80 h-8 outline-none border-2 border-[#4b1544] rounded-lg transition-all font-medium"
+                />
+                {errors?.firstName?.type === "pattern" && (
+                  <p style={{ color: "red" }}>
+                    &#9888; Alphabetical characters only
+                  </p>
+                )}
+                {errors?.firstName?.type === "required" && (
+                  <p style={{ color: "red" }}>
+                    &#9888; This field is required Alphabetical characters only
+                  </p>
+                )}
+                {errors?.firstName?.type === "minLength" && (
+                  <p style={{ color: "red" }}>
+                    &#9888; First name must have minimum 3 characters
+                  </p>
+                )}
+                {errors?.firstName?.type === "maxLength" && (
+                  <p style={{ color: "red" }}>
+                    &#9888; First name cannot exceed 20 characters
+                  </p>
+                )}
+              </label>
+              <label
+                htmlFor="lastName"
+                className="flex flex-col text-[#4b1544] font-bold"
+              >
+                Last Name:
+                <input
+                  type="text"
+                  id="firstName"
+                  {...register("lastName", {
+                    required: "This is a required field",
+                    minLength: 3,
+                    maxLength: 20,
+                    pattern: /^[A-Za-z]+$/i,
+                  })}
+                  className="w-80 h-8 outline-none border-2 border-[#4b1544] rounded-lg transition-all font-medium"
+                />
+                {errors?.lastName?.type === "pattern" && (
+                  <p style={{ color: "red" }}>
+                    {" "}
+                    &#9888; Alphabetical characters only
+                  </p>
+                )}
+                {errors?.lastName?.type === "required" && (
+                  <p style={{ color: "red" }}>
+                    {" "}
+                    &#9888; This field is required
+                  </p>
+                )}
+                {errors?.lastName?.type === "minLength" && (
+                  <p style={{ color: "red" }}>
+                    &#9888; First name must have minimum 3 characters
+                  </p>
+                )}
+                {errors?.lastName?.type === "maxLength" && (
+                  <p style={{ color: "red" }}>
+                    &#9888; First name must have minimum 3 characters
+                  </p>
+                )}
+              </label>
+
+              <label
+                htmlFor="email"
+                className="flex flex-col text-[#4b1544] font-bold"
+              >
+                email
+                <input
+                  type="email"
+                  id="email"
+                  {...register("email", {
+                    required: "This is a required field",
+                    pattern: {
+                      value:
+                        /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                    },
+                  })}
+                  className="w-80 h-8 outline-none border-2 border-[#4b1544] rounded-lg transition-all font-medium"
+                />
+                <p style={{ color: "red" }}> {errors.email?.message}</p>
+              </label>
+              <label
+                htmlFor="textarea"
+                className="flex flex-col text-[#4b1544] font-bold"
+              >
+                Message
+                <textarea
+                  id="textarea"
+                  className="w-80 h-20 outline-none border-2 border-[#4b1544] rounded-lg transition-all font-medium"
+                  {...register("textarea", {
+                    required: "This is a required field",
+                    minLength: 30,
+                    maxLength: 200,
+                  })}
+                ></textarea>
+                <p style={{ color: "red" }}> {errors.textarea?.message}</p>
+              </label>
+              <input
+                type="submit"
+                className="bg-[#4b1544] text-white px-2 py-1 rounded"
+              />
             </form>
           </div>
         </div>
