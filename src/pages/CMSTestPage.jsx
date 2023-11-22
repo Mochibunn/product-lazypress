@@ -13,7 +13,7 @@ export default function CMSTestPage() {
     const { getToken } = useAuth();
     const { blogId } = useParams();
     const [blog, setBlog] = useImmer();
-    const { swrBlog, isLoading } = useBlog(blogId);
+    const { swrBlog, mutateBlog } = useBlog(blogId);
     const [navBarInputValues, setNavBarInputValues] = useState();
     const [blogPagesValues, setBlogPagesValues] = useState();
     const [heroValues, setHeroValues] = useState();
@@ -133,6 +133,7 @@ export default function CMSTestPage() {
             editBlog(sessToken, blog).then((res) =>
                 console.log("came from protected route", res)
             );
+            mutateBlog();
         } catch (error) {
             console.error(error);
         }

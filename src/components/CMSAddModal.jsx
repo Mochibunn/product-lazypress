@@ -15,17 +15,26 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useBlog } from "../lib/swr";
 
-export default function CMSAddModal({ sectionTitle }) {
+export default function CMSAddModal({ sectionTitle, section }) {
     const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
     const { blogId } = useParams();
     const { swrBlog, mutateBlog } = useBlog(blogId);
 
-    const [form, setForm] = useState({
-        imgUrl: "",
-        title: "",
-        text: "",
-        button: "",
-    });
+    const [form, setForm] = useState(
+        section === "blogPages"
+            ? {
+                  imgUrl: "",
+                  title: "",
+                  text: "",
+                  button: "",
+              }
+            : {
+                  imgUrl: "",
+                  title: "",
+                  text: "",
+                  button: "",
+              }
+    );
 
     const navigate = useNavigate();
 
@@ -36,10 +45,10 @@ export default function CMSAddModal({ sectionTitle }) {
 
     const handleSubmit = () => {
         console.log(form);
-        console.log(swrBlog.pages.home.blogPages);
+        console.log(swrBlog.pages.home[section]);
         mutateBlog(
             produce((draftBlog) => {
-                draftBlog.pages.home.blogPages.push(form);
+                draftBlog.pages.home[section].push(form);
             }),
             { optimisticData: swrBlog, revalidate: false }
         );
