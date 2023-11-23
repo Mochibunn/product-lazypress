@@ -1,10 +1,7 @@
 import SiteCard from "../components/SiteCard";
-import { Spinner } from "@nextui-org/react";
+import { Spinner, Divider } from "@nextui-org/react";
 import { useSites } from "../lib/swr";
 import { useUser } from "@clerk/clerk-react";
-// import useSWR from "swr";
-
-// const fetcher = (url) => fetch(url).then((r) => r.json());
 
 export default function Dashboard() {
     const { user } = useUser();
@@ -13,17 +10,24 @@ export default function Dashboard() {
     console.log(sites);
     console.log(user.id);
     return (
-        <>
-            <h2 className="text-6xl my-8">My Websites</h2>
+        <div className="grow p-6 bg-tiffany-blue">
+            <h2 className="text-6xl mb-4">My Websites</h2>
+            <Divider className="mb-8" />
             <div>
                 {isLoading ? (
                     <Spinner />
                 ) : (
                     sites.map((site) => {
-                        return <SiteCard key={site._id} />;
+                        return (
+                            <SiteCard
+                                key={site._id}
+                                blogId={site._id}
+                                {...site.dashboard}
+                            />
+                        );
                     })
                 )}
             </div>
-        </>
+        </div>
     );
 }
