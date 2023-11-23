@@ -372,3 +372,22 @@ button {
         transform: translate(100px, 100px);
     }
 }
+
+.glassInput {
+   
+    border-radius: 5rem;
+    font: 1rem "Mom Cake", sans-serif;
+    font-weight: 600;
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: black;
+    
+    transition: background-color 0.2s ease-in-out, border 0.2s ease-in-out;
+}
+
+.glassInput:focus {
+    background-color: rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    outline: none;
+}
