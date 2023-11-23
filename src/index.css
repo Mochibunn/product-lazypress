@@ -210,7 +210,7 @@ z-index: 1000;
     0 0.25rem 0.5rem 0 rgba(180, 70, 207, 1) inset;
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
   color: black;
-  width: 6rem;
+ 
   height: 2.5rem;
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
@@ -274,97 +274,74 @@ z-index: 1000;
   );
 }
 
-.reveal,
-.reveal::after {
-	        animation-delay: 0;
-	        animation-delay: var(--animation-delay, 2s);
-	        animation-iteration-count: 50;
-	        animation-iteration-count: var(--iterations, 50);
-	        animation-duration: 10000ms;
-	        animation-duration: var(--duration, 10000ms);
-	        
-	        animation-timing-function: cubic-bezier(0.0, 0.0, 0.2, 1);
+
+.glassCard {
+background: rgba(255, 255, 255, 0.25);
+box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+backdrop-filter: blur( 4px );
+border-radius: 0;
+border: 1px solid rgba( 255, 255, 255, 0.18 );
+color: black;
 }
- 
-.reveal {
-	position: relative;
-	font-size: 6vw;
-	animation-name: text;
-	color: #FFF;
-	white-space: nowrap;
-	cursor: default;
-	text-transform: uppercase;
-	
+
+.glassCardSmall {
+  background: rgba(255, 255, 255, 0.4); 
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2); 
+  backdrop-filter: blur(8px); 
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.12); 
+  color: rgb(0, 0, 0);
+  padding: 16px;
+  font-size: 1rem;
 }
- 
-.reveal::after {
-		content: "";
-		position: absolute;
-		z-index: 999;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		background-color: #e5e3fa;
-		        transform: scaleX(0);
-		        transform-origin: 0 50%;
-		pointer-events: none;
-		        animation-name: revealer;
-	}
- 
- 
- 
-@keyframes text {
-	from {
-		        clip-path: inset(0 100% 0 0);
-	}
-	to {
-		        clip-path: inset(0 0 0 0);
-	}
+
+.neon-text2 {
+  font-size: 5rem;
+  color: #fdef6e;
+  text-shadow: 0 0 10px #ecc21cf1, 0 0 20px rgba(131, 215, 228, 0.8), 0 0 30px rgba(230, 0, 255, 0.8);
+  animation: neonBuzz2 1s linear infinite alternate;
+  margin-bottom: -5vh
 }
- 
- 
- 
- 
-@keyframes revealer {
-	
-	0%, 50% {
-		        transform-origin: 0 50%;
-	}
-	
-	60%, 100% {
-		        transform-origin: 100% 50%;		
-	}
- 
-	
-	60% {
-		        transform: scaleX(1);
-	}
-	
-	100% {
-		        transform: scaleX(0);
-	}
+
+@keyframes neonBuzz2 {
+  from {
+    text-shadow: 0 0 30px #fdef6e, 0 0 20px rgba(217, 244, 10, 0.8), 0 0 30px rgba(255, 0, 208, 0.8);
+  }
+  to {
+    text-shadow: 0 0 60px rgba(202, 227, 7, 0.8), 0 0 40px rgba(212, 0, 255, 0.8), 0 0 60px rgba(255, 0, 247, 0.8);
+  }
 }
- 
- 
- 
- 
-@keyframes revealer {
-	
-	0%, 50% {
-		        transform-origin: 0 50%;
-	}
-	
-	60%, 100% {
-		        transform-origin: 100% 50%;		
-	}
- 
-	
-	60% {
-		        transform: scaleX(1);
-	}
-	
-	100% {
-		        transform: scaleX(0);
-	}
+.water-transition {
+  position: relative;
+}
+
+.water-transition::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.1) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.1) 75%, transparent 75%, transparent);
+  background-size: 50px 50px;
+  animation: waterEffect 1s linear infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.water-transition.hovered::before {
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.1) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.1) 75%, transparent 75%, transparent);
+  animation: waterEffectHovered 1s linear infinite;
+}
+
+@keyframes waterEffect {
+  to {
+    transform: translate(50px, 50px);
+  }
+}
+
+@keyframes waterEffectHovered {
+  to {
+    transform: translate(100px, 100px);
+  }
 }

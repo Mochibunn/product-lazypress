@@ -11,7 +11,7 @@ export default function Subscription() {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
   return (
-    <div>
+    <div style={{backgroundColor:'#AEE5D8'}}>
       <div>
         <h4 className="text-2xl text-center">
           We really want you to want us!{" "}
@@ -31,7 +31,7 @@ export default function Subscription() {
             onChange={handleChange}
             className="w-3/5 mb-8 p-2 outline-none border-2 border-black-3 focus:pink-lavender bg-thistle rounded transition-all"
           />
-          <Button className="color-celadon bg-celadon">Subscribe</Button>
+          <Button className="jellyButtonNavBar">Subscribe</Button>
         </form>
       </div>
     </div>

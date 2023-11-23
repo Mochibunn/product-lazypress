@@ -12,7 +12,7 @@ export default function Explore() {
           drag-and-drop website builder.
         </p>
         <NavLink to="/" className="font-bold text-slate-200 text-3xl">
-          <Button color="secondary">
+          <Button className="jellyButtonNavBar">
             Get Started <GoArrowRight />
           </Button>
         </NavLink>

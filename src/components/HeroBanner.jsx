@@ -21,7 +21,7 @@ export default function HeroBanner() {
   
       
       const moonTouchOffset = 150; 
-      const opacity = Math.max(0, Math.min(1, 2 - (scrollPosition - moonTouchOffset) / window.innerHeight));
+      const opacity = Math.max(0, Math.min(1, 1 - (scrollPosition - moonTouchOffset) / window.innerHeight));
   
       setSunOpacity(opacity);
       setMoonRotation(rotation);

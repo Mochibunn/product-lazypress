@@ -1,71 +1,83 @@
-import Lottie from 'lottie-react';
-import Template from '../assets/animations/Template.json';
-import Customers from '../assets/animations/Customers.json';
-import Market from '../assets/animations/Market.json';
-import Sell from '../assets/animations/Sell.json';
-
+import DShapeC from '../assets/images/3DShape3.jpg';
+import { useState, useEffect } from 'react';
+import {Button, Link}  from "@nextui-org/react";
 
 export default function OurService() {
-  
+
+  const [scrollPosition, setScrollPosition] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollPosition(window.scrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+
+  const initialMargin = scrollPosition < 100 ? 0 : (2000 - scrollPosition) * 0.2;
+
   return (
-    <div
-      className="relative w-full h-[150vh] flex px-16 py-16 overflow-hidden"
-      style={{
-        background:
-          'radial-gradient(circle, rgba(230,227,250,1) 25%, rgba(174,229,216,1) 100%)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        marginTop: '-9vh',
-      }}
-    >
-      <h1 className="reveal" style={{ fontFamily: 'Pilated', fontSize: '9rem', zIndex: '1500', marginTop: '50vh', color: 'black' }}>
-            What we do
-          </h1>
-      <div className="absolute top-0 left-0 right-0 bottom-0 z-10 text-black flex flex-col gap-2 px-12">
-       
+   
+      <div
+        className="relative w-full h-[100vh] flex px-16 py-16 "
+        style={{
+          backgroundImage: `url(${DShapeC})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          marginTop: '-9vh',
+          overflowY: 'auto', 
+          backdropFilter: 'blur(100px)', 
+        }}
+      >
+      
+       <h1
+        className="neon-text2"
+        style={{
+          fontFamily: 'Lemon Milk',
+          fontSize: '18rem',
+          zIndex: 900,
+          marginTop: '-10vh',
+          marginLeft: `${initialMargin}%`,
+          transition: 'margin 0.5s ease',
+          color:'black',
+          lineHeight: '0.8',
+        }}
+      >
+        What we do
+      </h1>
+         
+
+        <ul className="absolute top-[30vh] left-0 right-0 bottom-0 z-10 flex flex-col items-center gap-20 px-12 serviceUL  overflow-x-hidden">
+         
+
+          <li className='glassCardSmall'>
+            <div className="flex flex-col justify-center items-start text-center">
+            
+      <div className="flex flex-col justify-center items-center text-center p-4 gap-5">
+        <p style={{ fontFamily: 'Lemon Milk', fontSize: '1rem' }}>
+          "We build custom websites for any purpose. <br />
+          Choose from our range of templates & designs. <br />
+          Our sites come with an easy-to-use Content <br />
+          Management System."
+        </p>
+        <Link color="foreground" href="#" className="text-black">
+        <Button className="jellyButtonNavBar">
+         
+           Go to Pricing 
           
-       
-        <div className="flex flex-row justify-around items-center">
-          <Lottie animationData={Template} style={{ width: '250px' }} />
-          <div className="flex flex-col justify-center items-center">
-            <h3 className="font-bold text-lg">Create a template</h3>
-            <p>
-              Choose from any of our industry-leading website templates, designer
-              fonts, and color palettes.
-            </p>
-          </div>
-        </div>
-        <div className="flex flex-row justify-around items-center">
-          <Lottie animationData={Market} style={{ width: '200px' }} />
-          <div className="flex flex-col justify-center items-center">
-            <h3 className="font-bold text-lg">Sell your products and services</h3>
-            <p>
-              Set up your template or sell your skills—all on a single platform
-              built just for you.
-            </p>
-          </div>
-        </div>
-        <div className="flex flex-row justify-around items-center">
-          <Lottie animationData={Sell} style={{ width: '200px' }} />
-          <div className="flex flex-col justif-center items-center">
-            <h3 className="font-bold text-lg">Market your business</h3>
-            <p>
-              On-brand email campaigns and social tools make it easy to retain
-              customers and grow your base.
-            </p>
-          </div> 
-        </div>
-        <div className="flex flex-row justify-around items-center">
-          <Lottie animationData={Customers} style={{ width: '200px' }} />
-          <div className="flex flex-col justify-center items-center">
-            <h3 className="font-bold text-lg">Engage with customers</h3>
-            <p>
-              Email campaigns that pull in your site’s colors, products, and blog
-              posts so your communications feel effortlessly on-brand.
-            </p>
-          </div>
-        </div>
+        </Button>
+        </Link>
       </div>
     </div>
+          </li>
+
+        </ul>
+      </div>
+  
   );
 }
