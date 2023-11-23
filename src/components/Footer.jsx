@@ -23,7 +23,11 @@ export default function Footer() {
           </ul>
         </div>
         <div>
+<<<<<<< HEAD
           <h4 className="font-bold hover:text-pink-lavender">COMPONY</h4>
+=======
+          <h4 className="font-bold hover:text-pink-lavender">COMPANY</h4>
+>>>>>>> origin/main
           <ul>
             <li className="hover:text-pink-lavender">About</li>
             <li className="hover:text-pink-lavender">Our Brand</li>

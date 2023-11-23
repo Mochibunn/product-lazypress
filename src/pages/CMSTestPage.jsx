@@ -1,113 +1,126 @@
 import { useParams } from "react-router-dom";
-import { getBlog, editBlog } from "../lib/dbClient";
+import { editBlog } from "../lib/dbClient";
+import { useBlog } from "../lib/swr";
 import { useEffect, useState } from "react";
-import { useImmer } from "use-immer";
-import { Button } from "@nextui-org/react";
+import { Button, Table, TableHeader, TableColumn, TableBody, TableRow, TableCell } from "@nextui-org/react";
 import CMSObjEdit from "../components/CMSObjEdit";
+import { useAuth } from "@clerk/clerk-react";
 
 // import CMSStrEdit from "../components/CMSStrEdit";
 
-export default function CMSPage() {
+export default function CMSTestPage() {
+    const { getToken } = useAuth();
     const { blogId } = useParams();
-    const [blog, setBlog] = useImmer();
+    const { swrBlog, mutateBlog } = useBlog(blogId);
     const [navBarInputValues, setNavBarInputValues] = useState();
     const [blogPagesValues, setBlogPagesValues] = useState();
     const [heroValues, setHeroValues] = useState();
     const [footerValues, setFooterValues] = useState();
+    document.title = `Edit blog | LazyPress`
 
     useEffect(() => {
-        getBlog(blogId).then((blog) => {
-            console.log(blog);
+        if (!swrBlog) return;
 
-            const navBarValues = blog.pages.home.navBar.map((page) => {
-                const theValues = Object.entries(page).map(([key, value]) => ({
-                    value,
-                    label: key,
-                    key: crypto.randomUUID(),
-                }));
-                // console.log(theValues);
-                return theValues;
-            });
-
-            const footerValues = blog.pages.home.footer.map((page) => {
-                const theValues = Object.entries(page).map(([key, value]) => ({
-                    value,
-                    label: key,
-                    key: crypto.randomUUID(),
-                }));
-                // console.log(theValues);
-                return theValues;
-            });
-
-            const blogValues = blog.pages.home.blogPages.map((page) => {
-                const pageValues = Object.entries(page).map(([key, value]) => {
-                    return {
-                        value,
-                        label: key,
-                        key: crypto.randomUUID(),
-                    };
-                });
-                console.log(pageValues);
-                return pageValues;
-            });
-            const heroValues = blog.pages.home.hero.map((page) => {
-                const theValues = Object.entries(page).map(([key, value]) => ({
-                    value,
-                    label: key,
-                    key: crypto.randomUUID(),
-                }));
-                // console.log(theValues);
-                return theValues;
-            });
-
-            setNavBarInputValues([...navBarValues]);
-            setFooterValues([...footerValues]);
-            setBlogPagesValues([...blogValues]);
-            setHeroValues([...heroValues]);
-            setBlog(blog);
+        const navBarValues = swrBlog.pages.home.navBar.map((page) => {
+            const theValues = Object.entries(page).map(([key, value]) => ({
+                value,
+                label: key,
+                key: crypto.randomUUID(),
+            }));
+            // console.log(theValues);
+            return theValues;
         });
-    }, []);
 
-    const saveChangesClick = () => {
-        editBlog(blog)
-            .then((response) => console.log(response))
-            .catch((err) => console.error(err));
+        const footerValues = swrBlog.pages.home.footer.map((page) => {
+            const theValues = Object.entries(page).map(([key, value]) => ({
+                value,
+                label: key,
+                key: crypto.randomUUID(),
+            }));
+            // console.log(theValues);
+            return theValues;
+        });
+
+        const blogValues = swrBlog.pages.home.blogPages.map((page) => {
+            const pageValues = Object.entries(page).map(([key, value]) => {
+                return {
+                    value,
+                    label: key,
+                    key: crypto.randomUUID(),
+                };
+            });
+            // console.log(pageValues);
+            return pageValues;
+        });
+        const heroValues = swrBlog.pages.home.hero.map((page) => {
+            const theValues = Object.entries(page).map(([key, value]) => ({
+                value,
+                label: key,
+                key: crypto.randomUUID(),
+            }));
+            // console.log(theValues);
+            return theValues;
+        });
+
+        setNavBarInputValues([...navBarValues]);
+        setFooterValues([...footerValues]);
+        setBlogPagesValues([...blogValues]);
+        setHeroValues([...heroValues]);
+    }, [swrBlog]);
+
+    const saveChangesClick = async () => {
+        try {
+            const sessToken = await getToken();
+            editBlog(sessToken, swrBlog).then((res) =>
+                console.log("came from protected route", res)
+            );
+            mutateBlog();
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     return (
-        <div className="w-screen p-4">
-            <h3>Home Page</h3>
+        <div className="w-full p-4">
+            <h3 className="text-xl font-semibold">Home Page</h3>
+
+            {
+                <Table aria-label="Editable items">
+                <TableHeader>
+                    <TableColumn>Page 1</TableColumn>
+                    <TableColumn></TableColumn>
+                </TableHeader>
+                <TableBody>
+                    <TableRow key="1">
+                        <TableCell className="w-1/5">Hello!</TableCell>
+                        <TableCell>This is just an example NextUI table that I'm using as a styling guide :&#41;</TableCell>
+                    </TableRow>
+                </TableBody>
+                </Table>
+            }
 
             <CMSObjEdit
                 sectionTitle={"NavBar Items"}
                 section={"navBar"}
                 sectionValues={navBarInputValues}
                 setSectionValues={setNavBarInputValues}
-                blog={blog}
-                setBlog={setBlog}
             />
             <CMSObjEdit
                 sectionTitle={"Footer Items"}
                 section={"footer"}
                 sectionValues={footerValues}
                 setSectionValues={setFooterValues}
-                blog={blog}
-                setBlog={setBlog}
             />
 
             <CMSObjEdit
                 sectionTitle={"Blog Pages"}
                 section={"blogPages"}
                 sectionValues={blogPagesValues}
-                blog={blog}
-                setBlog={setBlog}
             />
             <CMSObjEdit
                 sectionTitle={"Hero Section"}
                 section={"hero"}
                 sectionValues={heroValues}
-                blog={blog}
-                setBlog={setBlog}
             />
 
             <Button className="mr-4" color="success" onClick={saveChangesClick}>
@@ -115,7 +128,7 @@ export default function CMSPage() {
             </Button>
             <Button
                 onClick={() => {
-                    console.log(blog.pages);
+                    console.log("swrBlog", swrBlog.pages);
                 }}
             >
                 Log Stuff
@@ -154,3 +167,30 @@ export default function CMSPage() {
                 blog={blog}
                 setBlog={setBlog}
             /> */
+
+//Tests for figuring out how to use useEffect with async/await and to fetch needed data
+// blog &&
+//     editBlogAuth(blog).then((res) =>
+//         console.log("came from protected route", res)
+//     );
+// useEffect(() => {
+//     (async () => {
+//         try {
+//             const sessToken = await getToken();
+//             getAuth(sessToken).then((res) => console.log(res));
+//             blog &&
+//                 editBlogAuth(sessToken, blog).then((res) =>
+//                     console.log("came from protected route", res)
+//                 );
+//         } catch (error) {
+//             console.error(error);
+//         }
+//     })();
+//     // getToken().then((token) => {
+//     //     getAuth(token).then((res) => console.log(res));
+//     //     blog &&
+//     //         editBlogAuth(token, blog).then((res) =>
+//     //             console.log("came from protected route", res)
+//     //         );
+//     // });
+// }, [blog]);

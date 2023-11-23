@@ -3,12 +3,18 @@ import { Route, Routes } from "react-router-dom";
 import { Spinner } from "@nextui-org/react";
 import { ClerkProvider, SignIn, SignUp, SignedIn } from "@clerk/clerk-react";
 
+// import ContactPage from "./pages/ContactPage";
 import Layout from "./pages/Layout";
 import LandingPage from "./pages/LandingPage";
 import Dashboard from "./pages/Dashboard";
 import CMSPage from "./pages/CMSPage";
 import CMSTestPage from "./pages/CMSTestPage";
 import NotFound from "./pages/NotFound";
+import ContactPage from "./pages/ContactPage";
+// import SignInPage from "./pages/SignInPage";
+// import SignUpPage from "./pages/SignUpPage";
+const LazySignInPage = React.lazy(() => import("./pages/SignInPage"));
+const LazySignUpPage = React.lazy(() => import("./pages/SignUpPage"));
 
 // import SignInPage from "./pages/SignInPage";
 // import SignUpPage from "./pages/SignUpPage";
@@ -68,6 +74,10 @@ function App() {
                 <CMSTestPage />
               </SignedIn>
             }
+          />
+          <Route
+            path="contactus/*"
+            element={<ContactPage routing="path" path="/contactus" />}
           />
           <Route path="*" element={<NotFound />} />
         </Route>
