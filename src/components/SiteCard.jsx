@@ -19,15 +19,13 @@ export default function SiteCard({
   deployed,
 }) {
   const dateFetch = new Date(Date.parse(updatedAt));
-  const date = dateFetch.toLocaleDateString(`default`);
-  const time = dateFetch.toLocaleTimeString([], {
+	console.log(dateFetch == "Invalid Date" ? "Truthy" : "Falsy");
+  const date = dateFetch == "Invalid Date" ? "A long" : dateFetch.toLocaleDateString(`default`);
+  const time = dateFetch == "Invalid Date" ? "time ago" : dateFetch.toLocaleTimeString([], {
     hour: "2-digit",
     minute: "2-digit",
   });
   console.log(`🐍\n`, dateFetch);
-  const lastUpdate =
-    `${updatedAt}` !== "Invalid Date" ? `${updatedAt}` : `Some time ago`;
-
   console.log(blogTitle);
 
   return (
