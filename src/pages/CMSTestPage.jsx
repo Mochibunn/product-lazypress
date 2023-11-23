@@ -2,7 +2,17 @@ import { useParams } from "react-router-dom";
 import { editBlog } from "../lib/dbClient";
 import { useBlog } from "../lib/swr";
 import { useEffect, useState } from "react";
-import { Button, Table, TableHeader, TableColumn, TableBody, TableRow, TableCell } from "@nextui-org/react";
+import {
+    Button,
+    Table,
+    TableHeader,
+    TableColumn,
+    TableBody,
+    TableRow,
+    TableCell,
+    Tabs,
+    Tab,
+} from "@nextui-org/react";
 import CMSObjEdit from "../components/CMSObjEdit";
 import { useAuth } from "@clerk/clerk-react";
 
@@ -16,7 +26,7 @@ export default function CMSTestPage() {
     const [blogPagesValues, setBlogPagesValues] = useState();
     const [heroValues, setHeroValues] = useState();
     const [footerValues, setFooterValues] = useState();
-    document.title = `Edit blog | LazyPress`
+    document.title = `Edit blog | LazyPress`;
 
     useEffect(() => {
         if (!swrBlog) return;
@@ -82,47 +92,53 @@ export default function CMSTestPage() {
 
     return (
         <div className="w-full p-4">
-            <h3 className="text-xl font-semibold">Home Page</h3>
-
             {
                 <Table aria-label="Editable items">
-                <TableHeader>
-                    <TableColumn>Page 1</TableColumn>
-                    <TableColumn></TableColumn>
-                </TableHeader>
-                <TableBody>
-                    <TableRow key="1">
-                        <TableCell className="w-1/5">Hello!</TableCell>
-                        <TableCell>This is just an example NextUI table that I'm using as a styling guide :&#41;</TableCell>
-                    </TableRow>
-                </TableBody>
+                    <TableHeader>
+                        <TableColumn>Page 1</TableColumn>
+                        <TableColumn></TableColumn>
+                    </TableHeader>
+                    <TableBody>
+                        <TableRow key="1">
+                            <TableCell className="w-1/5">Hello!</TableCell>
+                            <TableCell>
+                                This is just an example NextUI table that I'm
+                                using as a styling guide :&#41;
+                            </TableCell>
+                        </TableRow>
+                    </TableBody>
                 </Table>
             }
+            <Tabs aria-label="Site Pages">
+                {/* <h3 className="text-xl font-semibold">Home Page</h3> */}
 
-            <CMSObjEdit
-                sectionTitle={"NavBar Items"}
-                section={"navBar"}
-                sectionValues={navBarInputValues}
-                setSectionValues={setNavBarInputValues}
-            />
-            <CMSObjEdit
-                sectionTitle={"Footer Items"}
-                section={"footer"}
-                sectionValues={footerValues}
-                setSectionValues={setFooterValues}
-            />
-
-            <CMSObjEdit
-                sectionTitle={"Blog Pages"}
-                section={"blogPages"}
-                sectionValues={blogPagesValues}
-            />
-            <CMSObjEdit
-                sectionTitle={"Hero Section"}
-                section={"hero"}
-                sectionValues={heroValues}
-            />
-
+                <Tab key="home" title="Home">
+                    <CMSObjEdit
+                        sectionTitle={"NavBar Items"}
+                        section={"navBar"}
+                        sectionValues={navBarInputValues}
+                        setSectionValues={setNavBarInputValues}
+                    />
+                    <CMSObjEdit
+                        sectionTitle={"Footer Items"}
+                        section={"footer"}
+                        sectionValues={footerValues}
+                        setSectionValues={setFooterValues}
+                    />
+                    <CMSObjEdit
+                        sectionTitle={"Hero Section"}
+                        section={"hero"}
+                        sectionValues={heroValues}
+                    />
+                </Tab>
+                <Tab key="blogPages" title="Blog Pages">
+                    <CMSObjEdit
+                        sectionTitle={"Blog Pages"}
+                        section={"blogPages"}
+                        sectionValues={blogPagesValues}
+                    />
+                </Tab>
+            </Tabs>
             <Button className="mr-4" color="success" onClick={saveChangesClick}>
                 Save Changes
             </Button>
