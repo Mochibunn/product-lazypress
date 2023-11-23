@@ -12,6 +12,8 @@ import {
   TableBody,
   TableRow,
   TableCell,
+	Tabs,
+	Tab,
   Spinner,
 } from "@nextui-org/react";
 import CMSObjEdit from "../components/CMSObjEdit";
@@ -28,7 +30,7 @@ export default function CMSTestPage() {
   const [heroValues, setHeroValues] = useState();
   const [footerValues, setFooterValues] = useState();
   const [buttonSpin, setButtonSpin] = useState(false);
-  document.title = `Edit blog | LazyPress`;
+  document.title = `Edit blog | LazyPress`;;
 
   useEffect(() => {
     if (!swrBlog) return;
@@ -97,77 +99,82 @@ export default function CMSTestPage() {
 
 
 
-  return (
-    <div className="w-full p-4">
-      <h3 className="text-xl font-semibold">Home Page</h3>
+    return (
+        <div className="w-full p-4">
+            {
+                <Table aria-label="Editable items">
+                    <TableHeader>
+                        <TableColumn>Page 1</TableColumn>
+                        <TableColumn></TableColumn>
+                    </TableHeader>
+                    <TableBody>
+                        <TableRow key="1">
+                            <TableCell className="w-1/5">Hello!</TableCell>
+                            <TableCell>
+                                This is just an example NextUI table that I'm
+                                using as a styling guide :&#41;
+                            </TableCell>
+                        </TableRow>
+                    </TableBody>
+                </Table>
+            }
+            <Tabs aria-label="Site Pages">
+                {/* <h3 className="text-xl font-semibold">Home Page</h3> */}
 
-      {
-        <Table aria-label="Editable items">
-          <TableHeader>
-            <TableColumn>Page 1</TableColumn>
-            <TableColumn></TableColumn>
-          </TableHeader>
-          <TableBody>
-            <TableRow key="1">
-              <TableCell className="w-1/5">Hello!</TableCell>
-              <TableCell>
-                This is just an example NextUI table that I'm using as a styling
-                guide :&#41;
-              </TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      }
-
-      <Accordion variant="splitted">
-        <AccordionItem key="1" title="Navbar Items" subtitle="a">
-          <CMSObjEdit
-            sectionTitle={"NavBar Items"}
-            section={"navBar"}
-            sectionValues={navBarInputValues}
-            setSectionValues={setNavBarInputValues}
-          />
-        </AccordionItem>
-        <AccordionItem key="Footer Items" title="Footer Items" subtitle="b">
-          <CMSObjEdit
-            sectionTitle={"Footer Items"}
-            section={"footer"}
-            sectionValues={footerValues}
-            setSectionValues={setFooterValues}
-          />
-        </AccordionItem>
-        <AccordionItem key="Blog Pages" title="Blog Pages" subtitle="c">
-          <CMSObjEdit
-            sectionTitle={"Blog Pages"}
-            section={"blogPages"}
-            sectionValues={blogPagesValues}
-          />
-        </AccordionItem>
-        <AccordionItem key="Hero Section" title="Hero Section" subtitle="d">
-          <CMSObjEdit
-            sectionTitle={"Hero Section"}
-            section={"hero"}
-            sectionValues={heroValues}
-          />
-        </AccordionItem>
-      </Accordion>
-
-      <Button
-        className="mt-4 mr-2 ml-2"
-        color={buttonSpin ? "secondary" : "success"}
-        onClick={saveChangesClick}
-      >
-        {buttonSpin ? <Spinner color="default" /> : "Save Changes"}
-      </Button>
-      <Button
-        onClick={() => {
-          console.log("swrBlog", swrBlog.pages);
-        }}
-      >
-        Log Stuff
-      </Button>
-    </div>
-  );
+                <Tab key="home" title="Home">
+								<Accordion variant="splitted">
+										<AccordionItem key="1" title="Navbar Items" subtitle="a">
+											<CMSObjEdit
+												sectionTitle={"NavBar Items"}
+												section={"navBar"}
+												sectionValues={navBarInputValues}
+												setSectionValues={setNavBarInputValues}
+											/>
+										</AccordionItem>
+										<AccordionItem key="Footer Items" title="Footer Items" subtitle="b">
+											<CMSObjEdit
+												sectionTitle={"Footer Items"}
+												section={"footer"}
+												sectionValues={footerValues}
+												setSectionValues={setFooterValues}
+											/>
+										</AccordionItem>
+										<AccordionItem key="Blog Pages" title="Blog Pages" subtitle="c">
+											<CMSObjEdit
+												sectionTitle={"Blog Pages"}
+												section={"blogPages"}
+												sectionValues={blogPagesValues}
+											/>
+										</AccordionItem>
+										<AccordionItem key="Hero Section" title="Hero Section" subtitle="d">
+											<CMSObjEdit
+												sectionTitle={"Hero Section"}
+												section={"hero"}
+												sectionValues={heroValues}
+											/>
+										</AccordionItem>
+									</Accordion>
+                </Tab>
+                <Tab key="blogPages" title="Blog Pages">
+                    <CMSObjEdit
+                        sectionTitle={"Blog Pages"}
+                        section={"blogPages"}
+                        sectionValues={blogPagesValues}
+                    />
+                </Tab>
+            </Tabs>
+            <Button className="mr-4" color="success" onClick={saveChangesClick}>
+                Save Changes
+            </Button>
+            <Button
+                onClick={() => {
+                    console.log("swrBlog", swrBlog.pages);
+                }}
+            >
+                Log Stuff
+            </Button>
+        </div>
+    );
 }
 
 //how formatting work for the CMSStrEdit Component-currently not used but could be useful later
