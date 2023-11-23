@@ -41,6 +41,7 @@ export default function Dashboard() {
                     key={site._id}
                     blogId={site._id}
                     updatedAt={site.updatedAt}
+                    deployed={site.deployed}
                     {...site.dashboard}
                   />
                 );

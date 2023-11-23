@@ -5,6 +5,7 @@ import {
   CardFooter,
   Image,
   Button,
+  Tooltip,
 } from "@nextui-org/react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -15,6 +16,7 @@ export default function SiteCard({
   previewUrl,
   siteUrl,
   updatedAt,
+  deployed,
 }) {
   const dateFetch = new Date(Date.parse(updatedAt));
   const date = dateFetch.toLocaleDateString(`default`);
@@ -23,7 +25,8 @@ export default function SiteCard({
     minute: "2-digit",
   });
   console.log(`🐍\n`, dateFetch);
-  const lastUpdate = `${updatedAt}` || `Some time ago`;
+  const lastUpdate =
+    `${updatedAt}` !== "Invalid Date" ? `${updatedAt}` : `Some time ago`;
 
   console.log(blogTitle);
 
@@ -50,6 +53,9 @@ export default function SiteCard({
 						className="rounded-full w-10 h-11 bg-black"
 						src=""
 					/> */}
+            <Tooltip content={deployed ? "Page deployed" : "Page not deployed"} color={deployed ? "success" : "secondary"}>
+              <p className="text-xl font-bold mr-2">{deployed ? "🟢" : "🟣"}</p>
+            </Tooltip>
             <div className="flex flex-col">
               <p className="text-white/75 font-semibold text-sm">Last edited</p>
               <p className="text-white/60 text-xs">{date}</p>
