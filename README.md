@@ -1,1 +1,0 @@
-# Product page repo for the LazyPress project 🐰
