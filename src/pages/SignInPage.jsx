@@ -16,8 +16,8 @@ const SignInPage = () => {
                 signUpUrl="/sign-up"
                 appearance={{
                     elements: {
-                        card: "bg-tiffany-blue",
-                        formFieldInput: "bg-thistle",
+                        card: "glassCardSmall",
+                        formFieldInput: "glassInput",
                         internal: "bg-platinum",
                         formButtonPrimary: "jellyButtonNavBar",
                     },
