@@ -1,149 +1,122 @@
 import {
-  Navbar,
-  NavbarBrand,
-  NavbarContent,
-  NavbarItem,
-  Link,
-  Button,
-  DropdownItem,
-  DropdownTrigger,
-  Dropdown,
-  DropdownMenu,
+    Navbar,
+    NavbarBrand,
+    NavbarContent,
+    NavbarItem,
+    Link,
+    Button,
+    DropdownItem,
+    DropdownTrigger,
+    Dropdown,
+    DropdownMenu,
 } from "@nextui-org/react";
 import { NavLink } from "react-router-dom";
 import { useUser, UserButton } from "@clerk/clerk-react";
+import { useEffect, useState } from "react";
 // import Hero from "./Hero";
 
 export default function NavBar() {
-  const { isSignedIn, isLoaded } = useUser();
-  return (
-    <Navbar className="bg-gray-800">
-      <NavbarBrand>
-        <NavLink to="/" className="font-bold text-slate-200 text-3xl">
-          LazyPress
-        </NavLink>
-      </NavbarBrand>
-      <NavbarContent className="hidden sm:flex gap-4" justify="center">
-        <Dropdown>
-          <NavbarItem>
-            <DropdownTrigger>
-              <Button
-                disableRipple
-                className="p-0 bg-transparent data-[hover=true]:bg-transparent font-bold text-slate-200"
-                // endContent={icons.chevron}
-                radius="sm"
-                variant="light"
-              >
-                PRODUCTS
-              </Button>
-            </DropdownTrigger>
-          </NavbarItem>
-          <DropdownMenu
-            aria-label="ACME features"
-            className="w-[340px]"
-            itemClasses={{
-              base: "gap-4",
-            }}
-          >
-            <DropdownItem
-              key="autoscaling"
-              description="ACME scales apps to meet user demand, automatically, based on load."
-              //   startContent={icons.scale}
-            >
-              Autoscaling
-            </DropdownItem>
-            <DropdownItem
-              key="usage_metrics"
-              description="Real-time metrics to debug issues. Slow query added? We’ll show you exactly where."
-              //   startContent={icons.activity}
-            >
-              Usage Metrics
-            </DropdownItem>
-            <DropdownItem
-              key="production_ready"
-              description="ACME runs on ACME, join us and others serving requests at web scale."
-              //   startContent={icons.flash}
-            >
-              Production Ready
-            </DropdownItem>
-            <DropdownItem
-              key="99_uptime"
-              description="Applications stay on the grid with high availability and high uptime guarantees."
-              //   startContent={icons.server}
-            >
-              +99% Uptime
-            </DropdownItem>
-            <DropdownItem
-              key="supreme_support"
-              description="Overcome any challenge with a supporting team ready to respond."
-              //   startContent={icons.user}
-            >
-              +Supreme Support
-            </DropdownItem>
-          </DropdownMenu>
-        </Dropdown>
-        <NavbarItem>
-          <Link
-            href="#"
-            aria-current="page"
-            className="font-bold text-slate-200"
-          >
-            TEMPLATES
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link
-            color="foreground"
-            // to="contactus"
-            href="contactus"
-            className="font-bold text-slate-200"
-          >
-            CONTACT US
-          </Link>
-        </NavbarItem>
-        {isSignedIn && (
-          <NavbarItem>
-            <Link
-              className="font-bold text-slate-200"
-              color="foreground"
-              href="dashboard"
-            >
-              DASHBOARD
-            </Link>
-          </NavbarItem>
-        )}
-      </NavbarContent>
+    const { isSignedIn, isLoaded } = useUser();
+    const [isGlass, setIsGlass] = useState(false);
 
-      <NavbarContent as="div" justify="end">
-        {isLoaded &&
-          (isSignedIn ? (
-            <UserButton afterSignOutUrl="/" />
-          ) : (
-            <>
-              <NavbarItem>
-                <Button
-                  as={Link}
-                  color="secondary"
-                  href="sign-up"
-                  className="bg-sky-800 text-white font-bold"
+    useEffect(() => {
+        const handleScroll = () => {
+            const scrollPosition = window.scrollY;
+            const isPast150vh = scrollPosition > window.innerHeight;
+
+            setIsGlass(isPast150vh);
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        handleScroll();
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
+
+    return (
+        <Navbar
+            className={`${
+                isGlass ? "glassNavBarMaterial" : "transparentNavBar"
+            }`}
+            isBlurred="false"
+        >
+            <NavbarBrand>
+                <NavLink
+                    to="/"
+                    className="font-bold text-slate-200 text-3xl neonText"
+                    style={{ fontFamily: "Mom Cake", color: "black" }}
                 >
-                  Sign Up
-                </Button>
-              </NavbarItem>
-              <NavbarItem>
-                <Button
-                  as={Link}
-                  // color="primary"
-                  href="sign-in"
-                  variant="flat"
-                  className="bg-white text-black font-bold"
-                >
-                  Sign In
-                </Button>
-              </NavbarItem>
-            </>
-          ))}
-      </NavbarContent>
-    </Navbar>
-  );
+                    LazyPress
+                </NavLink>
+            </NavbarBrand>
+            <NavbarContent
+                className="hidden sm:flex gap-4"
+                justify="center"
+                style={{ fontFamily: "Mom Cake" }}
+            >
+                <NavbarItem>
+                    <Link href="#" aria-current="page" className="text-black">
+                        About
+                    </Link>
+                </NavbarItem>
+                <NavbarItem>
+                    <Link
+                        color="foreground"
+                        // to="contactus"
+                        href="contactus"
+                        className="text-black"
+                    >
+                        Contact
+                    </Link>
+                </NavbarItem>
+                <NavbarItem>
+                    <Link color="foreground" href="#" className="text-black">
+                        Pricing
+                    </Link>
+                </NavbarItem>
+
+                {isSignedIn && (
+                    <NavbarItem>
+                        <Link
+                            className="text-black"
+                            color="foreground"
+                            href="dashboard"
+                        >
+                            Dashboard
+                        </Link>
+                    </NavbarItem>
+                )}
+            </NavbarContent>
+
+            <NavbarContent as="div" justify="end">
+                {isLoaded &&
+                    (isSignedIn ? (
+                        <UserButton afterSignOutUrl="/" />
+                    ) : (
+                        <>
+                            <NavbarItem>
+                                <Button
+                                    as={Link}
+                                    href="sign-in"
+                                    variant="flat"
+                                    className=" jellyButtonNavBar"
+                                >
+                                    Sign In
+                                </Button>
+                            </NavbarItem>
+                            <NavbarItem>
+                                <Button
+                                    as={Link}
+                                    href="sign-up"
+                                    className="jellyButtonNavBar"
+                                >
+                                    Sign Up
+                                </Button>
+                            </NavbarItem>
+                        </>
+                    ))}
+            </NavbarContent>
+        </Navbar>
+    );
 }
