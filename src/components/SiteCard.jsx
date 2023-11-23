@@ -16,13 +16,6 @@ export default function SiteCard({
   siteUrl,
   updatedAt,
 }) {
-  const [hovering, setHovering] = useState(false);
-  const handleMouseOver = () => {
-    setHovering(true);
-  };
-  const handleMouseOut = () => {
-    setHovering(false);
-  };
 
   const dateFetch = new Date(Date.parse(updatedAt));
   const date = dateFetch.toLocaleDateString(`default`);
@@ -39,22 +32,21 @@ export default function SiteCard({
     <Card
       isFooterBlurred
       isHoverable
-      onMouseOver={handleMouseOver}
-      onMouseOut={handleMouseOut}
-      className="max-w-full h-[200px] mb-4 mx-2 shadow-xl"
+      className="max-w-full h-[200px] mb-4 mx-2 shadow-xl z-0"
     >
-      <CardHeader className="absolute z-10 top-1 flex-col items-start">
+      <CardHeader className="absolute z-20 top-1 flex-col items-start">
         <h4 className="text-black/90 font-medium text-xl">{blogTitle}</h4>
       </CardHeader>
       <Image
         removeWrapper
         alt="Site image"
-        className="z-0 w-full h-full object-cover"
+        className="z-10 w-full h-full object-cover "
         src={previewUrl}
       />
-      {hovering && (
-        <CardFooter className="absolute bg-black/40 bottom-0 z-10 border-t-1 border-default-600 dark:border-default-100">
-          <div className="flex flex-grow gap-2 items-center">
+			<div className="transition ease-in-out opacity-3 hover:opacity-100 duration-300 h-full z-20">
+
+        <CardFooter className="absolute bg-black/40 bottom-0 z-30 border-t-1 border-default-600 dark:border-default-100">
+          <div className="flex flex-grow items-center">
             {/* <Image
 						alt="Breathing app icon"
 						className="rounded-full w-10 h-11 bg-black"
@@ -79,7 +71,8 @@ export default function SiteCard({
             </Link>
           </div>
         </CardFooter>
-      )}
+
+				</div>
     </Card>
   );
 }
