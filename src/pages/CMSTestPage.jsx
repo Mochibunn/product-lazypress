@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { editBlog } from "../lib/dbClient";
 import { useBlog } from "../lib/swr";
 import { useEffect, useState } from "react";
-import { Button } from "@nextui-org/react";
+import { Button, Table, TableHeader, TableColumn, TableBody, TableRow, TableCell } from "@nextui-org/react";
 import CMSObjEdit from "../components/CMSObjEdit";
 import { useAuth } from "@clerk/clerk-react";
 
@@ -83,6 +83,21 @@ export default function CMSTestPage() {
     return (
         <div className="w-full p-4">
             <h3 className="text-xl font-semibold">Home Page</h3>
+
+            {
+                <Table aria-label="Editable items">
+                <TableHeader>
+                    <TableColumn>Page 1</TableColumn>
+                    <TableColumn></TableColumn>
+                </TableHeader>
+                <TableBody>
+                    <TableRow key="1">
+                        <TableCell className="w-1/5">Hello!</TableCell>
+                        <TableCell>This is just an example NextUI table that I'm using as a styling guide :&#41;</TableCell>
+                    </TableRow>
+                </TableBody>
+                </Table>
+            }
 
             <CMSObjEdit
                 sectionTitle={"NavBar Items"}
