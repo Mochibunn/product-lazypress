@@ -14,7 +14,7 @@ export default function CMSObjEdit({
         <>
             {sectionValues && (
                 <div>
-                    <h3 className="text-3xl font-semibold">{sectionTitle}</h3>
+                    <h3 className="text-3xl font-semibold text-neutral-800">{sectionTitle}</h3>
 
                     {sectionValues.map((page, i) => {
                         return (

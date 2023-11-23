@@ -12,6 +12,7 @@ import { useUser } from "@clerk/clerk-react";
 export default function Dashboard() {
   const { user } = useUser();
   const { sites, isLoading } = useSites(user.id);
+  document.title = `Dashboard | LazyPress`;
 
   console.log(sites);
   console.log(user.id);
@@ -35,6 +36,7 @@ export default function Dashboard() {
                   <SiteCard
                     key={site._id}
                     blogId={site._id}
+                    updatedAt={site.updatedAt}
                     {...site.dashboard}
                   />
                 );
