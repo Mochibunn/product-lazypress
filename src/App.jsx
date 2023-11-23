@@ -70,12 +70,12 @@ function App() {
               </SignedIn>
             }
           />
+          <Route
+            path="contactus/*"
+            element={<ContactPage routing="path" path="/contactus" />}
+          />
           <Route path="*" element={<NotFound />} />
         </Route>
-        <Route
-          path="contactus/*"
-          element={<ContactPage routing="path" path="/contactus" />}
-        />
       </Routes>
     </ClerkProvider>
   );

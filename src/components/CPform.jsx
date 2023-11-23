@@ -1,26 +1,35 @@
+import axios from "axios";
 import { Image } from "@nextui-org/react";
-import { useState } from "react";
+import { useNavigate, redirect } from "react-router-dom";
 import { useForm } from "react-hook-form";
 export default function CPform() {
-  const [form, setForm] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    message: "",
-  });
-
+  const navigate = useNavigate();
+  const onSubmit = async (data, event) => {
+    event.preventDefault();
+    try {
+      console.log(data);
+      await axios.post("http://localhost:5173/contactus", data);
+      // window.location.replace("/");
+      navigate("/", { replace: true });
+    } catch (error) {
+      console.error("There was an error!", error);
+    }
+  };
+  //
+  //   const handleChange = () => {
+  //     navigate("/");
+  //   };
+  const onError = () => {
+    console.log("wrong");
+  };
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
-  };
-
   console.log(errors);
+  //
   return (
     <>
       <div
@@ -57,10 +66,9 @@ export default function CPform() {
             </p>
           </div>
           <div className="bg-[#f39d50] p-[40px] rounded w-96">
+            {/* ------------------------form validation------------------------ */}
             <form
-              onSubmit={handleSubmit((data) => {
-                console.log(data);
-              })}
+              onSubmit={handleSubmit(onSubmit, onError)}
               className="flex flex-col gap-3"
             >
               <label
@@ -175,10 +183,18 @@ export default function CPform() {
                 ></textarea>
                 <p style={{ color: "red" }}> {errors.textarea?.message}</p>
               </label>
-              <input
+              {/* <input
                 type="submit"
                 className="bg-[#4b1544] text-white px-2 py-1 rounded"
-              />
+                
+              /> */}
+              <button
+                type="submit"
+                className="bg-[#4b1544] text-white px-2 py-1 rounded"
+                // onClick={handleChange}
+              >
+                submit
+              </button>
             </form>
           </div>
         </div>
