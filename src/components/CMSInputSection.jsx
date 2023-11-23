@@ -1,32 +1,19 @@
 import CMSInput from "./CMSInput";
-import { useEffect, useState, useMemo } from "react";
+import { useState } from "react";
 import { Button } from "@nextui-org/react";
 import { useParams } from "react-router-dom";
 import { useBlog } from "../lib/swr";
 import { produce } from "immer";
 
-export default function CMSInputSection({
-    array,
-    i: sectionIndex,
-    setBlog,
-    blog,
-    section,
-}) {
+export default function CMSInputSection({ array, i: sectionIndex, section }) {
     const [localValues, setLocalValues] = useState(array);
     const { blogId } = useParams();
     const { swrBlog, mutateBlog } = useBlog(blogId);
-
-    // const generatedKeys = useMemo(
-    //     () => array.map((item) => crypto.randomUUID()),
-    //     [array]
-    // );
 
     //useCallBack for performance if time
     const handleArrayValueChange = (e, i) => {
         const values = [...localValues];
         console.log(values);
-        // console.log("index value:", values[i].value);
-        // console.log("e.target.value", e.target.value);
         values[i].value = e.target.value;
         setLocalValues(values);
     };
@@ -36,34 +23,26 @@ export default function CMSInputSection({
         console.log("localvalues", localValues);
         const asArrays = localValues.map((obj) => {
             const objAsArray = [obj.label, obj.value];
-            // const usableObj = Object.fromEntries(objAsArray);
-            // console.log(obj);
+
             return objAsArray;
         });
-        // console.log("asArrays", asArrays);
         const singleObj = Object.fromEntries(asArrays);
-        // console.log("singleObj", singleObj);
-        // console.log("blog notation", blog.pages.home.blogPages[i]);
 
-        setBlog((draft) => {
-            draft.pages.home[section][sectionIndex] = singleObj;
-        });
+        mutateBlog(
+            produce((draftBlog) => {
+                draftBlog.pages.home[section][sectionIndex] = singleObj;
+            }),
+            { optimisticData: swrBlog, revalidate: false }
+        );
     };
     const deleteSection = () => {
         console.log(swrBlog.pages.home[section][sectionIndex]);
-        setBlog((draft) => {
-            draft.pages.home[section].splice(sectionIndex, 1);
-        });
-        // mutateBlog(
-        //     produce((draftBlog) => {
-        //         const updatedSection = draftBlog.pages.home[section].toSpliced(
-        //             sectionIndex,
-        //             1
-        //         );
-        //         draftBlog.pages.home[section] = updatedSection;
-        //     }),
-        //     { optimisticData: swrBlog, revalidate: false }
-        // );
+        mutateBlog(
+            produce((draftBlog) => {
+                draftBlog.pages.home[section].splice(sectionIndex, 1);
+            }),
+            { optimisticData: swrBlog, revalidate: false }
+        );
     };
 
     return (
@@ -75,12 +54,6 @@ export default function CMSInputSection({
                         return (
                             <CMSInput
                                 key={`${obj.label}_${obj.key}`}
-                                // key={`${section}_page${sectionIndex + 1}${
-                                //     obj.label
-                                // }_${obj.schemaId}`}
-                                // key={`${
-                                //     section + "_page_" + (sectionIndex + 1)
-                                // }_${obj.label}`}
                                 valueObj={obj}
                                 i={i}
                                 onChange={handleArrayValueChange}

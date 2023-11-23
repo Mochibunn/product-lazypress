@@ -1,8 +1,7 @@
 import { useParams } from "react-router-dom";
-import { getBlog, editBlog, editBlogAuth, getAuth } from "../lib/dbClient";
+import { editBlog } from "../lib/dbClient";
 import { useBlog } from "../lib/swr";
 import { useEffect, useState } from "react";
-import { useImmer } from "use-immer";
 import { Button } from "@nextui-org/react";
 import CMSObjEdit from "../components/CMSObjEdit";
 import { useAuth } from "@clerk/clerk-react";
@@ -12,7 +11,6 @@ import { useAuth } from "@clerk/clerk-react";
 export default function CMSTestPage() {
     const { getToken } = useAuth();
     const { blogId } = useParams();
-    const [blog, setBlog] = useImmer();
     const { swrBlog, mutateBlog } = useBlog(blogId);
     const [navBarInputValues, setNavBarInputValues] = useState();
     const [blogPagesValues, setBlogPagesValues] = useState();
@@ -21,16 +19,8 @@ export default function CMSTestPage() {
 
     useEffect(() => {
         if (!swrBlog) return;
-        setBlog(swrBlog);
-    }, [swrBlog]);
 
-    useEffect(() => {
-        if (!blog) return;
-        console.log("blog", blog);
-
-        // console.log(blog);
-
-        const navBarValues = blog.pages.home.navBar.map((page) => {
+        const navBarValues = swrBlog.pages.home.navBar.map((page) => {
             const theValues = Object.entries(page).map(([key, value]) => ({
                 value,
                 label: key,
@@ -40,7 +30,7 @@ export default function CMSTestPage() {
             return theValues;
         });
 
-        const footerValues = blog.pages.home.footer.map((page) => {
+        const footerValues = swrBlog.pages.home.footer.map((page) => {
             const theValues = Object.entries(page).map(([key, value]) => ({
                 value,
                 label: key,
@@ -50,7 +40,7 @@ export default function CMSTestPage() {
             return theValues;
         });
 
-        const blogValues = blog.pages.home.blogPages.map((page) => {
+        const blogValues = swrBlog.pages.home.blogPages.map((page) => {
             const pageValues = Object.entries(page).map(([key, value]) => {
                 return {
                     value,
@@ -61,7 +51,7 @@ export default function CMSTestPage() {
             // console.log(pageValues);
             return pageValues;
         });
-        const heroValues = blog.pages.home.hero.map((page) => {
+        const heroValues = swrBlog.pages.home.hero.map((page) => {
             const theValues = Object.entries(page).map(([key, value]) => ({
                 value,
                 label: key,
@@ -75,78 +65,18 @@ export default function CMSTestPage() {
         setFooterValues([...footerValues]);
         setBlogPagesValues([...blogValues]);
         setHeroValues([...heroValues]);
-        // setBlog(swrBlog);
-    }, [blog]);
-    // getBlog(blogId).then((blog) => {
-    //     // console.log(blog);
-
-    //     const navBarValues = blog.pages.home.navBar.map((page) => {
-    //         const theValues = Object.entries(page).map(([key, value]) => ({
-    //             value,
-    //             label: key,
-    //             key: crypto.randomUUID(),
-    //         }));
-    //         // console.log(theValues);
-    //         return theValues;
-    //     });
-
-    //     const footerValues = blog.pages.home.footer.map((page) => {
-    //         const theValues = Object.entries(page).map(([key, value]) => ({
-    //             value,
-    //             label: key,
-    //             key: crypto.randomUUID(),
-    //         }));
-    //         // console.log(theValues);
-    //         return theValues;
-    //     });
-
-    //     const blogValues = blog.pages.home.blogPages.map((page) => {
-    //         const pageValues = Object.entries(page).map(([key, value]) => {
-    //             return {
-    //                 value,
-    //                 label: key,
-    //                 key: crypto.randomUUID(),
-    //             };
-    //         });
-    //         // console.log(pageValues);
-    //         return pageValues;
-    //     });
-    //     const heroValues = blog.pages.home.hero.map((page) => {
-    //         const theValues = Object.entries(page).map(([key, value]) => ({
-    //             value,
-    //             label: key,
-    //             key: crypto.randomUUID(),
-    //         }));
-    //         // console.log(theValues);
-    //         return theValues;
-    //     });
-
-    //     setNavBarInputValues([...navBarValues]);
-    //     setFooterValues([...footerValues]);
-    //     setBlogPagesValues([...blogValues]);
-    //     setHeroValues([...heroValues]);
-    //     setBlog(blog);
-    // });
-    // }, []);
+    }, [swrBlog]);
 
     const saveChangesClick = async () => {
-        // editBlog(blog)
-        //     .then((response) => console.log(response))
-        //     .catch((err) => console.error(err));
         try {
             const sessToken = await getToken();
-            editBlog(sessToken, blog).then((res) =>
+            editBlog(sessToken, swrBlog).then((res) =>
                 console.log("came from protected route", res)
             );
             mutateBlog();
         } catch (error) {
             console.error(error);
         }
-        // getToken().then((token) => {
-        //     editBlogAuth(token, blog).then((res) =>
-        //         console.log("came from protected route", res)
-        //     );
-        // });
     };
 
     return (
@@ -158,31 +88,23 @@ export default function CMSTestPage() {
                 section={"navBar"}
                 sectionValues={navBarInputValues}
                 setSectionValues={setNavBarInputValues}
-                blog={blog}
-                setBlog={setBlog}
             />
             <CMSObjEdit
                 sectionTitle={"Footer Items"}
                 section={"footer"}
                 sectionValues={footerValues}
                 setSectionValues={setFooterValues}
-                blog={blog}
-                setBlog={setBlog}
             />
 
             <CMSObjEdit
                 sectionTitle={"Blog Pages"}
                 section={"blogPages"}
                 sectionValues={blogPagesValues}
-                blog={blog}
-                setBlog={setBlog}
             />
             <CMSObjEdit
                 sectionTitle={"Hero Section"}
                 section={"hero"}
                 sectionValues={heroValues}
-                blog={blog}
-                setBlog={setBlog}
             />
 
             <Button className="mr-4" color="success" onClick={saveChangesClick}>
@@ -190,7 +112,7 @@ export default function CMSTestPage() {
             </Button>
             <Button
                 onClick={() => {
-                    console.log(blog.pages);
+                    console.log("swrBlog", swrBlog.pages);
                 }}
             >
                 Log Stuff

@@ -27,7 +27,12 @@ const useSites = (clerkId) => {
 const useBlog = (blogId) => {
     const { data, error, isLoading, mutate } = useSWR(
         `/blogs/${blogId}`,
-        fetcher
+        fetcher,
+        {
+            revalidateIfStale: false,
+            revalidateOnFocus: false,
+            revalidateOnReconnect: false,
+        }
     );
 
     return {
