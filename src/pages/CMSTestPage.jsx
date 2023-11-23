@@ -16,6 +16,7 @@ export default function CMSTestPage() {
     const [blogPagesValues, setBlogPagesValues] = useState();
     const [heroValues, setHeroValues] = useState();
     const [footerValues, setFooterValues] = useState();
+    document.title = `Edit blog | LazyPress`
 
     useEffect(() => {
         if (!swrBlog) return;
@@ -80,8 +81,8 @@ export default function CMSTestPage() {
     };
 
     return (
-        <div className="w-screen p-4">
-            <h3>Home Page</h3>
+        <div className="w-full p-4">
+            <h3 className="text-xl font-semibold">Home Page</h3>
 
             <CMSObjEdit
                 sectionTitle={"NavBar Items"}

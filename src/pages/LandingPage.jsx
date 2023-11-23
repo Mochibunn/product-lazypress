@@ -8,6 +8,7 @@ import { useClerkSWR } from "../lib/swr";
 import { getAuth } from "../lib/dbClient";
 
 export default function LandingPage() {
+  document.title = `LazyPress`;
   // getAuth().then((res) => console.log(res));
 
   // console.log(useClerkSWR("http://localhost:24601/blogs/protected/endpoint"));

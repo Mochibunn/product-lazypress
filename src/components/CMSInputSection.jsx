@@ -46,7 +46,8 @@ export default function CMSInputSection({ array, i: sectionIndex, section }) {
     };
 
     return (
-        <div className="my-2 border-2 border-black flex flex-col w-3/4">
+        <div className="my-2 border-2 rounded-lg border-tiffany-blue flex flex-col w-3/4">
+          <div className="m-2">
             <h3 className="text-xl font-bold">Page {`${sectionIndex + 1}`}</h3>
             <form onSubmit={editSection}>
                 {array &&
@@ -69,6 +70,7 @@ export default function CMSInputSection({ array, i: sectionIndex, section }) {
                     </Button>
                 )}
             </form>
+            </div>
         </div>
     );
 }
