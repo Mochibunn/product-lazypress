@@ -31,6 +31,7 @@ export default function Dashboard() {
               <Spinner 
               className="flex justify-center my-10"
               color="secondary"
+              label="Loading..🐰"
               />
             ) : (
               sites.map((site) => {

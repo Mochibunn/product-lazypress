@@ -16,7 +16,6 @@ export default function SiteCard({
   siteUrl,
   updatedAt,
 }) {
-
   const dateFetch = new Date(Date.parse(updatedAt));
   const date = dateFetch.toLocaleDateString(`default`);
   const time = dateFetch.toLocaleTimeString([], {
@@ -30,7 +29,7 @@ export default function SiteCard({
 
   return (
     <Card
-      isFooterBlurred
+      // isFooterBlurred
       isHoverable
       className="max-w-full h-[200px] mb-4 mx-2 shadow-xl z-0"
     >
@@ -40,12 +39,11 @@ export default function SiteCard({
       <Image
         removeWrapper
         alt="Site image"
-        className="z-10 w-full h-full object-cover "
+        className="z-10 min-w-full min-h-full object-cover overflow-clip"
         src={previewUrl}
       />
-			<div className="transition ease-in-out opacity-3 hover:opacity-100 duration-300 h-full z-20">
-
-        <CardFooter className="absolute bg-black/40 bottom-0 z-30 border-t-1 border-default-600 dark:border-default-100">
+      <div className="flex flex-col transition ease-in-out opacity-70 hover:opacity-100 duration-300 motion-reduce:transition-none motion-reduce:hover:transform-none z-30 min-h-[200px]">
+        <CardFooter className="absolute bg-black/80 bottom-0 z-40 border-t-1 border-default-600 dark:border-default-100 ">
           <div className="flex flex-grow items-center">
             {/* <Image
 						alt="Breathing app icon"
@@ -71,8 +69,7 @@ export default function SiteCard({
             </Link>
           </div>
         </CardFooter>
-
-				</div>
+      </div>
     </Card>
   );
 }
