@@ -3,11 +3,17 @@ import useSWR from "swr";
 
 const backend = "http://localhost:24601";
 
-const fetcher = (url) => axios.get(url).then((res) => res.data);
+const lazyPress = axios.create({
+    baseURL: backend,
+});
+
+const fetcher = (url) => lazyPress.get(url).then((res) => res.data);
+
+import { useAuth } from "@clerk/clerk-react";
 
 const useSites = (clerkId) => {
     const { data, error, isLoading } = useSWR(
-        `${backend}/blogs/user/${clerkId}`,
+        `/blogs/user/${clerkId}`,
         fetcher
     );
 
@@ -18,4 +24,39 @@ const useSites = (clerkId) => {
     };
 };
 
-export { useSites };
+const useBlog = (blogId) => {
+    const { data, error, isLoading, mutate } = useSWR(
+        `/blogs/${blogId}`,
+        fetcher,
+        {
+            revalidateIfStale: false,
+            revalidateOnFocus: false,
+            revalidateOnReconnect: false,
+        }
+    );
+
+    return {
+        swrBlog: data,
+        isLoading,
+        isError: error,
+        mutateBlog: mutate,
+    };
+};
+
+export { useSites, useBlog, useClerkSWR };
+
+//might bring back later
+const useClerkSWR = (url) => {
+    const { getToken } = useAuth();
+
+    const fetcher = async (...args) => {
+        return fetch(...args, {
+            headers: { Authorization: `Bearer ${await getToken()}` },
+        }).then((res) => res.json());
+    };
+
+    const { data } = useSWR(url, fetcher);
+    return {
+        data,
+    };
+};

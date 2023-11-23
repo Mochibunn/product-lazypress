@@ -1,32 +1,84 @@
+import DShapeC from "../assets/images/3DShape3.jpg";
+import { useState, useEffect } from "react";
+import { Button, Link } from "@nextui-org/react";
+
 export default function OurService() {
-  return (
-    <div className="w-[100%] h-[90vh] bg-[#e8e4e4] flex px-16 py-16">
-      <div
-        className="w-[50%] h-[70vh] overflow-hidden"
-        style={{
-          backgroundImage:
-            "url(https://images.unsplash.com/photo-1526992430293-51554a151122?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      ></div>
-      <div className="text-black flex flex-col gap-1 px-12 py-8">
-        <h3 className="font-bold text-lg">Create a template</h3>
-        <p>
-          Choose from any of our industry-leading website templates, designer
-          fonts, and color palettes.
-        </p>
-        <h3 className="font-bold text-lg">Sell your products and services</h3>
-        <p>
-          Set up your template or sell your skills—all on a single platform
-          built just for you.
-        </p>
-        <h3 className="font-bold text-lg">Market your business</h3>
-        <p>
-          On-brand email campaigns and social tools make it easy to retain
-          customers and grow your base.
-        </p>
-      </div>
-    </div>
-  );
+    const [scrollPosition, setScrollPosition] = useState(0);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setScrollPosition(window.scrollY);
+        };
+
+        window.addEventListener("scroll", handleScroll);
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
+
+    const initialMargin =
+        scrollPosition < 100 ? 0 : (2000 - scrollPosition) * 0.2;
+
+    return (
+        <div
+            className="relative w-full h-[100vh] flex px-16 py-16 "
+            style={{
+                backgroundImage: `url(${DShapeC})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                marginTop: "-9vh",
+                overflowY: "auto",
+                backdropFilter: "blur(100px)",
+            }}
+        >
+            <h1
+                className="neon-text2"
+                style={{
+                    fontFamily: "Lemon Milk",
+                    fontSize: "18rem",
+                    zIndex: 900,
+                    marginTop: "-10vh",
+                    marginLeft: `${initialMargin}%`,
+                    transition: "margin 0.5s ease",
+                    color: "black",
+                    lineHeight: "0.8",
+                }}
+            >
+                What we do
+            </h1>
+
+            <ul className="absolute top-[30vh] left-0 right-0 bottom-0 z-10 flex flex-col items-center gap-20 px-12 serviceUL  overflow-x-hidden">
+                <li className="glassCardSmall">
+                    <div className="flex flex-col justify-center items-start text-center">
+                        <div className="flex flex-col justify-center items-center text-center p-4 gap-5">
+                            <p
+                                style={{
+                                    fontFamily: "Lemon Milk",
+                                    fontSize: "1rem",
+                                }}
+                            >
+                                "We build custom websites for any purpose.{" "}
+                                <br />
+                                Choose from our range of templates & designs.{" "}
+                                <br />
+                                Our sites come with an easy-to-use Content{" "}
+                                <br />
+                                Management System."
+                            </p>
+                            <Link
+                                color="foreground"
+                                href="#"
+                                className="text-black"
+                            >
+                                <Button className="jellyButtonNavBar">
+                                    Go to Pricing
+                                </Button>
+                            </Link>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    );
 }
