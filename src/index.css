@@ -375,3 +375,28 @@ button {
   width: fit-content !important;
   height: fit-content !important;
 }
+
+.watermark
+{
+	position: fixed;
+	top: 42vh;
+	z-index: 50;
+	right: 50vw;
+	opacity: 0.2;
+	color: black;
+	background-color: rgba(131, 50, 185, 0.5);
+	height: 40px;
+	width: 100px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transform: rotate(-45deg);
+	content: attr(data-watermark);
+
+	user-select: none; /* Non-prefixed version for chorme, opera and*/
+	-ms-user-select: none; /* Internet Explorer, Edge */
+	-moz-user-select: none; /* Firefox */
+	-khtml-user-select: none; /* Konqueror HTML */
+	-webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none; /* Safari */
+}
