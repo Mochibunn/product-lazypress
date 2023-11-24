@@ -5,8 +5,7 @@ import { useForm } from "react-hook-form";
 
 import { useState } from "react";
 import ThankyouPage from "../pages/ThankyouPage";
-import DShapeB from '../assets/images/3DShape2.jpg'
-
+import DShapeB from "../assets/images/3DShape2.jpg";
 
 export default function CPform() {
   const navigate = useNavigate();
@@ -89,7 +88,7 @@ export default function CPform() {
                       // max: 20,
                       pattern: /^[A-Za-z]+$/i,
                     })}
-                    className="w-80 h-8 outline-none border-2 border-[#4b1544] rounded-lg transition-all font-medium"
+                    className="w-80 h-8 glassInput transition-all font-medium"
                   />
                   {errors?.firstName?.type === "pattern" && (
                     <p style={{ color: "red" }}>
@@ -126,7 +125,7 @@ export default function CPform() {
                       maxLength: 20,
                       pattern: /^[A-Za-z]+$/i,
                     })}
-                    className="w-80 h-8 outline-none border-2 border-[#4b1544] rounded-lg transition-all font-medium"
+                    className="w-80 h-8 glassInput transition-all font-medium"
                   />
                   {errors?.lastName?.type === "pattern" && (
                     <p style={{ color: "red" }}>
@@ -156,7 +155,7 @@ export default function CPform() {
                   htmlFor="email"
                   className="flex flex-col text-[#4b1544] font-bold"
                 >
-                  Email
+                  Email:
                   <input
                     type="email"
                     id="email"
@@ -167,7 +166,7 @@ export default function CPform() {
                           /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                       },
                     })}
-                    className="w-80 h-8 outline-none border-2 border-[#4b1544] rounded-lg transition-all font-medium"
+                    className="w-80 h-8 glassInput transition-all font-medium"
                   />
                   {/* <p style={{ color: "red" }}> {errors.email?.message}</p> */}
                   {errors?.email?.type === "pattern" && (
@@ -190,7 +189,7 @@ export default function CPform() {
                   Message
                   <textarea
                     id="textarea"
-                    className="w-80 h-20 outline-none border-2 border-[#4b1544] rounded-lg transition-all font-medium"
+                    className="w-80 h-20 glassTextArea transition-all font-medium"
                     {...register("textarea", {
                       required: "This is a required field",
                       minLength: 30,
@@ -263,18 +262,11 @@ export default function CPform() {
           </div>
           <div className="bg-[#f39d50] p-[40px] rounded w-96 glassCardSmall">
             {/* ------------------------form validation------------------------ */}
-       
 
-              
-       
-              <button
-                type="submit"
-                className="jellyButtonNavBar"
-          
-              >
-                submit
-              </button>
-            </form>
+                <button type="submit" className="jellyButtonNavBar">
+                  submit
+                </button>
+              </form>
             </div>
           </div>
         </div>
