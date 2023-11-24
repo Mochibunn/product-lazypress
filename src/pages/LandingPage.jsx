@@ -4,6 +4,7 @@ import ExampleProduct from "../components/ExampleProduct";
 import Explore from "../components/Explore";
 import Subscription from "../components/Subscription";
 import FreeTrial from "../components/FreeTrial";
+import Testimonials from "../components/Testimonals";
 
 export default function LandingPage() {
     document.title = `LazyPress`;
@@ -11,10 +12,13 @@ export default function LandingPage() {
         <>
             <HeroBanner className="absolute" />
             <OurService />
-            <ExampleProduct />
             <Explore />
-            <Subscription />
+           
+            <ExampleProduct />
+            <Testimonials/>
             <FreeTrial />
+            <Subscription />
+            
         </>
     );
 }
