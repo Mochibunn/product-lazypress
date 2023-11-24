@@ -46,7 +46,7 @@ export default function CMSInput({ valueObj, i, onChange, sectionIndex }) {
             <Image
               alt="Section image"
               src={value}
-              className="max-h-[200px] max-w-[600px] my-2"
+              className="max-h-[200px] max-w-[600px] my-2 shadow-xl"
             />
           )}
         </div>
