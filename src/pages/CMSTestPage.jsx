@@ -6,15 +6,9 @@ import {
   Accordion,
   AccordionItem,
   Button,
-  Table,
-  TableHeader,
-  TableColumn,
-  TableBody,
-  TableRow,
-  TableCell,
   Tabs,
   Tab,
-  Spinner,
+  Textarea,
 } from "@nextui-org/react";
 import CMSObjEdit from "../components/CMSObjEdit";
 import { useAuth } from "@clerk/clerk-react";
@@ -32,11 +26,11 @@ export default function CMSTestPage() {
   // const [buttonSpin, setButtonSpin] = useState(false); Might remove this line later — Mochi
   document.title = `Edit blog | LazyPress`;
   console.log(`🧡\n`, swrBlog);
-  let blogTitle = null;
+  const [blogTitle, setBlogTitle] = useState(null);
 
   useEffect(() => {
     if (!swrBlog) return;
-    blogTitle = swrBlog.dashboard.blogTitle;
+    setBlogTitle(swrBlog.dashboard.blogTitle);
 
     const navBarValues = swrBlog.pages.home.navBar.map((page) => {
       const theValues = Object.entries(page).map(([key, value]) => ({
@@ -102,24 +96,15 @@ export default function CMSTestPage() {
 
   return (
     <div className="w-full p-4">
-      {/* {
-        <Table aria-label="Editable items">
-          <TableHeader>
-            <TableColumn>Page 1</TableColumn>
-            <TableColumn></TableColumn>
-          </TableHeader>
-          <TableBody>
-            <TableRow key="1">
-              <TableCell className="w-1/5">Hello!</TableCell>
-              <TableCell>
-                This is just an example NextUI table that I'm using as a styling. Please remove it and its imports later.
-                guide :&#41;
-              </TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      } */}
-      <h3 className="text-4xl font-semibold font-metropolis">Edit {blogTitle}</h3>
+      <div aria-hidden className="mb-2 flex">
+        <h3 className="text-4xl font-semibold font-metropolis">Edit</h3>
+        <Textarea
+          value={blogTitle || "Page"}
+          // onChange={}
+          minRows={1}
+          className="cms-title"
+        />
+      </div>
       <Tabs aria-label="Site Pages">
         <Tab key="home" title="Home" className="font-metropolis">
           <Accordion variant="splitted" className="font-metropolis">
@@ -139,13 +124,6 @@ export default function CMSTestPage() {
                 setSectionValues={setFooterValues}
               />
             </AccordionItem>
-            <AccordionItem key="Blog Pages" title="Blog Pages" subtitle="">
-              <CMSObjEdit
-                // sectionTitle={"Blog Pages"}
-                section={"blogPages"}
-                sectionValues={blogPagesValues}
-              />
-            </AccordionItem>
             <AccordionItem key="Hero Section" title="Hero Section" subtitle="">
               <CMSObjEdit
                 // sectionTitle={"Hero Section"}
@@ -155,7 +133,7 @@ export default function CMSTestPage() {
             </AccordionItem>
           </Accordion>
         </Tab>
-        <Tab key="blogPages" title="Blog Pages">
+        <Tab key="blogPages" title="Blog Pages" className="font-metropolis">
           <Accordion variant="splitted">
             <AccordionItem key="Blog Pages" title="Blog Pages">
               <CMSObjEdit
