@@ -10,6 +10,7 @@ import CMSPage from "./pages/CMSPage";
 import CMSTestPage from "./pages/CMSTestPage";
 import NotFound from "./pages/NotFound";
 import ContactPage from "./pages/ContactPage";
+import PricingPage from "./pages/PricingPage";
 // import SignInPage from "./pages/SignInPage";
 // import SignUpPage from "./pages/SignUpPage";
 const LazySignInPage = React.lazy(() => import("./pages/SignInPage"));
@@ -79,6 +80,12 @@ function App() {
                         path="contactus/*"
                         element={
                             <ContactPage routing="path" path="/contactus" />
+                        }
+                    />
+                        <Route
+                        path="pricing/*"
+                        element={
+                            <PricingPage routing="path" path="/pricing" />
                         }
                     />
                     <Route path="*" element={<NotFound />} />

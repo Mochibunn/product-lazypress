@@ -71,7 +71,7 @@ export default function NavBar() {
                     </Link>
                 </NavbarItem>
                 <NavbarItem>
-                    <Link color="foreground" href="#" className="text-black">
+                    <Link color="foreground" href="pricing" className="text-black">
                         Pricing
                     </Link>
                 </NavbarItem>
