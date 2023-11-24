@@ -327,58 +327,7 @@ button {
             0 0 40px rgba(212, 0, 255, 0.8), 0 0 60px rgba(255, 0, 247, 0.8);
     }
 }
-.water-transition {
-    position: relative;
-}
 
-.water-transition::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(
-        45deg,
-        rgba(255, 255, 255, 0.1) 25%,
-        transparent 25%,
-        transparent 50%,
-        rgba(255, 255, 255, 0.1) 50%,
-        rgba(255, 255, 255, 0.1) 75%,
-        transparent 75%,
-        transparent
-    );
-    background-size: 50px 50px;
-    animation: waterEffect 1s linear infinite;
-    pointer-events: none;
-    z-index: 1;
-}
-
-.water-transition.hovered::before {
-    background: linear-gradient(
-        45deg,
-        rgba(255, 255, 255, 0.1) 25%,
-        transparent 25%,
-        transparent 50%,
-        rgba(255, 255, 255, 0.1) 50%,
-        rgba(255, 255, 255, 0.1) 75%,
-        transparent 75%,
-        transparent
-    );
-    animation: waterEffectHovered 1s linear infinite;
-}
-
-@keyframes waterEffect {
-    to {
-        transform: translate(50px, 50px);
-    }
-}
-
-@keyframes waterEffectHovered {
-    to {
-        transform: translate(100px, 100px);
-    }
-}
 
 .glassInput {
     border-radius: 4rem;
@@ -389,7 +338,7 @@ button {
     border: 1px solid rgba(255, 255, 255, 0.2);
     color: black;
     transition: background-color 0.2s ease-in-out, border 0.2s ease-in-out;
-    padding: 0.3rem 1.5rem;
+    padding: 0.7rem 1.5rem;
 }
 
 .glassInput:focus {

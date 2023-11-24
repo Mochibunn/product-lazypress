@@ -4,24 +4,23 @@ import { FaArrowRightLong } from "react-icons/fa6";
 
 export default function FreeTrial() {
   return (
-    <div className="flex gap-6 pl-12 py-2">
+    <div className="flex flex-row items-center py-12 justify-around" style={{backgroundColor:'#AEE5D8'}}>
       <div>
-        <div>
-          <h2 className="text-5xl">Start your free website trail today</h2>
-        </div>
-        <div className="flex flex-col gap-6  py-2">
+        <h2 className="text-5xl">Start your free <br /> website trail today</h2>
+        <div className="gap-6 py-2">
           <p>No credit card required. Cancel anytime</p>
-          <NavLink to="/" className="font-bold text-slate-200 text-3xl">
-            <Button color="primary">Get Started</Button>
-          </NavLink>
         </div>
       </div>
+      
       <div>
         <h2 className="font-bold">24/7 Support</h2>
-        <div className="border-2 border-black p-4">
+        <div className="border-2 border-black p-4 w-[20vw]">
           <h4>Help Center</h4>
           <p>Get help from our Customer care Team</p>
-          <FaArrowRightLong />
+          
+          <NavLink to="/pricing" className="font-bold text-slate-200 text-3xl">
+            <Button className="jellyButtonNavBar">Pricing <FaArrowRightLong /></Button>
+          </NavLink>
         </div>
       </div>
     </div>
