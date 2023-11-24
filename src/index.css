@@ -392,6 +392,7 @@ button {
 	justify-content: center;
 	transform: rotate(-45deg);
 	content: attr(data-watermark);
+	pointer-events: none;
 
 	user-select: none; /* Non-prefixed version for chorme, opera and*/
 	-ms-user-select: none; /* Internet Explorer, Edge */
