@@ -14,14 +14,14 @@ export default function CMSInput({ valueObj, i, onChange, sectionIndex }) {
                         className={`w-full glassInput ${
                             label === "_id" && "hidden"
                         }`}
-                        color="default"
+                        color="warning"
                         value={value}
                         // label={label}
                         name={label}
                         // labelPlacement="outside"
                         // name={`nav${i}`}
                         // onChange={(e) => onChange(e, i)}
-                        onChange={(e) => onChange(e)}
+                        onChange={(e) => onChange(e, i)}
                         isReadOnly={label === "_id" ? true : false}
                     />
                 ) : (

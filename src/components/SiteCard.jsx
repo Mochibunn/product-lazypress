@@ -35,7 +35,7 @@ export default function SiteCard({
       className="max-w-full h-[200px] mb-4 mx-2 shadow-xl z-0"
     >
       <CardHeader className="absolute z-20 top-1 flex-col items-start">
-        <h4 className="text-black/90 font-medium text-xl">{blogTitle}</h4>
+        <h4 className="text-white/80 font-normal font-metropolis text-md rounded-xl p-1 px-2 bg-black-3/40 backdrop-blur-md">{blogTitle || "Untitled Page"}</h4>
       </CardHeader>
       <Image
         removeWrapper
@@ -55,9 +55,9 @@ export default function SiteCard({
               <p className="text-xl font-bold mr-2">{deployed ? "🟢" : "🟣"}</p>
             </Tooltip>
             <div className="flex flex-col">
-              <p className="text-white/75 font-semibold text-sm">Last edited</p>
-              <p className="text-white/60 text-xs">{date}</p>
-              <p className="text-white/60 text-xs">{time}</p>
+              <p className="text-white/75 font-semibold text-sm font-metropolis">Last edited:</p>
+              <p className="text-white/60 text-xs font-metropolis">{date}</p>
+              <p className="text-white/60 text-xs font-metropolis">{time}</p>
             </div>
           </div>
           <div className="flex gap-2">
