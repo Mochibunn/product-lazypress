@@ -15,6 +15,7 @@
     "axios": "^1.6.2",
     "framer-motion": "^10.16.5",
     "immer": "^10.0.3",
+    "keen-slider": "^6.8.6",
     "lottie-react": "^2.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

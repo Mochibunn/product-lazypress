@@ -23,7 +23,7 @@ export default function OurService() {
 
     return (
         <div
-            className="relative w-full h-[50vh] flex px-16 py-16 "
+            className="relative w-full h-[100vh] flex px-16 py-16 "
             style={{
                 backgroundImage: `url(${DShapeC})`,
                 backgroundSize: "cover",
@@ -39,7 +39,7 @@ export default function OurService() {
                                 top: 0,
                                 left: 0,
                                 width: "100%",
-                                height: "50vh",
+                                height: "100vh",
                                 backdropFilter: "blur(4px)",
                                 backgroundColor: "rgba(255, 255, 255, 0.1)",
                                 zIndex: 1,
@@ -70,7 +70,7 @@ export default function OurService() {
                             <p
                                 style={{
                                     fontFamily: "Lemon Milk",
-                                    fontSize: "2rem",
+                                    fontSize: "1.5rem",
                                    fontWeight: 600,
                                    
                                     
@@ -82,8 +82,7 @@ export default function OurService() {
                             
                                  
                             </p>
-                            
-                               
+ 
                            
                         </div>
                     </div>

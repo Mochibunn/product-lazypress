@@ -14,7 +14,7 @@ export default function FreeTrial() {
       
       <div>
         <h2 className="font-bold">24/7 Support</h2>
-        <div className="border-2 border-black p-4 w-[20vw]">
+        <div className=" p-4 w-[20vw] glassCardSmall">
           <h4>Help Center</h4>
           <p>Get help from our Customer care Team</p>
           
