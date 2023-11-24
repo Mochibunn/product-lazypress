@@ -232,6 +232,8 @@ button {
     letter-spacing: 0.05em;
 }
 
+
+
 .jellyButton:hover {
     transform: scale(1.02);
     box-shadow: 0 1.5rem 2rem 0 rgba(22, 75, 195, 0.6),
