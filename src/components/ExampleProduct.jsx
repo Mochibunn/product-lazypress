@@ -3,8 +3,8 @@ import DScreenB from "../assets/images/3DShape3.jpg";
 import Image1 from "../assets/images/Image1.png";
 import Image2 from "../assets/images/Image2.jpg";
 import {useState } from "react";
-//import Lottie from "lottie-react";
-//import sun from "../assets/animations/Sun.json";
+import Lottie from "lottie-react";
+import sun from "../assets/animations/Sun.json";
 
 export default function ExampleProduct() {
     const [isHovered, setHovered] = useState(false);
@@ -25,13 +25,13 @@ export default function ExampleProduct() {
                 }}
             >
                 
-            {/*    <Lottie
+             <Lottie
                             animationData={sun}
                             style={{
                                 width: "100px",
                                 marginLeft: "45vw",
                             }}
-                        /> */}
+                        /> 
                 <div
                   className="z-50 absolute"
                     style={{  transform: 'scaleY(-1)',top:'40vh'}}
@@ -52,7 +52,7 @@ export default function ExampleProduct() {
                                     marginTop: "-30vh",
                                     
                                 }}>Blog</p></div>
-                    <div className='flex flex-col items-end' style={{marginLeft:'50vw'}} >    <Image
+                    <div className='flex flex-col items-start' style={{marginLeft:'50vw'}} >    <Image
                         src={isHovered ? Image2 : Image1}
                         className={isHovered ? "hovered" : ""}
                         style={{
@@ -70,7 +70,7 @@ export default function ExampleProduct() {
                                 E-commerce
                                 </p>
                                 </div>
-                    <div className='flex flex-col items-start'>    <Image
+                    <div className='flex flex-col items-end'>    <Image
                         src={isHovered ? Image2 : Image1}
                         className={isHovered ? "hovered" : ""}
                         style={{

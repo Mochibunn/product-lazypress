@@ -12,10 +12,9 @@ export default function LandingPage() {
         <>
             <HeroBanner className="absolute" />
             <OurService />
-            <Explore />
-           
             <ExampleProduct />
             <Testimonials/>
+            <Explore />
             <FreeTrial />
             <Subscription />
             
