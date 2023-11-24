@@ -66,7 +66,7 @@ export default function CMSInputSection({ array, i: sectionIndex, section }) {
             Edit Section
           </Button>
           {(section === "blogPages" || section === "hero") && (
-						<Button onClick={deleteSection} color="danger">
+						<Button onClick={deleteSection} color="danger" className="hover:bg-warning">
               Delete Section
             </Button>
           )}

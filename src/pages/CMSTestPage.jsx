@@ -31,9 +31,12 @@ export default function CMSTestPage() {
   const [footerValues, setFooterValues] = useState();
   // const [buttonSpin, setButtonSpin] = useState(false); Might remove this line later — Mochi
   document.title = `Edit blog | LazyPress`;
+  console.log(`🧡\n`, swrBlog);
+  let blogTitle = null;
 
   useEffect(() => {
     if (!swrBlog) return;
+    blogTitle = swrBlog.dashboard.blogTitle;
 
     const navBarValues = swrBlog.pages.home.navBar.map((page) => {
       const theValues = Object.entries(page).map(([key, value]) => ({
@@ -99,7 +102,7 @@ export default function CMSTestPage() {
 
   return (
     <div className="w-full p-4">
-      {
+      {/* {
         <Table aria-label="Editable items">
           <TableHeader>
             <TableColumn>Page 1</TableColumn>
@@ -109,19 +112,18 @@ export default function CMSTestPage() {
             <TableRow key="1">
               <TableCell className="w-1/5">Hello!</TableCell>
               <TableCell>
-                This is just an example NextUI table that I'm using as a styling
+                This is just an example NextUI table that I'm using as a styling. Please remove it and its imports later.
                 guide :&#41;
               </TableCell>
             </TableRow>
           </TableBody>
         </Table>
-      }
+      } */}
+      <h3 className="text-4xl font-semibold font-metropolis">Edit {blogTitle}</h3>
       <Tabs aria-label="Site Pages">
-        {/* <h3 className="text-xl font-semibold">Home Page</h3> */}
-
-        <Tab key="home" title="Home">
-          <Accordion variant="splitted">
-            <AccordionItem key="1" title="Navbar Items" subtitle="a">
+        <Tab key="home" title="Home" className="font-metropolis">
+          <Accordion variant="splitted" className="font-metropolis">
+            <AccordionItem key="1" title="Navbar Items" subtitle="">
               <CMSObjEdit
                 // sectionTitle={"NavBar Items"}
                 section={"navBar"}
@@ -129,7 +131,7 @@ export default function CMSTestPage() {
                 setSectionValues={setNavBarInputValues}
               />
             </AccordionItem>
-            <AccordionItem key="Footer Items" title="Footer Items" subtitle="b">
+            <AccordionItem key="Footer Items" title="Footer Items" subtitle="">
               <CMSObjEdit
                 // sectionTitle={"Footer Items"}
                 section={"footer"}
@@ -137,14 +139,14 @@ export default function CMSTestPage() {
                 setSectionValues={setFooterValues}
               />
             </AccordionItem>
-            <AccordionItem key="Blog Pages" title="Blog Pages" subtitle="c">
+            <AccordionItem key="Blog Pages" title="Blog Pages" subtitle="">
               <CMSObjEdit
                 // sectionTitle={"Blog Pages"}
                 section={"blogPages"}
                 sectionValues={blogPagesValues}
               />
             </AccordionItem>
-            <AccordionItem key="Hero Section" title="Hero Section" subtitle="d">
+            <AccordionItem key="Hero Section" title="Hero Section" subtitle="">
               <CMSObjEdit
                 // sectionTitle={"Hero Section"}
                 section={"hero"}
