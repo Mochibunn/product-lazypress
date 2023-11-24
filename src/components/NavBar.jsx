@@ -45,44 +45,50 @@ export default function NavBar() {
           className="font-bold text-slate-200 text-3xl neonText"
           style={{ fontFamily: "Mom Cake", color: "black" }}
         >
-            <NavbarBrand>
-                <NavLink
-                    to="/"
-                    className="font-bold text-slate-200 text-3xl neonText"
-                    style={{ fontFamily: "Mom Cake", color: "black" }}
-                >
-                    LazyPress
-                </NavLink>
-            </NavbarBrand>
-            <NavbarContent
-                className="hidden sm:flex gap-4"
-                justify="center"
-                style={{ fontFamily: "Mom Cake" }}
-            >
-                <NavbarItem>
-                    <Link href="#" aria-current="page" className="text-black">
-                        About
-                    </Link>
-                </NavbarItem>
-                <NavbarItem>
-                    <Link
-                        color="foreground"
-                        // to="contactus"
-                        href="contactus"
-                        className="text-black"
-                    >
-                        Contact
-                    </Link>
-                </NavbarItem>
-                <NavbarItem>
-                    <Link color="foreground" href="pricing" className="text-black">
-                        Pricing
-                    </Link>
-                </NavbarItem>
+          LazyPress
+        </NavLink>
+      </NavbarBrand>
+      <NavbarContent
+        className="hidden sm:flex gap-4"
+        justify="center"
+        style={{ fontFamily: "Mom Cake" }}
+      >
+        <NavbarItem>
+          <Link
+            color="foreground"
+            href="#"
+            className="text-slate-200 text-black"
+          >
+            About
+          </Link>
+        </NavbarItem>
+        <NavbarItem>
+          <Link
+            href="#"
+            aria-current="page"
+            className="text-slate-200 text-black"
+          >
+            Contact
+          </Link>
+        </NavbarItem>
+        <NavbarItem>
+          <Link
+            color="foreground"
+            href="#"
+            className="text-slate-200 text-black"
+          >
+            Pricing
+          </Link>
+        </NavbarItem>
+
         {isSignedIn && (
           <NavbarItem>
-            <Link className="text-black" color="foreground" href="dashboard">
-              Dashboard
+            <Link
+              className="font-bold text-slate-200"
+              color="foreground"
+              href="dashboard"
+            >
+              DASHBOARD
             </Link>
           </NavbarItem>
         )}
@@ -97,6 +103,7 @@ export default function NavBar() {
               <NavbarItem>
                 <Button
                   as={Link}
+                  // color="primary"
                   href="sign-in"
                   variant="flat"
                   className=" jellyButtonNavBar"
@@ -105,7 +112,7 @@ export default function NavBar() {
                 </Button>
               </NavbarItem>
               <NavbarItem>
-                <Button as={Link} href="sign-up" className="jellyButtonNavBar">
+                <Button as={Link} href="sign-up" className="jellyButtonNavBar ">
                   Sign Up
                 </Button>
               </NavbarItem>
