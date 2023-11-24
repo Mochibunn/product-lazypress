@@ -2,6 +2,9 @@ import axios from "axios";
 import { Image } from "@nextui-org/react";
 import { useNavigate, redirect } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import DShapeB from '../assets/images/3DShape2.jpg'
+
+
 export default function CPform() {
   const navigate = useNavigate();
   const onSubmit = async (data, event) => {
@@ -33,27 +36,39 @@ export default function CPform() {
   return (
     <>
       <div
-        style={{
-          background:
-            "linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(47,22,62,1) 18%, rgba(76,21,68,1) 75%, rgba(186,16,91,1) 99%, rgba(179,16,90,1) 100%)",
-        }}
-      >
-        <h2 className="text-[#f39d50] font-bold text-center p-3 text-4xl">
+                        className="w-full h-[100vh] overflow-hidden "
+                        style={{
+                            backgroundImage: `url(${DShapeB})`,
+                            backgroundSize: "cover",
+                            backgroundRepeat: "no-repeat",
+                            transition: "transform 0.3s ease",
+                            position: "relative",
+                            top: '-9vh'
+                        }}
+                    >
+                        <div
+                            style={{
+                                position: "absolute",
+                                top: 0,
+                                left: 0,
+                                width: "100%",
+                                height: "100vh",
+                                backdropFilter: "blur(4px)",
+                                backgroundColor: "rgba(255, 255, 255, 0.1)",
+                                zIndex: 1,
+                            }}
+                        ></div>
+        <h2 className="text-[#f39d50] font-bold text-center p-3 text-4xl absolute" style={{zIndex:50}}>
           We're all here
         </h2>
-        <h3 className="text-white text-center text-xl">
+        <h3 className="text-white text-center text-xl absolute z-50">
           Fill out the form to start the conversation - we will get right back
           to you
         </h3>
-        <div className="flex justify-evenly text-black-2 py-16">
+        <div className="flex justify-evenly text-black-2 py-16 z-50 absolute">
           <div>
-            <Image
-              isZoomed
-              width={240}
-              alt="NextUI Fruit Image with Zoom"
-              src="https://nextui-docs-v2.vercel.app/images/fruit-1.jpeg"
-            />
-            <p className="text-white text-sm">
+     
+            <p className="text-white text-sm z-50">
               No matter what do you need - to find out more about our
               <br />
               experience, to ask us how to improve or build your templates or to
@@ -65,7 +80,7 @@ export default function CPform() {
               ideas about the right design direction for your web application.{" "}
             </p>
           </div>
-          <div className="bg-[#f39d50] p-[40px] rounded w-96">
+          <div className="bg-[#f39d50] p-[40px] rounded w-96 glassCardSmall">
             {/* ------------------------form validation------------------------ */}
             <form
               onSubmit={handleSubmit(onSubmit, onError)}
@@ -85,7 +100,7 @@ export default function CPform() {
                     maxLength: 20,
                     pattern: /^[A-Za-z]+$/i,
                   })}
-                  className="w-80 h-8 outline-none border-2 border-[#4b1544] rounded-lg transition-all font-medium"
+                  className="w-80 h-8 glassInput transition-all font-medium"
                 />
                 {errors?.firstName?.type === "pattern" && (
                   <p style={{ color: "red" }}>
@@ -122,7 +137,7 @@ export default function CPform() {
                     maxLength: 20,
                     pattern: /^[A-Za-z]+$/i,
                   })}
-                  className="w-80 h-8 outline-none border-2 border-[#4b1544] rounded-lg transition-all font-medium"
+                  className="w-80 h-8 glassInput  transition-all font-medium"
                 />
                 {errors?.lastName?.type === "pattern" && (
                   <p style={{ color: "red" }}>
@@ -152,7 +167,7 @@ export default function CPform() {
                 htmlFor="email"
                 className="flex flex-col text-[#4b1544] font-bold"
               >
-                email
+                Email:
                 <input
                   type="email"
                   id="email"
@@ -163,7 +178,7 @@ export default function CPform() {
                         /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                     },
                   })}
-                  className="w-80 h-8 outline-none border-2 border-[#4b1544] rounded-lg transition-all font-medium"
+                  className="w-80 h-8 glassInput transition-all font-medium"
                 />
                 <p style={{ color: "red" }}> {errors.email?.message}</p>
               </label>
@@ -171,10 +186,10 @@ export default function CPform() {
                 htmlFor="textarea"
                 className="flex flex-col text-[#4b1544] font-bold"
               >
-                Message
+                Message:
                 <textarea
                   id="textarea"
-                  className="w-80 h-20 outline-none border-2 border-[#4b1544] rounded-lg transition-all font-medium"
+                  className="w-80 h-20 glassTextArea transition-all font-medium"
                   {...register("textarea", {
                     required: "This is a required field",
                     minLength: 30,
@@ -190,7 +205,7 @@ export default function CPform() {
               /> */}
               <button
                 type="submit"
-                className="bg-[#4b1544] text-white px-2 py-1 rounded"
+                className="jellyButtonNavBar"
                 // onClick={handleChange}
               >
                 submit

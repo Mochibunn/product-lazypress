@@ -1,6 +1,7 @@
 import DShapeC from "../assets/images/3DShape3.jpg";
 import { useState, useEffect } from "react";
-import { Button, Link } from "@nextui-org/react";
+import { Button,Link } from "@nextui-org/react";
+
 
 export default function OurService() {
     const [scrollPosition, setScrollPosition] = useState(0);
@@ -32,11 +33,23 @@ export default function OurService() {
                 backdropFilter: "blur(100px)",
             }}
         >
+              <div
+                            style={{
+                                position: "absolute",
+                                top: 0,
+                                left: 0,
+                                width: "100%",
+                                height: "100vh",
+                                backdropFilter: "blur(4px)",
+                                backgroundColor: "rgba(255, 255, 255, 0.1)",
+                                zIndex: 1,
+                            }}
+                        ></div>
             <h1
                 className="neon-text2"
                 style={{
                     fontFamily: "Lemon Milk",
-                    fontSize: "18rem",
+                    fontSize: "9rem",
                     zIndex: 900,
                     marginTop: "-10vh",
                     marginLeft: `${initialMargin}%`,
@@ -48,37 +61,32 @@ export default function OurService() {
                 What we do
             </h1>
 
-            <ul className="absolute top-[30vh] left-0 right-0 bottom-0 z-10 flex flex-col items-center gap-20 px-12 serviceUL  overflow-x-hidden">
-                <li className="glassCardSmall">
+            <div className="absolute top-[30vh] left-0 right-0 bottom-0 z-10 flex flex-col items-center gap-20 px-12   overflow-x-hidden">
+               
                     <div className="flex flex-col justify-center items-start text-center">
                         <div className="flex flex-col justify-center items-center text-center p-4 gap-5">
                             <p
                                 style={{
                                     fontFamily: "Lemon Milk",
-                                    fontSize: "1rem",
+                                    fontSize: "2rem",
+                                   fontWeight: 600,
+                                    color:'white',
                                 }}
                             >
-                                "We build custom websites for any purpose.{" "}
-                                <br />
-                                Choose from our range of templates & designs.{" "}
-                                <br />
-                                Our sites come with an easy-to-use Content{" "}
-                                <br />
-                                Management System."
+                                "Crafting Tailored Websites for Every Need. <br />
+                                 Select from Diverse Templates and Designs. <br />
+                                 Empowered with an Intuitive Content Management System." <br />
+                                <p style={{fontFamily:'Pilated', fontSize:'1rem'}}>Explore More Details  on Our Pricing Page:</p> 
+                                 
                             </p>
-                            <Link
-                                color="foreground"
-                                href="#"
-                                className="text-black"
-                            >
-                                <Button className="jellyButtonNavBar">
-                                    Go to Pricing
+                            
+                                <Button  as={Link} href="pricing" className="jellyButtonNavBar" style={{marginTop:'-2vh'}}>
+                                  <span className="flex items-center" >Pricing &gt;</span>
                                 </Button>
-                            </Link>
+                           
                         </div>
                     </div>
-                </li>
-            </ul>
+               </div>
         </div>
     );
 }
