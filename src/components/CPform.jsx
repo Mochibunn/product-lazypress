@@ -2,15 +2,24 @@ import axios from "axios";
 import { Image } from "@nextui-org/react";
 import { useNavigate, redirect } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
+import ThankyouMessage from "../test/ThankyouMessage";
+
 export default function CPform() {
   const navigate = useNavigate();
+  const [submitted, setSubmitted] = useState(false);
   const onSubmit = async (data, event) => {
-    event.preventDefault();
     try {
+      event.preventDefault();
       console.log(data);
-      await axios.post("http://localhost:5173/contactus", data);
-      // window.location.replace("/");
-      navigate("/", { replace: true });
+      // await axios.post("http://localhost:5173/contactus", data);
+      // // window.location.replace("/");
+
+      setSubmitted(true);
+      setTimeout(() => {
+        // setSubmitted(false);
+        // navigate("/", { replace: true });
+      }, 10000);
     } catch (error) {
       console.error("There was an error!", error);
     }
@@ -26,6 +35,7 @@ export default function CPform() {
     register,
     handleSubmit,
     formState: { errors },
+    formState,
   } = useForm();
 
   console.log(errors);
@@ -115,7 +125,7 @@ export default function CPform() {
                 Last Name:
                 <input
                   type="text"
-                  id="firstName"
+                  id="lastName"
                   {...register("lastName", {
                     required: "This is a required field",
                     minLength: 3,
@@ -197,6 +207,7 @@ export default function CPform() {
               </button>
             </form>
           </div>
+          {submitted && <ThankyouMessage />}
         </div>
       </div>
     </>
