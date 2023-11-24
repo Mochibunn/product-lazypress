@@ -1,15 +1,44 @@
-// import { func } from "prop-types";
 import { Image } from "@nextui-org/react";
+import { useState } from "react";
+import DScreenC from "../assets/images/3DShape2.jpg";
+import Image1 from "../assets/images/Image1.png";
+import Image2 from "../assets/images/Image2.jpg";
 
 export default function ExampleProduct() {
-  return (
-    <>
-      <Image
-        // width={w - screen}
-        className="w-screen"
-        alt="NextUI hero Image"
-        src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-      />
-    </>
-  );
+    const [isHovered, setHovered] = useState(false);
+
+    return (
+        <>
+            <div
+                className="relative w-full h-[100vh] flex px-16 py-16 overflow-hidden glassCardDark flex flex-col"
+                style={{
+                    backgroundImage: `url(${DScreenC})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    marginTop: "-9vh",
+                    overflowY: "auto",
+                    backdropFilter: "blur(100px)",
+                }}
+            >
+                <h1 className="text-4xl font-bold my-4">Our Work</h1>
+
+                <div
+                    className="water-transition"
+                    onMouseEnter={() => setHovered(true)}
+                    onMouseLeave={() => setHovered(false)}
+                >
+                    <Image
+                        src={isHovered ? Image2 : Image1}
+                        className={isHovered ? "hovered" : ""}
+                        style={{
+                            width: "40vw",
+                            height: "70vh",
+                            transition: "opacity 0.5s ease-in-out",
+                        }}
+                    />
+                    <p>Blog</p>
+                </div>
+            </div>
+        </>
+    );
 }

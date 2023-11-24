@@ -2,15 +2,7 @@ import { Button } from "@nextui-org/react";
 import CMSInputSection from "./CMSInputSection";
 import CMSAddModal from "./CMSAddModal";
 
-export default function CMSObjEdit({
-    sectionTitle,
-    section,
-    sectionValues,
-    blog,
-    setBlog,
-}) {
-    // console.log(sectionValues);
-
+export default function CMSObjEdit({ sectionTitle, section, sectionValues }) {
     return (
         <>
             {sectionValues && (
@@ -21,7 +13,6 @@ export default function CMSObjEdit({
                             <CMSAddModal
                                 sectionTitle={sectionTitle}
                                 section={section}
-                                setBlog={setBlog}
                             />
                         </Button>
                     )}
@@ -29,10 +20,6 @@ export default function CMSObjEdit({
                         return (
                             <CMSInputSection
                                 key={`${section}_page_${i + 1}_${page[0].key}`}
-                                // key={`${page[0].schemaId}`}
-                                // key={`${section}_page_${i + 1}`}
-                                blog={blog}
-                                setBlog={setBlog}
                                 array={page}
                                 i={i}
                                 section={section}

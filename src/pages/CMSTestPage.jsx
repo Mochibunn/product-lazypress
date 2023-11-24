@@ -1,202 +1,182 @@
 import { useParams } from "react-router-dom";
-import { getBlog, editBlog, editBlogAuth, getAuth } from "../lib/dbClient";
+import { editBlog } from "../lib/dbClient";
 import { useBlog } from "../lib/swr";
 import { useEffect, useState } from "react";
-import { useImmer } from "use-immer";
-import { Button } from "@nextui-org/react";
+import {
+  Accordion,
+  AccordionItem,
+  Button,
+  Table,
+  TableHeader,
+  TableColumn,
+  TableBody,
+  TableRow,
+  TableCell,
+  Tabs,
+  Tab,
+  Spinner,
+} from "@nextui-org/react";
 import CMSObjEdit from "../components/CMSObjEdit";
 import { useAuth } from "@clerk/clerk-react";
 
 // import CMSStrEdit from "../components/CMSStrEdit";
 
 export default function CMSTestPage() {
-    const { getToken } = useAuth();
-    const { blogId } = useParams();
-    const [blog, setBlog] = useImmer();
-    const { swrBlog, mutateBlog } = useBlog(blogId);
-    const [navBarInputValues, setNavBarInputValues] = useState();
-    const [blogPagesValues, setBlogPagesValues] = useState();
-    const [heroValues, setHeroValues] = useState();
-    const [footerValues, setFooterValues] = useState();
+  const { getToken } = useAuth();
+  const { blogId } = useParams();
+  const { swrBlog, mutateBlog } = useBlog(blogId);
+  const [navBarInputValues, setNavBarInputValues] = useState();
+  const [blogPagesValues, setBlogPagesValues] = useState();
+  const [heroValues, setHeroValues] = useState();
+  const [footerValues, setFooterValues] = useState();
+  // const [buttonSpin, setButtonSpin] = useState(false); Might remove this line later — Mochi
+  document.title = `Edit blog | LazyPress`;
 
-    useEffect(() => {
-        if (!swrBlog) return;
-        setBlog(swrBlog);
-    }, [swrBlog]);
+  useEffect(() => {
+    if (!swrBlog) return;
 
-    useEffect(() => {
-        if (!blog) return;
-        console.log("blog", blog);
+    const navBarValues = swrBlog.pages.home.navBar.map((page) => {
+      const theValues = Object.entries(page).map(([key, value]) => ({
+        value,
+        label: key,
+        key: crypto.randomUUID(),
+      }));
+      // console.log(theValues);
+      return theValues;
+    });
 
-        // console.log(blog);
+    const footerValues = swrBlog.pages.home.footer.map((page) => {
+      const theValues = Object.entries(page).map(([key, value]) => ({
+        value,
+        label: key,
+        key: crypto.randomUUID(),
+      }));
+      // console.log(theValues);
+      return theValues;
+    });
 
-        const navBarValues = blog.pages.home.navBar.map((page) => {
-            const theValues = Object.entries(page).map(([key, value]) => ({
-                value,
-                label: key,
-                key: crypto.randomUUID(),
-            }));
-            // console.log(theValues);
-            return theValues;
-        });
+    const blogValues = swrBlog.pages.home.blogPages.map((page) => {
+      const pageValues = Object.entries(page).map(([key, value]) => {
+        return {
+          value,
+          label: key,
+          key: crypto.randomUUID(),
+        };
+      });
+      // console.log(pageValues);
+      return pageValues;
+    });
+    const heroValues = swrBlog.pages.home.hero.map((page) => {
+      const theValues = Object.entries(page).map(([key, value]) => ({
+        value,
+        label: key,
+        key: crypto.randomUUID(),
+      }));
+      // console.log(theValues);
+      return theValues;
+    });
 
-        const footerValues = blog.pages.home.footer.map((page) => {
-            const theValues = Object.entries(page).map(([key, value]) => ({
-                value,
-                label: key,
-                key: crypto.randomUUID(),
-            }));
-            // console.log(theValues);
-            return theValues;
-        });
+    setNavBarInputValues([...navBarValues]);
+    setFooterValues([...footerValues]);
+    setBlogPagesValues([...blogValues]);
+    setHeroValues([...heroValues]);
+  }, [swrBlog]);
 
-        const blogValues = blog.pages.home.blogPages.map((page) => {
-            const pageValues = Object.entries(page).map(([key, value]) => {
-                return {
-                    value,
-                    label: key,
-                    key: crypto.randomUUID(),
-                };
-            });
-            // console.log(pageValues);
-            return pageValues;
-        });
-        const heroValues = blog.pages.home.hero.map((page) => {
-            const theValues = Object.entries(page).map(([key, value]) => ({
-                value,
-                label: key,
-                key: crypto.randomUUID(),
-            }));
-            // console.log(theValues);
-            return theValues;
-        });
+  const saveChangesClick = async () => {
+    // setButtonSpin(true); Might remove this line later — Mochi
+    try {
+      const sessToken = await getToken();
+      editBlog(sessToken, swrBlog).then((res) => {
+        console.log("came from protected route", res);
+        console.log(`🐰Status:\n`, res.status);
+      });
+      mutateBlog();
+      // setButtonSpin(false); Might remove this line later — Mochi
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-        setNavBarInputValues([...navBarValues]);
-        setFooterValues([...footerValues]);
-        setBlogPagesValues([...blogValues]);
-        setHeroValues([...heroValues]);
-        // setBlog(swrBlog);
-    }, [blog]);
-    // getBlog(blogId).then((blog) => {
-    //     // console.log(blog);
+  return (
+    <div className="w-full p-4">
+      {
+        <Table aria-label="Editable items">
+          <TableHeader>
+            <TableColumn>Page 1</TableColumn>
+            <TableColumn></TableColumn>
+          </TableHeader>
+          <TableBody>
+            <TableRow key="1">
+              <TableCell className="w-1/5">Hello!</TableCell>
+              <TableCell>
+                This is just an example NextUI table that I'm using as a styling
+                guide :&#41;
+              </TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      }
+      <Tabs aria-label="Site Pages">
+        {/* <h3 className="text-xl font-semibold">Home Page</h3> */}
 
-    //     const navBarValues = blog.pages.home.navBar.map((page) => {
-    //         const theValues = Object.entries(page).map(([key, value]) => ({
-    //             value,
-    //             label: key,
-    //             key: crypto.randomUUID(),
-    //         }));
-    //         // console.log(theValues);
-    //         return theValues;
-    //     });
-
-    //     const footerValues = blog.pages.home.footer.map((page) => {
-    //         const theValues = Object.entries(page).map(([key, value]) => ({
-    //             value,
-    //             label: key,
-    //             key: crypto.randomUUID(),
-    //         }));
-    //         // console.log(theValues);
-    //         return theValues;
-    //     });
-
-    //     const blogValues = blog.pages.home.blogPages.map((page) => {
-    //         const pageValues = Object.entries(page).map(([key, value]) => {
-    //             return {
-    //                 value,
-    //                 label: key,
-    //                 key: crypto.randomUUID(),
-    //             };
-    //         });
-    //         // console.log(pageValues);
-    //         return pageValues;
-    //     });
-    //     const heroValues = blog.pages.home.hero.map((page) => {
-    //         const theValues = Object.entries(page).map(([key, value]) => ({
-    //             value,
-    //             label: key,
-    //             key: crypto.randomUUID(),
-    //         }));
-    //         // console.log(theValues);
-    //         return theValues;
-    //     });
-
-    //     setNavBarInputValues([...navBarValues]);
-    //     setFooterValues([...footerValues]);
-    //     setBlogPagesValues([...blogValues]);
-    //     setHeroValues([...heroValues]);
-    //     setBlog(blog);
-    // });
-    // }, []);
-
-    const saveChangesClick = async () => {
-        // editBlog(blog)
-        //     .then((response) => console.log(response))
-        //     .catch((err) => console.error(err));
-        try {
-            const sessToken = await getToken();
-            editBlog(sessToken, blog).then((res) =>
-                console.log("came from protected route", res)
-            );
-            mutateBlog();
-        } catch (error) {
-            console.error(error);
-        }
-        // getToken().then((token) => {
-        //     editBlogAuth(token, blog).then((res) =>
-        //         console.log("came from protected route", res)
-        //     );
-        // });
-    };
-
-    return (
-        <div className="w-screen p-4">
-            <h3>Home Page</h3>
-
-            <CMSObjEdit
-                sectionTitle={"NavBar Items"}
+        <Tab key="home" title="Home">
+          <Accordion variant="splitted">
+            <AccordionItem key="1" title="Navbar Items" subtitle="a">
+              <CMSObjEdit
+                // sectionTitle={"NavBar Items"}
                 section={"navBar"}
                 sectionValues={navBarInputValues}
                 setSectionValues={setNavBarInputValues}
-                blog={blog}
-                setBlog={setBlog}
-            />
-            <CMSObjEdit
-                sectionTitle={"Footer Items"}
+              />
+            </AccordionItem>
+            <AccordionItem key="Footer Items" title="Footer Items" subtitle="b">
+              <CMSObjEdit
+                // sectionTitle={"Footer Items"}
                 section={"footer"}
                 sectionValues={footerValues}
                 setSectionValues={setFooterValues}
-                blog={blog}
-                setBlog={setBlog}
-            />
-
-            <CMSObjEdit
-                sectionTitle={"Blog Pages"}
+              />
+            </AccordionItem>
+            <AccordionItem key="Blog Pages" title="Blog Pages" subtitle="c">
+              <CMSObjEdit
+                // sectionTitle={"Blog Pages"}
                 section={"blogPages"}
                 sectionValues={blogPagesValues}
-                blog={blog}
-                setBlog={setBlog}
-            />
-            <CMSObjEdit
-                sectionTitle={"Hero Section"}
+              />
+            </AccordionItem>
+            <AccordionItem key="Hero Section" title="Hero Section" subtitle="d">
+              <CMSObjEdit
+                // sectionTitle={"Hero Section"}
                 section={"hero"}
                 sectionValues={heroValues}
-                blog={blog}
-                setBlog={setBlog}
-            />
-
-            <Button className="mr-4" color="success" onClick={saveChangesClick}>
-                Save Changes
-            </Button>
-            <Button
-                onClick={() => {
-                    console.log(blog.pages);
-                }}
-            >
-                Log Stuff
-            </Button>
-        </div>
-    );
+              />
+            </AccordionItem>
+          </Accordion>
+        </Tab>
+        <Tab key="blogPages" title="Blog Pages">
+          <Accordion variant="splitted">
+            <AccordionItem key="Blog Pages" title="Blog Pages">
+              <CMSObjEdit
+                // sectionTitle={"Blog Pages"}
+                section={"blogPages"}
+                sectionValues={blogPagesValues}
+              />
+            </AccordionItem>
+          </Accordion>
+        </Tab>
+      </Tabs>
+      <Button className="mr-4" color="success" onClick={saveChangesClick}>
+        Save Changes
+      </Button>
+      <Button
+        onClick={() => {
+          console.log("swrBlog", swrBlog.pages);
+        }}
+      >
+        Log Stuff
+      </Button>
+    </div>
+  );
 }
 
 //how formatting work for the CMSStrEdit Component-currently not used but could be useful later

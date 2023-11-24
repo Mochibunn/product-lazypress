@@ -31,7 +31,7 @@ export default function CMSNavEdit({
     return (
         <>
             {sectionValues && (
-                <div className="w-3/4 p-4 border-solid border-2 border-black">
+                <div className="w-3/4 p-4 border-solid border-2">
                     <h3>{sectionTitle}</h3>
                     <form className="flex" onSubmit={editSection}>
                         {sectionValues.map((obj, i) => {
