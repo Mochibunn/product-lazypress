@@ -23,7 +23,7 @@ export default function Dashboard() {
       <h2 className="text-6xl font-metropolis font-bold mt-6 mb-16 text-center">
         Welcome, {user.firstName}
       </h2>
-      <h1 className="watermark text-[150px] text-center">DESIGN WORK IN PROGRESS</h1>
+      {/* <h1 className="watermark text-[150px] text-center">DESIGN WORK IN PROGRESS</h1> Uncomment this during presentation */}
       <Card className="w-11/12 mx-auto bg-background/50 backdrop-blur-md mb-12 shadow-2xl overflow-visible">
         <CardHeader className="mx-2">
           <p className="text-xl font-metropolis font-semibold my-4">

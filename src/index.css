@@ -351,6 +351,7 @@ button {
   outline: none;
 }
 
+/* CMS specific styling below, please don't move or remove! */
 .font-metropolis,
 .font-metropolis p,
 .font-metropolis h2 {
@@ -376,6 +377,7 @@ button {
   height: fit-content !important;
 }
 
+/* CSS for Mochi's design WIP watermark */
 .watermark
 {
 	position: fixed;
@@ -384,7 +386,6 @@ button {
 	right: 50vw;
 	opacity: 0.1;
 	color: black;
-	background-color: rgba(131, 50, 185, 0.5);
 	height: 40px;
 	width: 100px;
 	display: flex;
@@ -393,11 +394,11 @@ button {
 	transform: rotate(-45deg);
 	content: attr(data-watermark);
 	pointer-events: none;
-
-	user-select: none; /* Non-prefixed version for chorme, opera and*/
+	user-select: none; /* Non-prefixed version for Chrome, Opera and*/
 	-ms-user-select: none; /* Internet Explorer, Edge */
 	-moz-user-select: none; /* Firefox */
 	-khtml-user-select: none; /* Konqueror HTML */
 	-webkit-touch-callout: none; /* iOS Safari */
 	-webkit-user-select: none; /* Safari */
 }
+/* End of CMS specific styling */
