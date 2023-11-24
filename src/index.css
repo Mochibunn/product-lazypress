@@ -33,6 +33,11 @@
     src: url("https://fonts.gstatic.com/s/barlowcondensed/v7/wlphgxjLBV1hqnzfr-4cffMp6Tg6kgZ-v2rvL4A.woff2");
 }
 
+@font-face {
+    font-family: "Metropolis";
+    src: url("./assets/fonts/Metropolis.otf");
+}
+
 body {
     font-family: "Mom Cake", sans-serif;
 }
@@ -227,6 +232,8 @@ button {
     letter-spacing: 0.05em;
 }
 
+
+
 .jellyButton:hover {
     transform: scale(1.02);
     box-shadow: 0 1.5rem 2rem 0 rgba(22, 75, 195, 0.6),
@@ -374,20 +381,36 @@ button {
 }
 
 .glassInput {
-   
-    border-radius: 5rem;
+    border-radius: 4rem;
+    font: 0.8rem "Metropolis", sans-serif;
+    font-weight: 600;
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: black;
+    transition: background-color 0.2s ease-in-out, border 0.2s ease-in-out;
+    padding: 0.3rem 1.5rem;
+}
+
+.glassInput:focus {
+    background-color: rgba(255, 255, 255, 0.742);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    outline: none;
+}
+
+.glassTextArea {
+    border-radius: 1rem;
     font: 1rem "Mom Cake", sans-serif;
     font-weight: 600;
     background-color: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     color: black;
-    
     transition: background-color 0.2s ease-in-out, border 0.2s ease-in-out;
 }
 
-.glassInput:focus {
-    background-color: rgba(255, 255, 255, 0.3);
+.glassTextArea:focus {
+    background-color: rgba(255, 255, 255, 0.742);
     border: 1px solid rgba(255, 255, 255, 0.3);
     outline: none;
 }

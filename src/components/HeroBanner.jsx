@@ -1,4 +1,4 @@
-import { Button } from "@nextui-org/react";
+import { Button,Link } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import Lottie from "lottie-react";
 import animationData from "../assets/animations/sleepingCat.json";
@@ -121,6 +121,8 @@ export default function HeroBanner() {
                                     <Button
                                         className="jellyButton"
                                         style={{ marginTop: "-6vh" }}
+                                        as={Link}
+                                        href="sign-up"
                                     >
                                         Get Started
                                     </Button>

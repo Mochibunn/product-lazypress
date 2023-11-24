@@ -45,30 +45,40 @@ export default function NavBar() {
           className="font-bold text-slate-200 text-3xl neonText"
           style={{ fontFamily: "Mom Cake", color: "black" }}
         >
-          LazyPress
-        </NavLink>
-      </NavbarBrand>
-      <NavbarContent
-        className="hidden sm:flex gap-4"
-        justify="center"
-        style={{ fontFamily: "Mom Cake" }}
-      >
-        <NavbarItem>
-          <Link href="#" aria-current="page" className="text-black">
-            About
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link color="foreground" href="contactus" className="text-black">
-            Contact
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link color="foreground" href="#" className="text-black">
-            Pricing
-          </Link>
-        </NavbarItem>
-
+            <NavbarBrand>
+                <NavLink
+                    to="/"
+                    className="font-bold text-slate-200 text-3xl neonText"
+                    style={{ fontFamily: "Mom Cake", color: "black" }}
+                >
+                    LazyPress
+                </NavLink>
+            </NavbarBrand>
+            <NavbarContent
+                className="hidden sm:flex gap-4"
+                justify="center"
+                style={{ fontFamily: "Mom Cake" }}
+            >
+                <NavbarItem>
+                    <Link href="#" aria-current="page" className="text-black">
+                        About
+                    </Link>
+                </NavbarItem>
+                <NavbarItem>
+                    <Link
+                        color="foreground"
+                        // to="contactus"
+                        href="contactus"
+                        className="text-black"
+                    >
+                        Contact
+                    </Link>
+                </NavbarItem>
+                <NavbarItem>
+                    <Link color="foreground" href="pricing" className="text-black">
+                        Pricing
+                    </Link>
+                </NavbarItem>
         {isSignedIn && (
           <NavbarItem>
             <Link className="text-black" color="foreground" href="dashboard">

@@ -2,8 +2,11 @@ import axios from "axios";
 
 import { useNavigate, redirect } from "react-router-dom";
 import { useForm } from "react-hook-form";
+
 import { useState } from "react";
 import ThankyouPage from "../pages/ThankyouPage";
+import DShapeB from '../assets/images/3DShape2.jpg'
+
 
 export default function CPform() {
   const navigate = useNavigate();
@@ -213,17 +216,65 @@ export default function CPform() {
                   )}
                 </label>
                 {/* <input
+      <div
+                        className="w-full h-[100vh] overflow-hidden "
+                        style={{
+                            backgroundImage: `url(${DShapeB})`,
+                            backgroundSize: "cover",
+                            backgroundRepeat: "no-repeat",
+                            transition: "transform 0.3s ease",
+                            position: "relative",
+                            top: '-9vh'
+                        }}
+                    >
+                        <div
+                            style={{
+                                position: "absolute",
+                                top: 0,
+                                left: 0,
+                                width: "100%",
+                                height: "100vh",
+                                backdropFilter: "blur(4px)",
+                                backgroundColor: "rgba(255, 255, 255, 0.1)",
+                                zIndex: 1,
+                            }}
+                        ></div>
+        <h2 className="text-[#f39d50] font-bold text-center p-3 text-4xl absolute" style={{zIndex:50}}>
+          We're all here
+        </h2>
+        <h3 className="text-white text-center text-xl absolute z-50">
+          Fill out the form to start the conversation - we will get right back
+          to you
+        </h3>
+        <div className="flex justify-evenly text-black-2 py-16 z-50 absolute">
+          <div>
+     
+            <p className="text-white text-sm z-50">
+              No matter what do you need - to find out more about our
+              <br />
+              experience, to ask us how to improve or build your templates or to
+              <br />
+              request a quote - do not hesitate to get in touch with us. We will
+              <br />
+              be happy to talk with you to share our experience and to give you
+              <br />
+              ideas about the right design direction for your web application.{" "}
+            </p>
+          </div>
+          <div className="bg-[#f39d50] p-[40px] rounded w-96 glassCardSmall">
+            {/* ------------------------form validation------------------------ */}
+       
+
+              
+       
+              <button
                 type="submit"
-                className="bg-[#4b1544] text-white px-2 py-1 rounded"
-                
-              /> */}
-                <button
-                  type="submit"
-                  className="bg-[#4b1544] text-white px-2 py-1 rounded"
-                >
-                  submit
-                </button>
-              </form>
+                className="jellyButtonNavBar"
+          
+              >
+                submit
+              </button>
+            </form>
             </div>
           </div>
         </div>

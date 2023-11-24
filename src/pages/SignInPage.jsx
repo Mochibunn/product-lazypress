@@ -10,6 +10,7 @@ const SignInPage = () => {
                 backgroundSize: "cover",
                 backgroundRepeat: "no-repeat",
                 marginTop: "-4rem",
+                height:'100vh'
             }}
         >
             <SignIn

@@ -10,8 +10,7 @@ export default function SignUpPage() {
                 backgroundSize: "cover",
                 backgroundRepeat: "no-repeat",
                 marginTop: "-4rem",
-                backdropFilter: "blur(100px)",
-                backgroundColor: "rgba(255, 255, 255, 0.1)",
+                height: '100vh'
             }}
         >
            
