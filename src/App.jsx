@@ -13,6 +13,7 @@ import ContactPage from "./pages/ContactPage";
 import PricingPage from "./pages/PricingPage";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
+import AboutPage from "./pages/AboutPage";
 // const LazySignInPage = React.lazy(() => import("./pages/SignInPage"));
 // const LazySignUpPage = React.lazy(() => import("./pages/SignUpPage"));
 
@@ -79,6 +80,10 @@ function App() {
           <Route
             path="contactus/*"
             element={<ContactPage routing="path" path="/contactus" />}
+          />
+          <Route
+            path="aboutus/*"
+            element={<AboutPage routing="path" path="/aboutus" />}
           />
           <Route
             path="pricing/*"
