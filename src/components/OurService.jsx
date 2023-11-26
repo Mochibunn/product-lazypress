@@ -61,29 +61,26 @@ export default function OurService() {
                 What we do
             </h1>
 
-            <div className="absolute top-[15vh] left-0 right-0 bottom-0 z-10 flex flex-col items-center gap-20 px-12   overflow-hidden">
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center gap-20 px-12   overflow-hidden">
                
                     <div className="flex flex-col justify-center items-center text-center">
                   
                         <div className="flex flex-col justify-center items-center text-center p-4 gap-5 overflow-hidden">
                         
-                            <p
-                                style={{
-                                    fontFamily: "Lemon Milk",
-                                    fontSize: "1.5rem",
-                                   fontWeight: 600,
-                                   
-                                    
-                                }}
-                            >
-                                "Crafting Tailored Websites for Every Need. <br />
-                                 Select from Diverse Templates and Designs. <br />
-                                 Empowered with an Intuitive Content Management System." <br />
-                            
-                                 
-                            </p>
- 
-                           
+
+
+     <div className="content">
+      <div >
+      <p>   
+        Hover Over Me   
+     </p>
+      </div>
+      <p className="hover-effect content-v3">
+      "Crafting Tailored Websites for Every Need. <br />
+          Select from Diverse Templates and Designs. <br />
+          Empowered with an Intuitive Content Management System." <br />  
+      </p>
+    </div>          
                         </div>
                     </div>
                </div>

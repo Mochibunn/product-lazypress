@@ -377,6 +377,35 @@ button {
   height: fit-content !important;
 }
 
+
+.hover-effect {
+    color: transparent;
+    background-position: right;
+    background-size: 100% 100%;
+    background-image: linear-gradient(grey, grey);
+  }
+  
+  .hover-effect:hover {
+    color:White;
+    background-size: 0% 100%;
+  }
+
+  .content {
+    margin-bottom: 4em;
+  }
+
+  .content-v3 {
+    font-family: Lemon Milk;
+    font-size: 1.5rem;
+   font-weight: 600;
+  }
+  
+  .spoiler-text {
+    display: inline;
+    background-repeat: no-repeat;
+    transition: all 500ms ease-in-out;
+  }
+
 /* CSS for Mochi's design WIP watermark */
 .watermark
 {
@@ -402,3 +431,4 @@ button {
 	-webkit-user-select: none; /* Safari */
 }
 /* End of CMS specific styling */
+
