@@ -351,6 +351,7 @@ button {
   outline: none;
 }
 
+/* CMS specific styling below, please don't move or remove! */
 .font-metropolis,
 .font-metropolis p,
 .font-metropolis h2 {
@@ -377,7 +378,6 @@ button {
 }
 
 
-
 .hover-effect {
     color: transparent;
     background-position: right;
@@ -400,9 +400,35 @@ button {
    font-weight: 600;
   }
   
-  
   .spoiler-text {
     display: inline;
     background-repeat: no-repeat;
     transition: all 500ms ease-in-out;
   }
+
+/* CSS for Mochi's design WIP watermark */
+.watermark
+{
+	position: fixed;
+	top: 42vh;
+	z-index: 50;
+	right: 50vw;
+	opacity: 0.1;
+	color: black;
+	height: 40px;
+	width: 100px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transform: rotate(-45deg);
+	content: attr(data-watermark);
+	pointer-events: none;
+	user-select: none; /* Non-prefixed version for Chrome, Opera and*/
+	-ms-user-select: none; /* Internet Explorer, Edge */
+	-moz-user-select: none; /* Firefox */
+	-khtml-user-select: none; /* Konqueror HTML */
+	-webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none; /* Safari */
+}
+/* End of CMS specific styling */
+
