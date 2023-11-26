@@ -2,7 +2,7 @@ import { Button,Link } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import Lottie from "lottie-react";
 import animationData from "../assets/animations/sleepingCat.json";
-//import moon from "../assets/animations/Moon.json";
+import moon from "../assets/animations/Moon.json";
 import sun from "../assets/animations/Sun.json";
 import {
     Animator,
@@ -80,7 +80,7 @@ export default function HeroBanner() {
                                 zIndex: 1,
                             }}
                         ></div>
-                  {/*      <Lottie
+                       <Lottie
                             animationData={moon}
                             className="z-40 absolute"
                             style={{
@@ -89,7 +89,7 @@ export default function HeroBanner() {
                                 marginTop: `calc(-5vh + ${moonTranslation}vh)`,
                                 transform: `rotate(${moonRotation}deg)`,
                             }}
-                        /> */}
+                        /> 
                         <div
                             className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-center z-50 flex justify-between items-center gap-10"
                             style={{ marginTop: "-20vh" }}
@@ -137,7 +137,7 @@ export default function HeroBanner() {
                             backgroundImage: `url(${DShapeA})`,
                             backgroundSize: "cover",
                             backgroundRepeat: "no-repeat",
-                            marginTop: "-9vh",
+                            marginTop: "0",
                             transition: "transform 0.3s ease",
                             transform: "scaleY(-1)",
                             position: "relative",
@@ -149,7 +149,7 @@ export default function HeroBanner() {
                                 top: 0,
                                 left: 0,
                                 width: "100%",
-                                height: "141vh",
+                                height: "150vh",
                                 zIndex: 1,
                                 opacity: sunOpacity,
                                 backgroundColor: "black",
@@ -176,7 +176,7 @@ export default function HeroBanner() {
                                     zIndex: "1500",
                                     position: "absolute",
                                     transform: "scaleY(-1)",
-                                    top: "30vh",
+                                    top: "40vh",
                                     color: "black",
                                 }}
                             >

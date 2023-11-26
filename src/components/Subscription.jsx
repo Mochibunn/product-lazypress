@@ -19,7 +19,7 @@ export default function Subscription() {
                 <p>Enter your email to subscribe to update.</p>
                 <form
                     autoComplete="off"
-                    className="flex justify-center ml-10 bg-base-300 pt-4 rounded overflow-hidden  my-0 w-2/3 sm:w-1/2 2xl:w-2/3 transition-all gap-2"
+                    className="flex  justify-center ml-10 bg-base-300 pt-4 rounded overflow-hidden  my-0 w-2/3 sm:w-1/2 2xl:w-2/3 transition-all gap-2"
                    
                 >
                     <input
