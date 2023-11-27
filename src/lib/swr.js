@@ -1,7 +1,11 @@
 import axios from "axios";
 import useSWR from "swr";
 
-const backend = "http://localhost:24601";
+// const backend = "http://localhost:24601";
+let backend;
+backend = import.meta.env.DEV
+    ? import.meta.env.VITE_BACKEND_DEV
+    : import.meta.env.VITE_BACKEND_DEPLOY;
 
 const lazyPress = axios.create({
     baseURL: backend,
