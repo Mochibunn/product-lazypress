@@ -12,6 +12,13 @@ import {
 } from "@nextui-org/react";
 import CMSObjEdit from "../components/CMSObjEdit";
 import { useAuth } from "@clerk/clerk-react";
+import {
+  CgClapperBoard,
+  CgDrive,
+  CgHome,
+  CgImage,
+  CgWebsite,
+} from "react-icons/cg";
 
 // import CMSStrEdit from "../components/CMSStrEdit";
 
@@ -95,9 +102,9 @@ export default function CMSTestPage() {
   };
 
   return (
-    <div className="w-full p-4">
+    <div className="w-full p-4 min-h-screen">
       {/* <h1 className="watermark text-[150px] text-center">DESIGN WORK IN PROGRESS</h1> Uncomment this during presentation */}
-      <div aria-hidden className="mb-2 flex">
+      <div aria-hidden className="mb-2 flex rounded-lg">
         <h3 className="text-4xl font-semibold font-metropolis">Edit</h3>
         <Textarea
           value={blogTitle || "Page"}
@@ -106,47 +113,97 @@ export default function CMSTestPage() {
           className="cms-title"
         />
       </div>
-      <Tabs aria-label="Site Pages">
-        <Tab key="home" title="Home" className="font-metropolis">
-          <Accordion variant="splitted" className="font-metropolis">
-            <AccordionItem key="1" title="Navbar Items" subtitle="">
-              <CMSObjEdit
-                // sectionTitle={"NavBar Items"}
-                section={"navBar"}
-                sectionValues={navBarInputValues}
-                setSectionValues={setNavBarInputValues}
-              />
-            </AccordionItem>
-            <AccordionItem key="Footer Items" title="Footer Items" subtitle="">
-              <CMSObjEdit
-                // sectionTitle={"Footer Items"}
-                section={"footer"}
-                sectionValues={footerValues}
-                setSectionValues={setFooterValues}
-              />
-            </AccordionItem>
-            <AccordionItem key="Hero Section" title="Hero Section" subtitle="">
-              <CMSObjEdit
-                // sectionTitle={"Hero Section"}
-                section={"hero"}
-                sectionValues={heroValues}
-              />
-            </AccordionItem>
-          </Accordion>
+      <Tabs
+        aria-label="Site Pages"
+        className="ml-3 w-1/2 h-full"
+        classNames={{
+          tabList: "w-full h-12 bg-default",
+          cursor: "h-15",
+          tab: "text-xl font-bold mx-1",
+          tabContent: "",
+        }}
+      >
+        <Tab
+          key="home"
+          title={
+            <div className="flex items-center space-x-2">
+              <CgHome />
+              <span>Home</span>
+            </div>
+          }
+          className="font-metropolis"
+        >
+          <div aria-hidden className="w-10/12">
+            <Accordion variant="splitted" className="font-metropolis">
+              <AccordionItem
+                key="1"
+                title="Navbar Items"
+                subtitle=""
+                startContent={<CgDrive />}
+              >
+                <CMSObjEdit
+                  // sectionTitle={"NavBar Items"}
+                  section={"navBar"}
+                  sectionValues={navBarInputValues}
+                  setSectionValues={setNavBarInputValues}
+                />
+              </AccordionItem>
+              <AccordionItem
+                key="Footer Items"
+                title="Footer Items"
+                subtitle=""
+                startContent={<CgClapperBoard />}
+              >
+                <CMSObjEdit
+                  // sectionTitle={"Footer Items"}
+                  section={"footer"}
+                  sectionValues={footerValues}
+                  setSectionValues={setFooterValues}
+                />
+              </AccordionItem>
+              <AccordionItem
+                key="Hero Section"
+                title="Hero Section"
+                subtitle=""
+                startContent={<CgImage />}
+              >
+                <CMSObjEdit
+                  // sectionTitle={"Hero Section"}
+                  section={"hero"}
+                  sectionValues={heroValues}
+                />
+              </AccordionItem>
+            </Accordion>
+          </div>
         </Tab>
-        <Tab key="blogPages" title="Blog Pages" className="font-metropolis">
-          <Accordion variant="splitted">
-            <AccordionItem key="Blog Pages" title="Blog Pages">
-              <CMSObjEdit
-                // sectionTitle={"Blog Pages"}
-                section={"blogPages"}
-                sectionValues={blogPagesValues}
-              />
-            </AccordionItem>
-          </Accordion>
+        <Tab
+          key="blogPages"
+          title={
+            <div className="flex items-center space-x-2">
+              <CgWebsite />
+              <span>Blog Pages</span>
+            </div>
+          }
+          className="font-metropolis"
+        >
+          <div aria-hidden className="w-10/12">
+            <Accordion variant="splitted">
+              <AccordionItem
+                key="Blog Pages"
+                title="Blog Pages"
+                startContent={<CgWebsite />}
+              >
+                <CMSObjEdit
+                  // sectionTitle={"Blog Pages"}
+                  section={"blogPages"}
+                  sectionValues={blogPagesValues}
+                />
+              </AccordionItem>
+            </Accordion>
+          </div>
         </Tab>
       </Tabs>
-      <Button className="mr-4" color="success" onClick={saveChangesClick}>
+      <Button className="mx-3" color="success" onClick={saveChangesClick}>
         Save Changes
       </Button>
       <Button

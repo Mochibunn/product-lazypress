@@ -40,7 +40,7 @@ export default function Dashboard() {
         });
 
   return (
-    <div className="grow p-6 pt-0 w-full bg-tiffany-blue select-none">
+    <div className="grow p-6 pt-0 w-full bg-tiffany-blue select-none min-h-screen">
       {/*Remove the "select-none" class to enable text selection*/}
       <div
         className="flex justify-between min-w-11/12 w-11/12 mx-auto"
