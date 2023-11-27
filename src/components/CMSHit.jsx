@@ -36,7 +36,7 @@ export default function CMSHit({ hit }) {
                 </div>
                 <div className="mr-4 flex flex-col gap-4">
                     <Button>
-                        <CMSRecipeModal title={hit.title} />
+                        <CMSRecipeModal {...hit} />
                     </Button>
                     <Button color="danger">Delete Recipe</Button>
                 </div>
