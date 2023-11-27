@@ -1,10 +1,11 @@
-import { Card, CardHeader, Image } from "@nextui-org/react";
+import { Card, CardHeader, Image, CardFooter, Button } from "@nextui-org/react";
+import CMSRecipeModal from "./CMSRecipeModal";
 
 export default function CMSHit({ hit }) {
     return (
         <Card
-            className="w-full h-full my-0"
-            isPressable
+            className="w-full h-full my-0 flex"
+            // isPressable
             onClick={() => {
                 console.log(hit._id);
             }}
@@ -32,6 +33,12 @@ export default function CMSHit({ hit }) {
                     {/* <p className="text-base md:text-xl font-semibold">
                         ${hit.price}
                     </p> */}
+                </div>
+                <div className="mr-4 flex flex-col gap-4">
+                    <Button>
+                        <CMSRecipeModal title={hit.title} />
+                    </Button>
+                    <Button color="danger">Delete Recipe</Button>
                 </div>
             </CardHeader>
         </Card>
