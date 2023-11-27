@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "packageManager": "pnpm@8.10.5",
+  "packageManager": "pnpm@8.11.0",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -13,6 +13,7 @@
   "dependencies": {
     "@clerk/clerk-react": "^4.28.0",
     "@nextui-org/react": "^2.2.9",
+    "@stripe/stripe-js": "^2.2.0",
     "axios": "^1.6.2",
     "framer-motion": "^10.16.5",
     "gsap": "^3.12.2",
