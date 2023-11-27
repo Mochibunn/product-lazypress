@@ -46,7 +46,7 @@ export default function CMSInputSection({ array, i: sectionIndex, section }) {
   };
 
   return (
-    <div className="my-2 border-1 rounded-xl border-default-20100 flex flex-col align-text-bottom w-full">
+    <div className="my-2 border-1 rounded-xl border-default-100 flex flex-col align-text-bottom w-full">
       <div className="m-2">
         <h3 className="text-md font-montserrat bg-neutral-300 rounded-xl font-semibold p-2">Page {`${sectionIndex + 1}`}</h3>
         <form onSubmit={editSection}>

@@ -61,6 +61,7 @@ export default function SiteCard({
             <Tooltip
               content={deployed ? "Page deployed" : "Page not deployed"}
               color={deployed ? "success" : "secondary"}
+              className="font-metropolis"
             >
               <p className="text-xl font-bold mr-2">{deployed ? "🟢" : "🟣"}</p>
             </Tooltip>
