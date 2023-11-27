@@ -47,7 +47,7 @@ export default function ExampleProduct() {
                         }}
                     />
                     <p  className='z-50 text-white' style={{
-                                    fontFamily: "Pilated",
+                                    fontFamily: "RemBoy",
                                     fontSize: "9rem",
                                     marginTop: "-30vh",
                                     
@@ -62,7 +62,7 @@ export default function ExampleProduct() {
                         }}
                     />
                     <p  className='z-50 text-white' style={{
-                                    fontFamily: "Pilated",
+                                    fontFamily: "RemBoy",
                                     fontSize: "6rem",
                                     marginTop: "-30vh",
                                     
