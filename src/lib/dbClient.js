@@ -1,7 +1,11 @@
 import axios from "axios";
 import { useAuth } from "@clerk/clerk-react";
 
-const backend = "http://localhost:24601";
+// const backend = "http://localhost:24601";
+let backend;
+backend = import.meta.env.DEV
+    ? import.meta.env.VITE_BACKEND_DEV
+    : import.meta.env.VITE_BACKEND_DEPLOY;
 
 const getSites = async (clerkId) => {
     try {
