@@ -6,12 +6,15 @@ import Subscription from "../components/Subscription";
 import FreeTrial from "../components/FreeTrial";
 import Testimonials from "../components/Testimonals";
 
+import WhatWeDo from "../components/WhatWeDo";
+
 export default function LandingPage() {
     document.title = `LazyPress`;
     return (
         <>
             <HeroBanner className="absolute" />
             <OurService />
+          <WhatWeDo/>
             <ExampleProduct />
             <Testimonials/>
             <Explore />
