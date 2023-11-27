@@ -163,7 +163,7 @@ export default function HeroBanner() {
                                 transform: "scaleY(-1)",
                                 width: "800px",
                                 marginLeft: "45vw",
-                                marginTop: `calc(175vh - ${moonTranslation}vh)`,
+                                marginTop: `calc(185vh - ${moonTranslation}vh)`,
                             }}
                         />
 
