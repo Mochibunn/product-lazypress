@@ -39,7 +39,7 @@ export default function WhatWeDo ()  {
       }}
     >
       <div
-        className="text-white absolute"
+        className="absolute"
         style={{
           transform: `scale(${zoom})`,
           transition: 'transform 0.3s ease',
@@ -49,13 +49,14 @@ export default function WhatWeDo ()  {
           padding: '20px',
           zIndex: 50,
           opacity: 1,
+          color: '#fffff1'
         }}
       >
         <p className="m-10" style={{ fontFamily: 'Noyh', textAlign: 'left' }}>
           <span style={{ fontFamily: 'Pilated' }}> * </span> we specialize in
           crafting{' '}
           <span
-            className="italic  font-bold"
+            className="italic font-bold"
             style={{
               fontFamily: 'Pilated',
               borderRadius: '30px',

@@ -428,37 +428,26 @@ button {
 
 
 
-/*Our Work animation*/
-#text {
+/*Our Work Animation */
+#animated-text-section {
   text-align: center;
   position: relative;
-  top: 200px;
-  font-size: 7em;
+  font-size: 10em;
+  font-weight:900
 }
 
-.text0 {
-  color: black;
-  -webkit-text-fill-color: rgb(15, 16, 15);
- 
+.text0, .text2 {
+  color: #333131;
+  -webkit-text-fill-color:#333131;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #333131
 }
 
-.text1 {
-  color: black;
-  -webkit-text-fill-color: #0b0a0b;
-
+.text1, .text3 {
+  color:#333131;
+  -webkit-text-fill-color:#333131;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color:#333131;
 }
 
-#dummy {
-  position: relative;
-  height: 100vh;
-  width: 100%;
-}
-
-#back {
-  position: relative;
-  padding-top: 50%;
-  text-align: center;
-  font-size: 1.5em;
-  cursor: pointer;
-}
 

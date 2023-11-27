@@ -4,15 +4,7 @@ import Lottie from "lottie-react";
 import animationData from "../assets/animations/sleepingCat.json";
 import moon from "../assets/animations/Moon.json";
 import sun from "../assets/animations/Sun.json";
-import {
-    Animator,
-    MoveOut,
-    ScrollContainer,
-    ScrollPage,
-    batch,
-    FadeIn,
-    MoveIn,
-} from "react-scroll-motion";
+import { Animator,MoveOut, ScrollContainer, ScrollPage,batch, FadeIn,MoveIn} from "react-scroll-motion";
 import DShapeA from "../assets/images/3DShape1.jpg";
 import { motion } from "framer-motion";
 
