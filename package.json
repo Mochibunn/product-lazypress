@@ -16,6 +16,7 @@
     "@stripe/stripe-js": "^2.2.0",
     "axios": "^1.6.2",
     "framer-motion": "^10.16.5",
+    "gsap": "^3.12.2",
     "immer": "^10.0.3",
     "keen-slider": "^6.8.6",
     "lottie-react": "^2.4.0",

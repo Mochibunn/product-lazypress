@@ -1,6 +1,3 @@
-//import DShapeC from "../assets/images/3DShape3.jpg";
-
-
 
 export default function OurService() {
  
@@ -13,7 +10,7 @@ export default function OurService() {
           top: 0,
           left: 0,
           width: "100%",
-          height: "250vh",
+          height: "90vh",
           backdropFilter: "blur(4px)",
           backgroundColor: '#333131',
           zIndex: 1,

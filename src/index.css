@@ -71,6 +71,8 @@ button {
 @tailwind components;
 @tailwind utilities;
 
+/*this navbar is after scrolling down*/
+
 .glassNavBarMaterial {
   background: rgba(255, 255, 255, 0.29);
   border-radius: 16px;
@@ -80,11 +82,15 @@ button {
   z-index: 1000;
 }
 
+/*this is for landing page nav bar*/
+
 .transparentNavBar {
   background: transparent !important;
   transition: background 0.5s ease-in-out !important;
   z-index: 1000;
 }
+
+/*this is for secondary button styling*/
 
 .glassButton {
   background: rgba(255, 255, 255, 0.29);
@@ -103,6 +109,8 @@ button {
   -webkit-backdrop-filter: blur(5px);
   z-index: 1000;
 }
+
+/*This is hero bannners text styling */
 
 .neon-text-container {
   display: flex;
@@ -132,55 +140,7 @@ button {
   }
 }
 
-.buttonGSGradient {
-  appearance: none;
-  background: linear-gradient(to right, #aee5d8 0%, #ffd700 50%, #e5d0e3 100%);
-  background-size: 100%;
-  border: none;
-  border-radius: 5rem;
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.3);
-  color: rgb(0, 0, 0);
-  cursor: pointer;
-  font: 1.2rem "Mom Cake", sans-serif;
-  height: 4rem;
-  letter-spacing: 0.05em;
-  outline: none;
-  user-select: none;
-  width: 15rem;
-}
 
-.buttonGradient {
-  appearance: none;
-  background: linear-gradient(to right, #aee5d8 0%, #ffd700 50%, #e5d0e3 100%);
-  background-size: 100%;
-  border: none;
-  border-radius: 5rem;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-  color: rgb(0, 0, 0);
-  cursor: pointer;
-  font: 1rem "Mom Cake", sans-serif;
-  height: 2.5rem;
-  letter-spacing: 0.05em;
-  outline: none;
-  user-select: none;
-  width: 6rem;
-}
-
-.buttonGradient:hover {
-  animation-name: gradient;
-  animation-duration: 2s;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-}
-
-@keyframes gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  100% {
-    background-position: 100% 50%;
-  }
-}
 
 .neonText {
   text-shadow: 0 0 5px #636262;
@@ -194,6 +154,8 @@ button {
 .neonBoxShadow:hover {
   box-shadow: none;
 }
+
+/*this is for big primary button getstarted */
 
 .jellyButton {
   cursor: pointer;
@@ -213,6 +175,8 @@ button {
   height: 2.5rem;
   color: black;
 }
+
+/*this is for small buttons else where*/
 
 .jellyButtonNavBar {
   cursor: pointer;
@@ -289,6 +253,8 @@ button {
   );
 }
 
+/*this is for overlay glass bg */
+
 .glassCard {
   background: rgba(255, 255, 255, 0.25);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
@@ -297,6 +263,9 @@ button {
   border: 1px solid rgba(255, 255, 255, 0.18);
   color: black;
 }
+
+/*This is for any card material glass*/
+
 
 .glassCardSmall {
   background: rgba(255, 255, 255, 0.4);
@@ -309,25 +278,8 @@ button {
   font-size: 1rem;
 }
 
-.neon-text2 {
-  font-size: 5rem;
-  color: #fdef6e;
-  text-shadow: 0 0 10px #ecc21cf1, 0 0 20px rgba(131, 215, 228, 0.8),
-    0 0 30px rgba(230, 0, 255, 0.8);
-  animation: neonBuzz2 1s linear infinite alternate;
-  margin-bottom: -5vh;
-}
 
-@keyframes neonBuzz2 {
-  from {
-    text-shadow: 0 0 30px #fdef6e, 0 0 20px rgba(217, 244, 10, 0.8),
-      0 0 30px rgba(255, 0, 208, 0.8);
-  }
-  to {
-    text-shadow: 0 0 60px rgba(202, 227, 7, 0.8),
-      0 0 40px rgba(212, 0, 255, 0.8), 0 0 60px rgba(255, 0, 247, 0.8);
-  }
-}
+/* this is for input material*/
 
 .glassInput {
   border-radius: 4rem;
@@ -444,7 +396,7 @@ button {
   transition: all 500ms ease-in-out;
 }
 
-/*What we do styling */
+/*What we do  component styling */
 
 .text {
     display: inline-block;
@@ -499,36 +451,40 @@ button {
   }
 }
 
-/* zoom in black screen*/
-.workspace {
-  height: 100vh;
-  position: absolute;
-  width: 100%;
-  top: 0;
-  left: 0;
-  display: grid;
-  place-items: center;
-  font: 700 12px system-ui;
-  overflow: hidden; 
-  border-radius: 20px; 
-  background-color: #333131; 
-  color: white; 
-  z-index: 40;
-}
 
-strong.highlight {
+
+/*Our Work animation*/
+#text {
+  text-align: center;
   position: relative;
+  top: 200px;
+  font-size: 7em;
 }
 
-strong.highlight::before {
-  /* Highlight color */
-  background-color: #46b96c;
-  content: "";
-  position: absolute;
-  width: calc(100% + 4px);
-  height: 60%;
-  left: -2px;
-  bottom: 0;
-  z-index: -1;
-  transform: rotate(-2deg);
+.text0 {
+  color: black;
+  -webkit-text-fill-color: rgb(15, 16, 15);
+ 
 }
+
+.text1 {
+  color: black;
+  -webkit-text-fill-color: #0b0a0b;
+
+}
+
+#dummy {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+}
+
+#back {
+  position: relative;
+  padding-top: 50%;
+  text-align: center;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+
