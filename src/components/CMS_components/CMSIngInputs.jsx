@@ -31,7 +31,12 @@ export default function CMSIngInputs({
     };
 
     const handleDeleteClick = () => {
-        console.log(recipe[section]);
+        mutateRecipe(
+            produce((draft) => {
+                draft[section].splice(i, 1);
+            }),
+            { optimisticData: recipe, revalidate: false }
+        );
     };
     return (
         <li className="my-4 mx-2">

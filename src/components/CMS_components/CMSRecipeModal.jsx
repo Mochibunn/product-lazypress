@@ -289,7 +289,10 @@ export default function CMSRecipeModal({ sectionTitle, section, title, _id }) {
                                     <Button
                                         color="danger"
                                         variant="flat"
-                                        onPress={onClose}
+                                        onPress={() => {
+                                            onClose();
+                                            mutateRecipe();
+                                        }}
                                     >
                                         Cancel
                                     </Button>
