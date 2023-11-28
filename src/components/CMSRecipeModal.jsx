@@ -119,19 +119,19 @@ export default function CMSRecipeModal({ sectionTitle, section, title, _id }) {
                                             key="Recipe_Tags"
                                             title="Tags"
                                         >
-                                            <CMSListbox steps={recipe.tags} />
+                                            <CMSListbox items={recipe.tags} />
                                         </AccordionItem>
                                         <AccordionItem
                                             key="Recipe_Steps"
                                             title="Recipe Steps"
                                         >
-                                            <CMSListbox steps={recipe.steps} />
+                                            <CMSListbox items={recipe.steps} />
                                         </AccordionItem>
                                         <AccordionItem
                                             key="Recipe_Ingredients"
                                             title="Ingredients List"
                                         >
-                                            <CMSListbox steps={recipe.steps} />
+                                            <CMSListbox items={recipe.steps} />
                                         </AccordionItem>
                                         <AccordionItem
                                             key="Simple_Values"
