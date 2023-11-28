@@ -1,11 +1,9 @@
-import axios from "axios";
-
+//import axios from "axios";
 import { useNavigate, redirect } from "react-router-dom";
 import { useForm } from "react-hook-form";
-
 import { useState } from "react";
 import ThankyouPage from "../pages/ThankyouPage";
-import DShapeB from "../assets/images/3DShape2.jpg";
+import DShapeB from "../assets/images/3DShape1.jpg";
 
 export default function CPform() {
   const navigate = useNavigate();
@@ -43,20 +41,25 @@ export default function CPform() {
       {!submitted && (
         <div
           style={{
-            background:
-              "linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(47,22,62,1) 18%, rgba(76,21,68,1) 75%, rgba(186,16,91,1) 99%, rgba(179,16,90,1) 100%)",
+            backgroundImage:`url(${DShapeB})`,
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+            height:'100vh',
+            marginTop:'-4rem',
+            zIndex:40,
+            position:'relative',
           }}
         >
-          <h2 className="text-[#f39d50] font-bold text-center p-3 text-4xl">
-            We're all here
+          <h2 className="text-blackfont-bold text-center text-4xl mt-20">
+            We're here for you
           </h2>
-          <h3 className="text-white text-center text-xl">
-            Fill out the form to start the conversation - we will get right back
+          <h3 className="text-black text-center text-xl">
+            Fill out the form to start the conversation <br/> right away we will get back
             to you
           </h3>
-          <div className="flex justify-evenly text-black-2 py-16">
-            <div>
-              <p className="text-white text-lg">
+          <div className="flex justify-evenly text-black-2">
+           {/* <div>
+              <p className="text-black text-lg">
                 No matter what do you need - to find out more <br /> about our
                 experience, to ask us how to improve <br />
                 or build your templates or to request a quote -<br /> do not to
@@ -65,12 +68,13 @@ export default function CPform() {
                 to give you ideas about the right design
                 <br /> direction for your web application.{" "}
               </p>
-            </div>
-            <div className="bg-[#f39d50] p-[40px] rounded w-96">
+        </div> */}
+            <div className="rounded w-[40vw] glassCardSmall top-50 left-50 "
+            style={{marginTop:'4vh'}}>
               {/* ------------------------form validation------------------------ */}
               <form
                 onSubmit={handleSubmit(onSubmit, onError)}
-                className="flex flex-col gap-3"
+                className="flex flex-col gap-3 glassSmallCard"
               >
                 <label
                   htmlFor="firstName"
@@ -88,7 +92,7 @@ export default function CPform() {
                       // max: 20,
                       pattern: /^[A-Za-z]+$/i,
                     })}
-                    className="w-80 h-8 glassInput transition-all font-medium"
+                    className="w-[37vw] h-8 glassInput transition-all font-medium"
                   />
                   {errors?.firstName?.type === "pattern" && (
                     <p style={{ color: "red" }}>
@@ -125,7 +129,7 @@ export default function CPform() {
                       maxLength: 20,
                       pattern: /^[A-Za-z]+$/i,
                     })}
-                    className="w-80 h-8 glassInput transition-all font-medium"
+                    className="w-[37vw] h-8 glassInput transition-all font-medium"
                   />
                   {errors?.lastName?.type === "pattern" && (
                     <p style={{ color: "red" }}>
@@ -166,7 +170,7 @@ export default function CPform() {
                           /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                       },
                     })}
-                    className="w-80 h-8 glassInput transition-all font-medium"
+                    className="w-[37vw] h-8 glassInput transition-all font-medium"
                   />
                   {/* <p style={{ color: "red" }}> {errors.email?.message}</p> */}
                   {errors?.email?.type === "pattern" && (
@@ -189,7 +193,7 @@ export default function CPform() {
                   Message
                   <textarea
                     id="textarea"
-                    className="w-80 h-20 glassTextArea transition-all font-medium"
+                    className="w-[37vw] h-20 glassTextArea transition-all font-medium"
                     {...register("textarea", {
                       required: "This is a required field",
                       minLength: 30,

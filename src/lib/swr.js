@@ -47,7 +47,26 @@ const useBlog = (blogId) => {
     };
 };
 
-export { useSites, useBlog, useClerkSWR };
+const useRecipe = (recipeId) => {
+    const { data, error, isLoading, mutate } = useSWR(
+        `/recipes/${recipeId}`,
+        fetcher,
+        {
+            revalidateIfStale: false,
+            revalidateOnFocus: false,
+            revalidateOnReconnect: false,
+        }
+    );
+
+    return {
+        recipe: data,
+        isLoading,
+        isError: error,
+        mutateRecipe: mutate,
+    };
+};
+
+export { useSites, useBlog, useRecipe, useClerkSWR };
 
 //might bring back later
 const useClerkSWR = (url) => {
