@@ -14,7 +14,7 @@ import {
 
 import { produce } from "immer";
 import { useBlog, useRecipe } from "../lib/swr";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import CMSListbox from "./CMSListbox";
 
@@ -24,30 +24,50 @@ export default function CMSRecipeModal({ sectionTitle, section, title, _id }) {
     const { swrBlog, mutateBlog } = useBlog(blogId);
     const { recipe, isLoading, mutateRecipe } = useRecipe(_id);
 
-    const [form, setForm] = useState(
-        section === "blogPages"
-            ? {
-                  imgUrl: "",
-                  title: "",
-                  text: "",
-                  button: "",
-              }
-            : {
-                  imgUrl: "",
-                  title: "",
-                  text: "",
-                  button: "",
-              }
-    );
+    const [staticInputs, setStaticInputs] = useState({
+        title: "",
+        category: "",
+        region: "",
+        text: "",
+        imgUrl: "",
+        videoUrl: "",
+        button: "",
+    });
+    useEffect(() => {
+        if (!recipe) return;
+        setStaticInputs({
+            title: recipe.title,
+            category: recipe.category,
+            region: recipe.region,
+            text: recipe.text,
+            imgUrl: recipe.imgUrl,
+            videoUrl: recipe.videoUrl,
+            button: recipe.button,
+        });
+    }, [recipe]);
 
     const navigate = useNavigate();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setForm((prev) => ({ ...prev, [name]: value }));
+        setStaticInputs((prev) => ({ ...prev, [name]: value }));
     };
 
-    const handleSubmit = () => {
+    const handleEditClick = (e) => {
+        // e.preventDefault();
+        // console.log(e.target.name);
+        const { name } = e.target;
+        console.log(staticInputs[name]);
+        mutateRecipe(
+            produce((draft) => {
+                // console.log("draft", draft[name]);
+                draft[name] = staticInputs[name];
+            }),
+            { optimisticData: recipe, revalidate: false }
+        );
+    };
+
+    const handleSaveClick = () => {
         console.log(recipe);
     };
 
@@ -73,13 +93,17 @@ export default function CMSRecipeModal({ sectionTitle, section, title, _id }) {
                                     <Input
                                         className="glassInput"
                                         color="default"
-                                        value={recipe.title}
+                                        name="title"
+                                        value={staticInputs.title}
+                                        onChange={handleChange}
                                         label="Recipe Title"
                                         labelPlacement="outside"
                                         endContent={
                                             <Button
+                                                onPress={handleEditClick}
+                                                type="submit"
                                                 color="primary"
-                                                // onPress={handleSubmit}
+                                                name="title"
                                             >
                                                 Edit Title
                                             </Button>
@@ -116,13 +140,18 @@ export default function CMSRecipeModal({ sectionTitle, section, title, _id }) {
                                             <Input
                                                 className="glassInput"
                                                 color="default"
-                                                value={recipe.category}
+                                                value={staticInputs.category}
+                                                onChange={handleChange}
                                                 label="Recipe Category"
                                                 labelPlacement="outside"
+                                                name="category"
                                                 endContent={
                                                     <Button
                                                         color="primary"
-                                                        // onPress={handleSubmit}
+                                                        name="category"
+                                                        onPress={
+                                                            handleEditClick
+                                                        }
                                                     >
                                                         Edit Category
                                                     </Button>
@@ -131,13 +160,18 @@ export default function CMSRecipeModal({ sectionTitle, section, title, _id }) {
                                             <Input
                                                 className="glassInput"
                                                 color="default"
-                                                value={recipe.region}
+                                                value={staticInputs.region}
+                                                onChange={handleChange}
                                                 label="Recipe Region of Origin"
                                                 labelPlacement="outside"
+                                                name="region"
                                                 endContent={
                                                     <Button
                                                         color="primary"
-                                                        // onPress={handleSubmit}
+                                                        name="region"
+                                                        onPress={
+                                                            handleEditClick
+                                                        }
                                                     >
                                                         Edit Region
                                                     </Button>
@@ -146,13 +180,18 @@ export default function CMSRecipeModal({ sectionTitle, section, title, _id }) {
                                             <Input
                                                 className="glassInput"
                                                 color="default"
-                                                value={recipe.text}
+                                                value={staticInputs.text}
+                                                onChange={handleChange}
                                                 label="Recipe Tagline"
                                                 labelPlacement="outside"
+                                                name="text"
                                                 endContent={
                                                     <Button
                                                         color="primary"
-                                                        // onPress={handleSubmit}
+                                                        name="text"
+                                                        onPress={
+                                                            handleEditClick
+                                                        }
                                                     >
                                                         Edit Tagline
                                                     </Button>
@@ -161,13 +200,18 @@ export default function CMSRecipeModal({ sectionTitle, section, title, _id }) {
                                             <Input
                                                 className="glassInput"
                                                 color="default"
-                                                value={recipe.imgUrl}
+                                                value={staticInputs.imgUrl}
+                                                onChange={handleChange}
                                                 label="Recipe Image"
                                                 labelPlacement="outside"
+                                                name="imgUrl"
                                                 endContent={
                                                     <Button
                                                         color="primary"
-                                                        // onPress={handleSubmit}
+                                                        name="imgUrl"
+                                                        onPress={
+                                                            handleEditClick
+                                                        }
                                                     >
                                                         Edit Image
                                                     </Button>
@@ -176,13 +220,18 @@ export default function CMSRecipeModal({ sectionTitle, section, title, _id }) {
                                             <Input
                                                 className="glassInput"
                                                 color="default"
-                                                value={recipe.videoUrl}
+                                                value={staticInputs.videoUrl}
+                                                onChange={handleChange}
                                                 label="Instructional Video"
                                                 labelPlacement="outside"
+                                                name="videoUrl"
                                                 endContent={
                                                     <Button
                                                         color="primary"
-                                                        // onPress={handleSubmit}
+                                                        name="videoUrl"
+                                                        onPress={
+                                                            handleEditClick
+                                                        }
                                                     >
                                                         Edit Video
                                                     </Button>
@@ -191,13 +240,18 @@ export default function CMSRecipeModal({ sectionTitle, section, title, _id }) {
                                             <Input
                                                 className="glassInput"
                                                 color="default"
-                                                value={recipe.button}
+                                                value={staticInputs.button}
+                                                onChange={handleChange}
                                                 label="Recipe Button Text"
                                                 labelPlacement="outside"
+                                                name="button"
                                                 endContent={
                                                     <Button
                                                         color="primary"
-                                                        // onPress={handleSubmit}
+                                                        name="button"
+                                                        onPress={
+                                                            handleEditClick
+                                                        }
                                                     >
                                                         Edit Button Text
                                                     </Button>
@@ -216,7 +270,7 @@ export default function CMSRecipeModal({ sectionTitle, section, title, _id }) {
                                     </Button>
                                     <Button
                                         color="success"
-                                        onPress={handleSubmit}
+                                        onPress={handleSaveClick}
                                     >
                                         Save Changes
                                     </Button>
