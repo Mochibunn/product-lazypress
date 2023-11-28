@@ -6,7 +6,6 @@ export default function PricingPage() {
   const [value, setValue] = useState({ id: 1, price: 100 });
 
   const makePayment = async () => {
-    console.log(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
     const stripe = await loadStripe(
       import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY
     );
