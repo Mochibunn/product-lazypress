@@ -13,15 +13,13 @@ import {
 } from "@nextui-org/react";
 
 import { produce } from "immer";
-import { useBlog, useRecipe } from "../lib/swr";
+import { useRecipe } from "../lib/swr";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import CMSListbox from "./CMSListbox";
 
 export default function CMSRecipeModal({ sectionTitle, section, title, _id }) {
     const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
-    const { blogId } = useParams();
-    const { swrBlog, mutateBlog } = useBlog(blogId);
     const { recipe, isLoading, mutateRecipe } = useRecipe(_id);
 
     const [staticInputs, setStaticInputs] = useState({
@@ -33,6 +31,9 @@ export default function CMSRecipeModal({ sectionTitle, section, title, _id }) {
         videoUrl: "",
         button: "",
     });
+    const [stepsWKey, setStepsWKey] = useState();
+    const [tagsWKey, setTagsWKey] = useState();
+
     useEffect(() => {
         if (!recipe) return;
         setStaticInputs({
@@ -44,6 +45,16 @@ export default function CMSRecipeModal({ sectionTitle, section, title, _id }) {
             videoUrl: recipe.videoUrl,
             button: recipe.button,
         });
+        const stepsObj = recipe.steps.map((step) => ({
+            value: step,
+            key: crypto.randomUUID(),
+        }));
+        const tagsObj = recipe.tags.map((tag) => ({
+            value: tag,
+            key: crypto.randomUUID(),
+        }));
+        setStepsWKey(stepsObj);
+        setTagsWKey(tagsObj);
     }, [recipe]);
 
     const navigate = useNavigate();
@@ -80,7 +91,7 @@ export default function CMSRecipeModal({ sectionTitle, section, title, _id }) {
                 onOpenChange={onOpenChange}
                 placement="center"
                 size="full"
-                className="p-8 min-h-screen"
+                className="p-8 pt-16 min-h-screen"
                 scrollBehavior="inside"
             >
                 <ModalContent>
@@ -119,19 +130,33 @@ export default function CMSRecipeModal({ sectionTitle, section, title, _id }) {
                                             key="Recipe_Tags"
                                             title="Tags"
                                         >
-                                            <CMSListbox items={recipe.tags} />
+                                            <CMSListbox
+                                                items={tagsWKey}
+                                                label="Tag"
+                                                section="tags"
+                                                recipeId={_id}
+                                            />
                                         </AccordionItem>
                                         <AccordionItem
                                             key="Recipe_Steps"
                                             title="Recipe Steps"
                                         >
-                                            <CMSListbox items={recipe.steps} />
+                                            <CMSListbox
+                                                items={stepsWKey}
+                                                label="Step"
+                                                section="steps"
+                                                recipeId={_id}
+                                            />
                                         </AccordionItem>
                                         <AccordionItem
                                             key="Recipe_Ingredients"
                                             title="Ingredients List"
                                         >
-                                            <CMSListbox items={recipe.steps} />
+                                            <CMSListbox
+                                                items={recipe.ingList}
+                                                section="ingList"
+                                                recipeId={_id}
+                                            />
                                         </AccordionItem>
                                         <AccordionItem
                                             key="Simple_Values"
