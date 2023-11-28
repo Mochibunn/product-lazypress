@@ -10,6 +10,7 @@ import {
     Spinner,
     Accordion,
     AccordionItem,
+    Textarea,
 } from "@nextui-org/react";
 
 import { produce } from "immer";
@@ -113,7 +114,7 @@ export default function CMSRecipeModal({ sectionTitle, section, title, _id }) {
                                             <Button
                                                 onPress={handleEditClick}
                                                 type="submit"
-                                                color="primary"
+                                                color="success"
                                                 name="title"
                                             >
                                                 Edit Title
@@ -130,6 +131,16 @@ export default function CMSRecipeModal({ sectionTitle, section, title, _id }) {
                                             key="Recipe_Tags"
                                             title="Tags"
                                         >
+                                            <Input
+                                                className="glassInput"
+                                                label="Add new tag"
+                                                labelPlacement="outside"
+                                                endContent={
+                                                    <Button color="primary">
+                                                        Add tag
+                                                    </Button>
+                                                }
+                                            />
                                             <CMSListbox
                                                 items={tagsWKey}
                                                 label="Tag"
@@ -141,6 +152,16 @@ export default function CMSRecipeModal({ sectionTitle, section, title, _id }) {
                                             key="Recipe_Steps"
                                             title="Recipe Steps"
                                         >
+                                            <Textarea
+                                                className="glassInput"
+                                                label="Add new step"
+                                                labelPlacement="outside"
+                                                endContent={
+                                                    <Button color="primary">
+                                                        Add step
+                                                    </Button>
+                                                }
+                                            />
                                             <CMSListbox
                                                 items={stepsWKey}
                                                 label="Step"
@@ -152,6 +173,24 @@ export default function CMSRecipeModal({ sectionTitle, section, title, _id }) {
                                             key="Recipe_Ingredients"
                                             title="Ingredients List"
                                         >
+                                            <form className="flex items-baseline">
+                                                <Input
+                                                    className="glassInput w-1/4"
+                                                    label="Amount"
+                                                    labelPlacement="outside"
+                                                />
+                                                <Input
+                                                    className="glassInput"
+                                                    label="Ingredient"
+                                                    labelPlacement="outside"
+                                                />
+                                                <Button
+                                                    className="min-w-1/4"
+                                                    color="primary"
+                                                >
+                                                    Add Ingredient
+                                                </Button>
+                                            </form>
                                             <CMSListbox
                                                 items={recipe.ingList}
                                                 section="ingList"
@@ -172,7 +211,7 @@ export default function CMSRecipeModal({ sectionTitle, section, title, _id }) {
                                                 name="category"
                                                 endContent={
                                                     <Button
-                                                        color="primary"
+                                                        color="success"
                                                         name="category"
                                                         onPress={
                                                             handleEditClick
@@ -192,7 +231,7 @@ export default function CMSRecipeModal({ sectionTitle, section, title, _id }) {
                                                 name="region"
                                                 endContent={
                                                     <Button
-                                                        color="primary"
+                                                        color="success"
                                                         name="region"
                                                         onPress={
                                                             handleEditClick
@@ -212,7 +251,7 @@ export default function CMSRecipeModal({ sectionTitle, section, title, _id }) {
                                                 name="text"
                                                 endContent={
                                                     <Button
-                                                        color="primary"
+                                                        color="success"
                                                         name="text"
                                                         onPress={
                                                             handleEditClick
@@ -232,7 +271,7 @@ export default function CMSRecipeModal({ sectionTitle, section, title, _id }) {
                                                 name="imgUrl"
                                                 endContent={
                                                     <Button
-                                                        color="primary"
+                                                        color="success"
                                                         name="imgUrl"
                                                         onPress={
                                                             handleEditClick
@@ -252,7 +291,7 @@ export default function CMSRecipeModal({ sectionTitle, section, title, _id }) {
                                                 name="videoUrl"
                                                 endContent={
                                                     <Button
-                                                        color="primary"
+                                                        color="success"
                                                         name="videoUrl"
                                                         onPress={
                                                             handleEditClick
@@ -272,7 +311,7 @@ export default function CMSRecipeModal({ sectionTitle, section, title, _id }) {
                                                 name="button"
                                                 endContent={
                                                     <Button
-                                                        color="primary"
+                                                        color="success"
                                                         name="button"
                                                         onPress={
                                                             handleEditClick
