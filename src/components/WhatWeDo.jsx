@@ -62,15 +62,15 @@ export default function WhatWeDo() {
                         className="italic font-bold"
                         style={{
                             fontFamily: "Pilated",
-                            borderRadius: "30px",
+                           
                             backgroundColor: "#E5D0E3",
-                            // borderRadius: '40px',
+                            borderRadius: '40px',
                             padding: "0.8rem",
                             fontSize: "2rem",
                             color: "#333131",
                         }}
                     >
-                        tailored websites{" "}
+                        tailored websites
                     </span>{" "}
                     for various purposes.
                     <br />
@@ -79,9 +79,9 @@ export default function WhatWeDo() {
                         className="italic font-extrabold"
                         style={{
                             fontFamily: "Pilated",
-                            borderRadius: "20px",
+                            
                             backgroundColor: "#968aea",
-                            // borderRadius: '40px',
+                            borderRadius: '40px',
                             padding: "0.8rem",
                             fontSize: "2rem",
                             color: "#333131",
@@ -97,8 +97,8 @@ export default function WhatWeDo() {
                         style={{
                             fontFamily: "Pilated",
                             backgroundColor: "orange",
-                            borderRadius: "20px",
-                            // borderRadius: '40px',
+                            
+                            borderRadius: '40px',
                             padding: "0.8rem",
                             fontSize: "2rem",
                             color: "#333131",
@@ -112,8 +112,7 @@ export default function WhatWeDo() {
                         style={{
                             fontFamily: "Pilated",
                             backgroundColor: "#7BE0AD",
-                            borderRadius: "20px",
-                            // borderRadius: '40px',
+                            borderRadius: '40px',
                             padding: "0.8rem",
                             fontSize: "2rem",
                             color: "#333131",
