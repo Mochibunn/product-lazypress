@@ -88,31 +88,40 @@ export default function CMSTestPage() {
             return theValues;
         });
 
-        setBlogTitle(swrBlog.dashboard.blogTitle);
-        setNavBarInputValues([...navBarValues]);
-        setFooterValues([...footerValues]);
-        setBlogPagesValues([...blogValues]);
-        setHeroValues([...heroValues]);
-    }, [swrBlog]);
+    setBlogTitle(
+      swrBlog.dashboard.blogTitle === "Untitled Page"
+        ? ""
+        : swrBlog.dashboard.blogTitle
+    );
+    setNavBarInputValues([...navBarValues]);
+    setFooterValues([...footerValues]);
+    setBlogPagesValues([...blogValues]);
+    setHeroValues([...heroValues]);
+  }, [swrBlog]);
 
-    const saveChangesClick = async () => {
-        // setButtonSpin(true); Might remove this line later — Mochi
-        try {
-            const sessToken = await getToken();
-            swrBlog.dashboard.blogTitle = blogTitle;
-            editBlog(sessToken, swrBlog).then((res) => {
-                console.log("came from protected route", res);
-                console.log(`🐰Status:\n`, res.status);
-                console.log(`AAAAA\n`, swrBlog);
-            });
-            mutateBlog();
-            toast.success(`Changes saved.`);
-            // setButtonSpin(false); Might remove this line later — Mochi
-        } catch (error) {
-            toast.error(`Changes not saved.`);
-            console.error(error);
-        }
-    };
+  const saveChangesClick = async () => {
+    // setButtonSpin(true); Might remove this line later — Mochi
+    try {
+      const sessToken = await getToken();
+      swrBlog.dashboard.blogTitle =
+        blogTitle === "" ? "Untitled Page" : blogTitle;
+      editBlog(sessToken, swrBlog).then((res) => {
+        console.log("came from protected route", res);
+        console.log(`🐰Status:\n`, res.status);
+        console.log(`AAAAA\n`, swrBlog);
+      });
+      mutateBlog();
+      toast.success(`Changes saved.`, {
+        toastId: "changesSaved",
+      });
+      // setButtonSpin(false); Might remove this line later — Mochi
+    } catch (error) {
+      toast.error(`Changes not saved.`, {
+        toastId: "notSaved",
+      });
+      console.error(error);
+    }
+  };
 
     return (
         <div className="w-full p-4 min-h-screen">
