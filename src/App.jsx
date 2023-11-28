@@ -27,9 +27,7 @@ function App() {
   return (
     <ClerkProvider publishableKey={clerkPubKey}>
       <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<LandingPage />} />
-          <Route
+      <Route
             path="sign-in/*"
             element={<SignInPage routing="path" path="/sign-in" />}
             // element={
@@ -53,6 +51,9 @@ function App() {
             //     </Suspense>
             // }
           />
+        <Route path="/" element={<Layout />}>
+          <Route index element={<LandingPage />} />
+       
           <Route
             path="dashboard"
             element={
