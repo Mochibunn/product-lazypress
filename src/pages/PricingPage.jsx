@@ -1,14 +1,54 @@
 import { Button } from "@nextui-org/react";
+import { loadStripe } from "@stripe/stripe-js";
 import { IoIosCheckmarkCircle } from "react-icons/io";
+import { useState } from "react";
 export default function PricingPage() {
+  const [value, setValue] = useState({ id: 1, price: 100 });
+
+  const makePayment = async () => {
+    console.log(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
+    const stripe = await loadStripe(
+      import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY
+    );
+    const body = {
+      price: value,
+    };
+    const headers = {
+      "Content-Type": "application/json",
+    };
+    const response = await fetch(
+      "http://localhost:24601/api/create-checkout-session",
+      {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify(body),
+      }
+    );
+    console.log("Request Body:", JSON.stringify(body));
+    if (!response.ok) {
+      console.error(
+        "Failed to fetch data:",
+        response.status,
+        response.statusText
+      );
+      return;
+    }
+
+    const session = await response.json();
+    console.log(session);
+    const result = stripe.redirectToCheckout({ sessionId: session.id });
+    if (result.error) {
+      console.log(result.error);
+    }
+  };
   return (
     <>
       <div className="h-[100vh]">
         <div className="flex gap-4 justify-center p-8 pt-20">
           <div className="border-2 border-black p-3">
             <h4>FREE</h4>
-            <h4>$0</h4>
-            <Button>Buy Now</Button>
+            <h4>$10</h4>
+            <Button onClick={makePayment}>Buy Now</Button>
             <p>No credit card required</p>
             <li className="flex items-center">
               <IoIosCheckmarkCircle /> Verification emails
@@ -22,8 +62,8 @@ export default function PricingPage() {
           </div>
           <div className="border-2 border-black p-3">
             <h4>MONTHLY</h4>
-            <h4>$9/month</h4>
-            <Button>Buy Now</Button>
+            <h4>{value.price}</h4>
+            <Button onClick={makePayment}>Buy Now</Button>
             <ul>
               <li className="flex items-center">
                 <IoIosCheckmarkCircle /> Access to Builder
@@ -56,7 +96,7 @@ export default function PricingPage() {
           <div className="border-2 border-black p-3">
             <h4>YEARLY</h4>
             <h4>$69/year</h4>
-            <Button>Buy Now</Button>
+            <Button onClick={makePayment}>Buy Now</Button>
             <ul>
               <li className="flex items-center">
                 <IoIosCheckmarkCircle /> Access to Builder

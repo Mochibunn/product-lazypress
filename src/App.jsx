@@ -14,8 +14,6 @@ import PricingPage from "./pages/PricingPage";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
 import AboutPage from "./pages/AboutPage";
-// const LazySignInPage = React.lazy(() => import("./pages/SignInPage"));
-// const LazySignUpPage = React.lazy(() => import("./pages/SignUpPage"));
 
 if (!import.meta.env.VITE_CLERK_PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
@@ -27,34 +25,24 @@ function App() {
   return (
     <ClerkProvider publishableKey={clerkPubKey}>
       <Routes>
-      <Route
-            path="sign-in/*"
-            element={<SignInPage routing="path" path="/sign-in" />}
-            // element={
-            //     <Suspense fallback={<Spinner />}>
-            //         <LazySignInPage
-            //             routing="path"
-            //             path="/sign-in"
-            //         />
-            //     </Suspense>
-            // }
-          />
-          <Route
-            path="sign-up/*"
-            element={<SignUpPage routing="path" path="/sign-up" />}
-            // element={
-            //     <Suspense fallback={<Spinner />}>
-            //         <LazySignUpPage
-            //             routing="path"
-            //             path="/sign-up"
-            //         />
-            //     </Suspense>
-            // }
-          />
+
+        <Route
+          path="sign-in/*"
+          element={<SignInPage routing="path" path="/sign-in" />}
+        />
+        <Route
+          path="sign-up/*"
+          element={<SignUpPage routing="path" path="/sign-up" />}
+        />
+       
+
+
+ 
           <Route index element={<LandingPage />} />
         <Route path="/" element={<Layout />}>
      
-       
+      
+
           <Route
             path="dashboard"
             element={
