@@ -4,12 +4,11 @@ import DShapeA from "../assets/images/3DShape1.jpg";
 export default function SignUpPage() {
     return (
         <div
-            className="flex justify-center items-center py-16 grow"
+            className="flex justify-center items-center  grow"
             style={{
                 backgroundImage: `url(${DShapeA})`,
                 backgroundSize: "cover",
                 backgroundRepeat: "no-repeat",
-                marginTop: "-4rem",
                 height: '100vh'
             }}
         >
