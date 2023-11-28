@@ -3,6 +3,7 @@ import { editBlog } from "../lib/dbClient";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useAuth } from "@clerk/clerk-react";
+import { produce } from "immer";
 import "react-toastify/dist/ReactToastify.css";
 import CMSObjEdit from "../components/CMS_components/CMSObjEdit";
 import CMSRecipes from "../components/CMS_components/CMSRecipes";
@@ -42,6 +43,15 @@ export default function CMSTestPage() {
     const setTitle = (e) => {
         setBlogTitle(e.target.value);
         console.log(`👽 Current title:\n`, e.target.value);
+    };
+
+    const handleChangeTitle = () => {
+        mutateBlog(
+            produce((draftBlog) => {
+                draftBlog.dashboard.blogTitle = blogTitle;
+            }),
+            { optimisticData: swrBlog, revalidate: false }
+        );
     };
 
     useEffect(() => {
@@ -88,40 +98,38 @@ export default function CMSTestPage() {
             return theValues;
         });
 
-    setBlogTitle(
-      swrBlog.dashboard.blogTitle === "Untitled Page"
-        ? ""
-        : swrBlog.dashboard.blogTitle
-    );
-    setNavBarInputValues([...navBarValues]);
-    setFooterValues([...footerValues]);
-    setBlogPagesValues([...blogValues]);
-    setHeroValues([...heroValues]);
-  }, [swrBlog]);
+        // const blogTitle = swrBlog.dashboard.blogTitle
+        setBlogTitle(swrBlog.dashboard.blogTitle);
+        setNavBarInputValues([...navBarValues]);
+        setFooterValues([...footerValues]);
+        setBlogPagesValues([...blogValues]);
+        setHeroValues([...heroValues]);
+    }, [swrBlog]);
 
-  const saveChangesClick = async () => {
-    // setButtonSpin(true); Might remove this line later — Mochi
-    try {
-      const sessToken = await getToken();
-      swrBlog.dashboard.blogTitle =
-        blogTitle === "" ? "Untitled Page" : blogTitle;
-      editBlog(sessToken, swrBlog).then((res) => {
-        console.log("came from protected route", res);
-        console.log(`🐰Status:\n`, res.status);
-        console.log(`AAAAA\n`, swrBlog);
-      });
-      mutateBlog();
-      toast.success(`Changes saved.`, {
-        toastId: "changesSaved",
-      });
-      // setButtonSpin(false); Might remove this line later — Mochi
-    } catch (error) {
-      toast.error(`Changes not saved.`, {
-        toastId: "notSaved",
-      });
-      console.error(error);
-    }
-  };
+    const saveChangesClick = async () => {
+        // setButtonSpin(true); Might remove this line later — Mochi
+        try {
+            const sessToken = await getToken();
+            // swrBlog.dashboard.blogTitle =
+            //     blogTitle === "" ? "Untitled Page" : blogTitle;
+            const postStatus = await editBlog(sessToken, swrBlog);
+
+            console.log("came from protected route", postStatus);
+            console.log(`🐰Status:\n`, postStatus.status);
+            console.log(`AAAAA\n`, swrBlog);
+
+            await mutateBlog();
+            toast.success(`Changes saved.`, {
+                toastId: "changesSaved",
+            });
+            // setButtonSpin(false); Might remove this line later — Mochi
+        } catch (error) {
+            toast.error(`Changes not saved.`, {
+                toastId: "notSaved",
+            });
+            console.error(error);
+        }
+    };
 
     return (
         <div className="w-full p-4 min-h-screen">
@@ -135,6 +143,7 @@ export default function CMSTestPage() {
                     minRows={1}
                     className="cms-title"
                 />
+                <Button onPress={handleChangeTitle}>Change Title</Button>
             </div>
             <Tabs
                 aria-label="Site Pages"
@@ -248,7 +257,7 @@ export default function CMSTestPage() {
             </Button>
             <Button
                 onClick={() => {
-                    console.log("swrBlog\n", swrBlog.pages);
+                    console.log("swrBlog\n", swrBlog);
                     toast.success("Check your development console!", {
                         toastId: "logStuff",
                     });
