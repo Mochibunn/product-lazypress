@@ -13,15 +13,18 @@ import {
     Textarea,
 } from "@nextui-org/react";
 
+import { ToastContainer, toast } from "react-toastify";
 import { produce } from "immer";
 import { useRecipe } from "../../lib/swr";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import CMSListbox from "./CMSListbox";
+import { editRecipe } from "../../lib/dbClient";
+import { useAuth } from "@clerk/clerk-react";
 
-export default function CMSRecipeModal({ sectionTitle, section, title, _id }) {
+export default function CMSRecipeModal({ _id }) {
     const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
     const { recipe, isLoading, mutateRecipe } = useRecipe(_id);
+    const { getToken } = useAuth();
 
     const [staticInputs, setStaticInputs] = useState({
         title: "",
@@ -63,8 +66,6 @@ export default function CMSRecipeModal({ sectionTitle, section, title, _id }) {
         setStepsWKey(stepsObj);
         setTagsWKey(tagsObj);
     }, [recipe]);
-
-    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -122,8 +123,27 @@ export default function CMSRecipeModal({ sectionTitle, section, title, _id }) {
         });
     };
 
-    const handleSaveClick = () => {
-        console.log(recipe);
+    const handleSaveClick = async () => {
+        try {
+            const sessToken = await getToken();
+
+            const postStatus = await editRecipe(sessToken, recipe);
+
+            console.log("came from protected route", postStatus);
+            console.log(`🐰Status:\n`, postStatus.status);
+            console.log(`AAAAA\n`, recipe);
+
+            await mutateRecipe();
+            toast.success(`Changes saved.`, {
+                toastId: "changesSaved",
+            });
+            // setButtonSpin(false); Might remove this line later — Mochi
+        } catch (error) {
+            toast.error(`Changes not saved.`, {
+                toastId: "notSaved",
+            });
+            console.error(error);
+        }
     };
 
     return (
@@ -413,6 +433,7 @@ export default function CMSRecipeModal({ sectionTitle, section, title, _id }) {
                                         Save Changes
                                     </Button>
                                 </ModalFooter>
+                                <ToastContainer />
                             </>
                         )
                     }

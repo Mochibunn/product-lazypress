@@ -46,20 +46,46 @@ const editBlog = async (sessToken, blog) => {
     }
 };
 
-// const editBlog = async (blog) => {
-//     const { _id, pages, dashboard, clerkUser, clerkUserId } = blog;
-//     try {
-//         const response = await axios.put(`${backend}/blogs/${_id}`, {
-//             pages,
-//             dashboard,
-//             clerkUser,
-//             clerkUserId,
-//         });
-//         return response;
-//     } catch (error) {
-//         console.error(error);
-//     }
-// };
+const editRecipe = async (sessToken, recipe) => {
+    const {
+        title,
+        category,
+        region,
+        ingList,
+        steps,
+        text,
+        button,
+        imgUrl,
+        videoUrl,
+        tags,
+        clerkUserId,
+        _id,
+    } = recipe;
+    try {
+        const response = await axios.put(
+            `${backend}/recipes/${_id}`,
+            {
+                title,
+                category,
+                region,
+                ingList,
+                steps,
+                text,
+                button,
+                imgUrl,
+                videoUrl,
+                tags,
+                clerkUserId,
+            },
+            {
+                headers: { Authorization: `Bearer ${sessToken}` },
+            }
+        );
+        return response;
+    } catch (error) {
+        console.error(error);
+    }
+};
 
 const getAuth = async (sessToken) => {
     // const { getToken } = useAuth();
@@ -100,4 +126,19 @@ const editBlogAuth = async (sessToken, blog) => {
     }
 };
 
-export { getSites, getBlog, editBlog, getAuth, editBlogAuth };
+export { getSites, getBlog, editBlog, editRecipe, getAuth, editBlogAuth };
+
+// const editBlog = async (blog) => {
+//     const { _id, pages, dashboard, clerkUser, clerkUserId } = blog;
+//     try {
+//         const response = await axios.put(`${backend}/blogs/${_id}`, {
+//             pages,
+//             dashboard,
+//             clerkUser,
+//             clerkUserId,
+//         });
+//         return response;
+//     } catch (error) {
+//         console.error(error);
+//     }
+// };
