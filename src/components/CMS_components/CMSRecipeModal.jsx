@@ -13,7 +13,7 @@ import {
 } from "@nextui-org/react";
 
 import { produce } from "immer";
-import { useRecipe } from "../lib/swr";
+import { useRecipe } from "../../lib/swr";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CMSListbox from "./CMSListbox";

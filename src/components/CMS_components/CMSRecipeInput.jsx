@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button, Input, Textarea, Divider } from "@nextui-org/react";
-import { useRecipe } from "../lib/swr";
+import { useRecipe } from "../../lib/swr";
 import { produce } from "immer";
 
 export default function CMSRecipeInput({

@@ -1,4 +1,4 @@
-import { searchClient } from "../lib/algoliaClient";
+import { searchClient } from "../../lib/algoliaClient";
 import {
     InstantSearch,
     SearchBox,
