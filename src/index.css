@@ -1,3 +1,4 @@
+
 @font-face {
   font-family: "Plaza";
   src: url("./assets/fonts/PlazaFont.otf");
@@ -8,13 +9,10 @@
   src: url("./assets/fonts/RemBoy.ttf");
 }
 
-
-
 @font-face {
   font-family: "Noyh";
   src: url("./assets/fonts/Noyh.otf");
 }
-
 
 @font-face {
   font-family: "Lemon Milk";
@@ -140,8 +138,6 @@ button {
   }
 }
 
-
-
 .neonText {
   text-shadow: 0 0 5px #636262;
 }
@@ -266,8 +262,8 @@ button {
 
 /*This is for any card material glass*/
 
-
-.glassCardSmall {
+.glassCardSmall,
+.cl-card {
   background: rgba(255, 255, 255, 0.4);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(8px);
@@ -277,7 +273,6 @@ button {
   padding: 16px;
   font-size: 1rem;
 }
-
 
 /* this is for input material*/
 
@@ -301,12 +296,13 @@ button {
 
 .glassTextArea {
   border-radius: 1rem;
-  font: 1rem "Mom Cake", sans-serif;
+  font: 0.8rem "Metropolis", sans-serif;
   font-weight: 600;
   background-color: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: black;
+  padding: 0.7rem 1.5rem;
   transition: background-color 0.2s ease-in-out, border 0.2s ease-in-out;
 }
 
@@ -314,6 +310,12 @@ button {
   background-color: rgba(255, 255, 255, 0.742);
   border: 1px solid rgba(255, 255, 255, 0.3);
   outline: none;
+}
+
+/* Clerk specific styling. To remove acrylic effect from clerk account modal, remove ".cl-card" from line 270 */
+
+.cl-card {
+  font-family: "Metropolis" !important;
 }
 
 /* CMS specific styling below, please don't move or remove! */
@@ -324,15 +326,17 @@ button {
 }
 
 .font-metropolis h2 {
-	font-weight: bold !important;
+  font-weight: bold !important;
 }
 
 .cms-title,
+.cms-title div,
 .cms-title textarea,
-.cms-title div {
+.cms-title textarea::placeholder {
   font-family: "Metropolis" !important;
   font-size: 2.25rem /* 36px */ !important;
   line-height: 2.5rem /* 40px */ !important;
+  color: black !important;
   background-color: transparent !important;
   font-weight: 600 !important;
   margin-left: 0.2rem !important;
@@ -340,31 +344,36 @@ button {
   box-shadow: none !important;
   width: fit-content !important;
   height: fit-content !important;
+  transition: color 0.15s ease-in-out;
+}
+
+.cms-title textarea:focus::placeholder,
+.cms-title textarea:hover::placeholder {
+  color: #aaaaaa !important;
 }
 
 /* CSS for Mochi's design WIP watermark */
-.watermark
-{
-	position: fixed;
-	top: 42vh;
-	z-index: 50;
-	right: 50vw;
-	opacity: 0.1;
-	color: black;
-	height: 40px;
-	width: 100px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	transform: rotate(-45deg);
-	content: attr(data-watermark);
-	pointer-events: none;
-	user-select: none; /* Non-prefixed version for Chrome, Opera and*/
-	-ms-user-select: none; /* Internet Explorer, Edge */
-	-moz-user-select: none; /* Firefox */
-	-khtml-user-select: none; /* Konqueror HTML */
-	-webkit-touch-callout: none; /* iOS Safari */
-	-webkit-user-select: none; /* Safari */
+.watermark {
+  position: fixed;
+  top: 42vh;
+  z-index: 50;
+  right: 50vw;
+  opacity: 0.1;
+  color: black;
+  height: 40px;
+  width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(-45deg);
+  content: attr(data-watermark);
+  pointer-events: none;
+  user-select: none; /* Non-prefixed version for Chrome, Opera and*/
+  -ms-user-select: none; /* Internet Explorer, Edge */
+  -moz-user-select: none; /* Firefox */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
 }
 /* End of CMS specific styling */
 
@@ -374,9 +383,9 @@ button {
   background-size: 100% 100%;
   background-image: linear-gradient(grey, grey);
 }
-  
+
 .hover-effect:hover {
-  color:White;
+  color: White;
   background-size: 0% 100%;
 }
 
@@ -387,9 +396,9 @@ button {
 .content-v3 {
   font-family: Lemon Milk;
   font-size: 1.5rem;
- font-weight: 600;
+  font-weight: 600;
 }
-  
+
 .spoiler-text {
   display: inline;
   background-repeat: no-repeat;
@@ -399,23 +408,22 @@ button {
 /*What we do  component styling */
 
 .text {
-    display: inline-block;
-    line-height: 84%;
-    padding-left: 7px;
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    text-shadow: 0px 0px 0px #b07c7c2e;
+  display: inline-block;
+  line-height: 84%;
+  padding-left: 7px;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  text-shadow: 0px 0px 0px #b07c7c2e;
 }
 
 .text-1 {
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='200px' height='200px' viewBox='0 0 400 400'%3e%3cdefs%3e%3cfilter id='filter' width='400px' height='400px' filterUnits='objectBoundingBox' primitiveUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3e%3cfeFlood flood-color='%23f5576c' flood-opacity='1' x='0' y='0' width='250px' height='250px' result='flood3'%3e%3c/feFlood%3e%3cfeFlood flood-color='%23f093fb' flood-opacity='1' x='150px' y='150px' width='250px' height='250px' result='flood4'%3e%3c/feFlood%3e%3cfeGaussianBlur stdDeviation='50 50' x='0%25' y='0%25' width='100%25' height='100%25' in='flood3' edgeMode='none' result='blur1'%3e%3c/feGaussianBlur%3e%3cfeGaussianBlur stdDeviation='50 50' x='0%25' y='0%25' width='100%25' height='100%25' in='flood4' edgeMode='none' result='blur2'%3e%3c/feGaussianBlur%3e%3cfeBlend mode='normal' x='0%25' y='0%25' width='100%25' height='100%25' in='blur2' in2='SourceGraphic' result='blend5'%3e%3c/feBlend%3e%3cfeBlend mode='normal' x='0%25' y='0%25' width='100%25' height='100%25' in='blur1' in2='blend5' result='blend6'%3e%3c/feBlend%3e%3c/filter%3e%3c/defs%3e%3crect width='400' height='400' x='0' y='0' fill='%23fee140' filter='url(%23filter)'%3e%3c/rect%3e%3c/svg%3e");
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='200px' height='200px' viewBox='0 0 400 400'%3e%3cdefs%3e%3cfilter id='filter' width='400px' height='400px' filterUnits='objectBoundingBox' primitiveUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3e%3cfeFlood flood-color='%23f5576c' flood-opacity='1' x='0' y='0' width='250px' height='250px' result='flood3'%3e%3c/feFlood%3e%3cfeFlood flood-color='%23f093fb' flood-opacity='1' x='150px' y='150px' width='250px' height='250px' result='flood4'%3e%3c/feFlood%3e%3cfeGaussianBlur stdDeviation='50 50' x='0%25' y='0%25' width='100%25' height='100%25' in='flood3' edgeMode='none' result='blur1'%3e%3c/feGaussianBlur%3e%3cfeGaussianBlur stdDeviation='50 50' x='0%25' y='0%25' width='100%25' height='100%25' in='flood4' edgeMode='none' result='blur2'%3e%3c/feGaussianBlur%3e%3cfeBlend mode='normal' x='0%25' y='0%25' width='100%25' height='100%25' in='blur2' in2='SourceGraphic' result='blend5'%3e%3c/feBlend%3e%3cfeBlend mode='normal' x='0%25' y='0%25' width='100%25' height='100%25' in='blur1' in2='blend5' result='blend6'%3e%3c/feBlend%3e%3c/filter%3e%3c/defs%3e%3crect width='400' height='400' x='0' y='0' fill='%23fee140' filter='url(%23filter)'%3e%3c/rect%3e%3c/svg%3e");
 }
 
 .text-2 {
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='200px' height='200px' viewBox='0 0 400 400'%3e%3cdefs%3e%3cfilter id='filter' width='400px' height='400px' filterUnits='objectBoundingBox' primitiveUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3e%3cfeFlood flood-color='%238fd3f4' flood-opacity='1' x='0' y='0' width='250px' height='250px' result='flood3'%3e%3c/feFlood%3e%3cfeFlood flood-color='%2396e6a1' flood-opacity='1' x='150px' y='150px' width='250px' height='250px' result='flood4'%3e%3c/feFlood%3e%3cfeGaussianBlur stdDeviation='50 50' x='0%25' y='0%25' width='100%25' height='100%25' in='flood3' edgeMode='none' result='blur1'%3e%3c/feGaussianBlur%3e%3cfeGaussianBlur stdDeviation='50 50' x='0%25' y='0%25' width='100%25' height='100%25' in='flood4' edgeMode='none' result='blur2'%3e%3c/feGaussianBlur%3e%3cfeBlend mode='normal' x='0%25' y='0%25' width='100%25' height='100%25' in='blur2' in2='SourceGraphic' result='blend5'%3e%3c/feBlend%3e%3cfeBlend mode='normal' x='0%25' y='0%25' width='100%25' height='100%25' in='blur1' in2='blend5' result='blend6'%3e%3c/feBlend%3e%3c/filter%3e%3c/defs%3e%3crect width='400' height='400' x='0' y='0' fill='%23d4fc79' filter='url(%23filter)'%3e%3c/rect%3e%3c/svg%3e");
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='200px' height='200px' viewBox='0 0 400 400'%3e%3cdefs%3e%3cfilter id='filter' width='400px' height='400px' filterUnits='objectBoundingBox' primitiveUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3e%3cfeFlood flood-color='%238fd3f4' flood-opacity='1' x='0' y='0' width='250px' height='250px' result='flood3'%3e%3c/feFlood%3e%3cfeFlood flood-color='%2396e6a1' flood-opacity='1' x='150px' y='150px' width='250px' height='250px' result='flood4'%3e%3c/feFlood%3e%3cfeGaussianBlur stdDeviation='50 50' x='0%25' y='0%25' width='100%25' height='100%25' in='flood3' edgeMode='none' result='blur1'%3e%3c/feGaussianBlur%3e%3cfeGaussianBlur stdDeviation='50 50' x='0%25' y='0%25' width='100%25' height='100%25' in='flood4' edgeMode='none' result='blur2'%3e%3c/feGaussianBlur%3e%3cfeBlend mode='normal' x='0%25' y='0%25' width='100%25' height='100%25' in='blur2' in2='SourceGraphic' result='blend5'%3e%3c/feBlend%3e%3cfeBlend mode='normal' x='0%25' y='0%25' width='100%25' height='100%25' in='blur1' in2='blend5' result='blend6'%3e%3c/feBlend%3e%3c/filter%3e%3c/defs%3e%3crect width='400' height='400' x='0' y='0' fill='%23d4fc79' filter='url(%23filter)'%3e%3c/rect%3e%3c/svg%3e");
 }
-
 
 .text-3 {
   background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='200px' height='200px' viewBox='0 0 400 400'%3e%3cdefs%3e%3cfilter id='filter' width='400px' height='400px' filterUnits='objectBoundingBox' primitiveUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3e%3cfeFlood flood-color='%23cd9cf2' flood-opacity='1' x='0' y='0' width='250px' height='250px' result='flood3'%3e%3c/feFlood%3e%3cfeFlood flood-color='%23c2e9fb' flood-opacity='1' x='150px' y='150px' width='250px' height='250px' result='flood4'%3e%3c/feFlood%3e%3cfeGaussianBlur stdDeviation='50 50' x='0%25' y='0%25' width='100%25' height='100%25' in='flood3' edgeMode='none' result='blur1'%3e%3c/feGaussianBlur%3e%3cfeGaussianBlur stdDeviation='50 50' x='0%25' y='0%25' width='100%25' height='100%25' in='flood4' edgeMode='none' result='blur2'%3e%3c/feGaussianBlur%3e%3cfeBlend mode='normal' x='0%25' y='0%25' width='100%25' height='100%25' in='blur2' in2='SourceGraphic' result='blend5'%3e%3c/feBlend%3e%3cfeBlend mode='normal' x='0%25' y='0%25' width='100%25' height='100%25' in='blur1' in2='blend5' result='blend6'%3e%3c/feBlend%3e%3c/filter%3e%3c/defs%3e%3crect width='400' height='400' x='0' y='0' fill='%2366a6ff' filter='url(%23filter)'%3e%3c/rect%3e%3c/svg%3e");
@@ -451,28 +459,28 @@ button {
   }
 }
 
-
-
 /*Our Work Animation */
 #animated-text-section {
   text-align: center;
   position: relative;
   font-size: 10em;
-  font-weight:900
+  font-weight: 900;
 }
 
-.text0, .text2 {
+.text0,
+.text2 {
   color: #333131;
-  -webkit-text-fill-color:#333131;
+  -webkit-text-fill-color: #333131;
   -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #333131
+  -webkit-text-stroke-color: #333131;
 }
 
-.text1, .text3 {
-  color:#333131;
-  -webkit-text-fill-color:#333131;
+.text1,
+.text3 {
+  color: #333131;
+  -webkit-text-fill-color: #333131;
   -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color:#333131;
+  -webkit-text-stroke-color: #333131;
 }
 
 /*SlideShow styling*/
@@ -481,20 +489,18 @@ button {
 .gallery-section {
   position: sticky;
   top: 0;
-  width:100vw;
+  max-width:100vw;
 }
 
 .gallery-figure {
   background: #eee;
-  width: calc(100vw);
+  width: calc(98.5vw);
   height: 100vh;
-  margin: 0 auto 10vh 0;
   overflow: hidden;
-  box-shadow: 4px -4px 8px rgba(0, 0, 0, .4);
 }
 
 .gallery-figure::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 5vmin;
   right: 5vmin;
@@ -505,15 +511,12 @@ button {
   outline-offset: -5vmin;
   backdrop-filter: grayscale(1);
   pointer-events: none;
-  width:100vw
+  width: 100vw;
 }
 
 .gallery-section {
   background: #e5e5e5;
- 
   height: 100vh;
-  margin: 0 0 10vh auto;
-  padding: 5vmin;
   width:50vw;
   background: rgba(255, 255, 255, 0.25);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
@@ -522,5 +525,3 @@ button {
   border: 1px solid rgba(255, 255, 255, 0.18);
   color: black;
 }
-
-

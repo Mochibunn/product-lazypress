@@ -10,7 +10,7 @@ import {
 } from "@nextui-org/react";
 
 import { produce } from "immer";
-import { useBlog } from "../lib/swr";
+import { useBlog } from "../../lib/swr";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
