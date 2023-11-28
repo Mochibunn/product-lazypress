@@ -3,7 +3,7 @@ import { Button, Input, Textarea, Divider } from "@nextui-org/react";
 import { useRecipe } from "../lib/swr";
 import { produce } from "immer";
 
-export default function CMSStepsEdit({
+export default function CMSRecipeInput({
     item,
     i,
     length,
