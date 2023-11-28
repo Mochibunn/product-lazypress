@@ -14,6 +14,7 @@ import { produce } from "immer";
 import { useBlog, useRecipe } from "../lib/swr";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import CMSListbox from "./CMSListbox";
 
 export default function CMSRecipeModal({ sectionTitle, section, title, _id }) {
     const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
@@ -55,8 +56,9 @@ export default function CMSRecipeModal({ sectionTitle, section, title, _id }) {
                 isOpen={isOpen}
                 backdrop="blur"
                 onOpenChange={onOpenChange}
-                placement="top-center"
-                // className={isDarkMode && "dark text-foreground"}
+                placement="center"
+                size="full"
+                className="p-8"
             >
                 <ModalContent>
                     {() =>
@@ -67,7 +69,9 @@ export default function CMSRecipeModal({ sectionTitle, section, title, _id }) {
                                 <ModalHeader className="flex flex-col gap-1">
                                     {recipe.title}
                                 </ModalHeader>
-                                <ModalBody></ModalBody>
+                                <ModalBody>
+                                    <CMSListbox steps={recipe.steps} />
+                                </ModalBody>
                                 <ModalFooter>
                                     <Button
                                         color="danger"
