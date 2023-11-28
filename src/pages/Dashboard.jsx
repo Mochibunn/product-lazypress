@@ -1,11 +1,5 @@
 import SiteCard from "../components/SiteCard";
-import {
-  Spinner,
-  Divider,
-  Card,
-  CardBody,
-  CardHeader,
-} from "@nextui-org/react";
+import { Spinner, Divider, Card, CardBody, CardHeader} from "@nextui-org/react";
 import { useSites } from "../lib/swr";
 import { useUser } from "@clerk/clerk-react";
 import Tilt from "react-parallax-tilt";

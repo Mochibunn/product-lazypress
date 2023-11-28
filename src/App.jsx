@@ -51,8 +51,9 @@ function App() {
             //     </Suspense>
             // }
           />
-        <Route path="/" element={<Layout />}>
           <Route index element={<LandingPage />} />
+        <Route path="/" element={<Layout />}>
+     
        
           <Route
             path="dashboard"

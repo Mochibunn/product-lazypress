@@ -9,7 +9,7 @@ const SlideShow = () => {
     <div className="landing-section relative flex flex-wrap"
     style={{height:'300vh'}}>
       <article className="gallery-article">
-        <figure className="gallery-figure">
+        <figure className="gallery-figure w-[100vw]">
           <img src={OurWork} alt="" style={{width:'100vw'}}/>
         </figure>
         <section className="gallery-section"

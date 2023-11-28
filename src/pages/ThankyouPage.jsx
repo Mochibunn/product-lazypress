@@ -3,18 +3,20 @@ import DShapeA from "../assets/images/3DShape1.jpg";
 export default function ThankyouPage() {
   return (
     <div
-      className="w-full h-[100vh] overflow-hidden"
+      className="overflow-x-hidden flex flex-col items-center justify-center"
       style={{
         backgroundImage: `url(${DShapeA})`,
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         transition: "transform 0.3s ease",
-        position: "relative",
+        marginTop:'-4rem',
+        height:'100vh'
+        
       }}
     >
-      <div className="">
+      <div className="text-center">
         <h2
-          className="text-4xl font-extrabold tracking-wide neon-text pt-32"
+          className="text-4xl font-extrabold tracking-wide neon-text "
           style={{
             textAlign: "center",
             fontFamily: "Lemon Milk",
@@ -24,7 +26,7 @@ export default function ThankyouPage() {
           Thank you
         </h2>
         <p
-          className="font-bold text-slate-200 text-3xl neonText mt-32"
+          className="font-bold text-slate-200 text-3xl neonText mt-20"
           style={{
             textAlign: "center",
             fontFamily: "Mom Cake",
