@@ -1,4 +1,4 @@
-import {Navbar,NavbarBrand,NavbarContent,NavbarItem,Link,Button,} from "@nextui-org/react";
+import {Navbar,NavbarBrand,NavbarContent,NavbarItem,Link,Button} from "@nextui-org/react";
 import { NavLink } from "react-router-dom";
 import { useUser, UserButton } from "@clerk/clerk-react";
 import { useEffect, useState } from "react";
@@ -6,12 +6,26 @@ import { useEffect, useState } from "react";
 
 export default function NavBar() {
   const { isSignedIn, isLoaded } = useUser();
-  
+  const [isGlass, setIsGlass] = useState(false);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const isPast150vh = scrollPosition > window.innerHeight;
+
+      setIsGlass(isPast150vh);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
     <Navbar
-      className="glassNavBarMaterial"
+      className={`${isGlass ? "glassNavBarMaterial" : "transparentNavBar"}`}
       isBlurred="false"
     >
       <NavbarBrand>
