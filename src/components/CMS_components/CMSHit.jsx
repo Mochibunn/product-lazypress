@@ -1,5 +1,6 @@
-import { Card, CardHeader, Image, CardFooter, Button } from "@nextui-org/react";
+import { Card, CardHeader, Image, Button } from "@nextui-org/react";
 import CMSRecipeModal from "./CMSRecipeModal";
+import CMSDeleteModal from "./CMSDeleteModal";
 
 export default function CMSHit({ hit }) {
     return (
@@ -38,7 +39,9 @@ export default function CMSHit({ hit }) {
                     <Button>
                         <CMSRecipeModal {...hit} />
                     </Button>
-                    <Button color="danger">Delete Recipe</Button>
+                    <Button color="danger">
+                        <CMSDeleteModal />
+                    </Button>
                 </div>
             </CardHeader>
         </Card>
