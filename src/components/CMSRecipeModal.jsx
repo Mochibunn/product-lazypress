@@ -8,6 +8,8 @@ import {
     Input,
     useDisclosure,
     Spinner,
+    Accordion,
+    AccordionItem,
 } from "@nextui-org/react";
 
 import { produce } from "immer";
@@ -58,7 +60,8 @@ export default function CMSRecipeModal({ sectionTitle, section, title, _id }) {
                 onOpenChange={onOpenChange}
                 placement="center"
                 size="full"
-                className="p-8"
+                className="p-8 min-h-screen"
+                scrollBehavior="inside"
             >
                 <ModalContent>
                     {() =>
@@ -66,11 +69,142 @@ export default function CMSRecipeModal({ sectionTitle, section, title, _id }) {
                             <Spinner />
                         ) : (
                             <>
-                                <ModalHeader className="flex flex-col gap-1">
-                                    {recipe.title}
+                                <ModalHeader>
+                                    <Input
+                                        className="glassInput"
+                                        color="default"
+                                        value={recipe.title}
+                                        label="Recipe Title"
+                                        labelPlacement="outside"
+                                        endContent={
+                                            <Button
+                                                color="primary"
+                                                // onPress={handleSubmit}
+                                            >
+                                                Edit Title
+                                            </Button>
+                                        }
+                                    />
                                 </ModalHeader>
                                 <ModalBody>
-                                    <CMSListbox steps={recipe.steps} />
+                                    <Accordion
+                                        variant="splitted"
+                                        className="font-metropolis"
+                                    >
+                                        <AccordionItem
+                                            key="Recipe_Tags"
+                                            title="Tags"
+                                        >
+                                            <CMSListbox steps={recipe.tags} />
+                                        </AccordionItem>
+                                        <AccordionItem
+                                            key="Recipe_Steps"
+                                            title="Recipe Steps"
+                                        >
+                                            <CMSListbox steps={recipe.steps} />
+                                        </AccordionItem>
+                                        <AccordionItem
+                                            key="Recipe_Ingredients"
+                                            title="Ingredients List"
+                                        >
+                                            <CMSListbox steps={recipe.steps} />
+                                        </AccordionItem>
+                                        <AccordionItem
+                                            key="Simple_Values"
+                                            title="Simple Values"
+                                        >
+                                            <Input
+                                                className="glassInput"
+                                                color="default"
+                                                value={recipe.category}
+                                                label="Recipe Category"
+                                                labelPlacement="outside"
+                                                endContent={
+                                                    <Button
+                                                        color="primary"
+                                                        // onPress={handleSubmit}
+                                                    >
+                                                        Edit Category
+                                                    </Button>
+                                                }
+                                            />
+                                            <Input
+                                                className="glassInput"
+                                                color="default"
+                                                value={recipe.region}
+                                                label="Recipe Region of Origin"
+                                                labelPlacement="outside"
+                                                endContent={
+                                                    <Button
+                                                        color="primary"
+                                                        // onPress={handleSubmit}
+                                                    >
+                                                        Edit Region
+                                                    </Button>
+                                                }
+                                            />
+                                            <Input
+                                                className="glassInput"
+                                                color="default"
+                                                value={recipe.text}
+                                                label="Recipe Tagline"
+                                                labelPlacement="outside"
+                                                endContent={
+                                                    <Button
+                                                        color="primary"
+                                                        // onPress={handleSubmit}
+                                                    >
+                                                        Edit Tagline
+                                                    </Button>
+                                                }
+                                            />
+                                            <Input
+                                                className="glassInput"
+                                                color="default"
+                                                value={recipe.imgUrl}
+                                                label="Recipe Image"
+                                                labelPlacement="outside"
+                                                endContent={
+                                                    <Button
+                                                        color="primary"
+                                                        // onPress={handleSubmit}
+                                                    >
+                                                        Edit Image
+                                                    </Button>
+                                                }
+                                            />
+                                            <Input
+                                                className="glassInput"
+                                                color="default"
+                                                value={recipe.videoUrl}
+                                                label="Instructional Video"
+                                                labelPlacement="outside"
+                                                endContent={
+                                                    <Button
+                                                        color="primary"
+                                                        // onPress={handleSubmit}
+                                                    >
+                                                        Edit Video
+                                                    </Button>
+                                                }
+                                            />
+                                            <Input
+                                                className="glassInput"
+                                                color="default"
+                                                value={recipe.button}
+                                                label="Recipe Button Text"
+                                                labelPlacement="outside"
+                                                endContent={
+                                                    <Button
+                                                        color="primary"
+                                                        // onPress={handleSubmit}
+                                                    >
+                                                        Edit Button Text
+                                                    </Button>
+                                                }
+                                            />
+                                        </AccordionItem>
+                                    </Accordion>
                                 </ModalBody>
                                 <ModalFooter>
                                     <Button
@@ -81,10 +215,10 @@ export default function CMSRecipeModal({ sectionTitle, section, title, _id }) {
                                         Cancel
                                     </Button>
                                     <Button
-                                        color="primary"
+                                        color="success"
                                         onPress={handleSubmit}
                                     >
-                                        Edit Recipe
+                                        Save Changes
                                     </Button>
                                 </ModalFooter>
                             </>
