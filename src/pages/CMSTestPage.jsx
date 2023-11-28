@@ -90,7 +90,11 @@ export default function CMSTestPage() {
       return theValues;
     });
 
-    setBlogTitle(swrBlog.dashboard.blogTitle);
+    setBlogTitle(
+      swrBlog.dashboard.blogTitle === "Untitled Page"
+        ? ""
+        : swrBlog.dashboard.blogTitle
+    );
     setNavBarInputValues([...navBarValues]);
     setFooterValues([...footerValues]);
     setBlogPagesValues([...blogValues]);
@@ -101,17 +105,22 @@ export default function CMSTestPage() {
     // setButtonSpin(true); Might remove this line later — Mochi
     try {
       const sessToken = await getToken();
-      swrBlog.dashboard.blogTitle = blogTitle;
+      swrBlog.dashboard.blogTitle =
+        blogTitle === "" ? "Untitled Page" : blogTitle;
       editBlog(sessToken, swrBlog).then((res) => {
         console.log("came from protected route", res);
         console.log(`🐰Status:\n`, res.status);
-        console.log(`AAAAA\n`,swrBlog);
+        console.log(`AAAAA\n`, swrBlog);
       });
       mutateBlog();
-      toast.success(`Changes saved.`)
+      toast.success(`Changes saved.`, {
+        toastId: "changesSaved",
+      });
       // setButtonSpin(false); Might remove this line later — Mochi
     } catch (error) {
-      toast.error(`Changes not saved.`)
+      toast.error(`Changes not saved.`, {
+        toastId: "notSaved",
+      });
       console.error(error);
     }
   };
@@ -239,7 +248,7 @@ export default function CMSTestPage() {
       <Button
         onClick={() => {
           console.log("swrBlog\n", swrBlog.pages);
-          toast.success("Check your development console!", {
+          toast("Check your development console!", {
             toastId: "logStuff",
           });
         }}
