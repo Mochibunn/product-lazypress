@@ -34,6 +34,12 @@ export default function CMSRecipeModal({ sectionTitle, section, title, _id }) {
     });
     const [stepsWKey, setStepsWKey] = useState();
     const [tagsWKey, setTagsWKey] = useState();
+    const [addTagValue, setAddTagValue] = useState("");
+    const [addStepValue, setAddStepValue] = useState("");
+    const [ingForm, setIngForm] = useState({
+        ing: "",
+        amount: "",
+    });
 
     useEffect(() => {
         if (!recipe) return;
@@ -65,6 +71,11 @@ export default function CMSRecipeModal({ sectionTitle, section, title, _id }) {
         setStaticInputs((prev) => ({ ...prev, [name]: value }));
     };
 
+    const handleIngFormChange = (e) => {
+        const { name, value } = e.target;
+        setIngForm((prev) => ({ ...prev, [name]: value }));
+    };
+
     const handleEditClick = (e) => {
         // e.preventDefault();
         // console.log(e.target.name);
@@ -77,6 +88,38 @@ export default function CMSRecipeModal({ sectionTitle, section, title, _id }) {
             }),
             { optimisticData: recipe, revalidate: false }
         );
+    };
+
+    const handleAddClick = (e) => {
+        const { name } = e.target;
+        // console.log(name);
+        mutateRecipe(
+            produce((draft) => {
+                // console.log("draft", draft[name]);
+                name === "tags"
+                    ? draft[name].push(addTagValue)
+                    : draft[name].push(addStepValue);
+            }),
+            { optimisticData: recipe, revalidate: false }
+        );
+        name === "tags" ? setAddTagValue("") : setAddStepValue("");
+        // console.log(recipe[name]);
+    };
+
+    const handleAddSubmit = (e) => {
+        e.preventDefault();
+        mutateRecipe(
+            produce((draft) => {
+                // console.log("draft", draft[name]);
+                draft.ingList.push(ingForm);
+            }),
+            { optimisticData: recipe, revalidate: false }
+        );
+        setIngForm({
+            ing: "",
+            amount: "",
+            key: crypto.randomUUID(),
+        });
     };
 
     const handleSaveClick = () => {
@@ -135,8 +178,15 @@ export default function CMSRecipeModal({ sectionTitle, section, title, _id }) {
                                                 className="glassInput"
                                                 label="Add new tag"
                                                 labelPlacement="outside"
+                                                name="tags"
+                                                value={addTagValue}
+                                                onValueChange={setAddTagValue}
                                                 endContent={
-                                                    <Button color="primary">
+                                                    <Button
+                                                        onPress={handleAddClick}
+                                                        name="tags"
+                                                        color="primary"
+                                                    >
                                                         Add tag
                                                     </Button>
                                                 }
@@ -156,8 +206,15 @@ export default function CMSRecipeModal({ sectionTitle, section, title, _id }) {
                                                 className="glassInput"
                                                 label="Add new step"
                                                 labelPlacement="outside"
+                                                value={addStepValue}
+                                                onValueChange={setAddStepValue}
+                                                name="steps"
                                                 endContent={
-                                                    <Button color="primary">
+                                                    <Button
+                                                        onPress={handleAddClick}
+                                                        color="primary"
+                                                        name="steps"
+                                                    >
                                                         Add step
                                                     </Button>
                                                 }
@@ -173,20 +230,34 @@ export default function CMSRecipeModal({ sectionTitle, section, title, _id }) {
                                             key="Recipe_Ingredients"
                                             title="Ingredients List"
                                         >
-                                            <form className="flex items-baseline">
+                                            <form
+                                                onSubmit={handleAddSubmit}
+                                                className="flex items-baseline"
+                                            >
                                                 <Input
                                                     className="glassInput w-1/4"
                                                     label="Amount"
                                                     labelPlacement="outside"
+                                                    value={ingForm.amount}
+                                                    onChange={
+                                                        handleIngFormChange
+                                                    }
+                                                    name="amount"
                                                 />
                                                 <Input
                                                     className="glassInput"
                                                     label="Ingredient"
                                                     labelPlacement="outside"
+                                                    value={ingForm.ing}
+                                                    onChange={
+                                                        handleIngFormChange
+                                                    }
+                                                    name="ing"
                                                 />
                                                 <Button
                                                     className="min-w-1/4"
                                                     color="primary"
+                                                    type="submit"
                                                 >
                                                     Add Ingredient
                                                 </Button>

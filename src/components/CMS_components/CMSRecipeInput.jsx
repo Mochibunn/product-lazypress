@@ -46,7 +46,7 @@ export default function CMSRecipeInput({
                         labelPlacement="outside"
                         value={value}
                         onValueChange={setValue}
-                        onChange={console.log(value)}
+                        // onChange={console.log(value)}
                     />
                 ) : (
                     <Input
