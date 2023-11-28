@@ -1,22 +1,21 @@
+import OurWork from '../assets/images/OurWork.jpg';
+import DShapeA from '../assets/images/3DShape1.jpg';
 import { Button } from "@nextui-org/react";
 import { NavLink } from "react-router-dom";
 import { FaArrowRightLong } from "react-icons/fa6";
-import DShapeA from "../assets/images/3DShape1.jpg";
 
-export default function FreeTrial() {
+const SlideShow = () => {
   return (
-    <div
-      className="w-full h-[40vh] overflow-hidden "
-      style={{
-        backgroundImage: `url(${DShapeA})`,
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-        transition: "transform 0.3s ease",
-        position: "relative",
-        top:'-10vh'
-      }}
-    >
-      <div className="py-12 flex flex-col items-center justify-center h-full">
+    <div className="landing-section relative flex flex-wrap"
+    style={{height:'300vh'}}>
+      <article className="gallery-article">
+        <figure className="gallery-figure">
+          <img src={OurWork} alt="" style={{width:'100vw'}}/>
+        </figure>
+        <section className="gallery-section"
+        style={{backgroundImage: `url(${DShapeA})`}}>
+          <div className="gallery-content">
+          <div className="py-12 flex flex-col items-center justify-center h-full">
         <div className="text-center mb-6">
           <h2 className="text-5xl">Start your free website trail today</h2>
           <p className="py-1">No credit card required. Cancel anytime</p>
@@ -34,6 +33,13 @@ export default function FreeTrial() {
           </div>
         </div>
       </div>
+          </div>
+        </section>
+
+        {/* Add more figure and section pairs as needed */}
+      </article>
     </div>
   );
-}
+};
+
+export default SlideShow;

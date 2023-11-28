@@ -1,4 +1,4 @@
-import DShapeC from "../assets/images/3DShape2.jpg";
+import DShapeC from "../assets/images/3DShape1.jpg";
 
 
 

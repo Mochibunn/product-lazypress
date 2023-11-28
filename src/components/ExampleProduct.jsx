@@ -1,26 +1,73 @@
-import { Image } from "@nextui-org/react";
-import DShapeA from "../assets/images/3DShape1.jpg";
-import Image1 from "../assets/images/Image1.png";
-import Image2 from "../assets/images/Image2.jpg";
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import gsap from "gsap";
+import { ScrollContainer, ScrollPage } from "react-scroll-motion";
 import Lottie from "lottie-react";
 import sun from "../assets/animations/Sun.json";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function ExampleProduct() {
-  const [isHovered, setHovered] = useState(false);
-  const [moonTranslation, setMoonTranslation] = useState(0);
+const ExampleProduct = () => {
+  const [sunTranslation, setSunTranslation] = useState(0);
+  const [backgroundColor, setBackgroundColor] = useState("#333131");
 
   useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
-      const translation = scrollPosition * 0.15;
-
-      setMoonTranslation(translation);
+      const translation = scrollPosition * 0.1;
+      setSunTranslation(translation);
+     
     };
+
+    ScrollTrigger.create({
+      trigger: ".text0",
+      scrub: true,
+      start: "top 20%",
+      end: "bottom 80%",
+      animation: gsap.to(".text0", {
+        x: "40%",
+        rotate: 20,
+        duration: 0.85,
+      }),
+    });
+
+    ScrollTrigger.create({
+      trigger: ".text1",
+      scrub: true,
+      start: "top 30%",
+      end: "bottom 70%",
+      animation: gsap.to(".text1", {
+        x: "-40%",
+        rotate: -20,
+        duration: 0.85,
+      }),
+    });
+
+    ScrollTrigger.create({
+      trigger: ".text2",
+      scrub: true,
+      start: "top 40%",
+      end: "bottom 60%",
+      animation: gsap.to(".text2", {
+        x: "40%",
+        rotate: 20,
+        duration: 0.85,
+      }),
+    });
+
+    ScrollTrigger.create({
+      trigger: ".text3",
+      scrub: true,
+      start: "top 40%",
+      end: "bottom 60%",
+      animation: gsap.to(".text3", {
+        x: "-40%",
+        rotate: -20,
+        duration: 0.85,
+      }),
+    });
 
     window.addEventListener("scroll", handleScroll);
 
@@ -29,125 +76,45 @@ export default function ExampleProduct() {
     };
   }, []);
 
-  useEffect(() => {
-    gsap.to('.text0', {
-      x: '20%',
-      rotate: 10,
-      duration: 0.85,
-      scrollTrigger: {
-        trigger: '.text0',
-        scrub: true,
-        start: 'top 20%'
-      }
-    });
-
-    gsap.to('.text1', {
-      x: '-20%',
-      rotate: -10,
-      duration: 0.85,
-      scrollTrigger: {
-        trigger: '.text1',
-        scrub: true,
-        start: 'top 30%'
-      }
-    });
-  }, []);
-
   return (
-    <>
-      <div
-        className="w-full h-[200vh] overflow-hidden"
+    <ScrollContainer>
+      <ScrollPage
         style={{
-          backgroundImage: `url(${DShapeA})`,
-          backgroundSize: "cover",
-          backgroundRepeat: "repeat",
-          position: "relative",
+          height: "150vh",
+          overflow: "hidden",
         }}
       >
         <div
+          className="relative flex items-start justify-center overflow-x-hidden"
+          id="animated-text-section"
           style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
+            backgroundColor: '#333131',
+            width: "100vw",
             height: "300vh",
-            backgroundColor: "rgba(255, 255, 255, 0.3)",
-            backdropFilter: "blur(8px)",
-            zIndex: 1,
+            fontFamily: "Pilated",
           }}
-        ></div>
-        <Lottie
-          animationData={sun}
-          style={{
-            zIndex: 1,
-            width: "300px",
-            marginLeft: "45vw",
-            marginTop: `calc(10vh - ${moonTranslation}vh)`,
-            zIndex: 50,
-          }}
-        />
-        <div className="z-50 absolute flex items-center justify-center" style={{ top: '20vh' }}>
-          <h1 className="text-4xl text0 font-bold z-50 text-white animate-text" style={{ fontFamily: 'Lemon Milk', fontSize: '10rem' }}>Our Work</h1>
-          <h1 className="text-4xl font-bold z-50 text-white animate-text text1 " style={{ fontFamily: 'Lemon Milk', fontSize: '10rem' }}>Our Work</h1>
+        >
+          <Lottie
+            animationData={sun}
+            className="z-50 absolute"
+            style={{
+              width: "2000px",
+              marginLeft: "0",
+              marginTop: `calc(-360vh + ${sunTranslation}vh)`,
+              zIndex: 50,
+            }}
+          />
 
-
-          <div className="z-50 absolute" style={{ top: '20vh' }}>
-  <div className='flex flex-col items-end' style={{ marginRight: '-20vw' }}>
-    <Image
-      src={isHovered ? Image2 : Image1}
-      className={isHovered ? "hovered" : ""}
-      style={{
-        width: "40vw",
-        height: "70vh",
-        transition: "opacity 0.5s ease-in-out",
-      }}
-    />
-    <p className='z-50 text-white' style={{
-      fontFamily: "RemBoy",
-      fontSize: "9rem",
-      marginTop: "-30vh",
-    }}>Blog</p>
-  </div>
-  
-  <div className='flex flex-col items-start' style={{ marginLeft: '-10vw' }}>
-    <Image
-      src={isHovered ? Image2 : Image1}
-      className={isHovered ? "hovered" : ""}
-      style={{
-        width: "40vw",
-        height: "70vh",
-        transition: "opacity 0.5s ease-in-out",
-      }}
-    />
-    <p className='z-50 text-white' style={{
-      fontFamily: "RemBoy",
-      fontSize: "6rem",
-      marginTop: "-30vh",
-    }}>
-      E-commerce
-    </p>
-  </div>
-
-  <div className='flex flex-col items-end' style={{ marginRight: '-20vw' }}>
-    <Image
-      src={isHovered ? Image2 : Image1}
-      className={isHovered ? "hovered" : ""}
-      style={{
-        width: "40vw",
-        height: "70vh",
-        transition: "opacity 0.5s ease-in-out",
-      }}
-    />
-    <p className='z-50 text-white' style={{
-      fontFamily: "Pilated",
-      fontSize: "6rem",
-      marginTop: "-30vh",
-    }}>Community Forum</p>
-  </div>
-</div>
-
+          <div className="mt-20 mr-20 z-50">
+            <div className="text0">Our Work</div>
+            <div className="text1">Our Work</div>
+            <div className="text2">Our Work</div>
+            <div className="text3">Our Work</div>
+          </div>
         </div>
-      </div>
-    </>
+      </ScrollPage>
+    </ScrollContainer>
   );
-}
+};
+
+export default ExampleProduct;

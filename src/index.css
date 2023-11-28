@@ -453,38 +453,74 @@ button {
 
 
 
-/*Our Work animation*/
-#text {
+/*Our Work Animation */
+#animated-text-section {
   text-align: center;
   position: relative;
-  top: 200px;
-  font-size: 7em;
+  font-size: 10em;
+  font-weight:900
 }
 
-.text0 {
-  color: black;
-  -webkit-text-fill-color: rgb(15, 16, 15);
- 
+.text0, .text2 {
+  color: #333131;
+  -webkit-text-fill-color:#333131;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #333131
 }
 
-.text1 {
-  color: black;
-  -webkit-text-fill-color: #0b0a0b;
-
+.text1, .text3 {
+  color:#333131;
+  -webkit-text-fill-color:#333131;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color:#333131;
 }
 
-#dummy {
-  position: relative;
+/*SlideShow styling*/
+
+.gallery-figure,
+.gallery-section {
+  position: sticky;
+  top: 0;
+  width:100vw;
+}
+
+.gallery-figure {
+  background: #eee;
+  width: calc(100vw);
   height: 100vh;
-  width: 100%;
+  margin: 0 auto 10vh 0;
+  overflow: hidden;
+  box-shadow: 4px -4px 8px rgba(0, 0, 0, .4);
 }
 
-#back {
-  position: relative;
-  padding-top: 50%;
-  text-align: center;
-  font-size: 1.5em;
-  cursor: pointer;
+.gallery-figure::after {
+  content: '';
+  position: absolute;
+  top: 5vmin;
+  right: 5vmin;
+  bottom: 5vmin;
+  left: 50%;
+  border: 2px dashed #fff;
+  outline: 1px solid #fff;
+  outline-offset: -5vmin;
+  backdrop-filter: grayscale(1);
+  pointer-events: none;
+  width:100vw
+}
+
+.gallery-section {
+  background: #e5e5e5;
+ 
+  height: 100vh;
+  margin: 0 0 10vh auto;
+  padding: 5vmin;
+  width:50vw;
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(20px);
+  border-radius: 0;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: black;
 }
 
 
