@@ -1,106 +1,120 @@
-import { useParams } from "react-router-dom";
-import { editBlog } from "../lib/dbClient";
 import { useBlog } from "../lib/swr";
+import { editBlog } from "../lib/dbClient";
 import { useEffect, useState } from "react";
-import {
-    Accordion,
-    AccordionItem,
-    Button,
-    Tabs,
-    Tab,
-    Textarea,
-} from "@nextui-org/react";
+import { useParams } from "react-router-dom";
+import { useAuth } from "@clerk/clerk-react";
+import "react-toastify/dist/ReactToastify.css";
 import CMSObjEdit from "../components/CMSObjEdit";
 import CMSRecipes from "../components/CMSRecipes";
-import { useAuth } from "@clerk/clerk-react";
+import { ToastContainer, toast } from "react-toastify";
+import {
+  Accordion,
+  AccordionItem,
+  Button,
+  Tabs,
+  Tab,
+  Textarea,
+} from "@nextui-org/react";
 import {
   CgClapperBoard,
+  CgClipboard,
   CgDrive,
   CgHome,
   CgImage,
   CgWebsite,
 } from "react-icons/cg";
 
-// import CMSStrEdit from "../components/CMSStrEdit";
+import CMSStrEdit from "../components/CMSStrEdit";
 
 export default function CMSTestPage() {
-    const { getToken } = useAuth();
-    const { blogId } = useParams();
-    const { swrBlog, mutateBlog } = useBlog(blogId);
-    const [navBarInputValues, setNavBarInputValues] = useState();
-    const [blogPagesValues, setBlogPagesValues] = useState();
-    const [heroValues, setHeroValues] = useState();
-    const [footerValues, setFooterValues] = useState();
-    // const [buttonSpin, setButtonSpin] = useState(false); Might remove this line later — Mochi
-    document.title = `Edit blog | LazyPress`;
-    // console.log(`🧡\n`, swrBlog);
-    const [blogTitle, setBlogTitle] = useState(null);
+  const { blogId } = useParams();
+  const [navBarInputValues, setNavBarInputValues] = useState();
+  const [blogPagesValues, setBlogPagesValues] = useState();
+  const [footerValues, setFooterValues] = useState();
+  const [blogTitle, setBlogTitle] = useState(null);
+  const { swrBlog, mutateBlog } = useBlog(blogId);
+  const [heroValues, setHeroValues] = useState();
+  const { getToken } = useAuth();
+  document.title = `Edit blog | LazyPress`;
+  // const [buttonSpin, setButtonSpin] = useState(false); Might remove this line later — Mochi
+  // console.log(`🧡\n`, swrBlog);
 
-    useEffect(() => {
-        if (!swrBlog) return;
-        setBlogTitle(swrBlog.dashboard.blogTitle);
+  // const notify = (content, mode) => toast(content, {theme: `${mode || "light"}`});
 
-        const navBarValues = swrBlog.pages.home.navBar.map((page) => {
-            const theValues = Object.entries(page).map(([key, value]) => ({
-                value,
-                label: key,
-                key: crypto.randomUUID(),
-            }));
-            // console.log(theValues);
-            return theValues;
-        });
+  const setTitle = (e) => {
+    setBlogTitle(e.target.value);
+    console.log(`👽 Current title:\n`, e.target.value);
+  };
 
-        const footerValues = swrBlog.pages.home.footer.map((page) => {
-            const theValues = Object.entries(page).map(([key, value]) => ({
-                value,
-                label: key,
-                key: crypto.randomUUID(),
-            }));
-            // console.log(theValues);
-            return theValues;
-        });
+  useEffect(() => {
+    if (!swrBlog) return;
 
-        const blogValues = swrBlog.pages.home.blogPages.map((page) => {
-            const pageValues = Object.entries(page).map(([key, value]) => {
-                return {
-                    value,
-                    label: key,
-                    key: crypto.randomUUID(),
-                };
-            });
-            // console.log(pageValues);
-            return pageValues;
-        });
-        const heroValues = swrBlog.pages.home.hero.map((page) => {
-            const theValues = Object.entries(page).map(([key, value]) => ({
-                value,
-                label: key,
-                key: crypto.randomUUID(),
-            }));
-            // console.log(theValues);
-            return theValues;
-        });
+    const navBarValues = swrBlog.pages.home.navBar.map((page) => {
+      const theValues = Object.entries(page).map(([key, value]) => ({
+        value,
+        label: key,
+        key: crypto.randomUUID(),
+      }));
+      // console.log(theValues);
+      return theValues;
+    });
 
-        setNavBarInputValues([...navBarValues]);
-        setFooterValues([...footerValues]);
-        setBlogPagesValues([...blogValues]);
-        setHeroValues([...heroValues]);
-    }, [swrBlog]);
+    const footerValues = swrBlog.pages.home.footer.map((page) => {
+      const theValues = Object.entries(page).map(([key, value]) => ({
+        value,
+        label: key,
+        key: crypto.randomUUID(),
+      }));
+      // console.log(theValues);
+      return theValues;
+    });
 
-    const saveChangesClick = async () => {
-        // setButtonSpin(true); Might remove this line later — Mochi
-        try {
-            const sessToken = await getToken();
-            editBlog(sessToken, swrBlog).then((res) => {
-                console.log("came from protected route", res);
-                console.log(`🐰Status:\n`, res.status);
-            });
-            mutateBlog();
-            // setButtonSpin(false); Might remove this line later — Mochi
-        } catch (error) {
-            console.error(error);
-        }
-    };
+    const blogValues = swrBlog.pages.home.blogPages.map((page) => {
+      const pageValues = Object.entries(page).map(([key, value]) => {
+        return {
+          value,
+          label: key,
+          key: crypto.randomUUID(),
+        };
+      });
+      // console.log(pageValues);
+      return pageValues;
+    });
+    const heroValues = swrBlog.pages.home.hero.map((page) => {
+      const theValues = Object.entries(page).map(([key, value]) => ({
+        value,
+        label: key,
+        key: crypto.randomUUID(),
+      }));
+      // console.log(theValues);
+      return theValues;
+    });
+
+    setBlogTitle(swrBlog.dashboard.blogTitle);
+    setNavBarInputValues([...navBarValues]);
+    setFooterValues([...footerValues]);
+    setBlogPagesValues([...blogValues]);
+    setHeroValues([...heroValues]);
+  }, [swrBlog]);
+
+  const saveChangesClick = async () => {
+    // setButtonSpin(true); Might remove this line later — Mochi
+    try {
+      const sessToken = await getToken();
+      swrBlog.dashboard.blogTitle = blogTitle;
+      editBlog(sessToken, swrBlog).then((res) => {
+        console.log("came from protected route", res);
+        console.log(`🐰Status:\n`, res.status);
+        console.log(`AAAAA\n`,swrBlog);
+      });
+      mutateBlog();
+      toast.success(`Changes saved.`)
+      // setButtonSpin(false); Might remove this line later — Mochi
+    } catch (error) {
+      toast.error(`Changes not saved.`)
+      console.error(error);
+    }
+  };
 
   return (
     <div className="w-full p-4 min-h-screen">
@@ -108,8 +122,9 @@ export default function CMSTestPage() {
       <div aria-hidden className="mb-2 flex rounded-lg">
         <h3 className="text-4xl font-semibold font-metropolis">Edit</h3>
         <Textarea
-          value={blogTitle || "Page"}
-          // onChange={}
+          value={blogTitle || ""}
+          placeholder="Page"
+          onChange={setTitle}
           minRows={1}
           className="cms-title"
         />
@@ -203,22 +218,35 @@ export default function CMSTestPage() {
             </Accordion>
           </div>
         </Tab>
-<Tab key="recipes" title="Recipes" className="font-metropolis">
-                    <div className="min-h-[50vh]">
-                        <CMSRecipes />
-                    </div>
-                </Tab>
+        <Tab
+          key="recipes"
+          title={
+            <div className="flex items-center space-x-2">
+              <CgClipboard />
+              <span>Recipes</span>
+            </div>
+          }
+          className="font-metropolis"
+        >
+          <div className="min-h-[50vh]">
+            <CMSRecipes />
+          </div>
+        </Tab>
       </Tabs>
       <Button className="mx-3" color="success" onClick={saveChangesClick}>
         Save Changes
       </Button>
       <Button
         onClick={() => {
-          console.log("swrBlog", swrBlog.pages);
+          console.log("swrBlog\n", swrBlog.pages);
+          toast.success("Check your development console!", {
+            toastId: "logStuff",
+          });
         }}
       >
         Log Stuff
       </Button>
+      <ToastContainer /> {/* Perhaps we could put it in the root of our app */}
     </div>
   );
 }

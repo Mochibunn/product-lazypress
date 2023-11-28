@@ -328,11 +328,13 @@ button {
 }
 
 .cms-title,
+.cms-title div,
 .cms-title textarea,
-.cms-title div {
+.cms-title textarea::placeholder {
   font-family: "Metropolis" !important;
   font-size: 2.25rem /* 36px */ !important;
   line-height: 2.5rem /* 40px */ !important;
+  color: black !important;
   background-color: transparent !important;
   font-weight: 600 !important;
   margin-left: 0.2rem !important;
