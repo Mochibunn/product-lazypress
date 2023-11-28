@@ -475,5 +475,52 @@ button {
   -webkit-text-stroke-color:#333131;
 }
 
+/*SlideShow styling*/
+
+.gallery-figure,
+.gallery-section {
+  position: sticky;
+  top: 0;
+  width:100vw;
+}
+
+.gallery-figure {
+  background: #eee;
+  width: calc(100vw);
+  height: 100vh;
+  margin: 0 auto 10vh 0;
+  overflow: hidden;
+  box-shadow: 4px -4px 8px rgba(0, 0, 0, .4);
+}
+
+.gallery-figure::after {
+  content: '';
+  position: absolute;
+  top: 5vmin;
+  right: 5vmin;
+  bottom: 5vmin;
+  left: 50%;
+  border: 2px dashed #fff;
+  outline: 1px solid #fff;
+  outline-offset: -5vmin;
+  backdrop-filter: grayscale(1);
+  pointer-events: none;
+  width:100vw
+}
+
+.gallery-section {
+  background: #e5e5e5;
+ 
+  height: 100vh;
+  margin: 0 0 10vh auto;
+  padding: 5vmin;
+  width:50vw;
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(20px);
+  border-radius: 0;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: black;
+}
 
 

@@ -6,13 +6,14 @@ import DShapeA from "../assets/images/3DShape1.jpg";
 export default function FreeTrial() {
   return (
     <div
-      className="w-full h-[150vh] overflow-hidden "
+      className="w-full h-[40vh] overflow-hidden "
       style={{
         backgroundImage: `url(${DShapeA})`,
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         transition: "transform 0.3s ease",
         position: "relative",
+        top:'-10vh'
       }}
     >
       <div className="py-12 flex flex-col items-center justify-center h-full">

@@ -17,9 +17,6 @@ export default function LandingPage() {
             <WhatWeDo/>
             <ExampleProduct/>
             <SlideShow/>
-            <Testimonials/>
-           
-            <FreeTrial />
             <Subscription />
             
         </>
