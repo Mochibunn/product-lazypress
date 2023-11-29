@@ -1,6 +1,6 @@
 import CMSInput from "./CMSInput";
 import { useState } from "react";
-import { Button, Tooltip } from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
 import { useParams } from "react-router-dom";
 import { useBlog } from "../../lib/swr";
 import { produce } from "immer";
@@ -64,27 +64,17 @@ export default function CMSInputSection({ array, i: sectionIndex, section }) {
                                 />
                             );
                         })}
-                    <Tooltip
-                        placement="bottom"
-                        content="Simply refresh the page to trash unsaved changes"
-                    >
-                        <Button className="w-1/4 m-2" type="submit">
-                            Update Section
-                        </Button>
-                    </Tooltip>
+                    <Button className="w-1/4 m-2" type="submit">
+                        Edit Section
+                    </Button>
                     {(section === "blogPages" || section === "hero") && (
-                        <Tooltip
-                            placement="below"
-                            content="Will not be deleted permanently until you click `Save Changes`"
+                        <Button
+                            onClick={deleteSection}
+                            color="danger"
+                            className="hover:bg-warning"
                         >
-                            <Button
-                                onClick={deleteSection}
-                                color="danger"
-                                className="hover:bg-warning"
-                            >
-                                Delete Section
-                            </Button>
-                        </Tooltip>
+                            Delete Section
+                        </Button>
                     )}
                 </form>
             </div>
