@@ -6,6 +6,8 @@ export default function PricingPage() {
   const [value, setValue] = useState({ id: 1, price: 100 });
 
   const makePayment = async () => {
+    // const makePayment = async (price) => {
+    // setValue({ id: 1, price: price });
     const stripe = await loadStripe(
       import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY
     );
@@ -45,24 +47,10 @@ export default function PricingPage() {
       <div className="h-[100vh]">
         <div className="flex gap-4 justify-center p-8 pt-20">
           <div className="border-2 border-black p-3">
-            <h4>FREE</h4>
-            <h4>$10</h4>
-            <Button onClick={makePayment}>Buy Now</Button>
-            <p>No credit card required</p>
-            <li className="flex items-center">
-              <IoIosCheckmarkCircle /> Verification emails
-            </li>
-            <li className="flex items-center">
-              <IoIosCheckmarkCircle /> Custom domains
-            </li>
-            <li className="flex items-center">
-              <IoIosCheckmarkCircle /> Pre-built components
-            </li>
-          </div>
-          <div className="border-2 border-black p-3">
             <h4>MONTHLY</h4>
-            <h4>{value.price}</h4>
+            <h4>$9/monthly</h4>
             <Button onClick={makePayment}>Buy Now</Button>
+            {/* <Button onClick={() => makePayment(69)}>Buy Now</Button> */}
             <ul>
               <li className="flex items-center">
                 <IoIosCheckmarkCircle /> Access to Builder
@@ -94,7 +82,7 @@ export default function PricingPage() {
           </div>
           <div className="border-2 border-black p-3">
             <h4>YEARLY</h4>
-            <h4>$69/year</h4>
+            <h4>${value.price}/yearly</h4>
             <Button onClick={makePayment}>Buy Now</Button>
             <ul>
               <li className="flex items-center">
@@ -122,6 +110,36 @@ export default function PricingPage() {
               </li>
               <li className="flex items-center">
                 <IoIosCheckmarkCircle /> 1 Team Size
+              </li>
+            </ul>
+          </div>
+          <div className="border-2 border-black p-3">
+            <h4>LIFETIME</h4>
+            <h4>$99/Lifetime</h4>
+            <Button onClick={makePayment}>Buy Now</Button>
+            <ul>
+              <li className="flex items-center">
+                <IoIosCheckmarkCircle /> Access to Builder
+              </li>
+              <li className="flex items-center">
+                <IoIosCheckmarkCircle /> Export Code
+              </li>
+              <li className="flex items-center">
+                <IoIosCheckmarkCircle />
+                Access to Pro Components
+              </li>
+              <li className="flex items-center">
+                <IoIosCheckmarkCircle />
+                Access to New Components
+              </li>
+              <li className="flex items-center">
+                <IoIosCheckmarkCircle /> Unlimited Pages
+              </li>
+              <li className="flex items-center">
+                <IoIosCheckmarkCircle /> Unlimited Projects
+              </li>
+              <li className="flex items-center">
+                <IoIosCheckmarkCircle /> Unlimited Exports
               </li>
             </ul>
           </div>
