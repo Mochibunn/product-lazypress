@@ -16,23 +16,26 @@ import { ToastContainer, toast } from "react-toastify";
 import { useImmer } from "use-immer";
 import { useEffect, useState } from "react";
 import CMSAddListbox from "./CMSAddListbox";
-import { editRecipe } from "../../lib/dbClient";
+import { createRecipe } from "../../lib/dbClient";
 import { useAuth } from "@clerk/clerk-react";
 
-export default function CMSAddRecipeModal({}) {
+export default function CMSAddRecipeModal({ clerkUser, clerkUserId, blog }) {
     const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
-    // const { getToken } = useAuth();
+    const { getToken } = useAuth();
     const [newRecipe, setNewRecipe] = useImmer({
         title: "",
         category: "",
         region: "",
+        ingList: [],
+        steps: [],
         text: "",
+        button: "",
+        tags: [],
         imgUrl: "",
         videoUrl: "",
-        button: "",
-        steps: [],
-        tags: [],
-        ingList: [],
+        clerkUserId,
+        clerkUser,
+        blog,
     });
 
     const [staticInputs, setStaticInputs] = useState({
@@ -135,24 +138,38 @@ export default function CMSAddRecipeModal({}) {
     };
 
     const handleSaveClick = async () => {
-        console.log(newRecipe);
-        // try {
-        //     const sessToken = await getToken();
-        //     const postStatus = await editRecipe(sessToken, newRecipe);
-        //     console.log("came from protected route", postStatus);
-        //     console.log(`🐰Status:\n`, postStatus.status);
-        //     console.log(`AAAAA\n`, newRecipe);
-        //     await mutateRecipe();
-        //     toast.success(`Changes saved.`, {
-        //         toastId: "changesSaved",
-        //     });
-        //     // setButtonSpin(false); Might remove this line later — Mochi
-        // } catch (error) {
-        //     toast.error(`Changes not saved.`, {
-        //         toastId: "notSaved",
-        //     });
-        //     console.error(error);
-        // }
+        // console.log(newRecipe);
+        try {
+            const sessToken = await getToken();
+            const postStatus = await createRecipe(sessToken, newRecipe);
+            console.log("came from protected route", postStatus);
+            console.log(`🐰Status:\n`, postStatus.status);
+            console.log(`AAAAA\n`, newRecipe);
+            toast.success(`New recipe saved!.`, {
+                toastId: "recipeSaved",
+            });
+            setNewRecipe({
+                title: "",
+                category: "",
+                region: "",
+                ingList: [],
+                steps: [],
+                text: "",
+                button: "",
+                tags: [],
+                imgUrl: "",
+                videoUrl: "",
+                clerkUserId,
+                clerkUser,
+                blog,
+            });
+            // setButtonSpin(false); Might remove this line later — Mochi
+        } catch (error) {
+            toast.error(`Changes not saved.`, {
+                toastId: "notSaved",
+            });
+            console.error(error);
+        }
     };
 
     return (

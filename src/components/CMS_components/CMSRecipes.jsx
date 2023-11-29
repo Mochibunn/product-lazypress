@@ -12,13 +12,17 @@ import CMSPagination from "./CMSPagination";
 import CMSRefinementList from "./CMSRefinementList";
 import CMSAddRecipeModal from "./CMSAddRecipeModal";
 
-export default function CMSRecipes() {
+export default function CMSRecipes({ clerkUser, clerkUserId, blogId }) {
     return (
         <InstantSearch searchClient={searchClient} indexName="recipes">
             <div className="flex w-11/12 justify-between">
                 <SearchBox />
                 <Button>
-                    <CMSAddRecipeModal />
+                    <CMSAddRecipeModal
+                        clerkUser={clerkUser}
+                        clerkUserId={clerkUserId}
+                        blog={blogId}
+                    />
                 </Button>
             </div>
             <PoweredBy
