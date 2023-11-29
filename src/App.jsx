@@ -14,6 +14,7 @@ import PricingPage from "./pages/PricingPage";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
 import AboutPage from "./pages/AboutPage";
+import Success from "./pages/Success";
 
 if (!import.meta.env.VITE_CLERK_PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
@@ -25,7 +26,6 @@ function App() {
   return (
     <ClerkProvider publishableKey={clerkPubKey}>
       <Routes>
-
         <Route
           path="sign-in/*"
           element={<SignInPage routing="path" path="/sign-in" />}
@@ -34,15 +34,9 @@ function App() {
           path="sign-up/*"
           element={<SignUpPage routing="path" path="/sign-up" />}
         />
-       
 
-
- 
-          <Route index element={<LandingPage />} />
+        <Route index element={<LandingPage />} />
         <Route path="/" element={<Layout />}>
-     
-      
-
           <Route
             path="dashboard"
             element={
@@ -78,6 +72,10 @@ function App() {
           <Route
             path="pricing/*"
             element={<PricingPage routing="path" path="/pricing" />}
+          />
+          <Route
+            path="success/*"
+            element={<Success routing="path" path="/success" />}
           />
           <Route path="*" element={<NotFound />} />
         </Route>
