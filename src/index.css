@@ -352,6 +352,13 @@ button {
   color: #aaaaaa !important;
 }
 
+.cms-txtarea * {
+  white-space: pre-wrap !important;
+  word-wrap: break-word !important;
+  min-width: 85vw !important;
+  white-space: nowrap !important;
+}
+
 /* CSS for Mochi's design WIP watermark */
 .watermark {
   position: fixed;
