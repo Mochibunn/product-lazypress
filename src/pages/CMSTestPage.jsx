@@ -115,7 +115,6 @@ export default function CMSTestPage() {
       // console.log(theValues);
       return theValues;
     });
-
     setBlogTitle(swrBlog.dashboard.blogTitle);
     setNavBarInputValues([...navBarValues]);
     setFooterValues([...footerValues]);
@@ -134,7 +133,6 @@ export default function CMSTestPage() {
       console.log("came from protected route", postStatus);
       console.log(`🐰Status:\n`, postStatus.status);
       console.log(`AAAAA\n`, swrBlog);
-
       await mutateBlog();
       toast.success(`Changes saved.`, {
         toastId: "changesSaved",
