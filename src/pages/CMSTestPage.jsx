@@ -16,6 +16,7 @@ import {
     Tab,
     Textarea,
     Spinner,
+    Tooltip,
 } from "@nextui-org/react";
 import {
     CgClapperBoard,
@@ -144,7 +145,9 @@ export default function CMSTestPage() {
                     minRows={1}
                     className="cms-title"
                 />
-                <Button onPress={handleChangeTitle}>Change Title</Button>
+                <Tooltip content="Changes only tracked locally, to save changes and update the site press `Save Changes`">
+                    <Button onPress={handleChangeTitle}>Change Title</Button>
+                </Tooltip>
             </div>
             <Tabs
                 aria-label="Site Pages"
@@ -172,7 +175,7 @@ export default function CMSTestPage() {
                             className="font-metropolis"
                         >
                             <AccordionItem
-                                key="1"
+                                key="Navbar Items"
                                 title="Navbar Items"
                                 subtitle=""
                                 startContent={<CgDrive />}
@@ -182,6 +185,18 @@ export default function CMSTestPage() {
                                     section={"navBar"}
                                     sectionValues={navBarInputValues}
                                     setSectionValues={setNavBarInputValues}
+                                />
+                            </AccordionItem>
+                            <AccordionItem
+                                key="Hero Section"
+                                title="Hero Section"
+                                subtitle=""
+                                startContent={<CgImage />}
+                            >
+                                <CMSObjEdit
+                                    // sectionTitle={"Hero Section"}
+                                    section={"hero"}
+                                    sectionValues={heroValues}
                                 />
                             </AccordionItem>
                             <AccordionItem
@@ -197,22 +212,38 @@ export default function CMSTestPage() {
                                     setSectionValues={setFooterValues}
                                 />
                             </AccordionItem>
-                            <AccordionItem
-                                key="Hero Section"
-                                title="Hero Section"
-                                subtitle=""
-                                startContent={<CgImage />}
-                            >
-                                <CMSObjEdit
-                                    // sectionTitle={"Hero Section"}
-                                    section={"hero"}
-                                    sectionValues={heroValues}
-                                />
-                            </AccordionItem>
                         </Accordion>
                     </div>
+                    <div className="flex justify-end w-10/12 mt-4">
+                        <Tooltip
+                            placement="bottom"
+                            content="Save changes permanently, and update your site."
+                        >
+                            <Button
+                                className="mx-3"
+                                color="success"
+                                onClick={saveChangesClick}
+                            >
+                                Save Changes
+                            </Button>
+                        </Tooltip>
+                        <Button
+                            onClick={() => {
+                                console.log("swrBlog\n", swrBlog);
+                                toast.success(
+                                    "Check your development console!",
+                                    {
+                                        toastId: "logStuff",
+                                    }
+                                );
+                            }}
+                        >
+                            Log Stuff
+                        </Button>
+                    </div>
                 </Tab>
-                <Tab
+                {/* Blogpage stuff handled in Recipes tab now */}
+                {/* <Tab
                     key="blogPages"
                     title={
                         <div className="flex items-center space-x-2">
@@ -237,7 +268,7 @@ export default function CMSTestPage() {
                             </AccordionItem>
                         </Accordion>
                     </div>
-                </Tab>
+                </Tab> */}
                 <Tab
                     key="recipes"
                     title={
@@ -257,19 +288,6 @@ export default function CMSTestPage() {
                     </div>
                 </Tab>
             </Tabs>
-            <Button className="mx-3" color="success" onClick={saveChangesClick}>
-                Save Changes
-            </Button>
-            <Button
-                onClick={() => {
-                    console.log("swrBlog\n", swrBlog);
-                    toast.success("Check your development console!", {
-                        toastId: "logStuff",
-                    });
-                }}
-            >
-                Log Stuff
-            </Button>
             <ToastContainer />{" "}
             {/* Perhaps we could put it in the root of our app */}
         </div>
