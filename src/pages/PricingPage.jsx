@@ -20,7 +20,7 @@ const pricingOptions = [
   },
   {
     subscriptionType: "yearly",
-    price: 100,
+    price: 69,
     benefitOptions: [
       "Access to Builder",
       "Export Code",
@@ -105,103 +105,6 @@ export default function PricingPage() {
               </ul>
             </div>
           ))}
-          {/* <div className="border-2 border-black p-3">
-            <h4>MONTHLY</h4>
-            <h4>$9/monthly</h4>
-            <Button onClick={makePayment}>Buy Now</Button> 
-            <Button onClick={() => makePayment(9)}>Buy Now</Button>
-            <ul>
-              <li className="flex items-center">
-                <IoIosCheckmarkCircle /> Access to Builder
-              </li>
-              <li className="flex items-center">
-                <IoIosCheckmarkCircle /> Export Code
-              </li>
-              <li className="flex items-center">
-                <IoIosCheckmarkCircle />
-                Access to Pro Components
-              </li>
-              <li className="flex items-center">
-                <IoIosCheckmarkCircle />
-                Access to New Components
-              </li>
-              <li className="flex items-center">
-                <IoIosCheckmarkCircle /> Unlimited Pages
-              </li>
-              <li className="flex items-center">
-                <IoIosCheckmarkCircle /> Unlimited Projects
-              </li>
-              <li className="flex items-center">
-                <IoIosCheckmarkCircle /> Unlimited Exports
-              </li>
-              <li className="flex items-center">
-                <IoIosCheckmarkCircle /> 1 Team Size
-              </li>
-            </ul>
-          </div>
-          <div className="border-2 border-black p-3">
-            <h4>YEARLY</h4>
-            <h4>${value.price}/yearly</h4>
-            <Button onClick={makePayment}>Buy Now</Button>
-            <ul>
-              <li className="flex items-center">
-                <IoIosCheckmarkCircle /> Access to Builder
-              </li>
-              <li className="flex items-center">
-                <IoIosCheckmarkCircle /> Export Code
-              </li>
-              <li className="flex items-center">
-                <IoIosCheckmarkCircle />
-                Access to Pro Components
-              </li>
-              <li className="flex items-center">
-                <IoIosCheckmarkCircle />
-                Access to New Components
-              </li>
-              <li className="flex items-center">
-                <IoIosCheckmarkCircle /> Unlimited Pages
-              </li>
-              <li className="flex items-center">
-                <IoIosCheckmarkCircle /> Unlimited Projects
-              </li>
-              <li className="flex items-center">
-                <IoIosCheckmarkCircle /> Unlimited Exports
-              </li>
-              <li className="flex items-center">
-                <IoIosCheckmarkCircle /> 1 Team Size
-              </li>
-            </ul>
-          </div>
-          <div className="border-2 border-black p-3">
-            <h4>LIFETIME</h4>
-            <h4>$99/Lifetime</h4>
-            <Button onClick={makePayment}>Buy Now</Button>
-            <ul>
-              <li className="flex items-center">
-                <IoIosCheckmarkCircle /> Access to Builder
-              </li>
-              <li className="flex items-center">
-                <IoIosCheckmarkCircle /> Export Code
-              </li>
-              <li className="flex items-center">
-                <IoIosCheckmarkCircle />
-                Access to Pro Components
-              </li>
-              <li className="flex items-center">
-                <IoIosCheckmarkCircle />
-                Access to New Components
-              </li>
-              <li className="flex items-center">
-                <IoIosCheckmarkCircle /> Unlimited Pages
-              </li>
-              <li className="flex items-center">
-                <IoIosCheckmarkCircle /> Unlimited Projects
-              </li>
-              <li className="flex items-center">
-                <IoIosCheckmarkCircle /> Unlimited Exports
-              </li>
-            </ul>
-          </div> */}
           <div className="border-2 border-black p-3">
             <h4>Contact Us</h4>
             <p>
