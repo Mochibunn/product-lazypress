@@ -9,33 +9,45 @@ import {
     useDisclosure,
 } from "@nextui-org/react";
 
-import { produce } from "immer";
-import { useBlog } from "../../lib/swr";
+import { toast } from "react-toastify";
 import { useState, useMemo } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { deleteRecipe } from "../../lib/dbClient";
+import { useAuth } from "@clerk/clerk-react";
 
-export default function CMSDeleteModal({ sectionTitle, section }) {
+export default function CMSDeleteModal({ clerkUserId, _id }) {
     const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
+    const { getToken } = useAuth();
 
     const [value, setValue] = useState("");
 
-    const navigate = useNavigate();
-
-    // const handleChange = (e) => {
-    //     const { name, value } = e.target;
-    //     setForm((prev) => ({ ...prev, [name]: value }));
-    // };
     const isInvalid = useMemo(() => {
         if (value === "") return true;
 
         return value.toUpperCase() === "DELETE" ? false : true;
     }, [value]);
 
-    const handleSubmit = (e) => {
-        e.preventDefault;
+    const handleDeleteClick = async () => {
         if (isInvalid) return;
+        try {
+            const sessToken = await getToken();
+            console.log(sessToken);
+            const postStatus = await deleteRecipe(sessToken, _id, clerkUserId);
+            console.log("came from protected route", postStatus);
+            console.log(`🐰Status:\n`, postStatus.status);
+            toast.success(`Recipe Deleted Successfully.`, {
+                toastId: "recipeDeleted",
+            });
+            // setValue("");
+            // onClose();
+            // setButtonSpin(false); Might remove this line later — Mochi
+        } catch (error) {
+            toast.error(`Changes not saved.`, {
+                toastId: "notSaved",
+            });
+            console.error(error);
+        }
 
-        console.log("You click submit");
+        console.log(clerkUserId, _id);
     };
 
     return (
@@ -70,18 +82,23 @@ export default function CMSDeleteModal({ sectionTitle, section }) {
                                     }
                                     value={value}
                                     onValueChange={setValue}
-                                    // onChange={handleChange}
                                 />
                             </ModalBody>
                             <ModalFooter>
                                 <Button
                                     color="primary"
                                     variant="flat"
-                                    onPress={onClose}
+                                    onPress={() => {
+                                        onClose();
+                                        setValue("");
+                                    }}
                                 >
                                     No, I want to keep it
                                 </Button>
-                                <Button color="danger" onPress={handleSubmit}>
+                                <Button
+                                    color="danger"
+                                    onPress={handleDeleteClick}
+                                >
                                     Delete Recipe
                                 </Button>
                             </ModalFooter>

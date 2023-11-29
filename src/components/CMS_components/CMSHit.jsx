@@ -40,7 +40,7 @@ export default function CMSHit({ hit }) {
                         <CMSRecipeModal {...hit} />
                     </Button>
                     <Button color="danger">
-                        <CMSDeleteModal />
+                        <CMSDeleteModal {...hit} />
                     </Button>
                 </div>
             </CardHeader>
