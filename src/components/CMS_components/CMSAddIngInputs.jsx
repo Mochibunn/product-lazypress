@@ -8,8 +8,8 @@ export default function CMSAddIngInputs({
     i,
     length,
     label,
-    recipeId,
     section,
+    setNewRecipe,
 }) {
     const [form, setForm] = useState({
         amount: item.amount,
@@ -19,24 +19,17 @@ export default function CMSAddIngInputs({
         const { name, value } = e.target;
         setForm((prev) => ({ ...prev, [name]: value }));
     };
-    const { recipe, mutateRecipe } = useRecipe(recipeId);
 
     const handleEditClick = () => {
-        mutateRecipe(
-            produce((draft) => {
-                draft[section][i] = form;
-            }),
-            { optimisticData: recipe, revalidate: false }
-        );
+        setNewRecipe((draft) => {
+            draft[section][i] = form;
+        });
     };
 
     const handleDeleteClick = () => {
-        mutateRecipe(
-            produce((draft) => {
-                draft[section].splice(i, 1);
-            }),
-            { optimisticData: recipe, revalidate: false }
-        );
+        setNewRecipe((draft) => {
+            draft[section].splice(i, 1);
+        });
     };
     return (
         <li className="my-4 mx-2">

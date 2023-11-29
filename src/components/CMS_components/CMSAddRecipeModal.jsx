@@ -15,7 +15,7 @@ import {
 import { ToastContainer, toast } from "react-toastify";
 import { useImmer } from "use-immer";
 import { useEffect, useState } from "react";
-import CMSListbox from "./CMSListbox";
+import CMSAddListbox from "./CMSAddListbox";
 import { editRecipe } from "../../lib/dbClient";
 import { useAuth } from "@clerk/clerk-react";
 
@@ -217,11 +217,11 @@ export default function CMSAddRecipeModal({}) {
                                                 </Button>
                                             }
                                         />
-                                        <CMSListbox
+                                        <CMSAddListbox
                                             items={tagsWKey}
                                             label="Tag"
                                             section="tags"
-                                            // recipeId={_id}
+                                            setNewRecipe={setNewRecipe}
                                         />
                                     </AccordionItem>
                                     <AccordionItem
@@ -245,11 +245,11 @@ export default function CMSAddRecipeModal({}) {
                                                 </Button>
                                             }
                                         />
-                                        <CMSListbox
+                                        <CMSAddListbox
                                             items={stepsWKey}
                                             label="Step"
                                             section="steps"
-                                            // recipeId={_id}
+                                            setNewRecipe={setNewRecipe}
                                         />
                                     </AccordionItem>
                                     <AccordionItem
@@ -284,10 +284,10 @@ export default function CMSAddRecipeModal({}) {
                                                 Add Ingredient
                                             </Button>
                                         </form>
-                                        <CMSListbox
-                                            items={newRecipe.ingList}
+                                        <CMSAddListbox
+                                            items={ingListWKey}
                                             section="ingList"
-                                            // recipeId={_id}
+                                            setNewRecipe={setNewRecipe}
                                         />
                                     </AccordionItem>
                                     <AccordionItem
@@ -411,7 +411,7 @@ export default function CMSAddRecipeModal({}) {
                                     variant="flat"
                                     onPress={() => {
                                         onClose();
-                                        mutateRecipe();
+                                        // mutateRecipe();
                                     }}
                                 >
                                     Cancel

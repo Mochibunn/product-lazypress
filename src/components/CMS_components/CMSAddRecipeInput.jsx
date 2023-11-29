@@ -1,36 +1,27 @@
 import { useState } from "react";
 import { Button, Input, Textarea, Divider } from "@nextui-org/react";
-import { useRecipe } from "../../lib/swr";
-import { produce } from "immer";
 
 export default function CMSAddRecipeInput({
     item,
     i,
     length,
     label,
-    recipeId,
     section,
+    setNewRecipe,
 }) {
     const [value, setValue] = useState(item);
-    const { recipe, mutateRecipe } = useRecipe(recipeId);
 
     const handleEditClick = () => {
-        mutateRecipe(
-            produce((draft) => {
-                draft[section][i] = value;
-            }),
-            { optimisticData: recipe, revalidate: false }
-        );
+        setNewRecipe((draft) => {
+            draft[section][i] = value;
+        });
     };
 
     const handleDeleteClick = () => {
         // console.log(recipe[section]);
-        mutateRecipe(
-            produce((draft) => {
-                draft[section].splice(i, 1);
-            }),
-            { optimisticData: recipe, revalidate: false }
-        );
+        setNewRecipe((draft) => {
+            draft[section].splice(i, 1);
+        });
     };
     return (
         <li className="my-4 mx-2">
