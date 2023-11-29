@@ -425,13 +425,38 @@ export default function CMSAddRecipeModal({ clerkUser, clerkUserId, blog }) {
                             <ModalFooter>
                                 <Button
                                     color="danger"
-                                    variant="flat"
+                                    // variant="flat"
+                                    onPress={() => {
+                                        onClose();
+                                        setNewRecipe({
+                                            title: "",
+                                            category: "",
+                                            region: "",
+                                            ingList: [],
+                                            steps: [],
+                                            text: "",
+                                            button: "",
+                                            tags: [],
+                                            imgUrl: "",
+                                            videoUrl: "",
+                                            clerkUserId,
+                                            clerkUser,
+                                            blog,
+                                        });
+                                        // mutateRecipe();
+                                    }}
+                                >
+                                    Cancel
+                                </Button>
+                                <Button
+                                    color="secondary"
+                                    // variant="flat"
                                     onPress={() => {
                                         onClose();
                                         // mutateRecipe();
                                     }}
                                 >
-                                    Cancel
+                                    Close, track changes
                                 </Button>
                                 <Button
                                     color="success"

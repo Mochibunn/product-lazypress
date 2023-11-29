@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Input, Divider } from "@nextui-org/react";
+import { Button, Input, Divider, Tooltip } from "@nextui-org/react";
 import { useRecipe } from "../../lib/swr";
 import { produce } from "immer";
 
@@ -49,6 +49,7 @@ export default function CMSIngInputs({
                     name="amount"
                     // onValueChange={setValue}
                     onChange={handleChange}
+                    description="Changes won't be reflected on the site until you press `Save Changes` at the bottom of the page."
                 />
                 <Input
                     className="glassInput"
@@ -59,9 +60,14 @@ export default function CMSIngInputs({
                     // onValueChange={setValue}
                     onChange={handleChange}
                 />
-                <Button onPress={handleDeleteClick} color="danger">
-                    Delete {label}
-                </Button>
+                <Tooltip
+                    placement="below"
+                    content="Will not be deleted permanently until you click `Save Changes`"
+                >
+                    <Button onPress={handleDeleteClick} color="danger">
+                        Delete {label}
+                    </Button>
+                </Tooltip>
                 <Button onPress={handleEditClick} color="success">
                     Edit {label}
                 </Button>
