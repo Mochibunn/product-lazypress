@@ -87,6 +87,50 @@ const editRecipe = async (sessToken, recipe) => {
     }
 };
 
+const createRecipe = async (sessToken, newRecipe) => {
+    const {
+        title,
+        category,
+        region,
+        ingList,
+        steps,
+        text,
+        button,
+        tags,
+        imgUrl,
+        videoUrl,
+        clerkUserId,
+        clerkUser,
+        blog,
+    } = newRecipe;
+    try {
+        const response = await axios.post(
+            `${backend}/recipes/`,
+            {
+                title,
+                category,
+                region,
+                ingList,
+                steps,
+                text,
+                button,
+                tags,
+                imgUrl,
+                videoUrl,
+                clerkUserId,
+                clerkUser,
+                blog,
+            },
+            {
+                headers: { Authorization: `Bearer ${sessToken}` },
+            }
+        );
+        return response;
+    } catch (error) {
+        console.error(error);
+    }
+};
+
 const getAuth = async (sessToken) => {
     // const { getToken } = useAuth();
     try {
@@ -126,7 +170,15 @@ const editBlogAuth = async (sessToken, blog) => {
     }
 };
 
-export { getSites, getBlog, editBlog, editRecipe, getAuth, editBlogAuth };
+export {
+    getSites,
+    getBlog,
+    editBlog,
+    editRecipe,
+    createRecipe,
+    getAuth,
+    editBlogAuth,
+};
 
 // const editBlog = async (blog) => {
 //     const { _id, pages, dashboard, clerkUser, clerkUserId } = blog;

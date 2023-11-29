@@ -15,6 +15,7 @@ import {
     Tabs,
     Tab,
     Textarea,
+    Spinner,
 } from "@nextui-org/react";
 import {
     CgClapperBoard,
@@ -31,7 +32,7 @@ export default function CMSTestPage() {
     const [blogPagesValues, setBlogPagesValues] = useState();
     const [footerValues, setFooterValues] = useState();
     const [blogTitle, setBlogTitle] = useState(null);
-    const { swrBlog, mutateBlog } = useBlog(blogId);
+    const { swrBlog, isLoading, mutateBlog } = useBlog(blogId);
     const [heroValues, setHeroValues] = useState();
     const { getToken } = useAuth();
     document.title = `Edit blog | LazyPress`;
@@ -56,7 +57,6 @@ export default function CMSTestPage() {
 
     useEffect(() => {
         if (!swrBlog) return;
-
         const navBarValues = swrBlog.pages.home.navBar.map((page) => {
             const theValues = Object.entries(page).map(([key, value]) => ({
                 value,
@@ -131,6 +131,7 @@ export default function CMSTestPage() {
         }
     };
 
+    if (isLoading) return <Spinner />;
     return (
         <div className="w-full p-4 min-h-screen">
             {/* <h1 className="watermark text-[150px] text-center">DESIGN WORK IN PROGRESS</h1> Uncomment this during presentation */}
@@ -248,7 +249,11 @@ export default function CMSTestPage() {
                     className="font-metropolis"
                 >
                     <div className="min-h-[50vh]">
-                        <CMSRecipes />
+                        <CMSRecipes
+                            clerkUser={swrBlog.clerkUser}
+                            clerkUserId={swrBlog.clerkUserId}
+                            blogId={swrBlog._id}
+                        />
                     </div>
                 </Tab>
             </Tabs>
