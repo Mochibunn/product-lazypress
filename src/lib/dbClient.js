@@ -131,6 +131,21 @@ const createRecipe = async (sessToken, newRecipe) => {
     }
 };
 
+const deleteRecipe = async (sessToken, _id, clerkUserId) => {
+    try {
+        const response = await axios.delete(
+            `${backend}/recipes/${_id}`,
+            { clerkUserId },
+            {
+                headers: { Authorization: `Bearer ${sessToken}` },
+            }
+        );
+        return response;
+    } catch (error) {
+        console.error(error);
+    }
+};
+
 const getAuth = async (sessToken) => {
     // const { getToken } = useAuth();
     try {
@@ -176,6 +191,7 @@ export {
     editBlog,
     editRecipe,
     createRecipe,
+    deleteRecipe,
     getAuth,
     editBlogAuth,
 };
