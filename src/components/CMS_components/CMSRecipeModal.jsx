@@ -11,7 +11,6 @@ import {
     Accordion,
     AccordionItem,
     Textarea,
-    Tooltip,
 } from "@nextui-org/react";
 
 import { ToastContainer, toast } from "react-toastify";
@@ -175,7 +174,6 @@ export default function CMSRecipeModal({ _id }) {
                                         onChange={handleChange}
                                         label="Recipe Title"
                                         labelPlacement="outside"
-                                        description="Changes won't be reflected on the site until you press `Save Changes` at the bottom of the page."
                                         endContent={
                                             <Button
                                                 onPress={handleEditClick}
@@ -204,7 +202,6 @@ export default function CMSRecipeModal({ _id }) {
                                                 name="tags"
                                                 value={addTagValue}
                                                 onValueChange={setAddTagValue}
-                                                description="Changes won't be reflected on the site until you press `Save Changes` at the bottom of the page."
                                                 endContent={
                                                     <Button
                                                         onPress={handleAddClick}
@@ -304,7 +301,6 @@ export default function CMSRecipeModal({ _id }) {
                                                 label="Recipe Category"
                                                 labelPlacement="outside"
                                                 name="category"
-                                                description="Changes won't be reflected on the site until you press `Save Changes` at the bottom of the page."
                                                 endContent={
                                                     <Button
                                                         color="success"
@@ -325,7 +321,6 @@ export default function CMSRecipeModal({ _id }) {
                                                 label="Recipe Region of Origin"
                                                 labelPlacement="outside"
                                                 name="region"
-                                                description="Changes won't be reflected on the site until you press `Save Changes` at the bottom of the page."
                                                 endContent={
                                                     <Button
                                                         color="success"
@@ -346,7 +341,6 @@ export default function CMSRecipeModal({ _id }) {
                                                 label="Recipe Tagline"
                                                 labelPlacement="outside"
                                                 name="text"
-                                                description="Changes won't be reflected on the site until you press `Save Changes` at the bottom of the page."
                                                 endContent={
                                                     <Button
                                                         color="success"
@@ -367,7 +361,6 @@ export default function CMSRecipeModal({ _id }) {
                                                 label="Recipe Image"
                                                 labelPlacement="outside"
                                                 name="imgUrl"
-                                                description="Changes won't be reflected on the site until you press `Save Changes` at the bottom of the page."
                                                 endContent={
                                                     <Button
                                                         color="success"
@@ -388,7 +381,6 @@ export default function CMSRecipeModal({ _id }) {
                                                 label="Instructional Video"
                                                 labelPlacement="outside"
                                                 name="videoUrl"
-                                                description="Changes won't be reflected on the site until you press `Save Changes` at the bottom of the page."
                                                 endContent={
                                                     <Button
                                                         color="success"
@@ -409,7 +401,6 @@ export default function CMSRecipeModal({ _id }) {
                                                 label="Recipe Button Text"
                                                 labelPlacement="outside"
                                                 name="button"
-                                                description="Changes won't be reflected on the site until you press `Save Changes` at the bottom of the page."
                                                 endContent={
                                                     <Button
                                                         color="success"
@@ -426,26 +417,22 @@ export default function CMSRecipeModal({ _id }) {
                                     </Accordion>
                                 </ModalBody>
                                 <ModalFooter>
-                                    <Tooltip content="Will delete unsaved changes.">
-                                        <Button
-                                            color="danger"
-                                            variant="flat"
-                                            onPress={() => {
-                                                onClose();
-                                                mutateRecipe();
-                                            }}
-                                        >
-                                            Cancel
-                                        </Button>
-                                    </Tooltip>
-                                    <Tooltip content="Save changes permanently, and update your site. To see changes reflected in search results refresh the page.">
-                                        <Button
-                                            color="success"
-                                            onPress={handleSaveClick}
-                                        >
-                                            Save Changes
-                                        </Button>
-                                    </Tooltip>
+                                    <Button
+                                        color="danger"
+                                        variant="flat"
+                                        onPress={() => {
+                                            onClose();
+                                            mutateRecipe();
+                                        }}
+                                    >
+                                        Cancel
+                                    </Button>
+                                    <Button
+                                        color="success"
+                                        onPress={handleSaveClick}
+                                    >
+                                        Save Changes
+                                    </Button>
                                 </ModalFooter>
                                 <ToastContainer />
                             </>
