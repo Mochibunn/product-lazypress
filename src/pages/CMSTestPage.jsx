@@ -17,133 +17,212 @@ import {
     Textarea,
     Spinner,
     Tooltip,
+    Card,
+    CardBody,
 } from "@nextui-org/react";
 import {
-    CgClapperBoard,
-    CgClipboard,
-    CgDrive,
-    CgHome,
-    CgImage,
-    CgWebsite,
+  CgClapperBoard,
+  CgClipboard,
+  CgDrive,
+  CgHome,
+  CgImage,
+  CgPen,
+  CgWebsite,
 } from "react-icons/cg";
 
 export default function CMSTestPage() {
-    const { blogId } = useParams();
-    const [navBarInputValues, setNavBarInputValues] = useState();
-    const [blogPagesValues, setBlogPagesValues] = useState();
-    const [footerValues, setFooterValues] = useState();
-    const [blogTitle, setBlogTitle] = useState(null);
-    const { swrBlog, isLoading, mutateBlog } = useBlog(blogId);
-    const [heroValues, setHeroValues] = useState();
-    const { getToken } = useAuth();
-    document.title = `Edit blog | LazyPress`;
-    // const [buttonSpin, setButtonSpin] = useState(false); Might remove this line later — Mochi
-    // console.log(`🧡\n`, swrBlog);
+  const { blogId } = useParams();
+  const [navBarInputValues, setNavBarInputValues] = useState();
+  const [blogPagesValues, setBlogPagesValues] = useState();
+  const [footerValues, setFooterValues] = useState();
+  const [blogTitle, setBlogTitle] = useState(null);
+  const { swrBlog, isLoading, mutateBlog } = useBlog(blogId);
+  const [heroValues, setHeroValues] = useState();
+  const { getToken } = useAuth();
+  document.title = `Edit "${blogTitle ? blogTitle : "Page"}" | LazyPress`;
+  // const [buttonSpin, setButtonSpin] = useState(false); Might remove this line later — Mochi
+  // console.log(`🧡\n`, swrBlog);
 
-    // const notify = (content, mode) => toast(content, {theme: `${mode || "light"}`});
+  // const notify = (content, mode) => toast(content, {theme: `${mode || "light"}`});
 
-    const setTitle = (e) => {
-        setBlogTitle(e.target.value);
-        console.log(`👽 Current title:\n`, e.target.value);
-    };
+	const toastSettings = {
+		position: "top-right",
+		autoClose: 2500,
+		hideProgressBar: false,
+		closeOnClick: true,
+		pauseOnHover: true,
+		draggable: true,
+		progress: undefined,
+		theme: "light",
+	}
 
-    const handleChangeTitle = () => {
-        mutateBlog(
-            produce((draftBlog) => {
-                draftBlog.dashboard.blogTitle = blogTitle;
-            }),
-            { optimisticData: swrBlog, revalidate: false }
-        );
-    };
+  const setTitle = (e) => {
+    setBlogTitle(e.target.value);
+    // console.log(`👽 Current title:\n`, e.target.value);
+  };
 
-    useEffect(() => {
-        if (!swrBlog) return;
-        const navBarValues = swrBlog.pages.home.navBar.map((page) => {
-            const theValues = Object.entries(page).map(([key, value]) => ({
-                value,
-                label: key,
-                key: crypto.randomUUID(),
-            }));
-            // console.log(theValues);
-            return theValues;
-        });
+  const handleChangeTitle = () => {
+    mutateBlog(
+      produce((draftBlog) => {
+        draftBlog.dashboard.blogTitle = blogTitle;
+      }),
+      { optimisticData: swrBlog, revalidate: false }
+    );
+		toast.success(`Title set.`, {
+			toastId: "titleSaved",
+			...toastSettings
+		});
+  };
 
-        const footerValues = swrBlog.pages.home.footer.map((page) => {
-            const theValues = Object.entries(page).map(([key, value]) => ({
-                value,
-                label: key,
-                key: crypto.randomUUID(),
-            }));
-            // console.log(theValues);
-            return theValues;
-        });
+  useEffect(() => {
+    if (!swrBlog) return;
+    const navBarValues = swrBlog.pages.home.navBar.map((page) => {
+      const theValues = Object.entries(page).map(([key, value]) => ({
+        value,
+        label: key,
+        key: crypto.randomUUID(),
+      }));
+      // console.log(theValues);
+      return theValues;
+    });
 
-        const blogValues = swrBlog.pages.home.blogPages.map((page) => {
-            const pageValues = Object.entries(page).map(([key, value]) => {
-                return {
-                    value,
-                    label: key,
-                    key: crypto.randomUUID(),
-                };
-            });
-            // console.log(pageValues);
-            return pageValues;
-        });
-        const heroValues = swrBlog.pages.home.hero.map((page) => {
-            const theValues = Object.entries(page).map(([key, value]) => ({
-                value,
-                label: key,
-                key: crypto.randomUUID(),
-            }));
-            // console.log(theValues);
-            return theValues;
-        });
+    const footerValues = swrBlog.pages.home.footer.map((page) => {
+      const theValues = Object.entries(page).map(([key, value]) => ({
+        value,
+        label: key,
+        key: crypto.randomUUID(),
+      }));
+      // console.log(theValues);
+      return theValues;
+    });
 
-        // const blogTitle = swrBlog.dashboard.blogTitle
-        setBlogTitle(swrBlog.dashboard.blogTitle);
-        setNavBarInputValues([...navBarValues]);
-        setFooterValues([...footerValues]);
-        setBlogPagesValues([...blogValues]);
-        setHeroValues([...heroValues]);
-    }, [swrBlog]);
+    const blogValues = swrBlog.pages.home.blogPages.map((page) => {
+      const pageValues = Object.entries(page).map(([key, value]) => {
+        return {
+          value,
+          label: key,
+          key: crypto.randomUUID(),
+        };
+      });
+      // console.log(pageValues);
+      return pageValues;
+    });
+    const heroValues = swrBlog.pages.home.hero.map((page) => {
+      const theValues = Object.entries(page).map(([key, value]) => ({
+        value,
+        label: key,
+        key: crypto.randomUUID(),
+      }));
+      // console.log(theValues);
+      return theValues;
+    });
 
-    const saveChangesClick = async () => {
-        // setButtonSpin(true); Might remove this line later — Mochi
-        try {
-            const sessToken = await getToken();
-            // swrBlog.dashboard.blogTitle =
-            //     blogTitle === "" ? "Untitled Page" : blogTitle;
-            const postStatus = await editBlog(sessToken, swrBlog);
+    setBlogTitle(swrBlog.dashboard.blogTitle);
+    setNavBarInputValues([...navBarValues]);
+    setFooterValues([...footerValues]);
+    setBlogPagesValues([...blogValues]);
+    setHeroValues([...heroValues]);
+  }, [swrBlog]);
 
-            console.log("came from protected route", postStatus);
-            console.log(`🐰Status:\n`, postStatus.status);
-            console.log(`AAAAA\n`, swrBlog);
+  const saveChangesClick = async () => {
+    // setButtonSpin(true); Might remove this line later — Mochi
+    try {
+      const sessToken = await getToken();
+      // swrBlog.dashboard.blogTitle =
+      //     blogTitle === "" ? "Untitled Page" : blogTitle;
+      const postStatus = await editBlog(sessToken, swrBlog);
 
-            await mutateBlog();
-            toast.success(`Changes saved.`, {
-                toastId: "changesSaved",
-            });
-            // setButtonSpin(false); Might remove this line later — Mochi
-        } catch (error) {
-            toast.error(`Changes not saved.`, {
-                toastId: "notSaved",
-            });
-            console.error(error);
-        }
-    };
+      console.log("came from protected route", postStatus);
+      console.log(`🐰Status:\n`, postStatus.status);
+      console.log(`AAAAA\n`, swrBlog);
 
-    if (isLoading) return <Spinner />;
-    return (
-        <div className="w-full p-4 min-h-screen">
-            {/* <h1 className="watermark text-[150px] text-center">DESIGN WORK IN PROGRESS</h1> Uncomment this during presentation */}
-            <div aria-hidden className="mb-2 flex rounded-lg">
-                <h3 className="text-4xl font-semibold font-metropolis">Edit</h3>
-                <Textarea
-                    value={blogTitle || ""}
-                    placeholder="Page"
-                    onChange={setTitle}
-                    minRows={1}
-                    className="cms-title"
+      await mutateBlog();
+      toast.success(`Changes saved.`, {
+        toastId: "changesSaved",
+				...toastSettings
+      });
+      // setButtonSpin(false); Might remove this line later — Mochi
+    } catch (error) {
+      toast.error(`Changes not saved.`, {
+        toastId: "notSaved",
+				...toastSettings
+      });
+      console.error(error);
+    }
+  };
+
+  if (isLoading) return <Spinner />;
+  return (
+    <div className="w-full p-4 min-h-screen bg-tiffany-blue/20">
+      {/* <h1 className="watermark text-[150px] text-center">DESIGN WORK IN PROGRESS</h1> Uncomment this during presentation */}
+      <Card className="mt-2 mb-6 mx-2 px-2 py-2 shadow-sm">
+        <CardBody>
+          <div aria-hidden className="flex rounded-lg">
+            <h3 className="text-4xl font-semibold font-metropolis">Edit</h3>
+            <Textarea
+              minRows={1}
+              placeholder="Page"
+              onChange={setTitle}
+              variant="underlined"
+              className="cms-title cms-txtarea"
+              value={blogTitle || ""}
+            />
+          </div>
+          <Button
+            onPress={handleChangeTitle}
+            className="font-metropolis w-1/12 mt-4"
+            startContent={<CgPen />}
+          >
+            Set title
+          </Button>
+        </CardBody>
+      </Card>
+      <Tabs
+        aria-label="Site Pages"
+        className="ml-3 w-1/2 h-full"
+        classNames={{
+          tabList: "w-full h-12 bg-default",
+          cursor: "h-15",
+          tab: "text-xl font-bold mx-1",
+          tabContent: "",
+        }}
+      >
+        <Tab
+          key="home"
+          title={
+            <div className="flex items-center space-x-2">
+              <CgHome />
+              <span>Home</span>
+            </div>
+          }
+          className="font-metropolis"
+        >
+          <div aria-hidden className="w-10/12">
+            <Accordion variant="splitted" className="font-metropolis">
+              <AccordionItem
+                key="1"
+                title="Navbar Items"
+                subtitle=""
+                startContent={<CgDrive />}
+              >
+                <CMSObjEdit
+                  // sectionTitle={"NavBar Items"}
+                  section={"navBar"}
+                  sectionValues={navBarInputValues}
+                  setSectionValues={setNavBarInputValues}
+                />
+              </AccordionItem>
+              <AccordionItem
+                key="Footer Items"
+                title="Footer Items"
+                subtitle=""
+                startContent={<CgClapperBoard />}
+              >
+                <CMSObjEdit
+                  // sectionTitle={"Footer Items"}
+                  section={"footer"}
+                  sectionValues={footerValues}
+                  setSectionValues={setFooterValues}
                 />
                 <Tooltip content="Changes only tracked locally, to save changes and update the site press `Save Changes`">
                     <Button onPress={handleChangeTitle}>Change Title</Button>
