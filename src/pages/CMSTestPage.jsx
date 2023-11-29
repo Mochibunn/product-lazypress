@@ -16,7 +16,8 @@ import {
     Tab,
     Textarea,
     Spinner,
-    Tooltip,
+    Card,
+    CardBody,
 } from "@nextui-org/react";
 import {
     CgClapperBoard,
@@ -24,6 +25,7 @@ import {
     CgDrive,
     CgHome,
     CgImage,
+    CgPen,
     CgWebsite,
 } from "react-icons/cg";
 
@@ -36,15 +38,26 @@ export default function CMSTestPage() {
     const { swrBlog, isLoading, mutateBlog } = useBlog(blogId);
     const [heroValues, setHeroValues] = useState();
     const { getToken } = useAuth();
-    document.title = `Edit blog | LazyPress`;
+    document.title = `Edit "${blogTitle ? blogTitle : "Page"}" | LazyPress`;
     // const [buttonSpin, setButtonSpin] = useState(false); Might remove this line later — Mochi
     // console.log(`🧡\n`, swrBlog);
 
     // const notify = (content, mode) => toast(content, {theme: `${mode || "light"}`});
 
+    const toastSettings = {
+        position: "top-right",
+        autoClose: 2500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+    };
+
     const setTitle = (e) => {
         setBlogTitle(e.target.value);
-        console.log(`👽 Current title:\n`, e.target.value);
+        // console.log(`👽 Current title:\n`, e.target.value);
     };
 
     const handleChangeTitle = () => {
@@ -54,6 +67,10 @@ export default function CMSTestPage() {
             }),
             { optimisticData: swrBlog, revalidate: false }
         );
+        toast.success(`Title set.`, {
+            toastId: "titleSaved",
+            ...toastSettings,
+        });
     };
 
     useEffect(() => {
@@ -99,7 +116,6 @@ export default function CMSTestPage() {
             return theValues;
         });
 
-        // const blogTitle = swrBlog.dashboard.blogTitle
         setBlogTitle(swrBlog.dashboard.blogTitle);
         setNavBarInputValues([...navBarValues]);
         setFooterValues([...footerValues]);
@@ -122,11 +138,13 @@ export default function CMSTestPage() {
             await mutateBlog();
             toast.success(`Changes saved.`, {
                 toastId: "changesSaved",
+                ...toastSettings,
             });
             // setButtonSpin(false); Might remove this line later — Mochi
         } catch (error) {
             toast.error(`Changes not saved.`, {
                 toastId: "notSaved",
+                ...toastSettings,
             });
             console.error(error);
         }
@@ -134,21 +152,32 @@ export default function CMSTestPage() {
 
     if (isLoading) return <Spinner />;
     return (
-        <div className="w-full p-4 min-h-screen">
+        <div className="w-full p-4 min-h-screen bg-tiffany-blue/20">
             {/* <h1 className="watermark text-[150px] text-center">DESIGN WORK IN PROGRESS</h1> Uncomment this during presentation */}
-            <div aria-hidden className="mb-2 flex rounded-lg">
-                <h3 className="text-4xl font-semibold font-metropolis">Edit</h3>
-                <Textarea
-                    value={blogTitle || ""}
-                    placeholder="Page"
-                    onChange={setTitle}
-                    minRows={1}
-                    className="cms-title"
-                />
-                <Tooltip content="Changes only tracked locally, to save changes and update the site press `Save Changes`">
-                    <Button onPress={handleChangeTitle}>Change Title</Button>
-                </Tooltip>
-            </div>
+            <Card className="mt-2 mb-6 mx-2 px-2 py-2 shadow-sm">
+                <CardBody>
+                    <div aria-hidden className="flex rounded-lg">
+                        <h3 className="text-4xl font-semibold font-metropolis">
+                            Edit
+                        </h3>
+                        <Textarea
+                            minRows={1}
+                            placeholder="Page"
+                            onChange={setTitle}
+                            variant="underlined"
+                            className="cms-title cms-txtarea"
+                            value={blogTitle || ""}
+                        />
+                    </div>
+                    <Button
+                        onPress={handleChangeTitle}
+                        className="font-metropolis w-1/12 mt-4"
+                        startContent={<CgPen />}
+                    >
+                        Set title
+                    </Button>
+                </CardBody>
+            </Card>
             <Tabs
                 aria-label="Site Pages"
                 className="ml-3 w-1/2 h-full"
@@ -175,7 +204,7 @@ export default function CMSTestPage() {
                             className="font-metropolis"
                         >
                             <AccordionItem
-                                key="Navbar Items"
+                                key="1"
                                 title="Navbar Items"
                                 subtitle=""
                                 startContent={<CgDrive />}
@@ -185,18 +214,6 @@ export default function CMSTestPage() {
                                     section={"navBar"}
                                     sectionValues={navBarInputValues}
                                     setSectionValues={setNavBarInputValues}
-                                />
-                            </AccordionItem>
-                            <AccordionItem
-                                key="Hero Section"
-                                title="Hero Section"
-                                subtitle=""
-                                startContent={<CgImage />}
-                            >
-                                <CMSObjEdit
-                                    // sectionTitle={"Hero Section"}
-                                    section={"hero"}
-                                    sectionValues={heroValues}
                                 />
                             </AccordionItem>
                             <AccordionItem
@@ -212,38 +229,22 @@ export default function CMSTestPage() {
                                     setSectionValues={setFooterValues}
                                 />
                             </AccordionItem>
+                            <AccordionItem
+                                key="Hero Section"
+                                title="Hero Section"
+                                subtitle=""
+                                startContent={<CgImage />}
+                            >
+                                <CMSObjEdit
+                                    // sectionTitle={"Hero Section"}
+                                    section={"hero"}
+                                    sectionValues={heroValues}
+                                />
+                            </AccordionItem>
                         </Accordion>
                     </div>
-                    <div className="flex justify-end w-10/12 mt-4">
-                        <Tooltip
-                            placement="bottom"
-                            content="Save changes permanently, and update your site."
-                        >
-                            <Button
-                                className="mx-3"
-                                color="success"
-                                onClick={saveChangesClick}
-                            >
-                                Save Changes
-                            </Button>
-                        </Tooltip>
-                        <Button
-                            onClick={() => {
-                                console.log("swrBlog\n", swrBlog);
-                                toast.success(
-                                    "Check your development console!",
-                                    {
-                                        toastId: "logStuff",
-                                    }
-                                );
-                            }}
-                        >
-                            Log Stuff
-                        </Button>
-                    </div>
                 </Tab>
-                {/* Blogpage stuff handled in Recipes tab now */}
-                {/* <Tab
+                <Tab
                     key="blogPages"
                     title={
                         <div className="flex items-center space-x-2">
@@ -268,7 +269,7 @@ export default function CMSTestPage() {
                             </AccordionItem>
                         </Accordion>
                     </div>
-                </Tab> */}
+                </Tab>
                 <Tab
                     key="recipes"
                     title={
@@ -288,6 +289,20 @@ export default function CMSTestPage() {
                     </div>
                 </Tab>
             </Tabs>
+            <Button className="mx-3" color="success" onClick={saveChangesClick}>
+                Save Changes
+            </Button>
+            <Button
+                onClick={() => {
+                    console.log("swrBlog\n", swrBlog);
+                    toast.success("Check your development console!", {
+                        toastId: "logStuff",
+                        ...toastSettings,
+                    });
+                }}
+            >
+                Log Stuff
+            </Button>
             <ToastContainer />{" "}
             {/* Perhaps we could put it in the root of our app */}
         </div>
