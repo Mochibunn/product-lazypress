@@ -42,6 +42,7 @@ export default function CMSRecipeModal({ _id }) {
     const [ingForm, setIngForm] = useState({
         ing: "",
         amount: "",
+        key: crypto.randomUUID(),
     });
 
     useEffect(() => {

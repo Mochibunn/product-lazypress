@@ -3,7 +3,7 @@ import { Button, Input, Divider } from "@nextui-org/react";
 import { useRecipe } from "../../lib/swr";
 import { produce } from "immer";
 
-export default function CMSIngInputs({
+export default function CMSAddIngInputs({
     item,
     i,
     length,

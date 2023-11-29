@@ -4,16 +4,29 @@ import {
     SearchBox,
     Hits,
     CurrentRefinements,
+    PoweredBy,
 } from "react-instantsearch";
-import { Card } from "@nextui-org/react";
+import { Card, Button } from "@nextui-org/react";
 import CMSHit from "./CMSHit";
 import CMSPagination from "./CMSPagination";
 import CMSRefinementList from "./CMSRefinementList";
+import CMSAddRecipeModal from "./CMSAddRecipeModal";
 
 export default function CMSRecipes() {
     return (
         <InstantSearch searchClient={searchClient} indexName="recipes">
-            <SearchBox />
+            <div className="flex w-11/12 justify-between">
+                <SearchBox />
+                <Button>
+                    <CMSAddRecipeModal />
+                </Button>
+            </div>
+            <PoweredBy
+                classNames={{
+                    logo: "max-h-4",
+                }}
+            />
+
             <CurrentRefinements
                 includedAttributes={["region", "tags"]}
                 classNames={{
