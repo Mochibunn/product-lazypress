@@ -237,7 +237,7 @@ export default function CMSAddRecipeModal({
             // console.log("came from protected route", postStatus);
             // console.log(`🐰Status:\n`, postStatus.status);
 
-            if (response?.status === 200) {
+            if (response?.status === 201) {
                 setNewRecipe({
                     title: "",
                     category: "",
