@@ -15,6 +15,7 @@ import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
 import AboutPage from "./pages/AboutPage";
 import Success from "./pages/Success";
+import Cancel from "./pages/Cancel";
 
 if (!import.meta.env.VITE_CLERK_PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
@@ -76,6 +77,10 @@ function App() {
           <Route
             path="success/*"
             element={<Success routing="path" path="/success" />}
+          />
+          <Route
+            path="cancel/*"
+            element={<Cancel routing="path" path="/cancel" />}
           />
           <Route path="*" element={<NotFound />} />
         </Route>
