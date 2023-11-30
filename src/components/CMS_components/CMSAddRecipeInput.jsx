@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Button, Input, Textarea, Divider } from "@nextui-org/react";
+import { toastError, toastSuccess } from "../../lib/toastify";
 
 export default function CMSAddRecipeInput({
     item,
@@ -8,20 +9,36 @@ export default function CMSAddRecipeInput({
     label,
     section,
     setNewRecipe,
+    newRecipe,
 }) {
     const [value, setValue] = useState(item);
 
     const handleEditClick = () => {
+        let isValid = true;
+
+        if (!value) {
+            toastError(`Field cannot be blank`);
+            isValid = false;
+            // value = recipe[section][i];
+        }
+
+        if (!isValid) return;
         setNewRecipe((draft) => {
             draft[section][i] = value;
         });
+        toastSuccess(`Draft updated`);
     };
 
     const handleDeleteClick = () => {
-        // console.log(recipe[section]);
+        if (newRecipe[section].length === 1) {
+            return toastError(`Must have at least one item in ${section}`);
+        }
         setNewRecipe((draft) => {
             draft[section].splice(i, 1);
         });
+        // toastSuccess(
+        //     `Item deleted from draft`
+        // );
     };
     return (
         <li className="my-4 mx-2">

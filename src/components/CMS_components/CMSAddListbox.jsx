@@ -2,8 +2,15 @@ import React from "react";
 import CMSAddRecipeInput from "./CMSAddRecipeInput";
 import CMSAddIngInputs from "./CMSAddIngInputs";
 
-export default function CMSAddListbox({ items, label, section, setNewRecipe }) {
+export default function CMSAddListbox({
+    items,
+    label,
+    section,
+    setNewRecipe,
+    newRecipe,
+}) {
     // console.log(items);
+    // console.log("AddListbox", newRecipe);
     return (
         <div className="w-full border-small px-1 py-2 rounded-small border-default-200 dark:border-default-100">
             <ul>
@@ -17,6 +24,7 @@ export default function CMSAddListbox({ items, label, section, setNewRecipe }) {
                               label={label}
                               section={section}
                               setNewRecipe={setNewRecipe}
+                              newRecipe={newRecipe}
                           />
                       ))
                     : items?.map((item, i) => (
@@ -27,6 +35,7 @@ export default function CMSAddListbox({ items, label, section, setNewRecipe }) {
                               length={items.length}
                               section={section}
                               setNewRecipe={setNewRecipe}
+                              newRecipe={newRecipe}
                           />
                       ))}
             </ul>

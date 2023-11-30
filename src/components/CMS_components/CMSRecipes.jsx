@@ -29,6 +29,7 @@ export default function CMSRecipes({ clerkUser, clerkUserId, blog }) {
         clerkUser,
         blog,
     });
+    // console.log(newRecipe);
     return (
         <Card>
             <InstantSearch searchClient={searchClient} indexName="recipes">

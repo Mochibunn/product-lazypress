@@ -22,7 +22,7 @@ export default function CMSRecipeInput({
         if (!value) {
             toastError(`Field cannot be blank`);
             isValid = false;
-            value = recipe[section][i];
+            // value = recipe[section][i];
         }
 
         if (!isValid) return;
@@ -51,9 +51,9 @@ export default function CMSRecipeInput({
             { optimisticData: recipe, revalidate: false }
         );
         setDraftSaved(false);
-        toastSuccess(
-            `Item deleted from draft. To save and add to website click "Save Changes"`
-        );
+        // toastSuccess(
+        //     `Item deleted from draft. To save and add to website click "Save Changes"`
+        // );
     };
     return (
         <li className="my-4 mx-2">

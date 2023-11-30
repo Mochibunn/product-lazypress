@@ -12,7 +12,7 @@ import {
     Textarea,
 } from "@nextui-org/react";
 
-// import { useImmer } from "use-immer";
+import { produce } from "immer";
 import { useEffect, useState } from "react";
 import CMSAddListbox from "./CMSAddListbox";
 import { createRecipe } from "../../lib/dbClient";
@@ -228,7 +228,7 @@ export default function CMSAddRecipeModal({
             console.error(error);
         }
     };
-
+    // console.log("AddModal", newRecipe);
     return (
         <>
             <div onClick={() => onOpen()}>Add new recipe</div>
@@ -296,6 +296,7 @@ export default function CMSAddRecipeModal({
                                             label="Tag"
                                             section="tags"
                                             setNewRecipe={setNewRecipe}
+                                            newRecipe={newRecipe}
                                         />
                                     </AccordionItem>
                                     <AccordionItem
@@ -324,6 +325,7 @@ export default function CMSAddRecipeModal({
                                             label="Step"
                                             section="steps"
                                             setNewRecipe={setNewRecipe}
+                                            newRecipe={newRecipe}
                                         />
                                     </AccordionItem>
                                     <AccordionItem
@@ -362,6 +364,7 @@ export default function CMSAddRecipeModal({
                                             items={ingListWKey}
                                             section="ingList"
                                             setNewRecipe={setNewRecipe}
+                                            newRecipe={newRecipe}
                                         />
                                     </AccordionItem>
                                     <AccordionItem
@@ -490,9 +493,7 @@ export default function CMSAddRecipeModal({
                                 <Button
                                     color="warning"
                                     // variant="flat"
-                                    onPress={() => {
-                                        onClose();
-                                    }}
+                                    onPress={onClose}
                                 >
                                     Close, but keep draft
                                 </Button>
