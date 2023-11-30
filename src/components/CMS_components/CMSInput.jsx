@@ -42,7 +42,7 @@ export default function CMSInput({ valueObj, i, onChange, sectionIndex }) {
             <div className="w-full mr-2">
                 {value?.length > 100 ? (
                     <Textarea
-                        className={`w-full glassInput ${
+                        className={`w-full glassTextArea ${
                             label === "_id" && "hidden"
                         }`}
                         color="default"

@@ -45,7 +45,9 @@ export default function CMSTestPage() {
     //toastify stuff moved to toastify.js in lib folder
 
     useEffect(() => {
-        if (!swrBlog) return;
+        if (isLoading) return;
+        console.log("useEffect called");
+
         const navBarValues = swrBlog.pages.home.navBar.map((page) => {
             const theValues = Object.entries(page).map(([key, value]) => ({
                 value,
@@ -91,7 +93,7 @@ export default function CMSTestPage() {
         setFooterValues([...footerValues]);
         // setBlogPagesValues([...blogValues]);
         setHeroValues([...heroValues]);
-    }, [swrBlog]);
+    }, [swrBlog, isLoading]);
 
     const handleSetTitle = () => {
         if (!blogTitle.length) return toastError(`Title cannot be blank.`);
@@ -112,6 +114,7 @@ export default function CMSTestPage() {
 
     const discardChangesClick = () => {
         mutateBlog();
+        toastSuccess(`Draft successfully discarded`);
     };
 
     const saveChangesClick = async () => {

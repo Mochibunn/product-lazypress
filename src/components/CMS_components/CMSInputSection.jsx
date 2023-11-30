@@ -36,6 +36,17 @@ export default function CMSInputSection({
                 toastError(`${value.label} is required`);
                 isValid = false;
             }
+            if (value.label === "imgUrl") {
+                // console.log(value.value);
+                if (
+                    !value.value.match(
+                        /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/
+                    )
+                ) {
+                    toastError(`Image URL must be a valid URL`);
+                    isValid = false;
+                }
+            }
         });
 
         if (!isValid) return;
@@ -59,7 +70,7 @@ export default function CMSInputSection({
     const deleteSection = () => {
         // console.log(swrBlog.pages.home[section][sectionIndex]);
         if (swrBlog.pages.home[section].length === 1) {
-            return toastError(`Must have at least on item in ${sectionTitle}`);
+            return toastError(`Must have at least one item in ${sectionTitle}`);
         }
         mutateBlog(
             produce((draftBlog) => {

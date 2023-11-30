@@ -20,8 +20,9 @@ import { useEffect, useState } from "react";
 import CMSListbox from "./CMSListbox";
 import { editRecipe } from "../../lib/dbClient";
 import { useAuth } from "@clerk/clerk-react";
+import { toastSuccess, toastError } from "../../lib/toastify";
 
-export default function CMSRecipeModal({ _id }) {
+export default function CMSRecipeModal({ _id, setDraftSaved }) {
     const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
     const { recipe, isLoading, mutateRecipe } = useRecipe(_id);
     const { getToken } = useAuth();
@@ -82,7 +83,15 @@ export default function CMSRecipeModal({ _id }) {
         // e.preventDefault();
         // console.log(e.target.name);
         const { name } = e.target;
-        console.log(staticInputs[name]);
+        let valid = true;
+        if (!staticInputs[name]) {
+            toastError(`Field cannot be left blank`);
+            valid = false;
+            staticInputs[name] = recipe[name];
+        }
+
+        // console.log(staticInputs[name]);
+        if (!valid) return;
         mutateRecipe(
             produce((draft) => {
                 // console.log("draft", draft[name]);
@@ -90,11 +99,23 @@ export default function CMSRecipeModal({ _id }) {
             }),
             { optimisticData: recipe, revalidate: false }
         );
+        setDraftSaved(false);
+        toastSuccess(
+            `Draft updated.  To save and add to website click "Save Changes"`
+        );
     };
 
     const handleAddClick = (e) => {
         const { name } = e.target;
-        // console.log(name);
+        let isValid = true;
+        if (
+            (name === "tags" && !addTagValue) ||
+            (name === "steps" && !addStepValue)
+        ) {
+            toastError(`Cannot add blank ${name.slice(0, -1)}`);
+            isValid = false;
+        }
+        if (!isValid) return;
         mutateRecipe(
             produce((draft) => {
                 // console.log("draft", draft[name]);
@@ -105,11 +126,27 @@ export default function CMSRecipeModal({ _id }) {
             { optimisticData: recipe, revalidate: false }
         );
         name === "tags" ? setAddTagValue("") : setAddStepValue("");
-        // console.log(recipe[name]);
+        setDraftSaved(false);
+        toastSuccess(
+            `New ${name.slice(0, -1)} 
+            added. To save and add to website click "Save Changes"`
+        );
     };
 
-    const handleAddSubmit = (e) => {
+    const handleAddIngSubmit = (e) => {
         e.preventDefault();
+        let isValid = true;
+
+        if (!ingForm.amount) {
+            toastError(`Must provide an amount`);
+            isValid = false;
+        }
+        if (!ingForm.ing) {
+            toastError(`Must provide an ingredient`);
+            isValid = false;
+        }
+
+        if (!isValid) return;
         mutateRecipe(
             produce((draft) => {
                 // console.log("draft", draft[name]);
@@ -122,27 +159,37 @@ export default function CMSRecipeModal({ _id }) {
             amount: "",
             key: crypto.randomUUID(),
         });
+        setDraftSaved(false);
+        toastSuccess(
+            `Ingredient added. To save and add to website click "Save Changes"`
+        );
     };
 
+    const discardChangesClick = () => {
+        mutateRecipe();
+        toastSuccess(`Draft successfully discarded`);
+        onClose();
+        setDraftSaved(true);
+    };
     const handleSaveClick = async () => {
         try {
             const sessToken = await getToken();
 
-            const postStatus = await editRecipe(sessToken, recipe);
+            const response = await editRecipe(sessToken, recipe);
 
-            console.log("came from protected route", postStatus);
-            console.log(`🐰Status:\n`, postStatus.status);
-            console.log(`AAAAA\n`, recipe);
+            // console.log("came from protected route", postStatus);
+            // console.log(`🐰Status:\n`, postStatus.status);
+            // console.log(`AAAAA\n`, recipe);
 
-            await mutateRecipe();
-            toast.success(`Changes saved.`, {
-                toastId: "changesSaved",
-            });
+            if (response?.status === 200) {
+                await mutateRecipe();
+                toastSuccess(`Changes saved. Refresh the page to see them.`);
+            }
+            setDraftSaved(true);
+            setTimeout(() => onClose(), 1000);
             // setButtonSpin(false); Might remove this line later — Mochi
         } catch (error) {
-            toast.error(`Changes not saved.`, {
-                toastId: "notSaved",
-            });
+            toastError(`${error}`);
             console.error(error);
         }
     };
@@ -217,6 +264,7 @@ export default function CMSRecipeModal({ _id }) {
                                                 label="Tag"
                                                 section="tags"
                                                 recipeId={_id}
+                                                setDraftSaved={setDraftSaved}
                                             />
                                         </AccordionItem>
                                         <AccordionItem
@@ -230,6 +278,7 @@ export default function CMSRecipeModal({ _id }) {
                                                 value={addStepValue}
                                                 onValueChange={setAddStepValue}
                                                 name="steps"
+                                                minRows={1}
                                                 endContent={
                                                     <Button
                                                         onPress={handleAddClick}
@@ -245,6 +294,7 @@ export default function CMSRecipeModal({ _id }) {
                                                 label="Step"
                                                 section="steps"
                                                 recipeId={_id}
+                                                setDraftSaved={setDraftSaved}
                                             />
                                         </AccordionItem>
                                         <AccordionItem
@@ -252,7 +302,7 @@ export default function CMSRecipeModal({ _id }) {
                                             title="Ingredients List"
                                         >
                                             <form
-                                                onSubmit={handleAddSubmit}
+                                                onSubmit={handleAddIngSubmit}
                                                 className="flex items-baseline"
                                             >
                                                 <Input
@@ -287,6 +337,7 @@ export default function CMSRecipeModal({ _id }) {
                                                 items={recipe.ingList}
                                                 section="ingList"
                                                 recipeId={_id}
+                                                setDraftSaved={setDraftSaved}
                                             />
                                         </AccordionItem>
                                         <AccordionItem
@@ -418,14 +469,20 @@ export default function CMSRecipeModal({ _id }) {
                                 </ModalBody>
                                 <ModalFooter>
                                     <Button
+                                        // className="mx-3"
                                         color="danger"
-                                        variant="flat"
+                                        onClick={discardChangesClick}
+                                    >
+                                        Discard Draft
+                                    </Button>
+                                    <Button
+                                        color="secondary"
+                                        // variant="flat"
                                         onPress={() => {
                                             onClose();
-                                            mutateRecipe();
                                         }}
                                     >
-                                        Cancel
+                                        Close, but keep draft
                                     </Button>
                                     <Button
                                         color="success"
@@ -434,7 +491,6 @@ export default function CMSRecipeModal({ _id }) {
                                         Save Changes
                                     </Button>
                                 </ModalFooter>
-                                <ToastContainer />
                             </>
                         )
                     }

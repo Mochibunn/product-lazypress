@@ -171,6 +171,7 @@ export default function CMSAddModal({ sectionTitle, section }) {
                             </ModalBody>
                             <ModalFooter>
                                 <Button
+                                    className="font-plaza"
                                     color="danger"
                                     variant="flat"
                                     onPress={handleCancelClick}
