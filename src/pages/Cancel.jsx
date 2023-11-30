@@ -1,12 +1,12 @@
-import DShapeB from "../assets/images/3DShape1.jpg";
 import { useNavigate } from "react-router";
-
-export default function Success() {
+import DShapeB from "../assets/images/3DShape1.jpg";
+export default function Cancel() {
   const navigate = useNavigate();
   const handleNavigate = () => {
-    setTimeout(() => {
-      navigate("/contactus", { replace: true });
-    }, 1000);
+    navigate("/pricing", { replace: true });
+  };
+  const navigateToHome = () => {
+    navigate("/", { replace: true });
   };
   return (
     <div
@@ -21,16 +21,19 @@ export default function Success() {
       }}
     >
       <div className="text-black font-bold text-center text-xl mt-32">
-        <p className="text-4xl mt-20">Order Confirmation</p>
-        <p>
-          Thank you for purchase with LazyPress, We’ve confirmed your payment.
-        </p>
-        <p>If you have any questions, feel free to reach out</p>
+        <p className="text-4xl mt-20">Payment Failed</p>
+        <p>Purchase not confirmed. Please try again</p>
         <button
-          className="jellyButtonNavBar px-2 mt-2"
+          className="jellyButtonNavBar px-4 mt-2 mx-2"
           onClick={handleNavigate}
         >
-          Contact Us
+          Retry
+        </button>
+        <button
+          className="jellyButtonNavBar px-3 mt-2 mx-2"
+          onClick={navigateToHome}
+        >
+          Cancel
         </button>
       </div>
     </div>

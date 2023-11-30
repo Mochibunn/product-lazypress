@@ -41,36 +41,27 @@ export default function CPform() {
       {!submitted && (
         <div
           style={{
-            backgroundImage:`url(${DShapeB})`,
+            backgroundImage: `url(${DShapeB})`,
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
-            height:'100vh',
-            marginTop:'-4rem',
-            zIndex:40,
-            position:'relative',
+            height: "100vh",
+            marginTop: "-4rem",
+            zIndex: 40,
+            position: "relative",
           }}
         >
           <h2 className="text-blackfont-bold text-center text-4xl mt-20">
             We're here for you
           </h2>
           <h3 className="text-black text-center text-xl">
-            Fill out the form to start the conversation <br/> right away we will get back
-            to you
+            Fill out the form to start the conversation <br /> right away we
+            will get back to you
           </h3>
           <div className="flex justify-evenly text-black-2">
-           {/* <div>
-              <p className="text-black text-lg">
-                No matter what do you need - to find out more <br /> about our
-                experience, to ask us how to improve <br />
-                or build your templates or to request a quote -<br /> do not to
-                get in touch with us. We will be happy <br /> to talk with you
-                to share our experience and <br />
-                to give you ideas about the right design
-                <br /> direction for your web application.{" "}
-              </p>
-        </div> */}
-            <div className="rounded w-[40vw] glassCardSmall top-50 left-50 "
-            style={{marginTop:'4vh'}}>
+            <div
+              className="rounded w-[40vw] glassCardSmall top-50 left-50 "
+              style={{ marginTop: "4vh" }}
+            >
               {/* ------------------------form validation------------------------ */}
               <form
                 onSubmit={handleSubmit(onSubmit, onError)}
@@ -88,8 +79,6 @@ export default function CPform() {
                       required: "This is a required field",
                       minLength: 3,
                       maxLength: 20,
-                      // min: 3,
-                      // max: 20,
                       pattern: /^[A-Za-z]+$/i,
                     })}
                     className="w-[37vw] h-8 glassInput transition-all font-medium"

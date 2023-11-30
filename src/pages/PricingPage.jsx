@@ -1,7 +1,7 @@
 import { Button } from "@nextui-org/react";
 import { loadStripe } from "@stripe/stripe-js";
 import { IoIosCheckmarkCircle } from "react-icons/io";
-import { useState } from "react";
+import DShapeB from "../assets/images/3DShape1.jpg";
 
 const pricingOptions = [
   {
@@ -43,7 +43,6 @@ const pricingOptions = [
       "Unlimited Pages",
       "Unlimited Projects",
       "Unlimited Exports",
-      "1 Team Size",
     ],
   },
 ];
@@ -86,15 +85,31 @@ export default function PricingPage() {
 
   return (
     <>
-      <div className="h-[100vh]">
-        <div className="flex gap-4 justify-center p-8 pt-20">
+      <div
+        className="h-[100vh]"
+        style={{
+          backgroundImage: `url(${DShapeB})`,
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          height: "100vh",
+          marginTop: "-4rem",
+          zIndex: 40,
+          position: "relative",
+        }}
+      >
+        <div className="flex gap-4 justify-center pt-28">
           {pricingOptions.map((option) => (
-            <div className="border-2 border-black p-3">
+            <div className="border-2 border-black p-28 glassCardSmall">
               <h4 className="uppercase">{option.subscriptionType}</h4>
               <h4>
-                {option.price}/{option.subscriptionType}
+                &#8364;{option.price}/{option.subscriptionType}
               </h4>
-              <Button onClick={() => makePayment(option.price)}>Buy Now</Button>
+              <Button
+                onClick={() => makePayment(option.price)}
+                className="jellyButtonNavBar my-1"
+              >
+                Buy Now
+              </Button>
               <ul>
                 {option.benefitOptions.map((benefit) => (
                   <li className="flex items-center">
@@ -105,12 +120,17 @@ export default function PricingPage() {
               </ul>
             </div>
           ))}
-          <div className="border-2 border-black p-3">
+          <div className="border-2 border-black p-3 glassCardSmall">
             <h4>Contact Us</h4>
             <p>
-              Bulk discounts, custom contracts <br /> and enterprise support
+              Bulk discounts, custom
+              <br />
+              contracts and enterprise
+              <br />
+              support Premium support,
+              <br /> 24/7/365
             </p>
-            <Button>Talk with Us</Button>
+            <Button className="jellyButtonNavBar my-1">Talk with Us</Button>
           </div>
         </div>
       </div>
