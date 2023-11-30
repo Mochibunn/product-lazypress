@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useAuth } from "@clerk/clerk-react";
 import { produce } from "immer";
+import { useImmer } from "use-immer";
 import CMSObjEdit from "../components/CMS_components/CMSObjEdit";
 import CMSRecipes from "../components/CMS_components/CMSRecipes";
 import { toastSuccess, toastError } from "../lib/toastify";
@@ -299,7 +300,7 @@ export default function CMSTestPage() {
                         <CMSRecipes
                             clerkUser={swrBlog.clerkUser}
                             clerkUserId={swrBlog.clerkUserId}
-                            blogId={swrBlog._id}
+                            blog={swrBlog._id}
                         />
                     </div>
                 </Tab>

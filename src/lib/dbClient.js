@@ -86,6 +86,7 @@ const editRecipe = async (sessToken, recipe) => {
         return response;
     } catch (error) {
         console.error(error);
+        toastError(`${error.message}`);
     }
 };
 
@@ -130,6 +131,7 @@ const createRecipe = async (sessToken, newRecipe) => {
         return response;
     } catch (error) {
         console.error(error);
+        toastError(`Draft not saved: ${error.response.data.error}`);
     }
 };
 
@@ -145,6 +147,7 @@ const deleteRecipe = async (sessToken, _id, clerkUserId) => {
         return response;
     } catch (error) {
         console.error(error);
+        toastError(`${error.message}`);
     }
 };
 

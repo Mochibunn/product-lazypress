@@ -12,31 +12,37 @@ import {
     Textarea,
 } from "@nextui-org/react";
 
-import { ToastContainer, toast } from "react-toastify";
-import { useImmer } from "use-immer";
+// import { useImmer } from "use-immer";
 import { useEffect, useState } from "react";
 import CMSAddListbox from "./CMSAddListbox";
 import { createRecipe } from "../../lib/dbClient";
 import { useAuth } from "@clerk/clerk-react";
+import { toastSuccess, toastError } from "../../lib/toastify";
 
-export default function CMSAddRecipeModal({ clerkUser, clerkUserId, blog }) {
+export default function CMSAddRecipeModal({
+    clerkUser,
+    clerkUserId,
+    blog,
+    newRecipe,
+    setNewRecipe,
+}) {
     const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
     const { getToken } = useAuth();
-    const [newRecipe, setNewRecipe] = useImmer({
-        title: "",
-        category: "",
-        region: "",
-        ingList: [],
-        steps: [],
-        text: "",
-        button: "",
-        tags: [],
-        imgUrl: "",
-        videoUrl: "",
-        clerkUserId,
-        clerkUser,
-        blog,
-    });
+    // const [newRecipe, setNewRecipe] = useImmer({
+    //     title: "",
+    //     category: "",
+    //     region: "",
+    //     ingList: [],
+    //     steps: [],
+    //     text: "",
+    //     button: "",
+    //     tags: [],
+    //     imgUrl: "",
+    //     videoUrl: "",
+    //     clerkUserId,
+    //     clerkUser,
+    //     blog,
+    // });
 
     const [staticInputs, setStaticInputs] = useState({
         title: "",
@@ -96,18 +102,35 @@ export default function CMSAddRecipeModal({ clerkUser, clerkUserId, blog }) {
     };
 
     const handleEditClick = (e) => {
-        // e.preventDefault();
-        // console.log(e.target.name);
         const { name } = e.target;
         console.log(staticInputs[name]);
+        let valid = true;
+        if (!staticInputs[name]) {
+            toastError(`Field cannot be left blank`);
+            valid = false;
+            // staticInputs[name] = recipe[name];
+        }
+
+        // console.log(staticInputs[name]);
+        if (!valid) return;
         setNewRecipe((draft) => {
             draft[name] = staticInputs[name];
         });
+        toastSuccess(`Draft updated`);
     };
 
     const handleAddClick = (e) => {
         const { name } = e.target;
-        // console.log(name);
+        let isValid = true;
+        if (
+            (name === "tags" && !addTagValue) ||
+            (name === "steps" && !addStepValue)
+        ) {
+            toastError(`Cannot add blank ${name.slice(0, -1)}`);
+            isValid = false;
+        }
+        if (!isValid) return;
+
         setNewRecipe((draft) => {
             name === "tags"
                 ? draft[name].push(addTagValue)
@@ -116,58 +139,92 @@ export default function CMSAddRecipeModal({ clerkUser, clerkUserId, blog }) {
 
         name === "tags" ? setAddTagValue("") : setAddStepValue("");
         // console.log(newRecipe[name]);
+        toastSuccess(
+            `New ${name.slice(0, -1)}
+            added to draft`
+        );
     };
 
-    const handleAddSubmit = (e) => {
+    const handleAddIngSubmit = (e) => {
         e.preventDefault();
+
+        let isValid = true;
+
+        if (!ingForm.amount) {
+            toastError(`Must provide an amount`);
+            isValid = false;
+        }
+        if (!ingForm.ing) {
+            toastError(`Must provide an ingredient`);
+            isValid = false;
+        }
+
+        if (!isValid) return;
+
         setNewRecipe((draft) => {
             draft.ingList.push(ingForm);
         });
-        // mutateRecipe(
-        //     produce((draft) => {
-        //         // console.log("draft", draft[name]);
-        //         draft.ingList.push(ingForm);
-        //     }),
-        //     { optimisticData: newRecipe, revalidate: false }
-        // );
+
         setIngForm({
             ing: "",
             amount: "",
             key: crypto.randomUUID(),
         });
+        toastSuccess(`Ingredient added to draft`);
+    };
+
+    const discardDraftClick = () => {
+        setNewRecipe({
+            title: "",
+            category: "",
+            region: "",
+            ingList: [],
+            steps: [],
+            text: "",
+            button: "",
+            tags: [],
+            imgUrl: "",
+            videoUrl: "",
+            clerkUserId,
+            clerkUser,
+            blog,
+        });
+        // toastSuccess(`Draft successfully discarded`);
+        onClose();
     };
 
     const handleSaveClick = async () => {
         // console.log(newRecipe);
         try {
             const sessToken = await getToken();
-            const postStatus = await createRecipe(sessToken, newRecipe);
-            console.log("came from protected route", postStatus);
-            console.log(`🐰Status:\n`, postStatus.status);
-            console.log(`AAAAA\n`, newRecipe);
-            toast.success(`New recipe saved!.`, {
-                toastId: "recipeSaved",
-            });
-            setNewRecipe({
-                title: "",
-                category: "",
-                region: "",
-                ingList: [],
-                steps: [],
-                text: "",
-                button: "",
-                tags: [],
-                imgUrl: "",
-                videoUrl: "",
-                clerkUserId,
-                clerkUser,
-                blog,
-            });
+            const response = await createRecipe(sessToken, newRecipe);
+
+            // console.log("came from protected route", postStatus);
+            // console.log(`🐰Status:\n`, postStatus.status);
+
+            if (response?.status === 200) {
+                setNewRecipe({
+                    title: "",
+                    category: "",
+                    region: "",
+                    ingList: [],
+                    steps: [],
+                    text: "",
+                    button: "",
+                    tags: [],
+                    imgUrl: "",
+                    videoUrl: "",
+                    clerkUserId,
+                    clerkUser,
+                    blog,
+                });
+                toastSuccess(`Draft saved. Refresh the page to see it`);
+                setTimeout(() => onClose(), 1000);
+            }
+
             // setButtonSpin(false); Might remove this line later — Mochi
         } catch (error) {
-            toast.error(`Changes not saved.`, {
-                toastId: "notSaved",
-            });
+            toastError(`${error}`);
             console.error(error);
         }
     };
@@ -274,7 +331,7 @@ export default function CMSAddRecipeModal({ clerkUser, clerkUserId, blog }) {
                                         title="Ingredients List"
                                     >
                                         <form
-                                            onSubmit={handleAddSubmit}
+                                            onSubmit={handleAddIngSubmit}
                                             className="flex items-baseline"
                                         >
                                             <Input
@@ -425,22 +482,27 @@ export default function CMSAddRecipeModal({ clerkUser, clerkUserId, blog }) {
                             <ModalFooter>
                                 <Button
                                     color="danger"
-                                    variant="flat"
+                                    // variant="flat"
+                                    onPress={discardDraftClick}
+                                >
+                                    Discard Draft
+                                </Button>
+                                <Button
+                                    color="warning"
+                                    // variant="flat"
                                     onPress={() => {
                                         onClose();
-                                        // mutateRecipe();
                                     }}
                                 >
-                                    Cancel
+                                    Close, but keep draft
                                 </Button>
                                 <Button
                                     color="success"
                                     onPress={handleSaveClick}
                                 >
-                                    Save new recipe
+                                    Save New Recipe
                                 </Button>
                             </ModalFooter>
-                            {/* <ToastContainer /> */}
                         </>
                     )}
                 </ModalContent>
