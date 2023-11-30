@@ -110,7 +110,7 @@ export default function PricingPage() {
               >
                 Buy Now
               </Button>
-              <ul>
+              <ul className="pt-1">
                 {option.benefitOptions.map((benefit) => (
                   <li className="flex items-center">
                     <IoIosCheckmarkCircle />
