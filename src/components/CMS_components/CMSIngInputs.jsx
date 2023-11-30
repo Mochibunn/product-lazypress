@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button, Input, Divider } from "@nextui-org/react";
 import { useRecipe } from "../../lib/swr";
 import { produce } from "immer";
+import { toastError, toastSuccess } from "../../lib/toastify";
 
 export default function CMSIngInputs({
     item,
@@ -10,6 +11,7 @@ export default function CMSIngInputs({
     label,
     recipeId,
     section,
+    setDraftSaved,
 }) {
     const [form, setForm] = useState({
         amount: item.amount,
@@ -22,27 +24,46 @@ export default function CMSIngInputs({
     const { recipe, mutateRecipe } = useRecipe(recipeId);
 
     const handleEditClick = () => {
+        let isValid = true;
+
+        if (!form.amount) {
+            toastError(`Must provide an amount`);
+            isValid = false;
+            form.amount = item.amount;
+        }
+        if (!form.ing) {
+            toastError(`Must provide an ingredient`);
+            isValid = false;
+            form.ing = item.ing;
+        }
+        if (!isValid) return;
         mutateRecipe(
             produce((draft) => {
                 draft[section][i] = form;
             }),
             { optimisticData: recipe, revalidate: false }
         );
+        setDraftSaved(false);
     };
 
     const handleDeleteClick = () => {
+        if (recipe[section].length === 1) {
+            return toastError(`Must have at least one ingredient`);
+        }
+
         mutateRecipe(
             produce((draft) => {
                 draft[section].splice(i, 1);
             }),
             { optimisticData: recipe, revalidate: false }
         );
+        setDraftSaved(false);
     };
     return (
         <li className="my-4 mx-2">
             <form className="flex items-baseline">
                 <Input
-                    className="glassInput"
+                    className="glassInput w-1/4"
                     label={`Amount`}
                     labelPlacement="outside"
                     value={form.amount}

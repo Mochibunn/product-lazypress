@@ -70,7 +70,7 @@ export default function CMSInputSection({
     const deleteSection = () => {
         // console.log(swrBlog.pages.home[section][sectionIndex]);
         if (swrBlog.pages.home[section].length === 1) {
-            return toastError(`Must have at least on item in ${sectionTitle}`);
+            return toastError(`Must have at least one item in ${sectionTitle}`);
         }
         mutateBlog(
             produce((draftBlog) => {
