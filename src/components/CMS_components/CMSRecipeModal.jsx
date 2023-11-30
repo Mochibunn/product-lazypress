@@ -13,7 +13,6 @@ import {
     Textarea,
 } from "@nextui-org/react";
 
-import { ToastContainer, toast } from "react-toastify";
 import { produce } from "immer";
 import { useRecipe } from "../../lib/swr";
 import { useEffect, useState } from "react";
@@ -80,8 +79,6 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
     };
 
     const handleEditClick = (e) => {
-        // e.preventDefault();
-        // console.log(e.target.name);
         const { name } = e.target;
         let valid = true;
         if (!staticInputs[name]) {
@@ -167,7 +164,7 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
 
     const discardChangesClick = () => {
         mutateRecipe();
-        toastSuccess(`Draft successfully discarded`);
+        // toastSuccess(`Draft successfully discarded`);
         onClose();
         setDraftSaved(true);
     };
@@ -183,10 +180,10 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
 
             if (response?.status === 200) {
                 await mutateRecipe();
-                toastSuccess(`Changes saved. Refresh the page to see them.`);
+                toastSuccess(`Changes saved. Refresh the page to see them`);
+                setDraftSaved(true);
+                setTimeout(() => onClose(), 1000);
             }
-            setDraftSaved(true);
-            setTimeout(() => onClose(), 1000);
             // setButtonSpin(false); Might remove this line later — Mochi
         } catch (error) {
             toastError(`${error}`);
@@ -476,7 +473,7 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                         Discard Draft
                                     </Button>
                                     <Button
-                                        color="secondary"
+                                        color="warning"
                                         // variant="flat"
                                         onPress={() => {
                                             onClose();
