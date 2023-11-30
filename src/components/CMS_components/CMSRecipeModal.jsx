@@ -15,7 +15,7 @@ import {
 
 import { produce } from "immer";
 import { useRecipe } from "../../lib/swr";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import CMSListbox from "./CMSListbox";
 import { editRecipe } from "../../lib/dbClient";
 import { useAuth } from "@clerk/clerk-react";
@@ -68,6 +68,22 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
         setTagsWKey(tagsObj);
     }, [recipe]);
 
+    const validateUrl = (value) =>
+        value.match(
+            /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/
+        );
+
+    const isImgInvalid = useMemo(() => {
+        if (staticInputs.imgUrl === "") return false;
+
+        return validateUrl(staticInputs.imgUrl) ? false : true;
+    }, [staticInputs.imgUrl]);
+    const isVideoInvalid = useMemo(() => {
+        if (staticInputs.videoUrl === "") return false;
+
+        return validateUrl(staticInputs.videoUrl) ? false : true;
+    }, [staticInputs.videoUrl]);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setStaticInputs((prev) => ({ ...prev, [name]: value }));
@@ -80,15 +96,23 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
 
     const handleEditClick = (e) => {
         const { name } = e.target;
-        let valid = true;
+        let isValid = true;
         if (!staticInputs[name]) {
             toastError(`Field cannot be left blank`);
             valid = false;
             staticInputs[name] = recipe[name];
         }
 
+        if (name === "imgUrl" && isImgInvalid) {
+            toastError(`Image must use a valid URL`);
+            isValid = false;
+        }
+        if (name === "videoUrl" && isVideoInvalid) {
+            toastError(`Video must use a valid URL`);
+            isValid = false;
+        }
         // console.log(staticInputs[name]);
-        if (!valid) return;
+        if (!isValid) return;
         mutateRecipe(
             produce((draft) => {
                 // console.log("draft", draft[name]);
@@ -112,6 +136,7 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
             toastError(`Cannot add blank ${name.slice(0, -1)}`);
             isValid = false;
         }
+
         if (!isValid) return;
         mutateRecipe(
             produce((draft) => {
@@ -170,6 +195,22 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
     };
     const handleSaveClick = async () => {
         try {
+            let isValid = true;
+            console.log(recipe);
+
+            Object.entries(recipe).forEach(([key, value]) => {
+                if (!value && key !== "__v") {
+                    toastError(`New recipe must have ${key}`);
+                    isValid = false;
+                }
+            });
+
+            if (isImgInvalid || isVideoInvalid) {
+                toastError(`Video and Image must have valid URLs`);
+                isValid = false;
+            }
+
+            if (!isValid) return;
             const sessToken = await getToken();
 
             const response = await editRecipe(sessToken, recipe);
@@ -401,8 +442,14 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                                     </Button>
                                                 }
                                             />
-                                            <Input
-                                                className="glassInput"
+                                            <Textarea
+                                                minRows={1}
+                                                isInvalid={isImgInvalid}
+                                                errorMessage={
+                                                    isImgInvalid &&
+                                                    "Please enter a valid URL"
+                                                }
+                                                className="glassTextArea"
                                                 color="default"
                                                 value={staticInputs.imgUrl}
                                                 onChange={handleChange}
@@ -421,8 +468,14 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                                     </Button>
                                                 }
                                             />
-                                            <Input
-                                                className="glassInput"
+                                            <Textarea
+                                                minRows={1}
+                                                isInvalid={isVideoInvalid}
+                                                errorMessage={
+                                                    isVideoInvalid &&
+                                                    "Please enter a valid URL"
+                                                }
+                                                className="glassTextArea"
                                                 color="default"
                                                 value={staticInputs.videoUrl}
                                                 onChange={handleChange}
