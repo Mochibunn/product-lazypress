@@ -440,7 +440,7 @@ export default function CMSAddRecipeModal({ clerkUser, clerkUserId, blog }) {
                                     Save new recipe
                                 </Button>
                             </ModalFooter>
-                            <ToastContainer />
+                            {/* <ToastContainer /> */}
                         </>
                     )}
                 </ModalContent>

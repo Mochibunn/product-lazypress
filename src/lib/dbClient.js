@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useAuth } from "@clerk/clerk-react";
+import { toastError } from "./toastify";
 
 // const backend = "http://localhost:24601";
 let backend;
@@ -43,6 +44,7 @@ const editBlog = async (sessToken, blog) => {
         return response;
     } catch (error) {
         console.error(error);
+        toastError(`${error.message}`);
     }
 };
 

@@ -4,10 +4,9 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useAuth } from "@clerk/clerk-react";
 import { produce } from "immer";
-import "react-toastify/dist/ReactToastify.css";
 import CMSObjEdit from "../components/CMS_components/CMSObjEdit";
 import CMSRecipes from "../components/CMS_components/CMSRecipes";
-import { ToastContainer, toast } from "react-toastify";
+import { toastSuccess, toastError } from "../lib/toastify";
 import {
     Accordion,
     AccordionItem,
@@ -32,46 +31,18 @@ import {
 export default function CMSTestPage() {
     const { blogId } = useParams();
     const [navBarInputValues, setNavBarInputValues] = useState();
-    const [blogPagesValues, setBlogPagesValues] = useState();
+    // const [blogPagesValues, setBlogPagesValues] = useState();
     const [footerValues, setFooterValues] = useState();
-    const [blogTitle, setBlogTitle] = useState(null);
+    const [blogTitle, setBlogTitle] = useState("");
     const { swrBlog, isLoading, mutateBlog } = useBlog(blogId);
     const [heroValues, setHeroValues] = useState();
     const { getToken } = useAuth();
     document.title = `Edit "${blogTitle ? blogTitle : "Page"}" | LazyPress`;
     // const [buttonSpin, setButtonSpin] = useState(false); Might remove this line later — Mochi
-    // console.log(`🧡\n`, swrBlog);
 
     // const notify = (content, mode) => toast(content, {theme: `${mode || "light"}`});
 
-    const toastSettings = {
-        position: "top-right",
-        autoClose: 2500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-    };
-
-    const setTitle = (e) => {
-        setBlogTitle(e.target.value);
-        // console.log(`👽 Current title:\n`, e.target.value);
-    };
-
-    const handleChangeTitle = () => {
-        mutateBlog(
-            produce((draftBlog) => {
-                draftBlog.dashboard.blogTitle = blogTitle;
-            }),
-            { optimisticData: swrBlog, revalidate: false }
-        );
-        toast.success(`Title set.`, {
-            toastId: "titleSaved",
-            ...toastSettings,
-        });
-    };
+    //toastify stuff moved to toastify.js in lib folder
 
     useEffect(() => {
         if (!swrBlog) return;
@@ -95,17 +66,17 @@ export default function CMSTestPage() {
             return theValues;
         });
 
-        const blogValues = swrBlog.pages.home.blogPages.map((page) => {
-            const pageValues = Object.entries(page).map(([key, value]) => {
-                return {
-                    value,
-                    label: key,
-                    key: crypto.randomUUID(),
-                };
-            });
-            // console.log(pageValues);
-            return pageValues;
-        });
+        // const blogValues = swrBlog.pages.home.blogPages.map((page) => {
+        //     const pageValues = Object.entries(page).map(([key, value]) => {
+        //         return {
+        //             value,
+        //             label: key,
+        //             key: crypto.randomUUID(),
+        //         };
+        //     });
+        //     // console.log(pageValues);
+        //     return pageValues;
+        // });
         const heroValues = swrBlog.pages.home.hero.map((page) => {
             const theValues = Object.entries(page).map(([key, value]) => ({
                 value,
@@ -118,32 +89,50 @@ export default function CMSTestPage() {
         setBlogTitle(swrBlog.dashboard.blogTitle);
         setNavBarInputValues([...navBarValues]);
         setFooterValues([...footerValues]);
-        setBlogPagesValues([...blogValues]);
+        // setBlogPagesValues([...blogValues]);
         setHeroValues([...heroValues]);
     }, [swrBlog]);
+
+    const handleSetTitle = () => {
+        if (!blogTitle.length) return toastError(`Title cannot be blank.`);
+        mutateBlog(
+            produce((draftBlog) => {
+                draftBlog.dashboard.blogTitle = blogTitle;
+            }),
+            { optimisticData: swrBlog, revalidate: false }
+        );
+        toastSuccess(
+            `Title draft updated. To save and add to website click "Save Changes"`
+        );
+        // toast.success(`Title set.`, {
+        //     toastId: "titleSaved",
+        //     ...toastSettings,
+        // });
+    };
+
+    const discardChangesClick = () => {
+        mutateBlog();
+    };
 
     const saveChangesClick = async () => {
         // setButtonSpin(true); Might remove this line later — Mochi
         try {
             const sessToken = await getToken();
-            // swrBlog.dashboard.blogTitle =
-            //     blogTitle === "" ? "Untitled Page" : blogTitle;
-            const postStatus = await editBlog(sessToken, swrBlog);
 
-            console.log("came from protected route", postStatus);
-            console.log(`🐰Status:\n`, postStatus.status);
-            console.log(`AAAAA\n`, swrBlog);
-            await mutateBlog();
-            toast.success(`Changes saved.`, {
-                toastId: "changesSaved",
-                ...toastSettings,
-            });
+            const response = await editBlog(sessToken, swrBlog);
+
+            console.log("came from protected route", response?.status);
+            // console.log(`🐰Status:\n`, postStatus.status);
+            // console.log(`AAAAA\n`, swrBlog);
+            if (response?.status === 200) {
+                await mutateBlog();
+                toastSuccess(`Changes saved, and can be seen on your website.`);
+            }
+
             // setButtonSpin(false); Might remove this line later — Mochi
         } catch (error) {
-            toast.error(`Changes not saved.`, {
-                toastId: "notSaved",
-                ...toastSettings,
-            });
+            //update to show specific error message
+            toastError(`${error}`);
             console.error(error);
         }
     };
@@ -161,14 +150,14 @@ export default function CMSTestPage() {
                         <Textarea
                             minRows={1}
                             placeholder="Page"
-                            onChange={setTitle}
+                            onValueChange={setBlogTitle}
                             variant="underlined"
                             className="cms-title cms-txtarea"
-                            value={blogTitle || ""}
+                            value={blogTitle}
                         />
                     </div>
                     <Button
-                        onPress={handleChangeTitle}
+                        onPress={handleSetTitle}
                         className="font-metropolis w-1/12 mt-4"
                         startContent={<CgPen />}
                     >
@@ -208,7 +197,7 @@ export default function CMSTestPage() {
                                 startContent={<CgDrive />}
                             >
                                 <CMSObjEdit
-                                    // sectionTitle={"NavBar Items"}
+                                    sectionTitle={"NavBar Items"}
                                     section={"navBar"}
                                     sectionValues={navBarInputValues}
                                     setSectionValues={setNavBarInputValues}
@@ -221,7 +210,7 @@ export default function CMSTestPage() {
                                 startContent={<CgImage />}
                             >
                                 <CMSObjEdit
-                                    // sectionTitle={"Hero Section"}
+                                    sectionTitle={"Hero Section"}
                                     section={"hero"}
                                     sectionValues={heroValues}
                                 />
@@ -233,7 +222,7 @@ export default function CMSTestPage() {
                                 startContent={<CgClapperBoard />}
                             >
                                 <CMSObjEdit
-                                    // sectionTitle={"Footer Items"}
+                                    sectionTitle={"Footer Items"}
                                     section={"footer"}
                                     sectionValues={footerValues}
                                     setSectionValues={setFooterValues}
@@ -243,25 +232,26 @@ export default function CMSTestPage() {
                     </div>
                     <div className="w-10/12 flex justify-end mt-4 gap-2">
                         <Button
-                            className="mx-3"
+                            onClick={() => {
+                                console.log("swrBlog\n", swrBlog);
+                                toastSuccess(`Check your development console!`);
+                            }}
+                        >
+                            Log Stuff
+                        </Button>
+                        <Button
+                            // className="mx-3"
+                            color="danger"
+                            onClick={discardChangesClick}
+                        >
+                            Discard Draft
+                        </Button>
+                        <Button
+                            // className="mx-3"
                             color="success"
                             onClick={saveChangesClick}
                         >
                             Save Changes
-                        </Button>
-                        <Button
-                            onClick={() => {
-                                console.log("swrBlog\n", swrBlog);
-                                toast.success(
-                                    "Check your development console!",
-                                    {
-                                        toastId: "logStuff",
-                                        ...toastSettings,
-                                    }
-                                );
-                            }}
-                        >
-                            Log Stuff
                         </Button>
                     </div>
                 </Tab>
@@ -311,7 +301,7 @@ export default function CMSTestPage() {
                     </div>
                 </Tab>
             </Tabs>
-            <ToastContainer />{" "}
+            {/* <ToastContainer />{" "} */}
             {/* Perhaps we could put it in the root of our app */}
         </div>
     );
