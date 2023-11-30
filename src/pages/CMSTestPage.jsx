@@ -4,10 +4,11 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useAuth } from "@clerk/clerk-react";
 import { produce } from "immer";
-import "react-toastify/dist/ReactToastify.css";
 import CMSObjEdit from "../components/CMS_components/CMSObjEdit";
 import CMSRecipes from "../components/CMS_components/CMSRecipes";
-import { ToastContainer, toast } from "react-toastify";
+import { toastSuccess, toastError } from "../lib/toastify";
+// import "react-toastify/dist/ReactToastify.css";
+// import { ToastContainer, toast } from "react-toastify";
 import {
     Accordion,
     AccordionItem,
@@ -44,16 +45,17 @@ export default function CMSTestPage() {
 
     // const notify = (content, mode) => toast(content, {theme: `${mode || "light"}`});
 
-    const toastSettings = {
-        position: "top-right",
-        autoClose: 2500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-    };
+    //moved to toastify.js in lib folder
+    // const toastSettings = {
+    //     position: "top-right",
+    //     autoClose: 2500,
+    //     hideProgressBar: false,
+    //     closeOnClick: true,
+    //     pauseOnHover: true,
+    //     draggable: true,
+    //     progress: undefined,
+    //     theme: "light",
+    // };
 
     const setTitle = (e) => {
         setBlogTitle(e.target.value);
@@ -61,16 +63,18 @@ export default function CMSTestPage() {
     };
 
     const handleChangeTitle = () => {
+        if (!blogTitle.length) return toastError(`Title cannot be blank.`);
         mutateBlog(
             produce((draftBlog) => {
                 draftBlog.dashboard.blogTitle = blogTitle;
             }),
             { optimisticData: swrBlog, revalidate: false }
         );
-        toast.success(`Title set.`, {
-            toastId: "titleSaved",
-            ...toastSettings,
-        });
+        toastSuccess(`Title saved locally.`);
+        // toast.success(`Title set.`, {
+        //     toastId: "titleSaved",
+        //     ...toastSettings,
+        // });
     };
 
     useEffect(() => {
@@ -134,16 +138,19 @@ export default function CMSTestPage() {
             console.log(`🐰Status:\n`, postStatus.status);
             console.log(`AAAAA\n`, swrBlog);
             await mutateBlog();
-            toast.success(`Changes saved.`, {
-                toastId: "changesSaved",
-                ...toastSettings,
-            });
+            toastSuccess(`Changes saved, and can be seen on your website.`);
+            // toast.success(`Changes saved.`, {
+            //     toastId: "changesSaved",
+            //     ...toastSettings,
+            // });
             // setButtonSpin(false); Might remove this line later — Mochi
         } catch (error) {
-            toast.error(`Changes not saved.`, {
-                toastId: "notSaved",
-                ...toastSettings,
-            });
+            //update to show specific error message
+            toastError(`Sorry, an error occurred`);
+            // toast.error(`Changes not saved.`, {
+            //     toastId: "notSaved",
+            //     ...toastSettings,
+            // });
             console.error(error);
         }
     };
@@ -208,7 +215,7 @@ export default function CMSTestPage() {
                                 startContent={<CgDrive />}
                             >
                                 <CMSObjEdit
-                                    // sectionTitle={"NavBar Items"}
+                                    sectionTitle={"NavBar Items"}
                                     section={"navBar"}
                                     sectionValues={navBarInputValues}
                                     setSectionValues={setNavBarInputValues}
@@ -221,7 +228,7 @@ export default function CMSTestPage() {
                                 startContent={<CgImage />}
                             >
                                 <CMSObjEdit
-                                    // sectionTitle={"Hero Section"}
+                                    sectionTitle={"Hero Section"}
                                     section={"hero"}
                                     sectionValues={heroValues}
                                 />
@@ -233,7 +240,7 @@ export default function CMSTestPage() {
                                 startContent={<CgClapperBoard />}
                             >
                                 <CMSObjEdit
-                                    // sectionTitle={"Footer Items"}
+                                    sectionTitle={"Footer Items"}
                                     section={"footer"}
                                     sectionValues={footerValues}
                                     setSectionValues={setFooterValues}
@@ -252,13 +259,14 @@ export default function CMSTestPage() {
                         <Button
                             onClick={() => {
                                 console.log("swrBlog\n", swrBlog);
-                                toast.success(
-                                    "Check your development console!",
-                                    {
-                                        toastId: "logStuff",
-                                        ...toastSettings,
-                                    }
-                                );
+                                toastSuccess(`Check your development console!`);
+                                // toast.success(
+                                //     "Check your development console!",
+                                //     {
+                                //         toastId: "logStuff",
+                                //         ...toastSettings,
+                                //     }
+                                // );
                             }}
                         >
                             Log Stuff
@@ -311,7 +319,7 @@ export default function CMSTestPage() {
                     </div>
                 </Tab>
             </Tabs>
-            <ToastContainer />{" "}
+            {/* <ToastContainer />{" "} */}
             {/* Perhaps we could put it in the root of our app */}
         </div>
     );

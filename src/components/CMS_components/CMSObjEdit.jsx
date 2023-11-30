@@ -7,8 +7,8 @@ export default function CMSObjEdit({ sectionTitle, section, sectionValues }) {
         <>
             {sectionValues && (
                 <div>
-                    <h3>{sectionTitle}</h3>
-                    {(section === "blogPages" || section === "hero") && (
+                    {/* <h3>{sectionTitle}</h3> */}
+                    {section === "hero" && (
                         <Button>
                             <CMSAddModal
                                 sectionTitle={sectionTitle}
