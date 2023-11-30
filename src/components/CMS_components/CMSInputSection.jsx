@@ -21,10 +21,22 @@ export default function CMSInputSection({ array, i: sectionIndex, section }) {
 
     const editSection = (e) => {
         e.preventDefault();
-        console.log("localvalues", localValues);
+
+        let isValid = true;
+
+        // console.log("localvalues", localValues);
+
+        localValues.forEach((value) => {
+            if (!value.value) {
+                toastError(`${value.label} is required`);
+                isValid = false;
+            }
+        });
+
+        if (!isValid) return;
+
         const asArrays = localValues.map((obj) => {
             const objAsArray = [obj.label, obj.value];
-
             return objAsArray;
         });
         const singleObj = Object.fromEntries(asArrays);
@@ -34,6 +46,9 @@ export default function CMSInputSection({ array, i: sectionIndex, section }) {
                 draftBlog.pages.home[section][sectionIndex] = singleObj;
             }),
             { optimisticData: swrBlog, revalidate: false }
+        );
+        toastSuccess(
+            `Draft updated.  To save and add to website click "Save Changes"`
         );
     };
     const deleteSection = () => {

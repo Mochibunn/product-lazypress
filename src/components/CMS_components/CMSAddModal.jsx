@@ -76,7 +76,7 @@ export default function CMSAddModal({ sectionTitle, section }) {
             { optimisticData: swrBlog, revalidate: false }
         );
         toastSuccess(
-            `Hero saved locally. To add to website click "Save Changes"`
+            `Hero draft added. To save and add to website click "Save Changes"`
         );
         setForm({
             imgUrl: "",
