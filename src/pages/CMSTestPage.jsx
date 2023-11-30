@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useAuth } from "@clerk/clerk-react";
 import { produce } from "immer";
-import { useImmer } from "use-immer";
 import CMSObjEdit from "../components/CMS_components/CMSObjEdit";
 import CMSRecipes from "../components/CMS_components/CMSRecipes";
 import { toastSuccess, toastError } from "../lib/toastify";
@@ -162,6 +161,7 @@ export default function CMSTestPage() {
                     </div>
                     <Button
                         onPress={handleSetTitle}
+                        color="secondary"
                         className="font-metropolis w-1/12 mt-4"
                         startContent={<CgPen />}
                     >

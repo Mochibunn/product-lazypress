@@ -12,8 +12,7 @@ import {
     Textarea,
 } from "@nextui-org/react";
 
-// import { useImmer } from "use-immer";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import CMSAddListbox from "./CMSAddListbox";
 import { createRecipe } from "../../lib/dbClient";
 import { useAuth } from "@clerk/clerk-react";
@@ -91,6 +90,21 @@ export default function CMSAddRecipeModal({
         setIngListWKey(ingListObj);
     }, [newRecipe]);
 
+    const validateUrl = (value) =>
+        value.match(
+            /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/
+        );
+    const isImgInvalid = useMemo(() => {
+        if (staticInputs.imgUrl === "") return false;
+
+        return validateUrl(staticInputs.imgUrl) ? false : true;
+    }, [staticInputs.imgUrl]);
+    const isVideoInvalid = useMemo(() => {
+        if (staticInputs.videoUrl === "") return false;
+
+        return validateUrl(staticInputs.videoUrl) ? false : true;
+    }, [staticInputs.videoUrl]);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setStaticInputs((prev) => ({ ...prev, [name]: value }));
@@ -104,15 +118,22 @@ export default function CMSAddRecipeModal({
     const handleEditClick = (e) => {
         const { name } = e.target;
         console.log(staticInputs[name]);
-        let valid = true;
+        let isValid = true;
         if (!staticInputs[name]) {
             toastError(`Field cannot be left blank`);
-            valid = false;
+            isValid = false;
             // staticInputs[name] = recipe[name];
         }
-
+        if (name === "imgUrl" && isImgInvalid) {
+            toastError(`Image must use a valid URL`);
+            isValid = false;
+        }
+        if (name === "videoUrl" && isVideoInvalid) {
+            toastError(`Video must use a valid URL`);
+            isValid = false;
+        }
         // console.log(staticInputs[name]);
-        if (!valid) return;
+        if (!isValid) return;
         setNewRecipe((draft) => {
             draft[name] = staticInputs[name];
         });
@@ -196,6 +217,20 @@ export default function CMSAddRecipeModal({
     const handleSaveClick = async () => {
         // console.log(newRecipe);
         try {
+            let isValid = true;
+
+            Object.entries(newRecipe).forEach(([key, value]) => {
+                if (!value) {
+                    toastError(`New recipe must have ${key}`);
+                    isValid = false;
+                }
+            });
+            if (isImgInvalid || isVideoInvalid) {
+                toastError(`Video and Image must have valid URLs`);
+                isValid = false;
+            }
+
+            if (!isValid) return;
             const sessToken = await getToken();
             const response = await createRecipe(sessToken, newRecipe);
 
@@ -228,7 +263,7 @@ export default function CMSAddRecipeModal({
             console.error(error);
         }
     };
-
+    // console.log("AddModal", newRecipe);
     return (
         <>
             <div onClick={() => onOpen()}>Add new recipe</div>
@@ -257,7 +292,7 @@ export default function CMSAddRecipeModal({
                                         <Button
                                             onPress={handleEditClick}
                                             type="submit"
-                                            color="success"
+                                            color="secondary"
                                             name="title"
                                         >
                                             Set Title
@@ -296,6 +331,7 @@ export default function CMSAddRecipeModal({
                                             label="Tag"
                                             section="tags"
                                             setNewRecipe={setNewRecipe}
+                                            newRecipe={newRecipe}
                                         />
                                     </AccordionItem>
                                     <AccordionItem
@@ -324,6 +360,7 @@ export default function CMSAddRecipeModal({
                                             label="Step"
                                             section="steps"
                                             setNewRecipe={setNewRecipe}
+                                            newRecipe={newRecipe}
                                         />
                                     </AccordionItem>
                                     <AccordionItem
@@ -362,6 +399,7 @@ export default function CMSAddRecipeModal({
                                             items={ingListWKey}
                                             section="ingList"
                                             setNewRecipe={setNewRecipe}
+                                            newRecipe={newRecipe}
                                         />
                                     </AccordionItem>
                                     <AccordionItem
@@ -378,7 +416,7 @@ export default function CMSAddRecipeModal({
                                             name="category"
                                             endContent={
                                                 <Button
-                                                    color="success"
+                                                    color="secondary"
                                                     name="category"
                                                     onPress={handleEditClick}
                                                 >
@@ -396,7 +434,7 @@ export default function CMSAddRecipeModal({
                                             name="region"
                                             endContent={
                                                 <Button
-                                                    color="success"
+                                                    color="secondary"
                                                     name="region"
                                                     onPress={handleEditClick}
                                                 >
@@ -414,7 +452,7 @@ export default function CMSAddRecipeModal({
                                             name="text"
                                             endContent={
                                                 <Button
-                                                    color="success"
+                                                    color="secondary"
                                                     name="text"
                                                     onPress={handleEditClick}
                                                 >
@@ -422,8 +460,14 @@ export default function CMSAddRecipeModal({
                                                 </Button>
                                             }
                                         />
-                                        <Input
-                                            className="glassInput"
+                                        <Textarea
+                                            minRows={1}
+                                            isInvalid={isImgInvalid}
+                                            errorMessage={
+                                                isImgInvalid &&
+                                                "Please enter a valid URL"
+                                            }
+                                            className="glassTextArea"
                                             color="default"
                                             value={staticInputs.imgUrl}
                                             onChange={handleChange}
@@ -432,7 +476,7 @@ export default function CMSAddRecipeModal({
                                             name="imgUrl"
                                             endContent={
                                                 <Button
-                                                    color="success"
+                                                    color="secondary"
                                                     name="imgUrl"
                                                     onPress={handleEditClick}
                                                 >
@@ -440,8 +484,14 @@ export default function CMSAddRecipeModal({
                                                 </Button>
                                             }
                                         />
-                                        <Input
-                                            className="glassInput"
+                                        <Textarea
+                                            minRows={1}
+                                            isInvalid={isVideoInvalid}
+                                            errorMessage={
+                                                isVideoInvalid &&
+                                                "Please enter a valid URL"
+                                            }
+                                            className="glassTextArea"
                                             color="default"
                                             value={staticInputs.videoUrl}
                                             onChange={handleChange}
@@ -450,7 +500,7 @@ export default function CMSAddRecipeModal({
                                             name="videoUrl"
                                             endContent={
                                                 <Button
-                                                    color="success"
+                                                    color="secondary"
                                                     name="videoUrl"
                                                     onPress={handleEditClick}
                                                 >
@@ -468,7 +518,7 @@ export default function CMSAddRecipeModal({
                                             name="button"
                                             endContent={
                                                 <Button
-                                                    color="success"
+                                                    color="secondary"
                                                     name="button"
                                                     onPress={handleEditClick}
                                                 >
@@ -490,9 +540,7 @@ export default function CMSAddRecipeModal({
                                 <Button
                                     color="warning"
                                     // variant="flat"
-                                    onPress={() => {
-                                        onClose();
-                                    }}
+                                    onPress={onClose}
                                 >
                                     Close, but keep draft
                                 </Button>

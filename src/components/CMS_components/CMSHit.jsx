@@ -50,7 +50,7 @@ export default function CMSHit({ hit }) {
                             </p>
                         </Tooltip>
                     )}
-                    <Button>
+                    <Button color="secondary">
                         <CMSRecipeModal
                             setDraftSaved={setDraftSaved}
                             {...hit}

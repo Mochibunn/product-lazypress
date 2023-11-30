@@ -29,12 +29,12 @@ export default function CMSIngInputs({
         if (!form.amount) {
             toastError(`Must provide an amount`);
             isValid = false;
-            form.amount = item.amount;
+            // form.amount = item.amount;
         }
         if (!form.ing) {
             toastError(`Must provide an ingredient`);
             isValid = false;
-            form.ing = item.ing;
+            // form.ing = item.ing;
         }
         if (!isValid) return;
         mutateRecipe(
@@ -44,6 +44,9 @@ export default function CMSIngInputs({
             { optimisticData: recipe, revalidate: false }
         );
         setDraftSaved(false);
+        toastSuccess(
+            `Draft updated.  To save and add to website click "Save Changes"`
+        );
     };
 
     const handleDeleteClick = () => {
@@ -58,6 +61,9 @@ export default function CMSIngInputs({
             { optimisticData: recipe, revalidate: false }
         );
         setDraftSaved(false);
+        // toastSuccess(
+        //     `Item deleted from draft. To save and add to website click "Save Changes"`
+        // );
     };
     return (
         <li className="my-4 mx-2">
@@ -80,12 +86,14 @@ export default function CMSIngInputs({
                     // onValueChange={setValue}
                     onChange={handleChange}
                 />
-                <Button onPress={handleDeleteClick} color="danger">
-                    Delete {label}
-                </Button>
-                <Button onPress={handleEditClick} color="success">
-                    Edit {label}
-                </Button>
+                <div className="flex gap-2">
+                    <Button onPress={handleDeleteClick} color="danger">
+                        Delete {label}
+                    </Button>
+                    <Button onPress={handleEditClick} color="secondary">
+                        Edit {label}
+                    </Button>
+                </div>
             </form>
             {i !== length - 1 && <Divider className="my-4" />}
         </li>

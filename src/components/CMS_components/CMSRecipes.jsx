@@ -29,6 +29,7 @@ export default function CMSRecipes({ clerkUser, clerkUserId, blog }) {
         clerkUser,
         blog,
     });
+    // console.log(newRecipe);
     return (
         <Card>
             <InstantSearch searchClient={searchClient} indexName="recipes">
@@ -43,7 +44,7 @@ export default function CMSRecipes({ clerkUser, clerkUserId, blog }) {
                             input: "rounded-xl shadow-md min-h-full text-2xl",
                         }}
                     />
-                    <Button>
+                    <Button color="primary">
                         <CMSAddRecipeModal
                             clerkUser={clerkUser}
                             clerkUserId={clerkUserId}

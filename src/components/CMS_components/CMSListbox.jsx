@@ -26,17 +26,20 @@ export default function CMSListbox({
                               setDraftSaved={setDraftSaved}
                           />
                       ))
-                    : items.map((item, i) => (
-                          <CMSIngInputs
-                              key={item._id || item.key}
-                              item={item}
-                              i={i}
-                              length={items.length}
-                              recipeId={recipeId}
-                              section={section}
-                              setDraftSaved={setDraftSaved}
-                          />
-                      ))}
+                    : items.map((item, i) => {
+                          console.log(item);
+                          return (
+                              <CMSIngInputs
+                                  key={item._id || item.key}
+                                  item={item}
+                                  i={i}
+                                  length={items.length}
+                                  recipeId={recipeId}
+                                  section={section}
+                                  setDraftSaved={setDraftSaved}
+                              />
+                          );
+                      })}
             </ul>
         </div>
     );
