@@ -103,18 +103,24 @@ export default function CMSInputSection({
                                 />
                             );
                         })}
-                    <Button className="w-1/4 m-2" type="submit">
-                        Edit Section
-                    </Button>
-                    {section === "hero" && (
+                    <div className="flex justify-end gap-2">
+                        {section === "hero" && (
+                            <Button
+                                onClick={deleteSection}
+                                color="danger"
+                                className="hover:bg-warning"
+                            >
+                                Delete Section
+                            </Button>
+                        )}
                         <Button
-                            onClick={deleteSection}
-                            color="danger"
-                            className="hover:bg-warning"
+                            color="secondary"
+                            // className="w-1/4 m-2"
+                            type="submit"
                         >
-                            Delete Section
+                            Edit Section
                         </Button>
-                    )}
+                    </div>
                 </form>
             </div>
         </div>

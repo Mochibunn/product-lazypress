@@ -292,7 +292,7 @@ export default function CMSAddRecipeModal({
                                         <Button
                                             onPress={handleEditClick}
                                             type="submit"
-                                            color="success"
+                                            color="secondary"
                                             name="title"
                                         >
                                             Set Title
@@ -416,7 +416,7 @@ export default function CMSAddRecipeModal({
                                             name="category"
                                             endContent={
                                                 <Button
-                                                    color="success"
+                                                    color="secondary"
                                                     name="category"
                                                     onPress={handleEditClick}
                                                 >
@@ -434,7 +434,7 @@ export default function CMSAddRecipeModal({
                                             name="region"
                                             endContent={
                                                 <Button
-                                                    color="success"
+                                                    color="secondary"
                                                     name="region"
                                                     onPress={handleEditClick}
                                                 >
@@ -452,7 +452,7 @@ export default function CMSAddRecipeModal({
                                             name="text"
                                             endContent={
                                                 <Button
-                                                    color="success"
+                                                    color="secondary"
                                                     name="text"
                                                     onPress={handleEditClick}
                                                 >
@@ -476,7 +476,7 @@ export default function CMSAddRecipeModal({
                                             name="imgUrl"
                                             endContent={
                                                 <Button
-                                                    color="success"
+                                                    color="secondary"
                                                     name="imgUrl"
                                                     onPress={handleEditClick}
                                                 >
@@ -500,7 +500,7 @@ export default function CMSAddRecipeModal({
                                             name="videoUrl"
                                             endContent={
                                                 <Button
-                                                    color="success"
+                                                    color="secondary"
                                                     name="videoUrl"
                                                     onPress={handleEditClick}
                                                 >
@@ -518,7 +518,7 @@ export default function CMSAddRecipeModal({
                                             name="button"
                                             endContent={
                                                 <Button
-                                                    color="success"
+                                                    color="secondary"
                                                     name="button"
                                                     onPress={handleEditClick}
                                                 >

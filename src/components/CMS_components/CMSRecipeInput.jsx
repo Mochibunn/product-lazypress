@@ -58,11 +58,11 @@ export default function CMSRecipeInput({
     return (
         <li className="my-4 mx-2">
             <div
-                className={`flex items-baseline ${
-                    item.length > 100 && "flex-col"
+                className={`flex ${
+                    section === "steps" ? "items-center" : "items-baseline"
                 }`}
             >
-                {item.length > 100 ? (
+                {section === "steps" ? (
                     <Textarea
                         className="glassInput"
                         label={`${label} ${i + 1}`}
@@ -81,11 +81,11 @@ export default function CMSRecipeInput({
                         // onChange={console.log(value)}
                     />
                 )}
-                <div className="w-full flex justify-end">
+                <div className="flex justify-end gap-2">
                     <Button onPress={handleDeleteClick} color="danger">
                         Delete {label}
                     </Button>
-                    <Button onPress={handleEditClick} color="success">
+                    <Button onPress={handleEditClick} color="secondary">
                         Edit {label}
                     </Button>
                 </div>

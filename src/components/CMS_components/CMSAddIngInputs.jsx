@@ -72,12 +72,14 @@ export default function CMSAddIngInputs({
                     // onValueChange={setValue}
                     onChange={handleChange}
                 />
-                <Button onPress={handleDeleteClick} color="danger">
-                    Delete {label}
-                </Button>
-                <Button onPress={handleEditClick} color="success">
-                    Edit {label}
-                </Button>
+                <div className="flex gap-2">
+                    <Button onPress={handleDeleteClick} color="danger">
+                        Delete {label}
+                    </Button>
+                    <Button onPress={handleEditClick} color="secondary">
+                        Edit {label}
+                    </Button>
+                </div>
             </form>
             {i !== length - 1 && <Divider className="my-4" />}
         </li>

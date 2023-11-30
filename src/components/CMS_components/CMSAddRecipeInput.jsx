@@ -66,11 +66,11 @@ export default function CMSAddRecipeInput({
                         // onChange={console.log(value)}
                     />
                 )}
-                <div className="w-full flex justify-end">
+                <div className="w-full flex justify-end gap-2">
                     <Button onPress={handleDeleteClick} color="danger">
                         Delete {label}
                     </Button>
-                    <Button onPress={handleEditClick} color="success">
+                    <Button onPress={handleEditClick} color="secondary">
                         Edit {label}
                     </Button>
                 </div>

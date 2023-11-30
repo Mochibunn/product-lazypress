@@ -263,7 +263,7 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                             <Button
                                                 onPress={handleEditClick}
                                                 type="submit"
-                                                color="success"
+                                                color="secondary"
                                                 name="title"
                                             >
                                                 Edit Title
@@ -392,7 +392,7 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                                 name="category"
                                                 endContent={
                                                     <Button
-                                                        color="success"
+                                                        color="secondary"
                                                         name="category"
                                                         onPress={
                                                             handleEditClick
@@ -412,7 +412,7 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                                 name="region"
                                                 endContent={
                                                     <Button
-                                                        color="success"
+                                                        color="secondary"
                                                         name="region"
                                                         onPress={
                                                             handleEditClick
@@ -432,7 +432,7 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                                 name="text"
                                                 endContent={
                                                     <Button
-                                                        color="success"
+                                                        color="secondary"
                                                         name="text"
                                                         onPress={
                                                             handleEditClick
@@ -458,7 +458,7 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                                 name="imgUrl"
                                                 endContent={
                                                     <Button
-                                                        color="success"
+                                                        color="secondary"
                                                         name="imgUrl"
                                                         onPress={
                                                             handleEditClick
@@ -484,7 +484,7 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                                 name="videoUrl"
                                                 endContent={
                                                     <Button
-                                                        color="success"
+                                                        color="secondary"
                                                         name="videoUrl"
                                                         onPress={
                                                             handleEditClick
@@ -504,7 +504,7 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                                 name="button"
                                                 endContent={
                                                     <Button
-                                                        color="success"
+                                                        color="secondary"
                                                         name="button"
                                                         onPress={
                                                             handleEditClick
