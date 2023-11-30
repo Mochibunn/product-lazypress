@@ -6,7 +6,12 @@ import { useBlog } from "../../lib/swr";
 import { produce } from "immer";
 import { toastSuccess, toastError } from "../../lib/toastify";
 
-export default function CMSInputSection({ array, i: sectionIndex, section }) {
+export default function CMSInputSection({
+    array,
+    i: sectionIndex,
+    section,
+    sectionTitle,
+}) {
     const [localValues, setLocalValues] = useState(array);
     const { blogId } = useParams();
     const { swrBlog, mutateBlog } = useBlog(blogId);
@@ -52,12 +57,18 @@ export default function CMSInputSection({ array, i: sectionIndex, section }) {
         );
     };
     const deleteSection = () => {
-        console.log(swrBlog.pages.home[section][sectionIndex]);
+        // console.log(swrBlog.pages.home[section][sectionIndex]);
+        if (swrBlog.pages.home[section].length === 1) {
+            return toastError(`Must have at least on item in ${sectionTitle}`);
+        }
         mutateBlog(
             produce((draftBlog) => {
                 draftBlog.pages.home[section].splice(sectionIndex, 1);
             }),
             { optimisticData: swrBlog, revalidate: false }
+        );
+        toastSuccess(
+            `Section deleted from draft. To save and add to website click "Save Changes"`
         );
     };
 
@@ -65,7 +76,8 @@ export default function CMSInputSection({ array, i: sectionIndex, section }) {
         <div className="my-2 border-1 rounded-xl border-default-100 flex flex-col align-text-bottom w-full">
             <div className="m-2">
                 <h3 className="text-md font-montserrat bg-neutral-300 rounded-xl font-semibold p-2">
-                    Page {`${sectionIndex + 1}`}
+                    {section === "hero" ? "Slide" : "Item"}{" "}
+                    {`${sectionIndex + 1}`}
                 </h3>
                 <form onSubmit={editSection}>
                     {array &&
@@ -83,7 +95,7 @@ export default function CMSInputSection({ array, i: sectionIndex, section }) {
                     <Button className="w-1/4 m-2" type="submit">
                         Edit Section
                     </Button>
-                    {(section === "blogPages" || section === "hero") && (
+                    {section === "hero" && (
                         <Button
                             onClick={deleteSection}
                             color="danger"

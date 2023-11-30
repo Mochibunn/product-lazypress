@@ -23,6 +23,7 @@ export default function CMSObjEdit({ sectionTitle, section, sectionValues }) {
                                 array={page}
                                 i={i}
                                 section={section}
+                                sectionTitle={sectionTitle}
                             />
                         );
                     })}
