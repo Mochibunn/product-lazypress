@@ -13,10 +13,13 @@ import { toast } from "react-toastify";
 import { useState, useMemo } from "react";
 import { deleteRecipe } from "../../lib/dbClient";
 import { useAuth } from "@clerk/clerk-react";
+import { useInstantSearch } from "react-instantsearch";
+import { toastError, toastSuccess, toastSaveSuccess } from "../../lib/toastify";
 
 export default function CMSDeleteModal({ clerkUserId, _id }) {
     const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
     const { getToken } = useAuth();
+    const { refresh } = useInstantSearch();
 
     const [value, setValue] = useState("");
 
@@ -25,37 +28,32 @@ export default function CMSDeleteModal({ clerkUserId, _id }) {
         return value.toUpperCase() === "DELETE" ? false : true;
     }, [value]);
 
-    const toastSettings = {
-        position: "top-right",
-        autoClose: 1500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-    };
-
     const handleDeleteClick = async () => {
-        if (isInvalid) {
-            toast.error(`Recipe not deleted.`, {
-                toastId: "notDeleted",
-                ...toastSettings,
-            });
-            return;
-        }
         try {
+            let isValid = true;
+
+            if (isInvalid || !value) {
+                toastError(`Must type DELETE to confirm this action`);
+                isValid = false;
+            }
+            if (!isValid) return;
+
             const sessToken = await getToken();
-            console.log(sessToken);
-            const postStatus = await deleteRecipe(sessToken, _id, clerkUserId);
-            console.log("came from protected route", postStatus);
-            console.log(`🐰Status:\n`, postStatus.status);
-            toast.success(`Recipe Deleted Successfully.`, {
-                toastId: "recipeDeleted",
-            });
-            // setValue("");
-            // onClose();
-            // setButtonSpin(false); Might remove this line later — Mochi
+            const response = await deleteRecipe(sessToken, _id, clerkUserId);
+
+            if (response?.status === 200) {
+                setValue("");
+                toastSaveSuccess(
+                    `Recipe deleted. Click refresh if changes aren't reflected on the page`
+                );
+                setTimeout(() => onClose(), 4000);
+                setTimeout(() => refresh(), 4000);
+                // setButtonSpin(false); Might remove this line later — Mochi
+            } else {
+                throw new Error(
+                    `Sorry, an error occurred. Please try again later.`
+                );
+            }
         } catch (error) {
             toast.error(`Changes not saved.`, {
                 toastId: "notSaved",

@@ -23,3 +23,14 @@ export const toastSuccess = (message) =>
         progress: undefined,
         theme: "light",
     });
+export const toastSaveSuccess = (message) =>
+    toast.success(message, {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+    });
