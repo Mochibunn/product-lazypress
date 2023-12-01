@@ -13,10 +13,9 @@ import CMSPagination from "./CMSPagination";
 import CMSRefinementList from "./CMSRefinementList";
 import CMSAddRecipeModal from "./CMSAddRecipeModal";
 import CMSRefreshBtn from "./CMSRefreshBtn";
-import { useInstantSearch } from "react-instantsearch";
+import CloudinaryTest from "./CloudinaryTest";
 
 export default function CMSRecipes({ clerkUser, clerkUserId, blog }) {
-    // const { refresh } = useInstantSearch();
     const [newRecipe, setNewRecipe] = useImmer({
         title: "",
         category: "",
@@ -36,6 +35,7 @@ export default function CMSRecipes({ clerkUser, clerkUserId, blog }) {
     // console.log(newRecipe);
     return (
         <Card>
+            <CloudinaryTest />
             <InstantSearch searchClient={searchClient} indexName="recipes">
                 <div className="flex w-11/12 justify-between mt-4 ml-2">
                     <div className="flex">
