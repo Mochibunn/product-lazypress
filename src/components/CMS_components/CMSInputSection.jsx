@@ -24,6 +24,13 @@ export default function CMSInputSection({
         setLocalValues(values);
     };
 
+    const handleImgUpload = (url, i) => {
+        const values = [...localValues];
+        // console.log(values);
+        values[i].value = url;
+        setLocalValues(values);
+    };
+
     const editSection = (e) => {
         e.preventDefault();
 
@@ -100,6 +107,7 @@ export default function CMSInputSection({
                                     i={i}
                                     sectionIndex={sectionIndex}
                                     onChange={handleArrayValueChange}
+                                    setUrl={handleImgUpload}
                                 />
                             );
                         })}

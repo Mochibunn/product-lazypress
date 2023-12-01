@@ -1,7 +1,14 @@
 import { Input, Image, Textarea } from "@nextui-org/react";
 import { useMemo } from "react";
+import CloudinaryTest from "./CloudinaryTest";
 
-export default function CMSInput({ valueObj, i, onChange, sectionIndex }) {
+export default function CMSInput({
+    valueObj,
+    i,
+    onChange,
+    sectionIndex,
+    setUrl,
+}) {
     const { value, label } = valueObj;
     const section = sectionIndex + 1;
     const labelFormat = label.charAt(0).toUpperCase() + label.slice(1); //same as label but it formats the label to include an uppercase first letter
@@ -75,11 +82,14 @@ export default function CMSInput({ valueObj, i, onChange, sectionIndex }) {
                 )}
                 <div className="ml-12 mx-auto">
                     {label === "imgUrl" && (
-                        <Image
-                            alt="Section image"
-                            src={value}
-                            className="max-h-[200px] max-w-[600px] my-2 shadow-xl"
-                        />
+                        <div className="w-full flex flex-col">
+                            <CloudinaryTest setUrl={setUrl} i={i} />
+                            <Image
+                                alt="Section image"
+                                src={value}
+                                className="max-h-[200px] max-w-[600px] my-2 shadow-xl"
+                            />
+                        </div>
                     )}
                 </div>
             </div>
