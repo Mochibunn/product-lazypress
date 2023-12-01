@@ -19,12 +19,14 @@ import { useEffect, useState, useMemo } from "react";
 import CMSListbox from "./CMSListbox";
 import { editRecipe } from "../../lib/dbClient";
 import { useAuth } from "@clerk/clerk-react";
-import { toastSuccess, toastError } from "../../lib/toastify";
+import { toastSuccess, toastSaveSuccess, toastError } from "../../lib/toastify";
+import { useInstantSearch } from "react-instantsearch";
 
 export default function CMSRecipeModal({ _id, setDraftSaved }) {
     const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
     const { recipe, isLoading, mutateRecipe } = useRecipe(_id);
     const { getToken } = useAuth();
+    const { refresh } = useInstantSearch();
 
     const [staticInputs, setStaticInputs] = useState({
         title: "",
@@ -196,7 +198,7 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
     const handleSaveClick = async () => {
         try {
             let isValid = true;
-            console.log(recipe);
+            // console.log(recipe);
 
             Object.entries(recipe).forEach(([key, value]) => {
                 if (!value && key !== "__v") {
@@ -214,16 +216,23 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
             const sessToken = await getToken();
 
             const response = await editRecipe(sessToken, recipe);
-
+            console.log(response);
             // console.log("came from protected route", postStatus);
             // console.log(`🐰Status:\n`, postStatus.status);
             // console.log(`AAAAA\n`, recipe);
 
             if (response?.status === 200) {
                 await mutateRecipe();
-                toastSuccess(`Changes saved. Refresh the page to see them`);
+                toastSaveSuccess(
+                    `Changes saved. Click refresh if changes aren't reflected on the page`
+                );
                 setDraftSaved(true);
-                setTimeout(() => onClose(), 1000);
+                setTimeout(() => onClose(), 4000);
+                setTimeout(() => refresh(), 4000);
+            } else {
+                throw new Error(
+                    `Sorry, an error occurred. Please try again later.`
+                );
             }
             // setButtonSpin(false); Might remove this line later — Mochi
         } catch (error) {

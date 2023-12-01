@@ -12,8 +12,11 @@ import CMSHit from "./CMSHit";
 import CMSPagination from "./CMSPagination";
 import CMSRefinementList from "./CMSRefinementList";
 import CMSAddRecipeModal from "./CMSAddRecipeModal";
+import CMSRefreshBtn from "./CMSRefreshBtn";
+import { useInstantSearch } from "react-instantsearch";
 
 export default function CMSRecipes({ clerkUser, clerkUserId, blog }) {
+    // const { refresh } = useInstantSearch();
     const [newRecipe, setNewRecipe] = useImmer({
         title: "",
         category: "",
@@ -29,21 +32,25 @@ export default function CMSRecipes({ clerkUser, clerkUserId, blog }) {
         clerkUser,
         blog,
     });
+
     // console.log(newRecipe);
     return (
         <Card>
             <InstantSearch searchClient={searchClient} indexName="recipes">
                 <div className="flex w-11/12 justify-between mt-4 ml-2">
-                    <SearchBox
-                        placeholder="Search for recipes.."
-                        className="ml-2"
-                        classNames={{
-                            submitIcon: "hidden",
-                            resetIcon:
-                                "ml-2 w-4 h-4 fill-black-3 hover:fill-red-600 transition-colors",
-                            input: "rounded-xl shadow-md min-h-full text-2xl",
-                        }}
-                    />
+                    <div className="flex">
+                        <SearchBox
+                            placeholder="Search for recipes.."
+                            className="ml-2"
+                            classNames={{
+                                submitIcon: "hidden",
+                                resetIcon:
+                                    "ml-2 w-4 h-4 fill-black-3 hover:fill-red-600 transition-colors",
+                                input: "rounded-xl shadow-md min-h-full text-2xl",
+                            }}
+                        />
+                        <CMSRefreshBtn />
+                    </div>
                     <Button color="primary">
                         <CMSAddRecipeModal
                             clerkUser={clerkUser}

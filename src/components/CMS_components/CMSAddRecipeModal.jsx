@@ -16,7 +16,8 @@ import { useEffect, useState, useMemo } from "react";
 import CMSAddListbox from "./CMSAddListbox";
 import { createRecipe } from "../../lib/dbClient";
 import { useAuth } from "@clerk/clerk-react";
-import { toastSuccess, toastError } from "../../lib/toastify";
+import { toastSuccess, toastError, toastSaveSuccess } from "../../lib/toastify";
+import { useInstantSearch } from "react-instantsearch";
 
 export default function CMSAddRecipeModal({
     clerkUser,
@@ -27,21 +28,7 @@ export default function CMSAddRecipeModal({
 }) {
     const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
     const { getToken } = useAuth();
-    // const [newRecipe, setNewRecipe] = useImmer({
-    //     title: "",
-    //     category: "",
-    //     region: "",
-    //     ingList: [],
-    //     steps: [],
-    //     text: "",
-    //     button: "",
-    //     tags: [],
-    //     imgUrl: "",
-    //     videoUrl: "",
-    //     clerkUserId,
-    //     clerkUser,
-    //     blog,
-    // });
+    const { refresh } = useInstantSearch();
 
     const [staticInputs, setStaticInputs] = useState({
         title: "",
@@ -253,8 +240,15 @@ export default function CMSAddRecipeModal({
                     clerkUser,
                     blog,
                 });
-                toastSuccess(`Draft saved. Refresh the page to see it`);
-                setTimeout(() => onClose(), 1000);
+                toastSaveSuccess(
+                    `Recipe added. Click refresh if changes aren't reflected on the page`
+                );
+                setTimeout(() => onClose(), 4000);
+                setTimeout(() => refresh(), 4000);
+            } else {
+                throw new Error(
+                    `Sorry, an error occurred. Please try again later.`
+                );
             }
 
             // setButtonSpin(false); Might remove this line later — Mochi
@@ -266,7 +260,7 @@ export default function CMSAddRecipeModal({
     // console.log("AddModal", newRecipe);
     return (
         <>
-            <div onClick={() => onOpen()}>Add new recipe</div>
+            <div onClick={() => onOpen()}>Add New Recipe</div>
             <Modal
                 isOpen={isOpen}
                 backdrop="blur"
