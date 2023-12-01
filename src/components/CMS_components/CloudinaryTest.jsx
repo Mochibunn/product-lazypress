@@ -18,10 +18,10 @@ import {
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 const baseUrl = `https://api.cloudinary.com/v1_1/${cloudName}`;
 
-export default function CloudinaryTest() {
+export default function CloudinaryTest({ setUrl, i }) {
     const [files, setFiles] = useState([]);
-    const [value, setValue] = useState("");
-    const [url, setUrl] = useState("");
+    // const [value, setValue] = useState("");
+    // const [url, setUrl] = useState("");
     const makeUploadRequest = async ({
         file,
         fieldName,
@@ -43,16 +43,16 @@ export default function CloudinaryTest() {
             request.upload.onprogress = (e) => {
                 progressCallback(e.lengthComputable, e.loaded, e.total);
             };
-            let usableUrl = "a url";
+            // let usableUrl = "a url";
             request.onload = async () => {
                 if (request.status >= 200 && request.status < 300) {
                     const { delete_token: deleteToken, secure_url: secureUrl } =
                         await JSON.parse(request.response);
                     successCallback(deleteToken);
                     // console.log(secureUrl);
-                    setUrl(secureUrl);
-                    setValue(secureUrl);
-                    usableUrl = secureUrl;
+                    setUrl(secureUrl, i);
+                    // setValue(secureUrl);
+                    // usableUrl = secureUrl;
                 } else {
                     errorCallback(request.responseText);
                 }
@@ -109,10 +109,10 @@ export default function CloudinaryTest() {
             },
         };
     };
-    console.log(url);
+    // console.log(url);
     return (
         <div style={{ width: "80%", margin: "auto", padding: "1%" }}>
-            <Input value={value} />
+            {/* <Input value={value} /> */}
             <FilePond
                 files={files}
                 acceptedFileTypes="image/*"
