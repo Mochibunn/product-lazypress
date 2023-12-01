@@ -11,8 +11,8 @@ export default function Subscription() {
         setForm((prev) => ({ ...prev, [name]: value }));
     };
     return (
-        <div >
-            <div className="pt-4 flex flex-col items-center">
+        <div style={{backgroundColor:'#1D1D1D'}} >
+            <div className="pt-4 flex flex-col items-center text-white">
                 <h4 className="text-2xl text-center">
                     We really want you to want us!{" "}
                 </h4>
@@ -29,9 +29,9 @@ export default function Subscription() {
                         value={form.email}
                         onChange={handleChange}
                         className="w-3/5 mb-8 outline-none border-2 border-black-3 focus:white  transition-all glassInput"
-                        style={{backgroundColor:'#AEE5D8'}}
+                        style={{backgroundColor:'white'}}
                     />
-                    <Button className="jellyButtonNavBar">Subscribe</Button>
+                    <Button className="glassButton">Subscribe</Button>
                 </form>
             </div>
            
