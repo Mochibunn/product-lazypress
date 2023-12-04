@@ -8,10 +8,9 @@ import {
     NavbarItem,
     Link,
     Button,
-    Divider,
 } from "@nextui-org/react";
 import { useUser, UserButton } from "@clerk/clerk-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 // import Hero from "./Hero";
 
 // const isMobile = window.matchMedia("(max-width: 600px)");
@@ -129,7 +128,8 @@ export default function NavBar() {
                         </>
                     ))}
             </NavbarContent>
-            <NavbarMenu>
+            {/* For mobile dropdown menu */}
+            <NavbarMenu className="glassNavBarMaterial">
                 <NavbarMenuItem>
                     <Link
                         href="/aboutus"
