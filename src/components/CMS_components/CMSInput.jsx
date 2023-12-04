@@ -31,7 +31,7 @@ export default function CMSInput({
                         case "menuItem":
                             return "Menu Item";
                         case "href":
-                            return "URL";
+                            return;
                         case "footerItem":
                             return "Footer Item";
                         case "imgUrl":
@@ -67,7 +67,7 @@ export default function CMSInput({
                 ) : (
                     <Input
                         className={`w-full glassInput ${
-                            label === "_id" && "hidden"
+                            (label === "_id" || label === "href") && "hidden"
                         }`}
                         color="default"
                         value={value}
