@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import { Spinner } from "@nextui-org/react";
-import { ClerkProvider, SignedIn } from "@clerk/clerk-react";
+import { ClerkProvider, SignedIn, SignedOut } from "@clerk/clerk-react";
 
 import Layout from "./pages/Layout";
 import LandingPage from "./pages/LandingPage";
@@ -43,17 +43,27 @@ function App() {
                     <Route
                         path="dashboard"
                         element={
-                            <SignedIn>
-                                <Dashboard />
-                            </SignedIn>
+                            <>
+                                <SignedIn>
+                                    <Dashboard />
+                                </SignedIn>
+                                <SignedOut>
+                                    <Navigate to="/sign-in" />
+                                </SignedOut>
+                            </>
                         }
                     />
                     <Route
                         path="cms"
                         element={
-                            <SignedIn>
-                                <CMSPage />
-                            </SignedIn>
+                            <>
+                                <SignedIn>
+                                    <CMSPage />
+                                </SignedIn>
+                                <SignedOut>
+                                    <Navigate to="/sign-in" />
+                                </SignedOut>
+                            </>
                         }
                     />
                     <Route
