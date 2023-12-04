@@ -11,9 +11,11 @@ import { useUser, UserButton } from "@clerk/clerk-react";
 import { useEffect, useState } from "react";
 // import Hero from "./Hero";
 
+// const isMobile = window.matchMedia("(max-width: 600px)");
+
 export default function NavBar() {
     const { isSignedIn, isLoaded } = useUser();
-
+    // console.log("is mobile", isMobile.matches);
     return (
         <Navbar className="glassNavBarMaterial" isBlurred="false">
             <NavbarBrand>

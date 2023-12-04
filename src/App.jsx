@@ -16,77 +16,81 @@ import SignUpPage from "./pages/SignUpPage";
 import AboutPage from "./pages/AboutPage";
 import Success from "./pages/Success";
 import Cancel from "./pages/Cancel";
+import MobileWarning from "./pages/MobileWarning";
 
 if (!import.meta.env.VITE_CLERK_PUBLISHABLE_KEY) {
-  throw new Error("Missing Publishable Key");
+    throw new Error("Missing Publishable Key");
 }
 
 const clerkPubKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
 function App() {
-  return (
-    <ClerkProvider publishableKey={clerkPubKey}>
-      <Routes>
-        <Route
-          path="sign-in/*"
-          element={<SignInPage routing="path" path="/sign-in" />}
-        />
-        <Route
-          path="sign-up/*"
-          element={<SignUpPage routing="path" path="/sign-up" />}
-        />
+    return (
+        <ClerkProvider publishableKey={clerkPubKey}>
+            <Routes>
+                <Route
+                    path="sign-in/*"
+                    element={<SignInPage routing="path" path="/sign-in" />}
+                />
+                <Route
+                    path="sign-up/*"
+                    element={<SignUpPage routing="path" path="/sign-up" />}
+                />
+                <Route path="/mobile/:blogId" element={<MobileWarning />} />
 
-        <Route index element={<LandingPage />} />
-        <Route path="/" element={<Layout />}>
-          <Route
-            path="dashboard"
-            element={
-              <SignedIn>
-                <Dashboard />
-              </SignedIn>
-            }
-          />
-          <Route
-            path="cms"
-            element={
-              <SignedIn>
-                <CMSPage />
-              </SignedIn>
-            }
-          />
-          <Route
-            path="cms/:blogId"
-            element={
-              <SignedIn>
-                <CMSTestPage />
-              </SignedIn>
-            }
-          />
-          <Route
-            path="contactus/*"
-            element={<ContactPage routing="path" path="/contactus" />}
-          />
-          <Route
-            path="aboutus/*"
-            element={<AboutPage routing="path" path="/aboutus" />}
-          />
-          <Route
-            path="pricing/*"
-            element={<PricingPage routing="path" path="/pricing" />}
-          />
-          <Route
-            path="success/*"
-            element={<Success routing="path" path="/success" />}
-          />
-          <Route
-            path="cancel/*"
-            element={<Cancel routing="path" path="/cancel" />}
-          />
-          <Route path="*" element={<NotFound />} />
-        </Route>
-      </Routes>
-    </ClerkProvider>
-  );
+                <Route index element={<LandingPage />} />
+                <Route path="/" element={<Layout />}>
+                    <Route
+                        path="dashboard"
+                        element={
+                            <SignedIn>
+                                <Dashboard />
+                            </SignedIn>
+                        }
+                    />
+                    <Route
+                        path="cms"
+                        element={
+                            <SignedIn>
+                                <CMSPage />
+                            </SignedIn>
+                        }
+                    />
+                    <Route
+                        path="cms/:blogId"
+                        element={
+                            <SignedIn>
+                                <CMSTestPage />
+                            </SignedIn>
+                        }
+                    />
+                    <Route
+                        path="contactus/*"
+                        element={
+                            <ContactPage routing="path" path="/contactus" />
+                        }
+                    />
+                    <Route
+                        path="aboutus/*"
+                        element={<AboutPage routing="path" path="/aboutus" />}
+                    />
+                    <Route
+                        path="pricing/*"
+                        element={<PricingPage routing="path" path="/pricing" />}
+                    />
+                    <Route
+                        path="success/*"
+                        element={<Success routing="path" path="/success" />}
+                    />
+                    <Route
+                        path="cancel/*"
+                        element={<Cancel routing="path" path="/cancel" />}
+                    />
+                    <Route path="*" element={<NotFound />} />
+                </Route>
+            </Routes>
+        </ClerkProvider>
+    );
 }
 
 export default App;
