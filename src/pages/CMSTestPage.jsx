@@ -112,9 +112,13 @@ export default function CMSTestPage() {
         // });
     };
 
-    const discardChangesClick = () => {
-        mutateBlog();
-        toastSuccess(`Draft successfully discarded`);
+    const discardChangesClick = async () => {
+        try {
+            await mutateBlog();
+            toastSuccess(`Draft successfully discarded`);
+        } catch (error) {
+            toastError(error.message);
+        }
     };
 
     const saveChangesClick = async () => {
@@ -235,14 +239,14 @@ export default function CMSTestPage() {
                         </Accordion>
                     </div>
                     <div className="w-10/12 flex justify-end mt-4 gap-2">
-                        <Button
+                        {/* <Button
                             onClick={() => {
                                 console.log("swrBlog\n", swrBlog);
                                 toastSuccess(`Check your development console!`);
                             }}
                         >
                             Log Stuff
-                        </Button>
+                        </Button> */}
                         <Button
                             // className="mx-3"
                             color="danger"

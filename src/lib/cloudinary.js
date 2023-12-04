@@ -31,7 +31,7 @@ const makeUploadRequest = async ({
                     await JSON.parse(request.response);
                 successCallback(deleteToken);
                 // console.log(secureUrl);
-                setUrl(secureUrl);
+                // setUrl(secureUrl);
                 usableUrl = secureUrl;
             } else {
                 errorCallback(request.responseText);

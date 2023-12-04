@@ -3,13 +3,12 @@ import { useState } from "react";
 import { FilePond, registerPlugin } from "react-filepond";
 import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
-import { Input } from "@nextui-org/react";
 
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 import "filepond/dist/filepond.min.css";
 
 import {
-    makeDeleteRequest,
+    // makeDeleteRequest,
     cloudName,
     uploadPreset,
     // makeUploadRequest
@@ -22,7 +21,7 @@ export default function CloudinaryTest({ setUrl, i }) {
     const [files, setFiles] = useState([]);
     // const [value, setValue] = useState("");
     // const [url, setUrl] = useState("");
-    const makeUploadRequest = async ({
+    const makeUploadRequest = ({
         file,
         fieldName,
         progressCallback,
@@ -30,45 +29,56 @@ export default function CloudinaryTest({ setUrl, i }) {
         errorCallback,
         // setUrl,
     }) => {
-        try {
-            const url = `${baseUrl}/image/upload`;
+        const url = `${baseUrl}/image/upload`;
 
-            const formData = new FormData();
-            formData.append(fieldName, file);
-            formData.append("upload_preset", uploadPreset);
+        const formData = new FormData();
+        formData.append(fieldName, file);
+        formData.append("upload_preset", uploadPreset);
 
-            const request = new XMLHttpRequest();
-            request.open("POST", url);
+        const request = new XMLHttpRequest();
+        request.open("POST", url);
 
-            request.upload.onprogress = (e) => {
-                progressCallback(e.lengthComputable, e.loaded, e.total);
-            };
-            // let usableUrl = "a url";
-            request.onload = async () => {
-                if (request.status >= 200 && request.status < 300) {
-                    const { delete_token: deleteToken, secure_url: secureUrl } =
-                        await JSON.parse(request.response);
-                    successCallback(deleteToken);
-                    // console.log(secureUrl);
-                    setUrl(secureUrl, i);
-                    // setValue(secureUrl);
-                    // usableUrl = secureUrl;
-                } else {
-                    errorCallback(request.responseText);
-                }
-            };
+        request.upload.onprogress = (e) => {
+            progressCallback(e.lengthComputable, e.loaded, e.total);
+        };
+        // let usableUrl = "a url";
+        request.onload = async () => {
+            if (request.status >= 200 && request.status < 300) {
+                const { delete_token: deleteToken, secure_url: secureUrl } =
+                    await JSON.parse(request.response);
+                successCallback(deleteToken);
+                // console.log(secureUrl);
+                setUrl(secureUrl, i);
+                // setValue(secureUrl);
+                // usableUrl = secureUrl;
+            } else {
+                errorCallback(request.responseText);
+            }
+        };
 
-            request.send(formData);
+        request.send(formData);
 
-            return {
-                abortRequest: () => {
-                    request.abort();
-                },
-                // usableUrl,
-            };
-        } catch (error) {
-            console.error(error);
-        }
+        return () => {
+            request.abort();
+        };
+    };
+    const makeDeleteRequest = ({ token, successCallback, errorCallback }) => {
+        const url = `${baseUrl}/delete_by_token`;
+
+        const request = new XMLHttpRequest();
+        request.open("POST", url);
+
+        request.setRequestHeader("Content-Type", "application/json");
+
+        setUrl("", i);
+        request.onload = () => {
+            if (request.status >= 200 && request.status < 300) {
+                successCallback();
+            } else {
+                errorCallback(request.responseText);
+            }
+        };
+        request.send(JSON.stringify({ token }));
     };
 
     const revert = (token, successCallback, errorCallback) => {
