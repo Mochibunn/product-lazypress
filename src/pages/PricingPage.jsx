@@ -47,6 +47,10 @@ const pricingOptions = [
         ],
     },
 ];
+let backend;
+backend = import.meta.env.DEV
+    ? import.meta.env.VITE_BACKEND_DEV
+    : import.meta.env.VITE_BACKEND_DEPLOY;
 
 export default function PricingPage() {
     const navigate = useNavigate();
@@ -57,7 +61,7 @@ export default function PricingPage() {
             );
 
             const response = await fetch(
-                "http://localhost:24601/api/create-checkout-session",
+                `${backend}/api/create-checkout-session`,
                 {
                     method: "POST",
                     headers: {
