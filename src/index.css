@@ -382,7 +382,7 @@ button {
   position: relative;
 }
 .borderr:after {
-  filter: drop-shadow(-1px  -1px 0px #333131);
+  filter: drop-shadow(0px  -1px 0px #333131);
   /* x, y, blur, color */
   background: linear-gradient(-45deg, #effaf7 10px, transparent 0),
     linear-gradient(45deg, #effaf7 10px, transparent 0);
@@ -392,10 +392,18 @@ button {
   content: " ";
   display: block;
   position: absolute;
-  bottom: -10px;
+  bottom: -12px;
   left: 0px;
   width: 100%;
   height: 25px;
+}
+
+.border-inside {
+  border-inline: solid black 2px;
+}
+
+.border-debug {
+  border: solid red 4px;
 }
 
 @keyframes shake {

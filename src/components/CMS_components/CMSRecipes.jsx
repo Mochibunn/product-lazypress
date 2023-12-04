@@ -38,19 +38,19 @@ export default function CMSRecipes({ clerkUser, clerkUserId, blog }) {
 				searchClient={searchClient}
 				indexName="recipes"
 				classNames={{
-					root: "bg-red-500",
+					root: "bg-transparent",
 				}}
 				>
-        <div className="flex w-11/12 justify-between mt-4 ml-2">
+        <div className="flex w-11/12 justify-between mt-4 ml-2 align-middle">
           <div className="flex">
             <SearchBox
               placeholder="Search for recipes.."
-              className="ml-2"
+              className="mx-2 flex"
               classNames={{
                 submitIcon: "hidden",
                 resetIcon:
                   "ml-2 w-4 h-4 fill-black-3 hover:fill-red-600 transition-colors",
-                input: "rounded-xl shadow-md min-h-full text-2xl",
+                input: "rounded-xl shadow-md min-h-full text-2xl align-middle",
               }}
             />
             <CMSRefreshBtn />
@@ -65,11 +65,11 @@ export default function CMSRecipes({ clerkUser, clerkUserId, blog }) {
             />
           </Button>
         </div>
-        <div className="w-5/12">
+        <div className="ml-6 w-max borderr">
           <PoweredBy
             classNames={{
-              logo: "h-3 mx-auto flex justify-center",
-              root: "w-2/12 ml-6 bg-blue-500 borderr px-2 py-1",
+              logo: "h-3 min-w-full flex justify-center",
+              root: "w-full bg-blue-500 px-2 py-1 border-black border-1",
             }}
           />
         </div>
