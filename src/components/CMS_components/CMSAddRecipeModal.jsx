@@ -18,6 +18,7 @@ import { createRecipe } from "../../lib/dbClient";
 import { useAuth } from "@clerk/clerk-react";
 import { toastSuccess, toastError, toastSaveSuccess } from "../../lib/toastify";
 import { useInstantSearch } from "react-instantsearch";
+import CloudinaryTest from "./CloudinaryTest";
 
 export default function CMSAddRecipeModal({
     clerkUser,
@@ -257,6 +258,9 @@ export default function CMSAddRecipeModal({
             console.error(error);
         }
     };
+    const handleImgUpload = (url, i) => {
+        setStaticInputs((prev) => ({ ...prev, imgUrl: url }));
+    };
     // console.log("AddModal", newRecipe);
     return (
         <>
@@ -477,6 +481,9 @@ export default function CMSAddRecipeModal({
                                                     Set Image
                                                 </Button>
                                             }
+                                        />
+                                        <CloudinaryTest
+                                            setUrl={handleImgUpload}
                                         />
                                         <Textarea
                                             minRows={1}

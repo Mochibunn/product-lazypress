@@ -15,6 +15,7 @@ import { useBlog } from "../../lib/swr";
 import { useState, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { toastSuccess, toastError } from "../../lib/toastify";
+import CloudinaryTest from "./CloudinaryTest";
 
 export default function CMSAddModal({ sectionTitle, section }) {
     const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
@@ -95,6 +96,14 @@ export default function CMSAddModal({ sectionTitle, section }) {
         });
         onClose();
     };
+    const handleImgUpload = (url, i) => {
+        // console.log(url);
+        setForm((prev) => {
+            console.log(prev);
+            console.log(url);
+            return { ...prev, imgUrl: url };
+        });
+    };
 
     return (
         <>
@@ -103,7 +112,8 @@ export default function CMSAddModal({ sectionTitle, section }) {
                 isOpen={isOpen}
                 backdrop="blur"
                 onOpenChange={onOpenChange}
-                className="translate-y-6 lg:translate-y-0"
+                className="translate-y-16 lg:translate-y-0"
+                scrollBehavior="inside"
             >
                 <ModalContent>
                     {() => (
@@ -128,7 +138,7 @@ export default function CMSAddModal({ sectionTitle, section }) {
                                         labelPlacement="outside"
                                         name="imgUrl"
                                         variant="bordered"
-                                        value={form.email}
+                                        value={form.imgUrl}
                                         onChange={handleChange}
                                         minRows={1}
                                         isInvalid={isInvalid}
@@ -137,6 +147,7 @@ export default function CMSAddModal({ sectionTitle, section }) {
                                             "Please enter a valid URL"
                                         }
                                     />
+                                    <CloudinaryTest setUrl={handleImgUpload} />
                                     <Input
                                         className="glassInput"
                                         placeholder="Enter a title for the hero"
@@ -144,7 +155,7 @@ export default function CMSAddModal({ sectionTitle, section }) {
                                         labelPlacement="outside"
                                         name="title"
                                         variant="bordered"
-                                        value={form.password}
+                                        value={form.title}
                                         onChange={handleChange}
                                     />
                                     <Input
@@ -154,7 +165,7 @@ export default function CMSAddModal({ sectionTitle, section }) {
                                         labelPlacement="outside"
                                         name="text"
                                         variant="bordered"
-                                        value={form.password}
+                                        value={form.text}
                                         onChange={handleChange}
                                     />
                                     <Input
@@ -164,7 +175,7 @@ export default function CMSAddModal({ sectionTitle, section }) {
                                         labelPlacement="outside"
                                         name="button"
                                         variant="bordered"
-                                        value={form.password}
+                                        value={form.button}
                                         onChange={handleChange}
                                     />
                                 </form>
