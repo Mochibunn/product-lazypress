@@ -70,7 +70,7 @@ export default function Dashboard() {
                 </CardHeader>
                 <Divider className="w-11/12 mx-auto my-0" />
                 <CardBody className="my-2">
-                    <div className="grid grid-cols-3">
+                    <div className="md:grid md:grid-cols-3">
                         {isLoading ? (
                             <>
                                 <div aria-hidden />
@@ -140,9 +140,9 @@ export default function Dashboard() {
                                         scale={1.05}
                                         transitionSpeed={800}
                                         aria-hidden
+                                        key={site._id}
                                     >
                                         <SiteCard
-                                            key={site._id}
                                             blogId={site._id}
                                             updatedAt={site.updatedAt}
                                             deployed={site.deployed}
