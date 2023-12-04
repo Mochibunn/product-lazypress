@@ -2,6 +2,7 @@ import { Button } from "@nextui-org/react";
 import { loadStripe } from "@stripe/stripe-js";
 import { IoIosCheckmarkCircle } from "react-icons/io";
 import DShapeB from "../assets/images/3DShape1.jpg";
+import { useNavigate } from "react-router-dom";
 
 const pricingOptions = [
     {
@@ -48,6 +49,7 @@ const pricingOptions = [
 ];
 
 export default function PricingPage() {
+    const navigate = useNavigate();
     const makePayment = async (price) => {
         try {
             const stripe = await loadStripe(
@@ -101,7 +103,10 @@ export default function PricingPage() {
             >
                 <div className="flex gap-4 justify-center pt-28">
                     {pricingOptions.map((option) => (
-                        <div className="border-2 border-black p-28 glassCardSmall">
+                        <div
+                            key={crypto.randomUUID()}
+                            className="border-2 border-black p-28 glassCardSmall"
+                        >
                             <h4 className="uppercase">
                                 {option.subscriptionType}
                             </h4>
@@ -109,14 +114,17 @@ export default function PricingPage() {
                                 &#8364;{option.price}/{option.subscriptionType}
                             </h4>
                             <Button
-                                onClick={() => makePayment(option.price)}
+                                onPress={() => makePayment(option.price)}
                                 className="jellyButtonNavBar my-1"
                             >
                                 Buy Now
                             </Button>
                             <ul className="pt-1">
                                 {option.benefitOptions.map((benefit) => (
-                                    <li className="flex items-center">
+                                    <li
+                                        key={crypto.randomUUID()}
+                                        className="flex items-center"
+                                    >
                                         <IoIosCheckmarkCircle />
                                         {benefit}
                                     </li>
@@ -134,7 +142,10 @@ export default function PricingPage() {
                             support Premium support,
                             <br /> 24/7/365
                         </p>
-                        <Button className="jellyButtonNavBar my-1">
+                        <Button
+                            onPress={() => navigate("/contactus")}
+                            className="jellyButtonNavBar my-1"
+                        >
                             Talk with Us
                         </Button>
                     </div>
