@@ -7,7 +7,7 @@ export default function CMSHit({ hit }) {
     const [draftSaved, setDraftSaved] = useState(true);
     return (
         <Card
-            className="w-full h-full my-2 flex"
+            className="w-full h-full my-2 flex shadow-md"
             // isPressable
             onClick={() => {
                 console.log(hit._id);
