@@ -21,6 +21,7 @@ import { editRecipe } from "../../lib/dbClient";
 import { useAuth } from "@clerk/clerk-react";
 import { toastSuccess, toastSaveSuccess, toastError } from "../../lib/toastify";
 import { useInstantSearch } from "react-instantsearch";
+import CloudinaryTest from "./CloudinaryTest";
 
 export default function CMSRecipeModal({ _id, setDraftSaved }) {
     const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
@@ -239,6 +240,10 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
             toastError(`${error}`);
             console.error(error);
         }
+    };
+
+    const handleImgUpload = (url, i) => {
+        setStaticInputs((prev) => ({ ...prev, imgUrl: url }));
     };
 
     return (
@@ -476,6 +481,9 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                                         Edit Image
                                                     </Button>
                                                 }
+                                            />
+                                            <CloudinaryTest
+                                                setUrl={handleImgUpload}
                                             />
                                             <Textarea
                                                 minRows={1}
