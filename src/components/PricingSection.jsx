@@ -6,7 +6,7 @@ import { FaArrowRightLong } from "react-icons/fa6";
 export default function PricingSection () {
 return (
 <>
-<div className="text-center bg-[#333131] h-[100vh] flex items-center justify-center flex-col  text-[#fffff1]">  
+<div className="text-center bg-[#333131] h-[100vh] flex items-center justify-center flex-col text-[#fffff1]">  
   <h2 className="text-5xl">Start your free website trial today</h2>
   <p className="py-1">No credit card required. Cancel anytime</p>
   <div className="flex flex-col items-center text-center">

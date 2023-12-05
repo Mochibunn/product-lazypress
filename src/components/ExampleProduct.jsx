@@ -86,12 +86,12 @@ const ExampleProduct = () => {
   }, []);
 
   const sunStyle = 
-  windowWidth >= 1600 ? { 
+  windowWidth > 1440 ? { 
     width: "2000px",
     marginLeft: "0",
     marginTop: `calc(-400vh + ${sunTranslation}vh)`} : 
   
-  windowWidth >= 1440 ? {  
+  windowWidth <= 1440 ? {  
     width: "2000px",
     marginLeft: "0",
     marginTop: `calc(-350vh + ${sunTranslation}vh)`} : { /* Default styles */ };
