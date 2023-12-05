@@ -67,10 +67,21 @@ export default function CMSAddRecipeInput({
                     />
                 )}
                 <div className="w-full flex justify-end gap-2">
-                    <Button onPress={handleDeleteClick} color="danger">
+                    <Button
+                        onPress={handleDeleteClick}
+                        color="danger"
+                        variant="flat"
+                        radius="sm"
+                        className="hover:bg-warning"
+                    >
                         Delete {label}
                     </Button>
-                    <Button onPress={handleEditClick} color="secondary">
+                    <Button
+                        onPress={handleEditClick}
+                        color="secondary"
+                        radius="sm"
+                        variant="ghost"
+                    >
                         Edit {label}
                     </Button>
                 </div>

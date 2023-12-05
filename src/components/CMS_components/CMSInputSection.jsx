@@ -1,6 +1,6 @@
 import CMSInput from "./CMSInput";
 import { useState } from "react";
-import { Button } from "@nextui-org/react";
+import { Button, Tooltip } from "@nextui-org/react";
 import { useParams } from "react-router-dom";
 import { useBlog } from "../../lib/swr";
 import { produce } from "immer";
@@ -86,7 +86,7 @@ export default function CMSInputSection({
             { optimisticData: swrBlog, revalidate: false }
         );
         toastSuccess(
-            `Section deleted from draft. To save and add to website click "Save Changes"`
+            `Slide deleted from draft. To save and add to website click "Save Changes"`
         );
     };
 
@@ -120,16 +120,27 @@ export default function CMSInputSection({
                         })}
                     <div className="flex justify-end gap-2">
                         {section === "hero" && (
-                            <Button
-                                onClick={deleteSection}
-                                color="danger"
-                                className="hover:bg-warning"
+                            <Tooltip
+                                content="Will delete from draft-changes will be made permanent on Save."
+                                showArrow={true}
+                                color="warning"
+                                classNames={{ content: "font-montserrat" }}
                             >
-                                Delete Slide
-                            </Button>
+                                <Button
+                                    onClick={deleteSection}
+                                    color="danger"
+                                    variant="flat"
+                                    radius="sm"
+                                    className="hover:bg-warning"
+                                >
+                                    Delete Slide
+                                </Button>
+                            </Tooltip>
                         )}
                         <Button
                             color="secondary"
+                            radius="sm"
+                            variant="ghost"
                             // className="w-1/4 m-2"
                             type="submit"
                         >

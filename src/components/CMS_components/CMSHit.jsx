@@ -50,13 +50,13 @@ export default function CMSHit({ hit }) {
                             </p>
                         </Tooltip>
                     )}
-                    <Button color="secondary">
+                    <Button radius="sm" variant="ghost" color="secondary">
                         <CMSRecipeModal
                             setDraftSaved={setDraftSaved}
                             {...hit}
                         />
                     </Button>
-                    <Button color="danger" className="shake">
+                    <Button radius="sm" color="danger" className="shake">
                         <CMSDeleteModal {...hit} />
                     </Button>
                 </div>
