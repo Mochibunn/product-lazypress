@@ -19,7 +19,8 @@ import { motion } from "framer-motion";
 export default function HeroBanner() {
     const [moonRotation, setMoonRotation] = useState(0);
     const [moonTranslation, setMoonTranslation] = useState(0);
-    const [sunOpacity, setSunOpacity] = useState(1);
+    const [sunOpacity, setSunOpacity] = useState(3);
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -41,12 +42,41 @@ export default function HeroBanner() {
             setMoonTranslation(translation);
         };
 
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth);
+          };
+
         window.addEventListener("scroll", handleScroll);
+        window.addEventListener("resize", handleResize);
 
         return () => {
             window.removeEventListener("scroll", handleScroll);
+            window.removeEventListener("resize", handleResize);
         };
     }, []);
+
+   const moonStyle = 
+    windowWidth >= 1600 ? { 
+        width: "600px",
+        marginLeft: "50vw",
+        marginTop: `calc(1vh + ${moonTranslation}vh)` } : 
+    
+    windowWidth >= 1440 ? {  
+    width: "600px",
+    marginLeft: "50vw",
+    marginTop: `calc(1vh + ${moonTranslation}vh)`} : { /* Default styles */ };
+
+    const sunStyle = 
+    windowWidth >= 1600 ? { 
+        width: "800px",
+        marginLeft: "44vw",
+        marginTop: `calc(203vh - ${moonTranslation}vh)` } : 
+    
+    windowWidth >= 1440 ? {  
+        width: "800px",
+        marginLeft: "42vw",
+        marginTop: `calc(184vh - ${moonTranslation}vh)`} : { /* Default styles */ };
+
 
     return (
         <>
@@ -82,11 +112,8 @@ export default function HeroBanner() {
                         ></div>
                         <Lottie
                             animationData={moon}
-                            className="z-40 absolute"
-                            style={{
-                                width: "650px",
-                                marginLeft: "50vw",
-                                marginTop: `calc(-5vh + ${moonTranslation}vh)`,
+                            className="z-40 absolute moonSetting"
+                            style={{...moonStyle,
                                 transform: `rotate(${moonRotation}deg)`,
                             }}
                         />
@@ -161,10 +188,9 @@ export default function HeroBanner() {
                             style={{
                                 zIndex: 1,
                                 transform: "scaleY(-1)",
-                                width: "800px",
-                                marginLeft: "45vw",
-                                marginTop: `calc(185vh - ${moonTranslation}vh)`,
+                                ...sunStyle,
                             }}
+                           
                         />
 
                         <div className="text-center">
