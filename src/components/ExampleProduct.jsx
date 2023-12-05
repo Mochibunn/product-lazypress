@@ -70,6 +70,9 @@ const ExampleProduct = () => {
       }),
     });
 
+
+ 
+
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
@@ -91,7 +94,7 @@ const ExampleProduct = () => {
   windowWidth >= 1440 ? {  
     width: "2000px",
     marginLeft: "0",
-    marginTop: `calc(-370vh + ${sunTranslation}vh)`} : { /* Default styles */ };
+    marginTop: `calc(-350vh + ${sunTranslation}vh)`} : { /* Default styles */ };
 
 
   return (
@@ -108,7 +111,7 @@ const ExampleProduct = () => {
           style={{
             backgroundColor: '#333131',
             width: "100vw",
-            height: "300vh",
+            height: "150vh",
             fontFamily: "Pilated",
           }}
         >

@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const pricingOptions = [
     {
-        subscriptionType: "monthly",
+        subscriptionType: "basic",
         price: 9,
         benefitOptions: [
             "Access to Builder",
@@ -16,11 +16,12 @@ const pricingOptions = [
             "Unlimited Pages",
             "Unlimited Projects",
             "Unlimited Exports",
-            "1 Team Size",
+            "1 account access",
+            "Control Management System"
         ],
     },
     {
-        subscriptionType: "yearly",
+        subscriptionType: "plus",
         price: 69,
         benefitOptions: [
             "Access to Builder",
@@ -30,11 +31,12 @@ const pricingOptions = [
             "Unlimited Pages",
             "Unlimited Projects",
             "Unlimited Exports",
-            "1 Team Size",
+            "1 account access",
+            "Control Management System"
         ],
     },
     {
-        subscriptionType: "lifetime",
+        subscriptionType: "premıum",
         price: 99,
         benefitOptions: [
             "Access to Builder",
@@ -44,6 +46,8 @@ const pricingOptions = [
             "Unlimited Pages",
             "Unlimited Projects",
             "Unlimited Exports",
+            "Multıple teams",
+            "Control Management System"
         ],
     },
 ];
@@ -115,7 +119,7 @@ export default function PricingPage() {
                                 {option.subscriptionType}
                             </h4>
                             <h4>
-                                &#8364;{option.price}/{option.subscriptionType}
+                                &#8364;{option.price}/monthly
                             </h4>
                             <Button
                                 onPress={() => makePayment(option.price)}
@@ -137,7 +141,7 @@ export default function PricingPage() {
                         </div>
                     ))}
                     <div className="border-2 border-black p-3 glassCardSmall">
-                        <h4>Contact Us</h4>
+                        <h4>Enterprise</h4>
                         <p>
                             Bulk discounts, custom
                             <br />
@@ -150,7 +154,7 @@ export default function PricingPage() {
                             onPress={() => navigate("/contactus")}
                             className="jellyButtonNavBar my-1"
                         >
-                            Talk with Us
+                           Contact Us
                         </Button>
                     </div>
                 </div>
