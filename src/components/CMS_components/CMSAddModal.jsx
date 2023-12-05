@@ -44,7 +44,8 @@ export default function CMSAddModal({ sectionTitle, section }) {
         return validateUrl(form.imgUrl) ? false : true;
     }, [form.imgUrl]);
 
-    const handleAddClick = () => {
+    const handleAddClick = (e) => {
+        e.preventDefault();
         let isValid = true;
 
         if (!form.imgUrl) {
@@ -123,12 +124,10 @@ export default function CMSAddModal({ sectionTitle, section }) {
                             </ModalHeader>
                             <ModalBody>
                                 <form
-                                    // onSubmit={(e) => {
-                                    //     e.preventDefault();
-                                    //     handleSubmit();
-                                    // }}
-                                    className="flex flex-col"
+                                    onSubmit={handleAddClick}
+                                    className="flex flex-col items-center"
                                     autoComplete="off"
+                                    id="addToHero"
                                 >
                                     <Textarea
                                         className="glassInput"
@@ -192,7 +191,9 @@ export default function CMSAddModal({ sectionTitle, section }) {
                                 <Button
                                     className="font-montserrat font-semibold"
                                     color="primary"
-                                    onPress={handleAddClick}
+                                    type="submit"
+                                    form="addToHero"
+                                    // onPress={handleAddClick}
                                 >
                                     Add Slide
                                 </Button>

@@ -169,6 +169,7 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
     };
 
     const handleAddClick = (e) => {
+        e.preventDefault();
         const { name } = e.target;
         let isValid = true;
         if (
@@ -329,7 +330,7 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                             // }
                                         />
                                         <Button
-                                            onPress={handleEditClick}
+                                            // onPress={handleEditClick}
                                             type="submit"
                                             color="secondary"
                                             name="title"
@@ -501,23 +502,41 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                             key="Recipe_Tags"
                                             title="Tags"
                                         >
-                                            <Input
-                                                className="glassInput"
-                                                label="Add new tag"
-                                                labelPlacement="outside"
+                                            <form
                                                 name="tags"
-                                                value={addTagValue}
-                                                onValueChange={setAddTagValue}
-                                                endContent={
-                                                    <Button
-                                                        onPress={handleAddClick}
-                                                        name="tags"
-                                                        color="primary"
-                                                    >
-                                                        Add tag
-                                                    </Button>
-                                                }
-                                            />
+                                                onSubmit={handleAddClick}
+                                                className="flex items-baseline gap-4 my-4"
+                                            >
+                                                <Input
+                                                    // className="glassInput"
+                                                    label="Add new tag"
+                                                    labelPlacement="outside"
+                                                    name="tags"
+                                                    value={addTagValue}
+                                                    onValueChange={
+                                                        setAddTagValue
+                                                    }
+                                                    // endContent={
+                                                    //     <Button
+                                                    //         onPress={
+                                                    //             handleAddClick
+                                                    //         }
+                                                    //         name="tags"
+                                                    //         color="primary"
+                                                    //     >
+                                                    //         Add tag
+                                                    //     </Button>
+                                                    // }
+                                                />
+                                                <Button
+                                                    // onPress={handleAddClick}
+                                                    type="submit"
+                                                    name="tags"
+                                                    color="primary"
+                                                >
+                                                    Add tag
+                                                </Button>
+                                            </form>
                                             <CMSListbox
                                                 items={tagsWKey}
                                                 label="Tag"
@@ -530,24 +549,42 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                             key="Recipe_Steps"
                                             title="Recipe Steps"
                                         >
-                                            <Textarea
-                                                className="glassInput"
-                                                label="Add new step"
-                                                labelPlacement="outside"
-                                                value={addStepValue}
-                                                onValueChange={setAddStepValue}
+                                            <form
                                                 name="steps"
-                                                minRows={1}
-                                                endContent={
-                                                    <Button
-                                                        onPress={handleAddClick}
-                                                        color="primary"
-                                                        name="steps"
-                                                    >
-                                                        Add step
-                                                    </Button>
-                                                }
-                                            />
+                                                onSubmit={handleAddClick}
+                                                className="flex items-center gap-4 my-4"
+                                            >
+                                                <Textarea
+                                                    // className="glassInput"
+                                                    label="Add new step"
+                                                    labelPlacement="outside"
+                                                    value={addStepValue}
+                                                    onValueChange={
+                                                        setAddStepValue
+                                                    }
+                                                    name="steps"
+                                                    minRows={2}
+                                                    // endContent={
+                                                    //     <Button
+                                                    //         onPress={
+                                                    //             handleAddClick
+                                                    //         }
+                                                    //         color="primary"
+                                                    //         name="steps"
+                                                    //     >
+                                                    //         Add step
+                                                    //     </Button>
+                                                    // }
+                                                />
+                                                <Button
+                                                    // onPress={handleAddClick}
+                                                    type="submit"
+                                                    color="primary"
+                                                    name="steps"
+                                                >
+                                                    Add step
+                                                </Button>
+                                            </form>
                                             <CMSListbox
                                                 items={stepsWKey}
                                                 label="Step"
