@@ -27,9 +27,10 @@ export default function CMSPagination(props) {
         <Pagination
             color="secondary"
             size="lg"
+            // radius="none"
             total={nbPages}
             page={currentPage}
-            className="flex justify-center mt-1 mx-0"
+            className="flex justify-center mt-1 mx-0" 
             onChange={setCurrentPage}
         ></Pagination>
     );

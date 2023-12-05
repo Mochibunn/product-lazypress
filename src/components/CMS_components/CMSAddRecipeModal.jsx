@@ -386,7 +386,7 @@ export default function CMSAddRecipeModal({
                                                 name="ing"
                                             />
                                             <Button
-                                                className="min-w-1/4"
+                                                className="min-w-1/4 px-6"
                                                 color="primary"
                                                 type="submit"
                                             >
@@ -535,6 +535,7 @@ export default function CMSAddRecipeModal({
                                     color="danger"
                                     // variant="flat"
                                     onPress={discardDraftClick}
+                                    className="font-montserrat font-semibold"
                                 >
                                     Discard Draft
                                 </Button>
@@ -542,12 +543,14 @@ export default function CMSAddRecipeModal({
                                     color="warning"
                                     // variant="flat"
                                     onPress={onClose}
+                                    className="font-montserrat font-semibold"
                                 >
                                     Close, but keep draft
                                 </Button>
                                 <Button
                                     color="success"
                                     onPress={handleSaveClick}
+                                    className="font-montserrat font-semibold"
                                 >
                                     Save New Recipe
                                 </Button>

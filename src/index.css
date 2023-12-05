@@ -388,7 +388,7 @@ button {
     linear-gradient(45deg, #effaf7 10px, transparent 0);
   background-position: left bottom;
   background-repeat: repeat-x;
-  background-size: 3px 32px;
+  background-size: 5px 32px;
   content: " ";
   display: block;
   position: absolute;
