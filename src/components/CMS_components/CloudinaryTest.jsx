@@ -121,7 +121,10 @@ export default function CloudinaryTest({ setUrl, i }) {
     };
     // console.log(url);
     return (
-        <div style={{ width: "80%", margin: "auto", padding: "1%" }}>
+        <div
+            className="w-4/5 pt-2"
+            // style={{ width: "80%", margin: "auto", padding: "1%" }}
+        >
             {/* <Input value={value} /> */}
             <FilePond
                 files={files}
