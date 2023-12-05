@@ -35,44 +35,46 @@ export default function CMSRecipes({ clerkUser, clerkUserId, blog }) {
   return (
     <Card className="bg-transparent shadow-none">
       <InstantSearch
-				searchClient={searchClient}
-				indexName="recipes"
-				classNames={{
-					root: "bg-transparent",
-				}}
-				>
+        searchClient={searchClient}
+        indexName="recipes"
+        classNames={{
+          root: "",
+        }}
+      >
         <div className="flex w-11/12 justify-between mt-4 ml-2 align-middle">
-          <div className="flex">
-            <SearchBox
-              placeholder="Search for recipes.."
-              className="mx-2 flex"
+            <div className="flex">
+              <SearchBox
+                placeholder="Search for recipes.."
+                className="mx-2 flex justify-center align-middle active:border-none"
+                classNames={{
+                  root: "active:border-0 active:border-none",
+                  submitIcon: "hidden",
+                  resetIcon: "hidden",
+                  reset: "align-middle",
+                  input:
+                    "rounded-xl shadow-md min-h-full text-xl align-middle active:border-0 active:border-none pr-2",
+                }}
+              />
+              <CMSRefreshBtn />
+            </div>
+            <Button color="primary">
+              <CMSAddRecipeModal
+                clerkUser={clerkUser}
+                clerkUserId={clerkUserId}
+                blog={blog}
+                newRecipe={newRecipe}
+                setNewRecipe={setNewRecipe}
+              />
+            </Button>
+          </div>
+          <div className="ml-8 w-max borderr">
+            <PoweredBy
               classNames={{
-                submitIcon: "hidden",
-                resetIcon:
-                  "ml-2 w-4 h-4 fill-black-3 hover:fill-red-600 transition-colors",
-                input: "rounded-xl shadow-md min-h-full text-2xl align-middle",
+                logo: "h-3 min-w-full flex justify-center",
+                root: "w-full bg-blue-500 px-2 py-1 border-black border-1 border-t-0",
               }}
             />
-            <CMSRefreshBtn />
           </div>
-          <Button color="primary">
-            <CMSAddRecipeModal
-              clerkUser={clerkUser}
-              clerkUserId={clerkUserId}
-              blog={blog}
-              newRecipe={newRecipe}
-              setNewRecipe={setNewRecipe}
-            />
-          </Button>
-        </div>
-        <div className="ml-6 w-max borderr">
-          <PoweredBy
-            classNames={{
-              logo: "h-3 min-w-full flex justify-center",
-              root: "w-full bg-blue-500 px-2 py-1 border-black border-1",
-            }}
-          />
-        </div>
 
         <CurrentRefinements
           includedAttributes={["region", "tags"]}
@@ -90,7 +92,7 @@ export default function CMSRecipes({ clerkUser, clerkUserId, blog }) {
             <Hits hitComponent={CMSHit} />
           </Card>
         </div>
-        <CMSPagination />
+        <CMSPagination color="primary" />
       </InstantSearch>
     </Card>
   );
