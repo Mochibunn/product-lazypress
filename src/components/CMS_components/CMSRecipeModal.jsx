@@ -378,7 +378,7 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                                     name="ing"
                                                 />
                                                 <Button
-                                                    className="min-w-1/4"
+                                                    className="px-6"
                                                     color="primary"
                                                     type="submit"
                                                 >
@@ -536,13 +536,14 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                 </ModalBody>
                                 <ModalFooter>
                                     <Button
-                                        // className="mx-3"
+                                        className="font-montserrat font-semibold"
                                         color="danger"
                                         onClick={discardChangesClick}
                                     >
                                         Discard Draft
                                     </Button>
                                     <Button
+                                        className="font-montserrat font-semibold"
                                         color="warning"
                                         // variant="flat"
                                         onPress={() => {
@@ -552,6 +553,7 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                         Close, but keep draft
                                     </Button>
                                     <Button
+                                        className="font-montserrat font-semibold"
                                         color="success"
                                         onPress={handleSaveClick}
                                     >
