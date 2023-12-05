@@ -10,6 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 const ExampleProduct = () => {
   const [sunTranslation, setSunTranslation] = useState(0);
   const [backgroundColor, setBackgroundColor] = useState("#333131");
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -69,12 +70,29 @@ const ExampleProduct = () => {
       }),
     });
 
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
     window.addEventListener("scroll", handleScroll);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  const sunStyle = 
+  windowWidth >= 1600 ? { 
+    width: "2000px",
+    marginLeft: "0",
+    marginTop: `calc(-400vh + ${sunTranslation}vh)`} : 
+  
+  windowWidth >= 1440 ? {  
+    width: "2000px",
+    marginLeft: "0",
+    marginTop: `calc(-370vh + ${sunTranslation}vh)`} : { /* Default styles */ };
+
 
   return (
     <ScrollContainer>
@@ -96,11 +114,9 @@ const ExampleProduct = () => {
         >
           <Lottie
             animationData={sun}
-            className="z-50 absolute"
+            className="z-50 absolute sunSetting2"
             style={{
-              width: "2000px",
-              marginLeft: "0",
-              marginTop: `calc(-360vh + ${sunTranslation}vh)`,
+             ...sunStyle,
               zIndex: 50,
             }}
           />
