@@ -56,23 +56,23 @@ export default function HeroBanner() {
     }, []);
 
    const moonStyle = 
-    windowWidth >= 1600 ? { 
+    windowWidth > 1440 ? { 
         width: "600px",
         marginLeft: "50vw",
         marginTop: `calc(1vh + ${moonTranslation}vh)` } : 
     
-    windowWidth >= 1440 ? {  
+    windowWidth <= 1440 ? {  
     width: "600px",
     marginLeft: "50vw",
-    marginTop: `calc(1vh + ${moonTranslation}vh)`} : { /* Default styles */ };
+    marginTop: `calc(1vh + ${moonTranslation}vh)`} : '{ /* Default styles */ }';
 
     const sunStyle = 
-    windowWidth >= 1600 ? { 
+    windowWidth > 1440 ? { 
         width: "800px",
         marginLeft: "44vw",
         marginTop: `calc(203vh - ${moonTranslation}vh)` } : 
     
-    windowWidth >= 1440 ? {  
+    windowWidth <= 1440 ? {  
         width: "800px",
         marginLeft: "42vw",
         marginTop: `calc(184vh - ${moonTranslation}vh)`} : { /* Default styles */ };

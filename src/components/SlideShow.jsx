@@ -5,7 +5,7 @@
 
 const SlideShow = () => {
   return (
-    <div className="landing-section relative flex flex-wrap"
+    <div className="landing-section relative flex flex-wrap w-full"
     style={{height:'300vh'}}>
       <article className="gallery-article">
         <figure className="gallery-figure w-full  items-center flex justify-center text-left gap-20"
@@ -16,7 +16,7 @@ const SlideShow = () => {
           <p>*forum</p>
           </div>
        <div>
-       <img src='https://cdn.dribbble.com/userupload/11377897/file/original-e64cec7f0f9cb1b68ff4043c385da302.png?resize=1024x768' alt="" style={{width:'100vw',marginLeft:'15vw'}}/>
+       <img src='https://cdn.dribbble.com/userupload/11377897/file/original-e64cec7f0f9cb1b68ff4043c385da302.png?resize=1024x768' alt="" style={{width:'100vw',marginLeft:'15vw', objectFit:'cover',height:'100vh'}}/>
        </div>
          
         </figure>
@@ -31,8 +31,8 @@ const SlideShow = () => {
     
 
     <div>
-      <div className="w-full  px-5 py-16 md:py-24 text-black">
-        <div className="w-full max-w-6xl mx-auto">
+      <div className="w-[50vw]  px-5 py-16 md:py-24 text-black">
+        <div className="  mx-auto">
           <div className="text-center max-w-xl mx-auto">
             <h1 className="text-4xl md:text-5xl  mb-5 text-[#fffff1]"style={{fontFamily:'Pilated'}}>What people <br />are saying</h1>
             <div className="text-center mb-10">
@@ -43,9 +43,9 @@ const SlideShow = () => {
               <span className="inline-block w-1 h-1 rounded-full bg-[#fffff1] ml-1"></span>
             </div>
           </div>
-          <div className="-mx-3 md:flex flex-row justify-center items-center text-center">
+          <div className="mx-3 flex  md:flex-col lg:flex-row  justify-center items-center text-center">
             {/* Testimonial 1 */}
-            <div className="px-3 md:w-1/3">
+            <div className="px-3">
               <div className="w-full mx-auto rounded-lg glassCardSmall border border-gray-200 p-5 text-gray-800 font-light mb-6">
                 <div className="w-full flex mb-4 items-center">
                   <div className="overflow-hidden rounded-full w-10 h-10 bg-gray-50 border border-gray-200">
@@ -66,7 +66,7 @@ const SlideShow = () => {
             </div>
 
             {/* Testimonial 2 */}
-            <div className="px-3 md:w-1/3">
+            <div className="px-3 ">
               <div className="w-full mx-auto rounded-lg glassCardSmall border border-gray-200 p-5 text-gray-800 font-light mb-6">
                 <div className="w-full flex mb-4 items-center">
                   <div className="overflow-hidden rounded-full w-10 h-10 bg-gray-50 border border-gray-200">
@@ -87,7 +87,7 @@ const SlideShow = () => {
             </div>
 
             {/* Testimonial 3 */}
-            <div className="px-3 md:w-1/3">
+            <div className="px-3">
               <div className="w-full mx-auto glassCardSmall border border-gray-200 p-5 text-gray-800 font-light mb-6">
                 <div className="w-full flex mb-4 items-center">
                   <div className="overflow-hidden rounded-full w-10 h-10 bg-gray-50 border border-gray-200">
