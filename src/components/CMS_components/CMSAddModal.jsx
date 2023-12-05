@@ -182,7 +182,7 @@ export default function CMSAddModal({ sectionTitle, section }) {
                             </ModalBody>
                             <ModalFooter>
                                 <Button
-                                    className="font-plaza"
+                                    className="font-montserrat font-semibold"
                                     color="danger"
                                     // variant="flat"
                                     onPress={handleCancelClick}
@@ -190,6 +190,7 @@ export default function CMSAddModal({ sectionTitle, section }) {
                                     Discard
                                 </Button>
                                 <Button
+                                    className="font-montserrat font-semibold"
                                     color="primary"
                                     onPress={handleAddClick}
                                 >

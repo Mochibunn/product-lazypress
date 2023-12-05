@@ -24,7 +24,7 @@ export default function CMSInput({
     }, [value]);
 
     return (
-        <div className="flex mt-2">
+        <div className={`flex mt-2 ${section !== "hero" && "gap-8"}`}>
             <p className="w-1/12 text-sm font-semibold align-middle ml-2 my-auto">
                 {(() => {
                     switch (label) {
@@ -66,7 +66,7 @@ export default function CMSInput({
                     />
                 ) : (
                     <Input
-                        className={`w-full glassInput ${
+                        className={`w-full ${
                             (label === "_id" || label === "href") && "hidden"
                         }`}
                         color="default"
