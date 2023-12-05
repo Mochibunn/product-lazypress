@@ -86,7 +86,7 @@ export default function SiteCard({
                     </div>
                     <div className="flex gap-2">
                         <a href={siteUrl} target="_blank" rel="noreferrer">
-                            <Button radius="full" size="sm">
+                            <Button radius="full" size="sm" color="primary">
                                 Go to Site
                             </Button>
                         </a>
@@ -98,7 +98,7 @@ export default function SiteCard({
                             }
                             target={!isMobile.matches ? "_blank" : "_self"}
                         >
-                            <Button radius="full" size="sm">
+                            <Button radius="full" size="sm" color="secondary">
                                 Edit Site
                             </Button>
                         </Link>
