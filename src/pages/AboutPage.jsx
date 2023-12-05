@@ -1,21 +1,19 @@
-import DShapeB from "../assets/images/3DShape1.jpg";
+import Thankyou from "../assets/images/RecipeImage.jpg";
 
 export default function AboutPage() {
     return (
         <div
             className="h-[100vh]"
             style={{
-                backgroundImage: `url(${DShapeB})`,
-                backgroundSize: "cover",
-                backgroundRepeat: "no-repeat",
+                backgroundColor:'white',
                 height: "100vh",
                 marginTop: "-4rem",
-                // zIndex: 40,
+                zIndex: 40,
                 position: "relative",
             }}
         >
-            <div className="flex justify-center mt-32">
-                <img className="border-2 border-black h-[300px] w-[400px]" />
+            <div className="flex justify-center">
+                <img src={Thankyou} className="border-2 border-black h-[100vh] w-[80vw]" style={{objectFit:'cover'}}/>
             </div>
         </div>
     );
