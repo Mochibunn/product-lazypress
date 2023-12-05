@@ -55,7 +55,7 @@ export default function CMSAddIngInputs({
         <li className="my-4 mx-2">
             <form className="flex items-baseline">
                 <Input
-                    className="glassInput"
+                    className="glassInput w-1/4"
                     label={`Amount`}
                     labelPlacement="outside"
                     value={form.amount}

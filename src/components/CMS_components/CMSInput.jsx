@@ -24,7 +24,7 @@ export default function CMSInput({
     }, [value]);
 
     return (
-        <div className="flex mt-2">
+        <div className={`flex mt-2 ${section !== "hero" && "gap-8"}`}>
             <p className="w-1/12 text-sm font-semibold align-middle ml-2 my-auto">
                 {(() => {
                     switch (label) {
@@ -49,9 +49,7 @@ export default function CMSInput({
             <div className="w-full mr-2">
                 {value?.length > 100 ? (
                     <Textarea
-                        className={`w-full glassTextArea ${
-                            label === "_id" && "hidden"
-                        }`}
+                        className={`w-full ${label === "_id" && "hidden"}`}
                         color="default"
                         value={value}
                         name={label}
@@ -66,7 +64,7 @@ export default function CMSInput({
                     />
                 ) : (
                     <Input
-                        className={`w-full glassInput ${
+                        className={`w-full ${
                             (label === "_id" || label === "href") && "hidden"
                         }`}
                         color="default"
@@ -80,18 +78,20 @@ export default function CMSInput({
                         isReadOnly={label === "_id" ? true : false} //For other inputs
                     />
                 )}
-                <div className="ml-12 mx-auto">
-                    {label === "imgUrl" && (
-                        <div className="w-full flex flex-col">
-                            <CloudinaryTest setUrl={setUrl} i={i} />
-                            <Image
-                                alt="Section image"
-                                src={value}
-                                className="max-h-[200px] max-w-[600px] my-2 shadow-xl"
-                            />
-                        </div>
-                    )}
-                </div>
+                {label === "imgUrl" && (
+                    <div className="w-full flex justify-start items-start gap-2 py-2">
+                        <CloudinaryTest
+                            // className="self-start"
+                            setUrl={setUrl}
+                            i={i}
+                        />
+                        <Image
+                            alt="Section image"
+                            src={value}
+                            className="max-h-[175px] max-w-[200px] my-2 shadow-xl"
+                        />
+                    </div>
+                )}
             </div>
         </div>
     );

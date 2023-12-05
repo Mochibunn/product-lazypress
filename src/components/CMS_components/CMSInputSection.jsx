@@ -97,7 +97,14 @@ export default function CMSInputSection({
                     {section === "hero" ? "Slide" : "Item"}{" "}
                     {`${sectionIndex + 1}`}
                 </h3>
-                <form onSubmit={editSection}>
+                <form
+                    className={
+                        section !== "hero"
+                            ? "flex items-center justify-between mx-2"
+                            : ""
+                    }
+                    onSubmit={editSection}
+                >
                     {array &&
                         array.map((obj, i) => {
                             return (
@@ -118,7 +125,7 @@ export default function CMSInputSection({
                                 color="danger"
                                 className="hover:bg-warning"
                             >
-                                Delete Section
+                                Delete Slide
                             </Button>
                         )}
                         <Button
@@ -126,7 +133,7 @@ export default function CMSInputSection({
                             // className="w-1/4 m-2"
                             type="submit"
                         >
-                            Edit Section
+                            Edit {section === "hero" ? "Slide" : "Item"}
                         </Button>
                     </div>
                 </form>
