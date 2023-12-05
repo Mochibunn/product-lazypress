@@ -166,6 +166,8 @@ export default function CMSTestPage() {
                     <Button
                         onPress={handleSetTitle}
                         color="secondary"
+                        radius="sm"
+                        variant="ghost"
                         className="font-metropolis w-1/12 mt-4"
                         startContent={<CgPen />}
                     >
@@ -248,8 +250,10 @@ export default function CMSTestPage() {
                             Log Stuff
                         </Button> */}
                         <Button
-                            // className="mx-3"
+                            className="hover:bg-warning"
                             color="danger"
+                            radius="sm"
+                            variant="flat"
                             onClick={discardChangesClick}
                         >
                             Discard Draft
@@ -257,6 +261,7 @@ export default function CMSTestPage() {
                         <Button
                             // className="mx-3"
                             color="success"
+                            radius="sm"
                             onClick={saveChangesClick}
                         >
                             Save Changes

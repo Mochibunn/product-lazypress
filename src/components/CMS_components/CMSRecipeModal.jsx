@@ -333,7 +333,10 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                             // onPress={handleEditClick}
                                             type="submit"
                                             color="secondary"
+                                            radius="sm"
+                                            variant="ghost"
                                             name="title"
+                                            className="font-montserrat font-semibold"
                                         >
                                             Edit Title
                                         </Button>
@@ -492,6 +495,8 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                                     <Button
                                                         type="submit"
                                                         color="secondary"
+                                                        radius="sm"
+                                                        variant="ghost"
                                                     >
                                                         Set Info & Media
                                                     </Button>
@@ -533,6 +538,7 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                                     type="submit"
                                                     name="tags"
                                                     color="primary"
+                                                    radius="sm"
                                                 >
                                                     Add tag
                                                 </Button>
@@ -581,6 +587,7 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                                     type="submit"
                                                     color="primary"
                                                     name="steps"
+                                                    radius="sm"
                                                 >
                                                     Add step
                                                 </Button>
@@ -625,6 +632,7 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                                     className="px-6"
                                                     color="primary"
                                                     type="submit"
+                                                    radius="sm"
                                                 >
                                                     Add Ingredient
                                                 </Button>
@@ -640,8 +648,10 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                 </ModalBody>
                                 <ModalFooter>
                                     <Button
-                                        className="font-montserrat font-semibold"
+                                        className="font-montserrat font-semibold hover:bg-warning"
                                         color="danger"
+                                        radius="sm"
+                                        variant="flat"
                                         onClick={discardChangesClick}
                                     >
                                         Discard Draft
@@ -649,6 +659,8 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                     <Button
                                         className="font-montserrat font-semibold"
                                         color="warning"
+                                        radius="sm"
+                                        variant="bordered"
                                         // variant="flat"
                                         onPress={() => {
                                             onClose();
@@ -659,6 +671,7 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                     <Button
                                         className="font-montserrat font-semibold"
                                         color="success"
+                                        radius="sm"
                                         onPress={handleSaveClick}
                                     >
                                         Save Changes

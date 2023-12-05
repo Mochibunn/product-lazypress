@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Input, Divider } from "@nextui-org/react";
+import { Button, Input, Divider, Tooltip } from "@nextui-org/react";
 import { useRecipe } from "../../lib/swr";
 import { produce } from "immer";
 import { toastError, toastSuccess } from "../../lib/toastify";
@@ -87,10 +87,28 @@ export default function CMSIngInputs({
                     onChange={handleChange}
                 />
                 <div className="flex gap-2">
-                    <Button onPress={handleDeleteClick} color="danger">
-                        Delete {label}
-                    </Button>
-                    <Button onPress={handleEditClick} color="secondary">
+                    <Tooltip
+                        content="Will delete from draft-changes will be made permanent on Save."
+                        showArrow={true}
+                        color="warning"
+                        classNames={{ content: "font-montserrat" }}
+                    >
+                        <Button
+                            onPress={handleDeleteClick}
+                            color="danger"
+                            variant="flat"
+                            radius="sm"
+                            className="hover:bg-warning"
+                        >
+                            Delete {label}
+                        </Button>
+                    </Tooltip>
+                    <Button
+                        onPress={handleEditClick}
+                        color="secondary"
+                        radius="sm"
+                        variant="ghost"
+                    >
                         Edit {label}
                     </Button>
                 </div>

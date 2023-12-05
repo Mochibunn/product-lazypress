@@ -339,8 +339,11 @@ export default function CMSAddRecipeModal({
                                     <Button
                                         // onPress={handleEditClick}
                                         type="submit"
+                                        variant="ghost"
+                                        radius="sm"
                                         color="secondary"
                                         name="title"
+                                        className="font-montserrat font-semibold"
                                     >
                                         Set Title
                                     </Button>
@@ -495,6 +498,8 @@ export default function CMSAddRecipeModal({
                                                 <Button
                                                     type="submit"
                                                     color="secondary"
+                                                    variant="ghost"
+                                                    radius="sm"
                                                 >
                                                     Set Info & Media
                                                 </Button>
@@ -532,6 +537,7 @@ export default function CMSAddRecipeModal({
                                                 type="submit"
                                                 name="tags"
                                                 color="primary"
+                                                radius="sm"
                                             >
                                                 Add tag
                                             </Button>
@@ -576,6 +582,7 @@ export default function CMSAddRecipeModal({
                                                 type="submit"
                                                 color="primary"
                                                 name="steps"
+                                                radius="sm"
                                             >
                                                 Add step
                                             </Button>
@@ -616,6 +623,7 @@ export default function CMSAddRecipeModal({
                                                 className="min-w-1/4 px-6"
                                                 color="primary"
                                                 type="submit"
+                                                radius="sm"
                                             >
                                                 Add Ingredient
                                             </Button>
@@ -632,16 +640,18 @@ export default function CMSAddRecipeModal({
                             <ModalFooter>
                                 <Button
                                     color="danger"
-                                    // variant="flat"
+                                    variant="flat"
                                     onPress={discardDraftClick}
-                                    className="font-montserrat font-semibold"
+                                    radius="sm"
+                                    className="font-montserrat font-semibold hover:bg-warning"
                                 >
                                     Discard Draft
                                 </Button>
                                 <Button
                                     color="warning"
-                                    // variant="flat"
+                                    variant="bordered"
                                     onPress={onClose}
+                                    radius="sm"
                                     className="font-montserrat font-semibold"
                                 >
                                     Close, but keep draft
@@ -649,6 +659,7 @@ export default function CMSAddRecipeModal({
                                 <Button
                                     color="success"
                                     onPress={handleSaveClick}
+                                    radius="sm"
                                     className="font-montserrat font-semibold"
                                 >
                                     Save New Recipe

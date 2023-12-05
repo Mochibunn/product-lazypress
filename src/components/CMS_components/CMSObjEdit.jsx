@@ -9,7 +9,7 @@ export default function CMSObjEdit({ sectionTitle, section, sectionValues }) {
                 <div>
                     {/* <h3>{sectionTitle}</h3> */}
                     {section === "hero" && (
-                        <Button color="primary">
+                        <Button radius="sm" color="primary">
                             <CMSAddModal
                                 sectionTitle={sectionTitle}
                                 section={section}

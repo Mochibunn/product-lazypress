@@ -3,5 +3,9 @@ import { useInstantSearch } from "react-instantsearch";
 
 export default function CMSRefreshBtn() {
     const { refresh } = useInstantSearch();
-    return <Button onPress={refresh}>Refresh</Button>;
+    return (
+        <Button variant="flat" radius="sm" color="primary" onPress={refresh}>
+            Refresh
+        </Button>
+    );
 }

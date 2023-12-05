@@ -59,7 +59,7 @@ export default function CMSRecipes({ clerkUser, clerkUserId, blog }) {
                         />
                         <CMSRefreshBtn />
                     </div>
-                    <Button color="primary">
+                    <Button radius="sm" color="primary">
                         <CMSAddRecipeModal
                             clerkUser={clerkUser}
                             clerkUserId={clerkUserId}
