@@ -102,7 +102,7 @@ const ExampleProduct = () => {
       <ScrollPage
         style={{
           height: "150vh",
-          overflow: "hidden",
+          overflowY: "hidden",
         }}
       >
         <div
@@ -113,6 +113,7 @@ const ExampleProduct = () => {
             width: "100vw",
             height: "150vh",
             fontFamily: "Pilated",
+            overflowY: "hidden",
           }}
         >
           <Lottie
