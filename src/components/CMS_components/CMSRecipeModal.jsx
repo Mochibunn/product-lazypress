@@ -318,7 +318,7 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                     <form
                                         onSubmit={handleEditClick}
                                         name="title"
-                                        className="flex items-baseline gap-2 m-2 ml-3"
+                                        className="flex items-baseline gap-2 m-2 ml-4"
                                     >
                                         <Input
                                             className="font-metropolis"
@@ -362,7 +362,7 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                             title="Info & Media"
                                         >
                                             <form
-                                                className="flex flex-col gap-6 w-10/12"
+                                                className="flex flex-col gap-6 w-10/12 ml-2"
                                                 onSubmit={handleSetSubmit}
                                                 id="editInfoAndMedia"
                                             >
@@ -537,7 +537,7 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                             <form
                                                 name="tags"
                                                 onSubmit={handleAddClick}
-                                                className="flex items-baseline gap-4 my-4"
+                                                className="flex items-baseline gap-4 my-4 ml-2"
                                             >
                                                 <Input
                                                     // className=""
@@ -585,7 +585,7 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                             <form
                                                 name="steps"
                                                 onSubmit={handleAddClick}
-                                                className="flex items-center gap-4 my-4"
+                                                className="flex items-center gap-4 my-4 ml-2"
                                             >
                                                 <Textarea
                                                     // className=""
@@ -634,7 +634,7 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                         >
                                             <form
                                                 onSubmit={handleAddIngSubmit}
-                                                className="flex items-baseline mb-4 gap-4"
+                                                className="flex items-baseline mb-4 gap-4 ml-2"
                                             >
                                                 <Input
                                                     className=" w-1/4"
