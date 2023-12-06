@@ -17,7 +17,7 @@ import {
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 const baseUrl = `https://api.cloudinary.com/v1_1/${cloudName}`;
 
-export default function CloudinaryTest({ setUrl, i }) {
+export default function CloudinaryTest({ setUrl, i, resetValue }) {
     const [files, setFiles] = useState([]);
     // const [value, setValue] = useState("");
     // const [url, setUrl] = useState("");
@@ -70,7 +70,7 @@ export default function CloudinaryTest({ setUrl, i }) {
 
         request.setRequestHeader("Content-Type", "application/json");
 
-        setUrl("", i);
+        setUrl(resetValue || "", i);
         request.onload = () => {
             if (request.status >= 200 && request.status < 300) {
                 successCallback();
@@ -133,7 +133,7 @@ export default function CloudinaryTest({ setUrl, i }) {
                 allowMultiple={true}
                 server={{ process, revert }}
                 name="file"
-                setUrl={setUrl}
+                // setUrl={setUrl}
                 labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
             />
         </div>

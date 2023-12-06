@@ -11,6 +11,8 @@ import {
     AccordionItem,
     Textarea,
 } from "@nextui-org/react";
+import Lottie from "lottie-react";
+import loadingAnimation from "../../assets/animations/Loading_animation.json";
 
 import { useEffect, useState, useMemo } from "react";
 import CMSAddListbox from "./CMSAddListbox";
@@ -30,6 +32,7 @@ export default function CMSAddRecipeModal({
     const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
     const { getToken } = useAuth();
     const { refresh } = useInstantSearch();
+    const [isLoading, setIsLoading] = useState(false);
 
     const [staticInputs, setStaticInputs] = useState({
         title: "",
@@ -278,8 +281,10 @@ export default function CMSAddRecipeModal({
                 toastSaveSuccess(
                     `Recipe added. Click refresh if changes aren't reflected on the page`
                 );
+                setTimeout(() => setIsLoading(true), 750);
                 setTimeout(() => onClose(), 4000);
                 setTimeout(() => refresh(), 4000);
+                setTimeout(() => setIsLoading(false), 4000);
             } else {
                 throw new Error(
                     `Sorry, an error occurred. Please try again later.`
@@ -306,367 +311,393 @@ export default function CMSAddRecipeModal({
                 placement="center"
                 size="full"
                 className="p-8 pt-16 min-h-screen"
-                scrollBehavior="inside"
+                scrollBehavior={isLoading ? "outside" : "inside"}
             >
                 <ModalContent>
-                    {() => (
-                        <>
-                            <ModalHeader>
-                                <form
-                                    onSubmit={handleEditClick}
-                                    name="title"
-                                    className="flex items-baseline"
-                                >
-                                    <Input
-                                        className="glassInput"
-                                        color="default"
+                    {() =>
+                        isLoading ? (
+                            <ModalBody className="flex justify-center items-center">
+                                <Lottie
+                                    animationData={loadingAnimation}
+                                    loop={true}
+                                />
+                            </ModalBody>
+                        ) : (
+                            <>
+                                <ModalHeader>
+                                    <form
+                                        onSubmit={handleEditClick}
                                         name="title"
-                                        value={staticInputs.title}
-                                        onChange={handleChange}
-                                        label="Recipe Title"
-                                        labelPlacement="outside"
-                                        // endContent={
-                                        //     <Button
-                                        //         onPress={handleEditClick}
-                                        //         type="submit"
-                                        //         color="secondary"
-                                        //         name="title"
-                                        //     >
-                                        //         Set Title
-                                        //     </Button>
-                                        // }
-                                    />
-                                    <Button
-                                        // onPress={handleEditClick}
-                                        type="submit"
-                                        variant="ghost"
-                                        radius="sm"
-                                        color="secondary"
-                                        name="title"
-                                        className="font-montserrat font-semibold"
+                                        className="flex items-baseline gap-2 m-2"
                                     >
-                                        Set Title
-                                    </Button>
-                                </form>
-                            </ModalHeader>
-                            <ModalBody>
-                                <Accordion
-                                    variant="splitted"
-                                    className="font-metropolis"
-                                >
-                                    <AccordionItem
-                                        key="Info_and_Media"
-                                        title="Info & Media"
+                                        <Input
+                                            className="font-metropolis"
+                                            color="default"
+                                            name="title"
+                                            value={staticInputs.title}
+                                            onChange={handleChange}
+                                            label="Recipe Title"
+                                            labelPlacement="outside"
+                                            // endContent={
+                                            //     <Button
+                                            //         onPress={handleEditClick}
+                                            //         type="submit"
+                                            //         color="secondary"
+                                            //         name="title"
+                                            //     >
+                                            //         Set Title
+                                            //     </Button>
+                                            // }
+                                        />
+                                        <Button
+                                            // onPress={handleEditClick}
+                                            type="submit"
+                                            variant="ghost"
+                                            radius="sm"
+                                            color="secondary"
+                                            name="title"
+                                            className="font-montserrat font-semibold"
+                                        >
+                                            Set Title
+                                        </Button>
+                                    </form>
+                                </ModalHeader>
+                                <ModalBody>
+                                    <Accordion
+                                        variant="splitted"
+                                        className="font-metropolis"
                                     >
-                                        <form onSubmit={handleSetSubmit}>
-                                            <Input
-                                                className="glassInput"
-                                                color="default"
-                                                value={staticInputs.category}
-                                                onChange={handleChange}
-                                                label="Recipe Category"
-                                                labelPlacement="outside"
-                                                name="category"
-                                                // endContent={
-                                                //     <Button
-                                                //         color="secondary"
-                                                //         name="category"
-                                                //         onPress={
-                                                //             handleEditClick
-                                                //         }
-                                                //     >
-                                                //         Set Category
-                                                //     </Button>
-                                                // }
-                                            />
-                                            <Input
-                                                className="glassInput"
-                                                color="default"
-                                                value={staticInputs.region}
-                                                onChange={handleChange}
-                                                label="Recipe Region of Origin"
-                                                labelPlacement="outside"
-                                                name="region"
-                                                // endContent={
-                                                //     <Button
-                                                //         color="secondary"
-                                                //         name="region"
-                                                //         onPress={
-                                                //             handleEditClick
-                                                //         }
-                                                //     >
-                                                //         Set Region
-                                                //     </Button>
-                                                // }
-                                            />
-                                            <Input
-                                                className="glassInput"
-                                                color="default"
-                                                value={staticInputs.text}
-                                                onChange={handleChange}
-                                                label="Recipe Tagline"
-                                                labelPlacement="outside"
-                                                name="text"
-                                                // endContent={
-                                                //     <Button
-                                                //         color="secondary"
-                                                //         name="text"
-                                                //         onPress={
-                                                //             handleEditClick
-                                                //         }
-                                                //     >
-                                                //         Set Tagline
-                                                //     </Button>
-                                                // }
-                                            />
-                                            <Textarea
-                                                minRows={1}
-                                                isInvalid={isImgInvalid}
-                                                errorMessage={
-                                                    isImgInvalid &&
-                                                    "Please enter a valid URL"
-                                                }
-                                                className="glassTextArea"
-                                                color="default"
-                                                value={staticInputs.imgUrl}
-                                                onChange={handleChange}
-                                                label="Recipe Image"
-                                                labelPlacement="outside"
-                                                name="imgUrl"
-                                                // endContent={
-                                                //     <Button
-                                                //         color="secondary"
-                                                //         name="imgUrl"
-                                                //         onPress={
-                                                //             handleEditClick
-                                                //         }
-                                                //     >
-                                                //         Set Image
-                                                //     </Button>
-                                                // }
-                                            />
-                                            <CloudinaryTest
-                                                setUrl={handleImgUpload}
-                                            />
-                                            <Textarea
-                                                minRows={1}
-                                                isInvalid={isVideoInvalid}
-                                                errorMessage={
-                                                    isVideoInvalid &&
-                                                    "Please enter a valid URL"
-                                                }
-                                                className="glassTextArea"
-                                                color="default"
-                                                value={staticInputs.videoUrl}
-                                                onChange={handleChange}
-                                                label="Instructional Video"
-                                                labelPlacement="outside"
-                                                name="videoUrl"
-                                                // endContent={
-                                                //     <Button
-                                                //         color="secondary"
-                                                //         name="videoUrl"
-                                                //         onPress={
-                                                //             handleEditClick
-                                                //         }
-                                                //     >
-                                                //         Set Video
-                                                //     </Button>
-                                                // }
-                                            />
-                                            <Input
-                                                className="glassInput"
-                                                color="default"
-                                                value={staticInputs.button}
-                                                onChange={handleChange}
-                                                label="Recipe Button Text"
-                                                labelPlacement="outside"
-                                                name="button"
-                                                // endContent={
-                                                //     <Button
-                                                //         color="secondary"
-                                                //         name="button"
-                                                //         onPress={
-                                                //             handleEditClick
-                                                //         }
-                                                //     >
-                                                //         Set Button Text
-                                                //     </Button>
-                                                // }
-                                            />
+                                        <AccordionItem
+                                            key="Info_and_Media"
+                                            title="Info & Media"
+                                        >
+                                            <form
+                                                className="flex flex-col gap-6 w-10/12"
+                                                onSubmit={handleSetSubmit}
+                                                id="addInfoAndMedia"
+                                            >
+                                                <Input
+                                                    className=""
+                                                    color="default"
+                                                    value={
+                                                        staticInputs.category
+                                                    }
+                                                    onChange={handleChange}
+                                                    label="Recipe Category"
+                                                    labelPlacement="outside"
+                                                    name="category"
+                                                    // endContent={
+                                                    //     <Button
+                                                    //         color="secondary"
+                                                    //         name="category"
+                                                    //         onPress={
+                                                    //             handleEditClick
+                                                    //         }
+                                                    //     >
+                                                    //         Set Category
+                                                    //     </Button>
+                                                    // }
+                                                />
+                                                <Input
+                                                    className=""
+                                                    color="default"
+                                                    value={staticInputs.region}
+                                                    onChange={handleChange}
+                                                    label="Recipe Region of Origin"
+                                                    labelPlacement="outside"
+                                                    name="region"
+                                                    // endContent={
+                                                    //     <Button
+                                                    //         color="secondary"
+                                                    //         name="region"
+                                                    //         onPress={
+                                                    //             handleEditClick
+                                                    //         }
+                                                    //     >
+                                                    //         Set Region
+                                                    //     </Button>
+                                                    // }
+                                                />
+                                                <Input
+                                                    className=""
+                                                    color="default"
+                                                    value={staticInputs.text}
+                                                    onChange={handleChange}
+                                                    label="Recipe Tagline"
+                                                    labelPlacement="outside"
+                                                    name="text"
+                                                    // endContent={
+                                                    //     <Button
+                                                    //         color="secondary"
+                                                    //         name="text"
+                                                    //         onPress={
+                                                    //             handleEditClick
+                                                    //         }
+                                                    //     >
+                                                    //         Set Tagline
+                                                    //     </Button>
+                                                    // }
+                                                />
+                                                <Textarea
+                                                    minRows={1}
+                                                    isInvalid={isImgInvalid}
+                                                    errorMessage={
+                                                        isImgInvalid &&
+                                                        "Please enter a valid URL"
+                                                    }
+                                                    className=""
+                                                    color="default"
+                                                    value={staticInputs.imgUrl}
+                                                    onChange={handleChange}
+                                                    label="Recipe Image"
+                                                    labelPlacement="outside"
+                                                    name="imgUrl"
+                                                    // endContent={
+                                                    //     <Button
+                                                    //         color="secondary"
+                                                    //         name="imgUrl"
+                                                    //         onPress={
+                                                    //             handleEditClick
+                                                    //         }
+                                                    //     >
+                                                    //         Set Image
+                                                    //     </Button>
+                                                    // }
+                                                />
+                                                <CloudinaryTest
+                                                    setUrl={handleImgUpload}
+                                                />
+                                                <Textarea
+                                                    minRows={1}
+                                                    isInvalid={isVideoInvalid}
+                                                    errorMessage={
+                                                        isVideoInvalid &&
+                                                        "Please enter a valid URL"
+                                                    }
+                                                    className=""
+                                                    color="default"
+                                                    value={
+                                                        staticInputs.videoUrl
+                                                    }
+                                                    onChange={handleChange}
+                                                    label="Instructional Video"
+                                                    labelPlacement="outside"
+                                                    name="videoUrl"
+                                                    // endContent={
+                                                    //     <Button
+                                                    //         color="secondary"
+                                                    //         name="videoUrl"
+                                                    //         onPress={
+                                                    //             handleEditClick
+                                                    //         }
+                                                    //     >
+                                                    //         Set Video
+                                                    //     </Button>
+                                                    // }
+                                                />
+                                                <Input
+                                                    className=""
+                                                    color="default"
+                                                    value={staticInputs.button}
+                                                    onChange={handleChange}
+                                                    label="Recipe Button Text"
+                                                    labelPlacement="outside"
+                                                    name="button"
+                                                    // endContent={
+                                                    //     <Button
+                                                    //         color="secondary"
+                                                    //         name="button"
+                                                    //         onPress={
+                                                    //             handleEditClick
+                                                    //         }
+                                                    //     >
+                                                    //         Set Button Text
+                                                    //     </Button>
+                                                    // }
+                                                />
+                                            </form>
                                             <div className="flex justify-end w-full px-6 py-4">
                                                 <Button
                                                     type="submit"
                                                     color="secondary"
                                                     variant="ghost"
                                                     radius="sm"
+                                                    form="addInfoAndMedia"
                                                 >
                                                     Set Info & Media
                                                 </Button>
                                             </div>
-                                        </form>
-                                    </AccordionItem>
-                                    <AccordionItem
-                                        key="Recipe_Tags"
-                                        title="Tags"
-                                    >
-                                        <form
-                                            name="tags"
-                                            onSubmit={handleAddClick}
-                                            className="flex items-baseline gap-4 my-4"
+                                        </AccordionItem>
+                                        <AccordionItem
+                                            key="Recipe_Tags"
+                                            title="Tags"
                                         >
-                                            <Input
-                                                // className="glassInput"
-                                                label="Add new tag"
-                                                labelPlacement="outside"
+                                            <form
                                                 name="tags"
-                                                value={addTagValue}
-                                                onValueChange={setAddTagValue}
-                                                // endContent={
-                                                //     <Button
-                                                //         onPress={handleAddClick}
-                                                //         name="tags"
-                                                //         color="primary"
-                                                //     >
-                                                //         Add tag
-                                                //     </Button>
-                                                // }
-                                            />
-                                            <Button
-                                                // onPress={handleAddClick}
-                                                type="submit"
-                                                name="tags"
-                                                color="primary"
-                                                radius="sm"
+                                                onSubmit={handleAddClick}
+                                                className="flex items-baseline gap-4 my-4"
                                             >
-                                                Add tag
-                                            </Button>
-                                        </form>
-                                        <CMSAddListbox
-                                            items={tagsWKey}
-                                            label="Tag"
-                                            section="tags"
-                                            setNewRecipe={setNewRecipe}
-                                            newRecipe={newRecipe}
-                                        />
-                                    </AccordionItem>
-                                    <AccordionItem
-                                        key="Recipe_Steps"
-                                        title="Recipe Steps"
-                                    >
-                                        <form
-                                            name="steps"
-                                            onSubmit={handleAddClick}
-                                            className="flex items-center gap-4 my-4"
+                                                <Input
+                                                    // className=""
+                                                    label="Add new tag"
+                                                    labelPlacement="outside"
+                                                    name="tags"
+                                                    value={addTagValue}
+                                                    onValueChange={
+                                                        setAddTagValue
+                                                    }
+                                                    // endContent={
+                                                    //     <Button
+                                                    //         onPress={handleAddClick}
+                                                    //         name="tags"
+                                                    //         color="primary"
+                                                    //     >
+                                                    //         Add tag
+                                                    //     </Button>
+                                                    // }
+                                                />
+                                                <Button
+                                                    // onPress={handleAddClick}
+                                                    type="submit"
+                                                    name="tags"
+                                                    color="primary"
+                                                    radius="sm"
+                                                >
+                                                    Add tag
+                                                </Button>
+                                            </form>
+                                            <CMSAddListbox
+                                                items={tagsWKey}
+                                                label="Tag"
+                                                section="tags"
+                                                setNewRecipe={setNewRecipe}
+                                                newRecipe={newRecipe}
+                                            />
+                                        </AccordionItem>
+                                        <AccordionItem
+                                            key="Recipe_Steps"
+                                            title="Recipe Steps"
                                         >
-                                            <Textarea
-                                                // className="glassInput"
-                                                label="Add new step"
-                                                labelPlacement="outside"
-                                                value={addStepValue}
-                                                onValueChange={setAddStepValue}
+                                            <form
                                                 name="steps"
-                                                minRows={2}
-                                                // endContent={
-                                                //     <Button
-                                                //         onPress={handleAddClick}
-                                                //         color="primary"
-                                                //         name="steps"
-                                                //     >
-                                                //         Add step
-                                                //     </Button>
-                                                // }
-                                            />
-                                            <Button
-                                                // onPress={handleAddClick}
-                                                type="submit"
-                                                color="primary"
-                                                name="steps"
-                                                radius="sm"
+                                                onSubmit={handleAddClick}
+                                                className="flex items-center gap-4 my-4"
                                             >
-                                                Add step
-                                            </Button>
-                                        </form>
-                                        <CMSAddListbox
-                                            items={stepsWKey}
-                                            label="Step"
-                                            section="steps"
-                                            setNewRecipe={setNewRecipe}
-                                            newRecipe={newRecipe}
-                                        />
-                                    </AccordionItem>
-                                    <AccordionItem
-                                        key="Recipe_Ingredients"
-                                        title="Ingredients List"
-                                    >
-                                        <form
-                                            onSubmit={handleAddIngSubmit}
-                                            className="flex items-baseline"
+                                                <Textarea
+                                                    // className=""
+                                                    label="Add new step"
+                                                    labelPlacement="outside"
+                                                    value={addStepValue}
+                                                    onValueChange={
+                                                        setAddStepValue
+                                                    }
+                                                    name="steps"
+                                                    minRows={2}
+                                                    // endContent={
+                                                    //     <Button
+                                                    //         onPress={handleAddClick}
+                                                    //         color="primary"
+                                                    //         name="steps"
+                                                    //     >
+                                                    //         Add step
+                                                    //     </Button>
+                                                    // }
+                                                />
+                                                <Button
+                                                    // onPress={handleAddClick}
+                                                    type="submit"
+                                                    color="primary"
+                                                    name="steps"
+                                                    radius="sm"
+                                                >
+                                                    Add step
+                                                </Button>
+                                            </form>
+                                            <CMSAddListbox
+                                                items={stepsWKey}
+                                                label="Step"
+                                                section="steps"
+                                                setNewRecipe={setNewRecipe}
+                                                newRecipe={newRecipe}
+                                            />
+                                        </AccordionItem>
+                                        <AccordionItem
+                                            key="Recipe_Ingredients"
+                                            title="Ingredients List"
                                         >
-                                            <Input
-                                                className="glassInput w-1/4"
-                                                label="Amount"
-                                                labelPlacement="outside"
-                                                value={ingForm.amount}
-                                                onChange={handleIngFormChange}
-                                                name="amount"
-                                            />
-                                            <Input
-                                                className="glassInput"
-                                                label="Ingredient"
-                                                labelPlacement="outside"
-                                                value={ingForm.ing}
-                                                onChange={handleIngFormChange}
-                                                name="ing"
-                                            />
-                                            <Button
-                                                className="min-w-1/4 px-6"
-                                                color="primary"
-                                                type="submit"
-                                                radius="sm"
+                                            <form
+                                                onSubmit={handleAddIngSubmit}
+                                                className="flex items-baseline"
                                             >
-                                                Add Ingredient
-                                            </Button>
-                                        </form>
-                                        <CMSAddListbox
-                                            items={ingListWKey}
-                                            section="ingList"
-                                            setNewRecipe={setNewRecipe}
-                                            newRecipe={newRecipe}
-                                        />
-                                    </AccordionItem>
-                                </Accordion>
-                            </ModalBody>
-                            <ModalFooter>
-                                <Button
-                                    color="danger"
-                                    variant="flat"
-                                    onPress={discardDraftClick}
-                                    radius="sm"
-                                    className="font-montserrat font-semibold hover:bg-warning"
-                                >
-                                    Discard Draft
-                                </Button>
-                                <Button
-                                    color="warning"
-                                    variant="bordered"
-                                    onPress={onClose}
-                                    radius="sm"
-                                    className="font-montserrat font-semibold"
-                                >
-                                    Close, but keep draft
-                                </Button>
-                                <Button
-                                    color="success"
-                                    onPress={handleSaveClick}
-                                    radius="sm"
-                                    className="font-montserrat font-semibold"
-                                >
-                                    Save New Recipe
-                                </Button>
-                            </ModalFooter>
-                        </>
-                    )}
+                                                <Input
+                                                    className=" w-1/4"
+                                                    label="Amount"
+                                                    labelPlacement="outside"
+                                                    value={ingForm.amount}
+                                                    onChange={
+                                                        handleIngFormChange
+                                                    }
+                                                    name="amount"
+                                                />
+                                                <Input
+                                                    className=""
+                                                    label="Ingredient"
+                                                    labelPlacement="outside"
+                                                    value={ingForm.ing}
+                                                    onChange={
+                                                        handleIngFormChange
+                                                    }
+                                                    name="ing"
+                                                />
+                                                <Button
+                                                    className="min-w-1/4 px-6"
+                                                    color="primary"
+                                                    type="submit"
+                                                    radius="sm"
+                                                >
+                                                    Add Ingredient
+                                                </Button>
+                                            </form>
+                                            <CMSAddListbox
+                                                items={ingListWKey}
+                                                section="ingList"
+                                                setNewRecipe={setNewRecipe}
+                                                newRecipe={newRecipe}
+                                            />
+                                        </AccordionItem>
+                                    </Accordion>
+                                </ModalBody>
+                                <ModalFooter>
+                                    <Button
+                                        color="danger"
+                                        variant="flat"
+                                        onPress={discardDraftClick}
+                                        radius="sm"
+                                        className="font-montserrat font-semibold hover:bg-warning"
+                                    >
+                                        Discard Draft
+                                    </Button>
+                                    <Button
+                                        color="warning"
+                                        variant="bordered"
+                                        onPress={onClose}
+                                        radius="sm"
+                                        className="font-montserrat font-semibold"
+                                    >
+                                        Close, but keep draft
+                                    </Button>
+                                    <Button
+                                        color="success"
+                                        onPress={handleSaveClick}
+                                        radius="sm"
+                                        className="font-montserrat font-semibold"
+                                    >
+                                        Save New Recipe
+                                    </Button>
+                                </ModalFooter>
+                            </>
+                        )
+                    }
                 </ModalContent>
             </Modal>
         </>
