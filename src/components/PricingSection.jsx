@@ -16,7 +16,7 @@ return (
     <p>Get help from our Customer Team</p>
     
     <NavLink to="/pricing" className="font-bold text-slate-200 text-3xl mt-4">
-      <Button className="glassButton" style={{color:'#fffff1'}}>Pricing</Button>
+      <Button className="glassButton" style={{color:'#fffff1',zIndex:40}}>Pricing</Button>
     </NavLink>
   </div>
 </div>
