@@ -19,7 +19,7 @@ export default function CPform() {
             setTimeout(() => {
                 // setSubmitted(false);
                 navigate("/", { replace: true });
-            }, 10000);
+            }, 3000);
         } catch (error) {
             console.error("There was an error!", error);
         }
