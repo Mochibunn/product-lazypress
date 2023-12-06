@@ -7,11 +7,13 @@ import {
     Button,
     Input,
     useDisclosure,
-    Spinner,
     Accordion,
     AccordionItem,
     Textarea,
+    Image,
 } from "@nextui-org/react";
+import Lottie from "lottie-react";
+import loadingAnimation from "../../assets/animations/Loading_animation.json";
 
 import { produce } from "immer";
 import { useRecipe } from "../../lib/swr";
@@ -25,9 +27,10 @@ import CloudinaryTest from "./CloudinaryTest";
 
 export default function CMSRecipeModal({ _id, setDraftSaved }) {
     const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
-    const { recipe, isLoading, mutateRecipe } = useRecipe(_id);
+    const { recipe, mutateRecipe } = useRecipe(_id);
     const { getToken } = useAuth();
     const { refresh } = useInstantSearch();
+    const [isLoading, setIsLoading] = useState(false);
 
     const [staticInputs, setStaticInputs] = useState({
         title: "",
@@ -268,8 +271,10 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                     `Changes saved. Click refresh if changes aren't reflected on the page`
                 );
                 setDraftSaved(true);
+                setTimeout(() => setIsLoading(true), 750);
                 setTimeout(() => onClose(), 4000);
                 setTimeout(() => refresh(), 4000);
+                setTimeout(() => setIsLoading(false), 4000);
             } else {
                 throw new Error(
                     `Sorry, an error occurred. Please try again later.`
@@ -296,22 +301,27 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                 placement="center"
                 size="full"
                 className="p-8 pt-16 min-h-screen"
-                scrollBehavior="inside"
+                scrollBehavior={isLoading ? "outside" : "inside"}
             >
                 <ModalContent>
                     {() =>
                         isLoading ? (
-                            <Spinner />
+                            <ModalBody className="flex justify-center items-center">
+                                <Lottie
+                                    animationData={loadingAnimation}
+                                    loop={true}
+                                />
+                            </ModalBody>
                         ) : (
                             <>
                                 <ModalHeader>
                                     <form
                                         onSubmit={handleEditClick}
                                         name="title"
-                                        className="flex items-baseline"
+                                        className="flex items-baseline gap-2 m-2 ml-3"
                                     >
                                         <Input
-                                            className="glassInput"
+                                            className="font-metropolis"
                                             color="default"
                                             name="title"
                                             value={staticInputs.title}
@@ -351,9 +361,13 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                             key="Info_and_Media"
                                             title="Info & Media"
                                         >
-                                            <form onSubmit={handleSetSubmit}>
+                                            <form
+                                                className="flex flex-col gap-6 w-10/12"
+                                                onSubmit={handleSetSubmit}
+                                                id="editInfoAndMedia"
+                                            >
                                                 <Input
-                                                    className="glassInput"
+                                                    className=""
                                                     color="default"
                                                     value={
                                                         staticInputs.category
@@ -375,7 +389,7 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                                     // }
                                                 />
                                                 <Input
-                                                    className="glassInput"
+                                                    className=""
                                                     color="default"
                                                     value={staticInputs.region}
                                                     onChange={handleChange}
@@ -395,7 +409,7 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                                     // }
                                                 />
                                                 <Input
-                                                    className="glassInput"
+                                                    className=""
                                                     color="default"
                                                     value={staticInputs.text}
                                                     onChange={handleChange}
@@ -421,7 +435,7 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                                         isImgInvalid &&
                                                         "Please enter a valid URL"
                                                     }
-                                                    className="glassTextArea"
+                                                    className=""
                                                     color="default"
                                                     value={staticInputs.imgUrl}
                                                     onChange={handleChange}
@@ -440,9 +454,21 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                                     //     </Button>
                                                     // }
                                                 />
-                                                <CloudinaryTest
-                                                    setUrl={handleImgUpload}
-                                                />
+                                                <div className="w-full flex justify-start items-start gap-2 py-2">
+                                                    <CloudinaryTest
+                                                        setUrl={handleImgUpload}
+                                                        resetValue={
+                                                            recipe.imgUrl
+                                                        }
+                                                    />
+                                                    <Image
+                                                        alt="Section image"
+                                                        src={
+                                                            staticInputs.imgUrl
+                                                        }
+                                                        className="max-h-[175px] max-w-[200px] my-2 shadow-xl"
+                                                    />
+                                                </div>
                                                 <Textarea
                                                     minRows={1}
                                                     isInvalid={isVideoInvalid}
@@ -450,7 +476,7 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                                         isVideoInvalid &&
                                                         "Please enter a valid URL"
                                                     }
-                                                    className="glassTextArea"
+                                                    className=""
                                                     color="default"
                                                     value={
                                                         staticInputs.videoUrl
@@ -472,7 +498,7 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                                     // }
                                                 />
                                                 <Input
-                                                    className="glassInput"
+                                                    className=""
                                                     color="default"
                                                     value={staticInputs.button}
                                                     onChange={handleChange}
@@ -491,17 +517,18 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                                     //     </Button>
                                                     // }
                                                 />
-                                                <div className="flex justify-end w-full px-6 py-4">
-                                                    <Button
-                                                        type="submit"
-                                                        color="secondary"
-                                                        radius="sm"
-                                                        variant="ghost"
-                                                    >
-                                                        Set Info & Media
-                                                    </Button>
-                                                </div>
                                             </form>
+                                            <div className="flex justify-end w-full px-6 py-4">
+                                                <Button
+                                                    type="submit"
+                                                    color="secondary"
+                                                    radius="sm"
+                                                    variant="ghost"
+                                                    form="editInfoAndMedia"
+                                                >
+                                                    Set Info & Media
+                                                </Button>
+                                            </div>
                                         </AccordionItem>
                                         <AccordionItem
                                             key="Recipe_Tags"
@@ -513,7 +540,7 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                                 className="flex items-baseline gap-4 my-4"
                                             >
                                                 <Input
-                                                    // className="glassInput"
+                                                    // className=""
                                                     label="Add new tag"
                                                     labelPlacement="outside"
                                                     name="tags"
@@ -561,7 +588,7 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                                 className="flex items-center gap-4 my-4"
                                             >
                                                 <Textarea
-                                                    // className="glassInput"
+                                                    // className=""
                                                     label="Add new step"
                                                     labelPlacement="outside"
                                                     value={addStepValue}
@@ -588,6 +615,7 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                                     color="primary"
                                                     name="steps"
                                                     radius="sm"
+                                                    className="mt-3"
                                                 >
                                                     Add step
                                                 </Button>
@@ -606,10 +634,10 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                         >
                                             <form
                                                 onSubmit={handleAddIngSubmit}
-                                                className="flex items-baseline"
+                                                className="flex items-baseline mb-4 gap-4"
                                             >
                                                 <Input
-                                                    className="glassInput w-1/4"
+                                                    className=" w-1/4"
                                                     label="Amount"
                                                     labelPlacement="outside"
                                                     value={ingForm.amount}
@@ -619,7 +647,7 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                                     name="amount"
                                                 />
                                                 <Input
-                                                    className="glassInput"
+                                                    className=""
                                                     label="Ingredient"
                                                     labelPlacement="outside"
                                                     value={ingForm.ing}

@@ -67,9 +67,9 @@ export default function CMSIngInputs({
     };
     return (
         <li className="my-4 mx-2">
-            <form className="flex items-baseline">
+            <form className="flex items-baseline gap-4">
                 <Input
-                    className="glassInput w-1/4"
+                    className=" w-1/4"
                     label={`Amount`}
                     labelPlacement="outside"
                     value={form.amount}
@@ -78,7 +78,7 @@ export default function CMSIngInputs({
                     onChange={handleChange}
                 />
                 <Input
-                    className="glassInput"
+                    className=""
                     label={`Ingredient`}
                     labelPlacement="outside"
                     value={form.ing}
