@@ -17,6 +17,7 @@ import AboutPage from "./pages/AboutPage";
 import Success from "./pages/Success";
 import Cancel from "./pages/Cancel";
 import MobileWarning from "./pages/MobileWarning";
+import ExamplePage from "./pages/ExamplePage";
 
 if (!import.meta.env.VITE_CLERK_PUBLISHABLE_KEY) {
     throw new Error("Missing Publishable Key");
@@ -66,6 +67,20 @@ function App() {
                             </>
                         }
                     />
+                    <Route
+                        path="cms/example/:exampleId"
+                        element={
+                            <>
+                                <SignedIn>
+                                    <ExamplePage />
+                                </SignedIn>
+                                <SignedOut>
+                                    <Navigate to="/sign-in" />
+                                </SignedOut>
+                            </>
+                        }
+                    />
+
                     <Route
                         path="cms/:blogId"
                         element={
