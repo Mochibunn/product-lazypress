@@ -85,11 +85,19 @@ export default function SiteCard({
                         </div>
                     </div>
                     <div className="flex gap-2">
-                        <a href={siteUrl} target="_blank" rel="noreferrer">
-                            <Button radius="full" size="sm" color="primary">
-                                Go to Site
-                            </Button>
-                        </a>
+                        {siteUrl ? (
+                            <a href={siteUrl} target="_blank" rel="noreferrer">
+                                <Button radius="full" size="sm" color="primary">
+                                    Go to Site
+                                </Button>
+                            </a>
+                        ) : (
+                            <Link to={`/cms/example/1`} target="_blank">
+                                <Button radius="full" size="sm" color="primary">
+                                    Go to Example
+                                </Button>
+                            </Link>
+                        )}
                         <Link
                             to={
                                 isMobile.matches

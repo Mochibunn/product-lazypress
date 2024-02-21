@@ -109,6 +109,12 @@ export default function Dashboard() {
                             </>
                         ) : !sites?.length ? (
                             <>
+                                <SiteCard
+                                    blogId={1}
+                                    updatedAt={2024}
+                                    deployed={false}
+                                    // {...site.dashboard}
+                                />
                                 <div aria-hidden />
                                 <div aria-hidden className="text-center">
                                     <h1 className="text-4xl pointer-events-none mb-2">
