@@ -31,7 +31,7 @@ import {
 export default function CMSTestPage() {
     const { blogId } = useParams();
     const [navBarInputValues, setNavBarInputValues] = useState();
-    // const [blogPagesValues, setBlogPagesValues] = useState();
+    const [cardValues, setCardValues] = useState();
     const [footerValues, setFooterValues] = useState();
     const [blogTitle, setBlogTitle] = useState("");
     const { swrBlog, isLoading, mutateBlog } = useBlog(blogId);
@@ -68,17 +68,17 @@ export default function CMSTestPage() {
             return theValues;
         });
 
-        // const blogValues = swrBlog.pages.home.blogPages.map((page) => {
-        //     const pageValues = Object.entries(page).map(([key, value]) => {
-        //         return {
-        //             value,
-        //             label: key,
-        //             key: crypto.randomUUID(),
-        //         };
-        //     });
-        //     // console.log(pageValues);
-        //     return pageValues;
-        // });
+        const cardValues = swrBlog.pages.home.cards.map((page) => {
+            const pageValues = Object.entries(page).map(([key, value]) => {
+                return {
+                    value,
+                    label: key,
+                    key: crypto.randomUUID(),
+                };
+            });
+            // console.log(pageValues);
+            return pageValues;
+        });
         const heroValues = swrBlog.pages.home.hero.map((page) => {
             const theValues = Object.entries(page).map(([key, value]) => ({
                 value,
@@ -91,7 +91,7 @@ export default function CMSTestPage() {
         setBlogTitle(swrBlog.dashboard.blogTitle);
         setNavBarInputValues([...navBarValues]);
         setFooterValues([...footerValues]);
-        // setBlogPagesValues([...blogValues]);
+        setCardValues([...cardValues]);
         setHeroValues([...heroValues]);
     }, [swrBlog, isLoading]);
 
@@ -225,6 +225,19 @@ export default function CMSTestPage() {
                                     sectionValues={heroValues}
                                 />
                             </AccordionItem>
+                            {cardValues?.length && (
+                                <AccordionItem
+                                    key="cards"
+                                    title="Cards"
+                                    startContent={<CgWebsite />}
+                                >
+                                    <CMSObjEdit
+                                        // sectionTitle={"Blog Pages"}
+                                        section={"cards"}
+                                        sectionValues={cardValues}
+                                    />
+                                </AccordionItem>
+                            )}
                             <AccordionItem
                                 key="Footer Items"
                                 title="Footer Items"
@@ -268,33 +281,33 @@ export default function CMSTestPage() {
                         </Button>
                     </div>
                 </Tab>
-                {/* Deprecated-handled now by recipes tab */}
+                {/* Used only in preview pages now, but integrated into Home tab. */}
                 {/* <Tab
-          key="blogPages"
-          title={
-            <div className="flex items-center space-x-2">
-              <CgWebsite />
-              <span>Blog Pages</span>
-            </div>
-          }
-          className="font-metropolis"
-        >
-          <div aria-hidden className="w-10/12">
-            <Accordion variant="splitted">
-              <AccordionItem
-                key="Blog Pages"
-                title="Blog Pages"
-                startContent={<CgWebsite />}
-              >
-                <CMSObjEdit
-                  // sectionTitle={"Blog Pages"}
-                  section={"blogPages"}
-                  sectionValues={blogPagesValues}
-                />
-              </AccordionItem>
-            </Accordion>
-          </div>
-        </Tab> */}
+                    key="cardsTab"
+                    title={
+                        <div className="flex items-center space-x-2">
+                            <CgWebsite />
+                            <span>Cards</span>
+                        </div>
+                    }
+                    className="font-metropolis"
+                >
+                    <div aria-hidden className="w-10/12">
+                        <Accordion variant="splitted">
+                            <AccordionItem
+                                key="cards"
+                                title="Cards"
+                                startContent={<CgWebsite />}
+                            >
+                                <CMSObjEdit
+                                    // sectionTitle={"Blog Pages"}
+                                    section={"cards"}
+                                    sectionValues={cardValues}
+                                />
+                            </AccordionItem>
+                        </Accordion>
+                    </div>
+                </Tab> */}
                 <Tab
                     key="recipes"
                     title={

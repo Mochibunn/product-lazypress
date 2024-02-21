@@ -17,7 +17,7 @@ const pricingOptions = [
             "Unlimited Projects",
             "Unlimited Exports",
             "1 account access",
-            "Control Management System"
+            "Control Management System",
         ],
     },
     {
@@ -32,7 +32,7 @@ const pricingOptions = [
             "Unlimited Projects",
             "Unlimited Exports",
             "1 account access",
-            "Control Management System"
+            "Control Management System",
         ],
     },
     {
@@ -47,7 +47,7 @@ const pricingOptions = [
             "Unlimited Projects",
             "Unlimited Exports",
             "Multıple teams",
-            "Control Management System"
+            "Control Management System",
         ],
     },
 ];
@@ -65,7 +65,7 @@ export default function PricingPage() {
             );
 
             const response = await fetch(
-                `${backend}/api/create-checkout-session`,
+                `${backend}/stripe/api/create-checkout-session`,
                 {
                     method: "POST",
                     headers: {
@@ -118,9 +118,7 @@ export default function PricingPage() {
                             <h4 className="uppercase">
                                 {option.subscriptionType}
                             </h4>
-                            <h4>
-                                &#8364;{option.price}/monthly
-                            </h4>
+                            <h4>&#8364;{option.price}/monthly</h4>
                             <Button
                                 onPress={() => makePayment(option.price)}
                                 className="jellyButtonNavBar my-1"
@@ -154,7 +152,7 @@ export default function PricingPage() {
                             onPress={() => navigate("/contactus")}
                             className="jellyButtonNavBar my-1"
                         >
-                           Contact Us
+                            Contact Us
                         </Button>
                     </div>
                 </div>
