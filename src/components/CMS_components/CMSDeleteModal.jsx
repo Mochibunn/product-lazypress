@@ -41,6 +41,13 @@ export default function CMSDeleteModal({ clerkUserId, _id }) {
             }
             if (!isValid) return;
 
+            // if (isPreview) {
+            //     toastSuccess(
+            //         "Operation was successful, on your website this is when the recipe would be deleted."
+            //     );
+            // }
+            // if (isPreview) return;
+
             const sessToken = await getToken();
             const response = await deleteRecipe(sessToken, _id, clerkUserId);
 

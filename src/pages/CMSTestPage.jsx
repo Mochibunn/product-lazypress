@@ -232,7 +232,7 @@ export default function CMSTestPage() {
                                     startContent={<CgWebsite />}
                                 >
                                     <CMSObjEdit
-                                        // sectionTitle={"Blog Pages"}
+                                        sectionTitle={"Cards"}
                                         section={"cards"}
                                         sectionValues={cardValues}
                                     />
@@ -323,6 +323,7 @@ export default function CMSTestPage() {
                             clerkUser={swrBlog.clerkUser}
                             clerkUserId={swrBlog.clerkUserId}
                             blog={swrBlog._id}
+                            isPreview={swrBlog.isPreview}
                         />
                     </div>
                 </Tab>

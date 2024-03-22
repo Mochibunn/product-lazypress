@@ -28,6 +28,7 @@ export default function CMSAddRecipeModal({
     blog,
     newRecipe,
     setNewRecipe,
+    isPreview,
 }) {
     const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
     const { getToken } = useAuth();
@@ -152,6 +153,12 @@ export default function CMSAddRecipeModal({
         }
 
         if (!isValid) return;
+
+        if (isPreview) {
+            return toastSuccess(
+                "Operation was successful, on your website this is when the changes would be saved."
+            );
+        }
         setNewRecipe((draft) => ({
             ...draft,
             category,

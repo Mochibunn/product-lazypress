@@ -6,7 +6,7 @@ import {
     CurrentRefinements,
     PoweredBy,
 } from "react-instantsearch";
-import { Card, Button } from "@nextui-org/react";
+import { Card, CardHeader, Button } from "@nextui-org/react";
 import { useImmer } from "use-immer";
 import CMSHit from "./CMSHit";
 import CMSPagination from "./CMSPagination";
@@ -14,7 +14,12 @@ import CMSRefinementList from "./CMSRefinementList";
 import CMSAddRecipeModal from "./CMSAddRecipeModal";
 import CMSRefreshBtn from "./CMSRefreshBtn";
 
-export default function CMSRecipes({ clerkUser, clerkUserId, blog }) {
+export default function CMSRecipes({
+    clerkUser,
+    clerkUserId,
+    blog,
+    isPreview,
+}) {
     const [newRecipe, setNewRecipe] = useImmer({
         title: "",
         category: "",
@@ -31,9 +36,17 @@ export default function CMSRecipes({ clerkUser, clerkUserId, blog }) {
         blog,
     });
 
-    // console.log(newRecipe);
+    // console.log(isPreview);
     return (
         <Card className="bg-transparent shadow-none">
+            {isPreview && (
+                <CardHeader>
+                    <h3 className="text-yellow-600">
+                        This section is for demonstration purposes only. Changes
+                        will not be saved.
+                    </h3>
+                </CardHeader>
+            )}
             <InstantSearch
                 searchClient={searchClient}
                 indexName="recipes"
@@ -64,6 +77,7 @@ export default function CMSRecipes({ clerkUser, clerkUserId, blog }) {
                             clerkUser={clerkUser}
                             clerkUserId={clerkUserId}
                             blog={blog}
+                            isPreview={isPreview}
                             newRecipe={newRecipe}
                             setNewRecipe={setNewRecipe}
                         />

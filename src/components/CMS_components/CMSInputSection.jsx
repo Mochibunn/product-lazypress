@@ -99,9 +99,11 @@ export default function CMSInputSection({
                 </h3>
                 <form
                     className={
-                        section !== "hero"
-                            ? "flex items-center justify-between mx-2"
-                            : ""
+                        section === "cards"
+                            ? ""
+                            : section === "hero"
+                            ? ""
+                            : "flex items-center justify-between mx-2"
                     }
                     onSubmit={editSection}
                 >
