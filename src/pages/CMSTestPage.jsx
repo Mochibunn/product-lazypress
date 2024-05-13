@@ -1,12 +1,12 @@
-import { useBlog } from "../lib/swr";
-import { editBlog } from "../lib/dbClient";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { useAuth } from "@clerk/clerk-react";
-import { produce } from "immer";
-import CMSObjEdit from "../components/CMS_components/CMSObjEdit";
-import CMSRecipes from "../components/CMS_components/CMSRecipes";
-import { toastSuccess, toastError } from "../lib/toastify";
+import { useBlog } from '../lib/swr';
+import { editBlog } from '../lib/dbClient';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useAuth } from '@clerk/clerk-react';
+import { produce } from 'immer';
+import CMSObjEdit from '../components/CMS_components/CMSObjEdit';
+import CMSRecipes from '../components/CMS_components/CMSRecipes';
+import { toastSuccess, toastError } from '../lib/toastify';
 import {
     Accordion,
     AccordionItem,
@@ -17,7 +17,7 @@ import {
     Spinner,
     Card,
     CardBody,
-} from "@nextui-org/react";
+} from '@nextui-org/react';
 import {
     CgClapperBoard,
     CgClipboard,
@@ -26,18 +26,18 @@ import {
     CgImage,
     CgPen,
     CgWebsite,
-} from "react-icons/cg";
+} from 'react-icons/cg';
 
 export default function CMSTestPage() {
     const { blogId } = useParams();
     const [navBarInputValues, setNavBarInputValues] = useState();
     const [cardValues, setCardValues] = useState();
     const [footerValues, setFooterValues] = useState();
-    const [blogTitle, setBlogTitle] = useState("");
+    const [blogTitle, setBlogTitle] = useState('');
     const { swrBlog, isLoading, mutateBlog } = useBlog(blogId);
     const [heroValues, setHeroValues] = useState();
     const { getToken } = useAuth();
-    document.title = `Edit "${blogTitle ? blogTitle : "Page"}" | LazyPress`;
+    document.title = `Edit "${blogTitle ? blogTitle : 'Page'}" | LazyPress`;
     // const [buttonSpin, setButtonSpin] = useState(false); Might remove this line later — Mochi
 
     // const notify = (content, mode) => toast(content, {theme: `${mode || "light"}`});
@@ -46,7 +46,7 @@ export default function CMSTestPage() {
 
     useEffect(() => {
         if (isLoading) return;
-        console.log("useEffect called");
+        // console.log(swrBlog.isPreview);
 
         const navBarValues = swrBlog.pages.home.navBar.map((page) => {
             const theValues = Object.entries(page).map(([key, value]) => ({
@@ -128,7 +128,7 @@ export default function CMSTestPage() {
 
             const response = await editBlog(sessToken, swrBlog);
 
-            console.log("came from protected route", response?.status);
+            console.log('came from protected route', response?.status);
             // console.log(`🐰Status:\n`, postStatus.status);
             // console.log(`AAAAA\n`, swrBlog);
             if (response?.status === 200) {
@@ -146,29 +146,29 @@ export default function CMSTestPage() {
 
     if (isLoading) return <Spinner />;
     return (
-        <div className="w-full p-4 min-h-screen bg-tiffany-blue/20">
+        <div className='w-full p-4 min-h-screen bg-tiffany-blue/20'>
             {/* <h1 className="watermark text-[150px] text-center">DESIGN WORK IN PROGRESS</h1> Uncomment this during presentation */}
-            <Card className="mt-2 mb-6 mx-2 px-2 py-2 shadow-sm">
+            <Card className='mt-2 mb-6 mx-2 px-2 py-2 shadow-sm'>
                 <CardBody>
-                    <div aria-hidden className="flex rounded-lg">
-                        <h3 className="text-4xl font-semibold font-metropolis">
+                    <div aria-hidden className='flex rounded-lg'>
+                        <h3 className='text-4xl font-semibold font-metropolis'>
                             Edit
                         </h3>
                         <Textarea
                             minRows={1}
-                            placeholder="Page"
+                            placeholder='Page'
                             onValueChange={setBlogTitle}
-                            variant="underlined"
-                            className="cms-title cms-txtarea"
+                            variant='underlined'
+                            className='cms-title cms-txtarea'
                             value={blogTitle}
                         />
                     </div>
                     <Button
                         onPress={handleSetTitle}
-                        color="secondary"
-                        radius="sm"
-                        variant="ghost"
-                        className="font-metropolis w-1/12 mt-4"
+                        color='secondary'
+                        radius='sm'
+                        variant='ghost'
+                        className='font-metropolis w-1/12 mt-4'
                         startContent={<CgPen />}
                     >
                         Set title
@@ -176,84 +176,84 @@ export default function CMSTestPage() {
                 </CardBody>
             </Card>
             <Tabs
-                aria-label="Site Pages"
-                className="ml-3 w-1/2 h-full"
+                aria-label='Site Pages'
+                className='ml-3 w-1/2 h-full'
                 classNames={{
-                    tabList: "w-full h-12 bg-default",
-                    cursor: "h-15",
-                    tab: "text-xl font-bold mx-1",
-                    tabContent: "",
+                    tabList: 'w-full h-12 bg-default',
+                    cursor: 'h-15',
+                    tab: 'text-xl font-bold mx-1',
+                    tabContent: '',
                 }}
             >
                 <Tab
-                    key="home"
+                    key='home'
                     title={
-                        <div className="flex items-center space-x-2">
+                        <div className='flex items-center space-x-2'>
                             <CgHome />
                             <span>Home</span>
                         </div>
                     }
-                    className="font-metropolis"
+                    className='font-metropolis'
                 >
-                    <div aria-hidden className="w-10/12">
+                    <div aria-hidden className='w-10/12'>
                         <Accordion
-                            variant="splitted"
-                            className="font-metropolis"
+                            variant='splitted'
+                            className='font-metropolis'
                         >
                             <AccordionItem
-                                key="1"
-                                title="Navbar Items"
-                                subtitle=""
+                                key='1'
+                                title='Navbar Items'
+                                subtitle=''
                                 startContent={<CgDrive />}
                             >
                                 <CMSObjEdit
-                                    sectionTitle={"NavBar Items"}
-                                    section={"navBar"}
+                                    sectionTitle={'NavBar Items'}
+                                    section={'navBar'}
                                     sectionValues={navBarInputValues}
                                     setSectionValues={setNavBarInputValues}
                                 />
                             </AccordionItem>
                             <AccordionItem
-                                key="Hero Section"
-                                title="Hero Section"
-                                subtitle=""
+                                key='Hero Section'
+                                title='Hero Section'
+                                subtitle=''
                                 startContent={<CgImage />}
                             >
                                 <CMSObjEdit
-                                    sectionTitle={"Hero Section"}
-                                    section={"hero"}
+                                    sectionTitle={'Hero Section'}
+                                    section={'hero'}
                                     sectionValues={heroValues}
                                 />
                             </AccordionItem>
                             {cardValues?.length && (
                                 <AccordionItem
-                                    key="cards"
-                                    title="Cards"
+                                    key='cards'
+                                    title='Cards'
                                     startContent={<CgWebsite />}
                                 >
                                     <CMSObjEdit
-                                        sectionTitle={"Cards"}
-                                        section={"cards"}
+                                        sectionTitle={'Cards'}
+                                        section={'cards'}
                                         sectionValues={cardValues}
                                     />
                                 </AccordionItem>
                             )}
                             <AccordionItem
-                                key="Footer Items"
-                                title="Footer Items"
-                                subtitle=""
+                                key='Footer Items'
+                                title='Footer Items'
+                                subtitle=''
                                 startContent={<CgClapperBoard />}
                             >
                                 <CMSObjEdit
-                                    sectionTitle={"Footer Items"}
-                                    section={"footer"}
+                                    sectionTitle={'Footer Items'}
+                                    section={'footer'}
                                     sectionValues={footerValues}
                                     setSectionValues={setFooterValues}
                                 />
                             </AccordionItem>
                         </Accordion>
                     </div>
-                    <div className="w-10/12 flex justify-end mt-4 gap-2">
+                    <div className='w-10/12 flex justify-end mt-4 gap-2'>
                         {/* <Button
                             onClick={() => {
                                 console.log("swrBlog\n", swrBlog);
@@ -263,18 +263,18 @@ export default function CMSTestPage() {
                             Log Stuff
                         </Button> */}
                         <Button
-                            className="hover:bg-warning"
-                            color="danger"
-                            radius="sm"
-                            variant="flat"
+                            className='hover:bg-warning'
+                            color='danger'
+                            radius='sm'
+                            variant='flat'
                             onClick={discardChangesClick}
                         >
                             Discard Draft
                         </Button>
                         <Button
                             // className="mx-3"
-                            color="success"
-                            radius="sm"
+                            color='success'
+                            radius='sm'
                             onClick={saveChangesClick}
                         >
                             Save Changes
@@ -309,16 +309,16 @@ export default function CMSTestPage() {
                     </div>
                 </Tab> */}
                 <Tab
-                    key="recipes"
+                    key='recipes'
                     title={
-                        <div className="flex items-center space-x-2">
+                        <div className='flex items-center space-x-2'>
                             <CgClipboard />
                             <span>Recipes</span>
                         </div>
                     }
-                    className="font-metropolis"
+                    className='font-metropolis'
                 >
-                    <div className="min-h-[50vh]">
+                    <div className='min-h-[50vh]'>
                         <CMSRecipes
                             clerkUser={swrBlog.clerkUser}
                             clerkUserId={swrBlog.clerkUserId}
