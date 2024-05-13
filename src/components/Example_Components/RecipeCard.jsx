@@ -1,5 +1,4 @@
 import { Card, CardHeader, CardBody, Image, Button } from '@nextui-org/react';
-import { useNavigate } from 'react-router-dom';
 import { PiForkKnifeFill } from 'react-icons/pi';
 import { ctgryColor } from '../../utils/category';
 
@@ -9,14 +8,7 @@ export default function RecipeCard({
     button,
     region,
     category,
-    pageId,
 }) {
-    const navigate = useNavigate();
-
-    const handleClick = () => {
-        navigate(`/recipe/${pageId}`);
-    };
-
     return (
         <Card
             className='border rounded-none boxShadow mx-3 bg-[#FF8F60]'
@@ -65,7 +57,6 @@ export default function RecipeCard({
                 />
                 <div className='items-end flex flex-col'>
                     <Button
-                        onClick={handleClick}
                         className='button buttonShadow rounded-none my-[3vh] uppercase '
                         style={{
                             border: '1px solid black',
