@@ -1,26 +1,26 @@
-import React, { Suspense } from "react";
-import { Route, Routes, Navigate } from "react-router-dom";
-import { Spinner } from "@nextui-org/react";
-import { ClerkProvider, SignedIn, SignedOut } from "@clerk/clerk-react";
+import React, { Suspense } from 'react';
+import { Route, Routes, Navigate } from 'react-router-dom';
+import { Spinner } from '@nextui-org/react';
+import { ClerkProvider, SignedIn, SignedOut } from '@clerk/clerk-react';
 
-import Layout from "./pages/Layout";
-import LandingPage from "./pages/LandingPage";
-import Dashboard from "./pages/Dashboard";
-import CMSPage from "./pages/CMSPage";
-import CMSTestPage from "./pages/CMSTestPage";
-import NotFound from "./pages/NotFound";
-import ContactPage from "./pages/ContactPage";
-import PricingPage from "./pages/PricingPage";
-import SignInPage from "./pages/SignInPage";
-import SignUpPage from "./pages/SignUpPage";
-import AboutPage from "./pages/AboutPage";
-import Success from "./pages/Success";
-import Cancel from "./pages/Cancel";
-import MobileWarning from "./pages/MobileWarning";
-import ExamplePage from "./pages/ExamplePage";
+import Layout from './pages/Layout';
+import LandingPage from './pages/LandingPage';
+import Dashboard from './pages/Dashboard';
+import CMSPage from './pages/CMSPage';
+import CMSTestPage from './pages/CMSTestPage';
+import NotFound from './pages/NotFound';
+import ContactPage from './pages/ContactPage';
+import PricingPage from './pages/PricingPage';
+import SignInPage from './pages/SignInPage';
+import SignUpPage from './pages/SignUpPage';
+import AboutPage from './pages/AboutPage';
+import Success from './pages/Success';
+import Cancel from './pages/Cancel';
+import MobileWarning from './pages/MobileWarning';
+import ExamplePage from './pages/ExamplePage';
 
 if (!import.meta.env.VITE_CLERK_PUBLISHABLE_KEY) {
-    throw new Error("Missing Publishable Key");
+    throw new Error('Missing Publishable Key');
 }
 
 const clerkPubKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
@@ -30,59 +30,59 @@ function App() {
         <ClerkProvider publishableKey={clerkPubKey}>
             <Routes>
                 <Route
-                    path="sign-in/*"
-                    element={<SignInPage routing="path" path="/sign-in" />}
+                    path='sign-in/*'
+                    element={<SignInPage routing='path' path='/sign-in' />}
                 />
                 <Route
-                    path="sign-up/*"
-                    element={<SignUpPage routing="path" path="/sign-up" />}
+                    path='sign-up/*'
+                    element={<SignUpPage routing='path' path='/sign-up' />}
                 />
-                <Route path="/mobile/:blogId" element={<MobileWarning />} />
+                <Route path='/mobile/:blogId' element={<MobileWarning />} />
 
                 <Route index element={<LandingPage />} />
-                <Route path="/" element={<Layout />}>
+                <Route path='/' element={<Layout />}>
                     <Route
-                        path="dashboard"
+                        path='dashboard'
                         element={
                             <>
                                 <SignedIn>
                                     <Dashboard />
                                 </SignedIn>
                                 <SignedOut>
-                                    <Navigate to="/sign-in" />
+                                    <Navigate to='/sign-in' />
                                 </SignedOut>
                             </>
                         }
                     />
                     <Route
-                        path="cms"
+                        path='cms'
                         element={
                             <>
                                 <SignedIn>
                                     <CMSPage />
                                 </SignedIn>
                                 <SignedOut>
-                                    <Navigate to="/sign-in" />
+                                    <Navigate to='/sign-in' />
                                 </SignedOut>
                             </>
                         }
                     />
                     <Route
-                        path="cms/example/:exampleId"
+                        path='cms/example/:blogId'
                         element={
                             <>
                                 <SignedIn>
                                     <ExamplePage />
                                 </SignedIn>
                                 <SignedOut>
-                                    <Navigate to="/sign-in" />
+                                    <Navigate to='/sign-in' />
                                 </SignedOut>
                             </>
                         }
                     />
 
                     <Route
-                        path="cms/:blogId"
+                        path='cms/:blogId'
                         element={
                             <SignedIn>
                                 <CMSTestPage />
@@ -90,28 +90,28 @@ function App() {
                         }
                     />
                     <Route
-                        path="contactus/*"
+                        path='contactus/*'
                         element={
-                            <ContactPage routing="path" path="/contactus" />
+                            <ContactPage routing='path' path='/contactus' />
                         }
                     />
                     <Route
-                        path="aboutus/*"
-                        element={<AboutPage routing="path" path="/aboutus" />}
+                        path='aboutus/*'
+                        element={<AboutPage routing='path' path='/aboutus' />}
                     />
                     <Route
-                        path="pricing/*"
-                        element={<PricingPage routing="path" path="/pricing" />}
+                        path='pricing/*'
+                        element={<PricingPage routing='path' path='/pricing' />}
                     />
                     <Route
-                        path="success/*"
-                        element={<Success routing="path" path="/success" />}
+                        path='success/*'
+                        element={<Success routing='path' path='/success' />}
                     />
                     <Route
-                        path="cancel/*"
-                        element={<Cancel routing="path" path="/cancel" />}
+                        path='cancel/*'
+                        element={<Cancel routing='path' path='/cancel' />}
                     />
-                    <Route path="*" element={<NotFound />} />
+                    <Route path='*' element={<NotFound />} />
                 </Route>
             </Routes>
         </ClerkProvider>
