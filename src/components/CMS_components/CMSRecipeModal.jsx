@@ -11,21 +11,27 @@ import {
     AccordionItem,
     Textarea,
     Image,
-} from "@nextui-org/react";
-import Lottie from "lottie-react";
-import loadingAnimation from "../../assets/animations/Loading_animation.json";
+} from '@nextui-org/react';
+import Lottie from 'lottie-react';
+import loadingAnimation from '../../assets/animations/Loading_animation.json';
 
-import { produce } from "immer";
-import { useRecipe } from "../../lib/swr";
-import { useEffect, useState, useMemo } from "react";
-import CMSListbox from "./CMSListbox";
-import { editRecipe } from "../../lib/dbClient";
-import { useAuth } from "@clerk/clerk-react";
-import { toastSuccess, toastSaveSuccess, toastError } from "../../lib/toastify";
-import { useInstantSearch } from "react-instantsearch";
-import CloudinaryTest from "./CloudinaryTest";
+import { produce } from 'immer';
+import { useRecipe } from '../../lib/swr';
+import { useEffect, useState, useMemo } from 'react';
+import CMSListbox from './CMSListbox';
+import { editRecipe } from '../../lib/dbClient';
+import { useAuth } from '@clerk/clerk-react';
+import { toastSuccess, toastSaveSuccess, toastError } from '../../lib/toastify';
+import { useInstantSearch } from 'react-instantsearch';
+import CloudinaryTest from './CloudinaryTest';
+
+import { useParams } from 'react-router-dom';
+import { useBlog } from '../../lib/swr';
 
 export default function CMSRecipeModal({ _id, setDraftSaved }) {
+    const { blogId } = useParams();
+    const { swrBlog } = useBlog(blogId);
+
     const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
     const { recipe, mutateRecipe } = useRecipe(_id);
     const { getToken } = useAuth();
@@ -33,21 +39,21 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
     const [isLoading, setIsLoading] = useState(false);
 
     const [staticInputs, setStaticInputs] = useState({
-        title: "",
-        category: "",
-        region: "",
-        text: "",
-        imgUrl: "",
-        videoUrl: "",
-        button: "",
+        title: '',
+        category: '',
+        region: '',
+        text: '',
+        imgUrl: '',
+        videoUrl: '',
+        button: '',
     });
     const [stepsWKey, setStepsWKey] = useState();
     const [tagsWKey, setTagsWKey] = useState();
-    const [addTagValue, setAddTagValue] = useState("");
-    const [addStepValue, setAddStepValue] = useState("");
+    const [addTagValue, setAddTagValue] = useState('');
+    const [addStepValue, setAddStepValue] = useState('');
     const [ingForm, setIngForm] = useState({
-        ing: "",
-        amount: "",
+        ing: '',
+        amount: '',
         key: crypto.randomUUID(),
     });
 
@@ -80,12 +86,12 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
         );
 
     const isImgInvalid = useMemo(() => {
-        if (staticInputs.imgUrl === "") return false;
+        if (staticInputs.imgUrl === '') return false;
 
         return validateUrl(staticInputs.imgUrl) ? false : true;
     }, [staticInputs.imgUrl]);
     const isVideoInvalid = useMemo(() => {
-        if (staticInputs.videoUrl === "") return false;
+        if (staticInputs.videoUrl === '') return false;
 
         return validateUrl(staticInputs.videoUrl) ? false : true;
     }, [staticInputs.videoUrl]);
@@ -110,11 +116,11 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
             staticInputs[name] = recipe[name];
         }
 
-        if (name === "imgUrl" && isImgInvalid) {
+        if (name === 'imgUrl' && isImgInvalid) {
             toastError(`Image must use a valid URL`);
             isValid = false;
         }
-        if (name === "videoUrl" && isVideoInvalid) {
+        if (name === 'videoUrl' && isVideoInvalid) {
             toastError(`Video must use a valid URL`);
             isValid = false;
         }
@@ -176,8 +182,8 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
         const { name } = e.target;
         let isValid = true;
         if (
-            (name === "tags" && !addTagValue) ||
-            (name === "steps" && !addStepValue)
+            (name === 'tags' && !addTagValue) ||
+            (name === 'steps' && !addStepValue)
         ) {
             toastError(`Cannot add blank ${name.slice(0, -1)}`);
             isValid = false;
@@ -187,13 +193,13 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
         mutateRecipe(
             produce((draft) => {
                 // console.log("draft", draft[name]);
-                name === "tags"
+                name === 'tags'
                     ? draft[name].push(addTagValue)
                     : draft[name].push(addStepValue);
             }),
             { optimisticData: recipe, revalidate: false }
         );
-        name === "tags" ? setAddTagValue("") : setAddStepValue("");
+        name === 'tags' ? setAddTagValue('') : setAddStepValue('');
         setDraftSaved(false);
         toastSuccess(
             `New ${name.slice(0, -1)} 
@@ -223,8 +229,8 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
             { optimisticData: recipe, revalidate: false }
         );
         setIngForm({
-            ing: "",
-            amount: "",
+            ing: '',
+            amount: '',
             key: crypto.randomUUID(),
         });
         setDraftSaved(false);
@@ -245,7 +251,7 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
             // console.log(recipe);
 
             Object.entries(recipe).forEach(([key, value]) => {
-                if (!value && key !== "__v") {
+                if (!value && key !== '__v') {
                     toastError(`New recipe must have ${key}`);
                     isValid = false;
                 }
@@ -257,6 +263,14 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
             }
 
             if (!isValid) return;
+
+            if (swrBlog.isPreview) {
+                setDraftSaved(true);
+                onClose();
+                return toastSuccess(
+                    'Operation was successful, on your website this is when the changes would be saved.'
+                );
+            }
             const sessToken = await getToken();
 
             const response = await editRecipe(sessToken, recipe);
@@ -296,17 +310,17 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
             <div onClick={() => onOpen()}>Edit recipe</div>
             <Modal
                 isOpen={isOpen}
-                backdrop="blur"
+                backdrop='blur'
                 onOpenChange={onOpenChange}
-                placement="center"
-                size="full"
-                className="p-8 pt-16 min-h-screen"
-                scrollBehavior={isLoading ? "outside" : "inside"}
+                placement='center'
+                size='full'
+                className='p-8 pt-16 min-h-screen'
+                scrollBehavior={isLoading ? 'outside' : 'inside'}
             >
                 <ModalContent>
                     {() =>
                         isLoading ? (
-                            <ModalBody className="flex justify-center items-center">
+                            <ModalBody className='flex justify-center items-center'>
                                 <Lottie
                                     animationData={loadingAnimation}
                                     loop={true}
@@ -317,17 +331,17 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                 <ModalHeader>
                                     <form
                                         onSubmit={handleEditClick}
-                                        name="title"
-                                        className="flex items-baseline gap-2 m-2 ml-4"
+                                        name='title'
+                                        className='flex items-baseline gap-2 m-2 ml-4'
                                     >
                                         <Input
-                                            className="font-metropolis"
-                                            color="default"
-                                            name="title"
+                                            className='font-metropolis'
+                                            color='default'
+                                            name='title'
                                             value={staticInputs.title}
                                             onChange={handleChange}
-                                            label="Recipe Title"
-                                            labelPlacement="outside"
+                                            label='Recipe Title'
+                                            labelPlacement='outside'
                                             // endContent={
                                             //     <Button
                                             //         onPress={handleEditClick}
@@ -341,12 +355,12 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                         />
                                         <Button
                                             // onPress={handleEditClick}
-                                            type="submit"
-                                            color="secondary"
-                                            radius="sm"
-                                            variant="ghost"
-                                            name="title"
-                                            className="font-montserrat font-semibold"
+                                            type='submit'
+                                            color='secondary'
+                                            radius='sm'
+                                            variant='ghost'
+                                            name='title'
+                                            className='font-montserrat font-semibold'
                                         >
                                             Edit Title
                                         </Button>
@@ -354,28 +368,28 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                 </ModalHeader>
                                 <ModalBody>
                                     <Accordion
-                                        variant="splitted"
-                                        className="font-metropolis"
+                                        variant='splitted'
+                                        className='font-metropolis'
                                     >
                                         <AccordionItem
-                                            key="Info_and_Media"
-                                            title="Info & Media"
+                                            key='Info_and_Media'
+                                            title='Info & Media'
                                         >
                                             <form
-                                                className="flex flex-col gap-6 w-10/12 ml-2"
+                                                className='flex flex-col gap-6 w-10/12 ml-2'
                                                 onSubmit={handleSetSubmit}
-                                                id="editInfoAndMedia"
+                                                id='editInfoAndMedia'
                                             >
                                                 <Input
-                                                    className=""
-                                                    color="default"
+                                                    className=''
+                                                    color='default'
                                                     value={
                                                         staticInputs.category
                                                     }
                                                     onChange={handleChange}
-                                                    label="Recipe Category"
-                                                    labelPlacement="outside"
-                                                    name="category"
+                                                    label='Recipe Category'
+                                                    labelPlacement='outside'
+                                                    name='category'
                                                     // endContent={
                                                     //     <Button
                                                     //         color="secondary"
@@ -389,13 +403,13 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                                     // }
                                                 />
                                                 <Input
-                                                    className=""
-                                                    color="default"
+                                                    className=''
+                                                    color='default'
                                                     value={staticInputs.region}
                                                     onChange={handleChange}
-                                                    label="Recipe Region of Origin"
-                                                    labelPlacement="outside"
-                                                    name="region"
+                                                    label='Recipe Region of Origin'
+                                                    labelPlacement='outside'
+                                                    name='region'
                                                     // endContent={
                                                     //     <Button
                                                     //         color="secondary"
@@ -409,13 +423,13 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                                     // }
                                                 />
                                                 <Input
-                                                    className=""
-                                                    color="default"
+                                                    className=''
+                                                    color='default'
                                                     value={staticInputs.text}
                                                     onChange={handleChange}
-                                                    label="Recipe Tagline"
-                                                    labelPlacement="outside"
-                                                    name="text"
+                                                    label='Recipe Tagline'
+                                                    labelPlacement='outside'
+                                                    name='text'
                                                     // endContent={
                                                     //     <Button
                                                     //         color="secondary"
@@ -433,15 +447,15 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                                     isInvalid={isImgInvalid}
                                                     errorMessage={
                                                         isImgInvalid &&
-                                                        "Please enter a valid URL"
+                                                        'Please enter a valid URL'
                                                     }
-                                                    className=""
-                                                    color="default"
+                                                    className=''
+                                                    color='default'
                                                     value={staticInputs.imgUrl}
                                                     onChange={handleChange}
-                                                    label="Recipe Image"
-                                                    labelPlacement="outside"
-                                                    name="imgUrl"
+                                                    label='Recipe Image'
+                                                    labelPlacement='outside'
+                                                    name='imgUrl'
                                                     // endContent={
                                                     //     <Button
                                                     //         color="secondary"
@@ -454,7 +468,7 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                                     //     </Button>
                                                     // }
                                                 />
-                                                <div className="w-full flex justify-start items-start gap-2 py-2">
+                                                <div className='w-full flex justify-start items-start gap-2 py-2'>
                                                     <CloudinaryTest
                                                         setUrl={handleImgUpload}
                                                         resetValue={
@@ -462,11 +476,11 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                                         }
                                                     />
                                                     <Image
-                                                        alt="Section image"
+                                                        alt='Section image'
                                                         src={
                                                             staticInputs.imgUrl
                                                         }
-                                                        className="max-h-[175px] max-w-[200px] my-2 shadow-xl"
+                                                        className='max-h-[175px] max-w-[200px] my-2 shadow-xl'
                                                     />
                                                 </div>
                                                 <Textarea
@@ -474,17 +488,17 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                                     isInvalid={isVideoInvalid}
                                                     errorMessage={
                                                         isVideoInvalid &&
-                                                        "Please enter a valid URL"
+                                                        'Please enter a valid URL'
                                                     }
-                                                    className=""
-                                                    color="default"
+                                                    className=''
+                                                    color='default'
                                                     value={
                                                         staticInputs.videoUrl
                                                     }
                                                     onChange={handleChange}
-                                                    label="Instructional Video"
-                                                    labelPlacement="outside"
-                                                    name="videoUrl"
+                                                    label='Instructional Video'
+                                                    labelPlacement='outside'
+                                                    name='videoUrl'
                                                     // endContent={
                                                     //     <Button
                                                     //         color="secondary"
@@ -498,13 +512,13 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                                     // }
                                                 />
                                                 <Input
-                                                    className=""
-                                                    color="default"
+                                                    className=''
+                                                    color='default'
                                                     value={staticInputs.button}
                                                     onChange={handleChange}
-                                                    label="Recipe Button Text"
-                                                    labelPlacement="outside"
-                                                    name="button"
+                                                    label='Recipe Button Text'
+                                                    labelPlacement='outside'
+                                                    name='button'
                                                     // endContent={
                                                     //     <Button
                                                     //         color="secondary"
@@ -518,32 +532,32 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                                     // }
                                                 />
                                             </form>
-                                            <div className="flex justify-end w-full px-6 py-4">
+                                            <div className='flex justify-end w-full px-6 py-4'>
                                                 <Button
-                                                    type="submit"
-                                                    color="secondary"
-                                                    radius="sm"
-                                                    variant="ghost"
-                                                    form="editInfoAndMedia"
+                                                    type='submit'
+                                                    color='secondary'
+                                                    radius='sm'
+                                                    variant='ghost'
+                                                    form='editInfoAndMedia'
                                                 >
                                                     Set Info & Media
                                                 </Button>
                                             </div>
                                         </AccordionItem>
                                         <AccordionItem
-                                            key="Recipe_Tags"
-                                            title="Tags"
+                                            key='Recipe_Tags'
+                                            title='Tags'
                                         >
                                             <form
-                                                name="tags"
+                                                name='tags'
                                                 onSubmit={handleAddClick}
-                                                className="flex items-baseline gap-4 my-4 ml-2"
+                                                className='flex items-baseline gap-4 my-4 ml-2'
                                             >
                                                 <Input
                                                     // className=""
-                                                    label="Add new tag"
-                                                    labelPlacement="outside"
-                                                    name="tags"
+                                                    label='Add new tag'
+                                                    labelPlacement='outside'
+                                                    name='tags'
                                                     value={addTagValue}
                                                     onValueChange={
                                                         setAddTagValue
@@ -562,40 +576,40 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                                 />
                                                 <Button
                                                     // onPress={handleAddClick}
-                                                    type="submit"
-                                                    name="tags"
-                                                    color="primary"
-                                                    radius="sm"
+                                                    type='submit'
+                                                    name='tags'
+                                                    color='primary'
+                                                    radius='sm'
                                                 >
                                                     Add tag
                                                 </Button>
                                             </form>
                                             <CMSListbox
                                                 items={tagsWKey}
-                                                label="Tag"
-                                                section="tags"
+                                                label='Tag'
+                                                section='tags'
                                                 recipeId={_id}
                                                 setDraftSaved={setDraftSaved}
                                             />
                                         </AccordionItem>
                                         <AccordionItem
-                                            key="Recipe_Steps"
-                                            title="Recipe Steps"
+                                            key='Recipe_Steps'
+                                            title='Recipe Steps'
                                         >
                                             <form
-                                                name="steps"
+                                                name='steps'
                                                 onSubmit={handleAddClick}
-                                                className="flex items-center gap-4 my-4 ml-2"
+                                                className='flex items-center gap-4 my-4 ml-2'
                                             >
                                                 <Textarea
                                                     // className=""
-                                                    label="Add new step"
-                                                    labelPlacement="outside"
+                                                    label='Add new step'
+                                                    labelPlacement='outside'
                                                     value={addStepValue}
                                                     onValueChange={
                                                         setAddStepValue
                                                     }
-                                                    name="steps"
+                                                    name='steps'
                                                     minRows={2}
                                                     // endContent={
                                                     //     <Button
@@ -611,63 +625,63 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                                 />
                                                 <Button
                                                     // onPress={handleAddClick}
-                                                    type="submit"
-                                                    color="primary"
-                                                    name="steps"
-                                                    radius="sm"
-                                                    className="mt-3"
+                                                    type='submit'
+                                                    color='primary'
+                                                    name='steps'
+                                                    radius='sm'
+                                                    className='mt-3'
                                                 >
                                                     Add step
                                                 </Button>
                                             </form>
                                             <CMSListbox
                                                 items={stepsWKey}
-                                                label="Step"
-                                                section="steps"
+                                                label='Step'
+                                                section='steps'
                                                 recipeId={_id}
                                                 setDraftSaved={setDraftSaved}
                                             />
                                         </AccordionItem>
                                         <AccordionItem
-                                            key="Recipe_Ingredients"
-                                            title="Ingredients List"
+                                            key='Recipe_Ingredients'
+                                            title='Ingredients List'
                                         >
                                             <form
                                                 onSubmit={handleAddIngSubmit}
-                                                className="flex items-baseline mb-4 gap-4 ml-2"
+                                                className='flex items-baseline mb-4 gap-4 ml-2'
                                             >
                                                 <Input
-                                                    className=" w-1/4"
-                                                    label="Amount"
-                                                    labelPlacement="outside"
+                                                    className=' w-1/4'
+                                                    label='Amount'
+                                                    labelPlacement='outside'
                                                     value={ingForm.amount}
                                                     onChange={
                                                         handleIngFormChange
                                                     }
-                                                    name="amount"
+                                                    name='amount'
                                                 />
                                                 <Input
-                                                    className=""
-                                                    label="Ingredient"
-                                                    labelPlacement="outside"
+                                                    className=''
+                                                    label='Ingredient'
+                                                    labelPlacement='outside'
                                                     value={ingForm.ing}
                                                     onChange={
                                                         handleIngFormChange
                                                     }
-                                                    name="ing"
+                                                    name='ing'
                                                 />
                                                 <Button
-                                                    className="px-6"
-                                                    color="primary"
-                                                    type="submit"
-                                                    radius="sm"
+                                                    className='px-6'
+                                                    color='primary'
+                                                    type='submit'
+                                                    radius='sm'
                                                 >
                                                     Add Ingredient
                                                 </Button>
                                             </form>
                                             <CMSListbox
                                                 items={recipe.ingList}
-                                                section="ingList"
+                                                section='ingList'
                                                 recipeId={_id}
                                                 setDraftSaved={setDraftSaved}
                                             />
@@ -676,19 +690,19 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                 </ModalBody>
                                 <ModalFooter>
                                     <Button
-                                        className="font-montserrat font-semibold hover:bg-warning"
-                                        color="danger"
-                                        radius="sm"
-                                        variant="flat"
+                                        className='font-montserrat font-semibold hover:bg-warning'
+                                        color='danger'
+                                        radius='sm'
+                                        variant='flat'
                                         onClick={discardChangesClick}
                                     >
                                         Discard Draft
                                     </Button>
                                     <Button
-                                        className="font-montserrat font-semibold"
-                                        color="warning"
-                                        radius="sm"
-                                        variant="bordered"
+                                        className='font-montserrat font-semibold'
+                                        color='warning'
+                                        radius='sm'
+                                        variant='bordered'
                                         // variant="flat"
                                         onPress={() => {
                                             onClose();
@@ -697,9 +711,9 @@ export default function CMSRecipeModal({ _id, setDraftSaved }) {
                                         Close, but keep draft
                                     </Button>
                                     <Button
-                                        className="font-montserrat font-semibold"
-                                        color="success"
-                                        radius="sm"
+                                        className='font-montserrat font-semibold'
+                                        color='success'
+                                        radius='sm'
                                         onPress={handleSaveClick}
                                     >
                                         Save Changes
